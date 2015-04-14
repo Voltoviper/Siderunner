@@ -118,9 +118,7 @@ public class Main {
 			}
 		});
 		mnDatei.add(mntmKoordinatenAnzeigen);
-
 		mnDatei.add(mntmSchlieen);
-
 		JMenu menu = new JMenu("?");
 		menuBar.add(menu);
 
