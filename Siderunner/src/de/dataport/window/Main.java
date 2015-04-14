@@ -40,6 +40,7 @@ public class Main {
 
 	/**
 	 * Launch the application.
+	 * Buffalo Bill
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,6 +60,7 @@ public class Main {
 	 */
 	public Main() {
 		initialize();
+		for(int i = 0; i<2 ;i++){}
 	}
 
 	/**
