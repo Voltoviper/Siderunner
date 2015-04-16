@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Rechtecke;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
@@ -86,7 +87,8 @@ public class Main {
 		spielfigur.setBounds(spieler.getX(), spieler.getY(), Spielfigur.getBreite(), Spielfigur.getHoehe());
 		spielfigur.setBackground(Color.GRAY);
 		frmJackRunner.getContentPane().add(spielfigur);
-
+		Kollision.koordinaten[0]=spieler.getX();
+		Kollision.koordinaten[1]=spieler.getY();
 		JMenuBar menuBar = new JMenuBar();
 		frmJackRunner.setJMenuBar(menuBar);
 
