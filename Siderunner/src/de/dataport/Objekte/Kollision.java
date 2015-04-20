@@ -10,7 +10,7 @@ import de.dataport.window.Main;
 
 public class Kollision {
 	boolean kollision;
-	static int[] koordinaten = new int[2];
+	public static int[] koordinaten = new int[2];
 
 	public static int[] kollision_rechts(JLabel figur, Level level) {
 
