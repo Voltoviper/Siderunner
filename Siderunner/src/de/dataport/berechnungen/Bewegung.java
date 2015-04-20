@@ -43,7 +43,7 @@ public class Bewegung implements KeyListener {
 			int[] koordinaten1 = new int[2];
 			koordinaten1 = Kollision.kollision_rechts(Main.spielfigur,
 					Main.level1);
-			if (Main.spielfigur.getX() + Spielfigur.getBreite() + 10 >= Main.frmJackRunner
+			if (Main.spielfigur.getX() + Spielfigur.getBreite() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 					.getWidth()) {
 				Main.spielfigur
 						.setBounds(
@@ -65,7 +65,7 @@ public class Bewegung implements KeyListener {
 			// Nach Links gehen
 			Statisches.Bild_links();
 			int[] koordinaten = new int[2];
-			if (Main.spielfigur.getX() - 10 <= 0) {
+			if (Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit() <= 0) {
 				Main.spielfigur
 						.setBounds(0, Main.spielfigur.getY(),
 								Main.spielfigur.getWidth(),

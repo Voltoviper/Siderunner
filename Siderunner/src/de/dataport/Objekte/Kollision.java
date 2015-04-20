@@ -1,7 +1,5 @@
 package de.dataport.Objekte;
 
-import java.awt.Canvas;
-
 import javax.swing.JLabel;
 
 import de.dataport.berechnungen.Bewegung;
@@ -17,10 +15,10 @@ public class Kollision {
 		for (Rechtecke rect : level.getListe()) {
 			if (rect != null) {
 
-				if (figur.getX() + figur.getWidth() + 10 > rect.getX()
+				if (figur.getX() + figur.getWidth() + Spielfigur.getGeschwindigkeit() > rect.getX()
 						&& figur.getX() < rect.getX() + rect.getBreite()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
-						koordinaten[0] = Main.spielfigur.getX() + 10;
+						koordinaten[0] = Main.spielfigur.getX() + Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 						Bewegung.huepf2.stop();
 						break;
@@ -31,7 +29,7 @@ public class Kollision {
 					}
 
 				} else {
-					koordinaten[0] = Main.spielfigur.getX() + 10;
+					koordinaten[0] = Main.spielfigur.getX() + Spielfigur.getGeschwindigkeit();
 					koordinaten[1] = Main.test.getY() - Spielfigur.getHoehe();
 				}
 			}
@@ -44,10 +42,10 @@ public class Kollision {
 
 		for (Rechtecke rect : level.getListe()) {
 			if (rect != null) {
-				if (figur.getX() - 10 < rect.getX() + rect.getBreite()
+				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect.getX() + rect.getBreite()
 						&& figur.getX() + Spielfigur.getBreite() > rect.getX()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
-						koordinaten[0] = Main.spielfigur.getX() - 10;
+						koordinaten[0] = Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 						Bewegung.huepf2.stop();
 						break;
@@ -60,7 +58,7 @@ public class Kollision {
 					// koordinaten[0] = level.getListe()[0].getX() -
 					// Spielfigur.getBreite();
 				} else {
-					koordinaten[0] = Main.spielfigur.getX() - 10;
+					koordinaten[0] = Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit();
 					koordinaten[1] = Main.test.getY() - Spielfigur.getHoehe();
 				}
 			}
