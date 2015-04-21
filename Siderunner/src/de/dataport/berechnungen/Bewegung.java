@@ -20,13 +20,15 @@ public class Bewegung implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		bewegen((int) e.getKeyCode());
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		bewegen((int) e.getKeyCode());
+//		System.out.println(e.getKeyCode());
+//		System.out.println(e.getKeyText(e.getKeyCode()));
 	}
 
 	@Override
@@ -81,7 +83,7 @@ public class Bewegung implements KeyListener {
 			Main.lblNewLabel.setText(Main.spielfigur.getX() + "");
 			Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
 			break;
-		case 0:
+		case 32:
 			
 			Thread huepf = new Thread() {
 				public void run() {
