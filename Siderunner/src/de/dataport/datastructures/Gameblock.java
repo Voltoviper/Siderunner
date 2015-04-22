@@ -1,6 +1,8 @@
 package de.dataport.datastructures;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 
 public class Gameblock extends Gameobject {
 
@@ -45,11 +47,12 @@ public class Gameblock extends Gameobject {
 		this.color = color;
 	}
 
-	@Override
-	public String toString() {
-		return super.toString()+ " - Gameblock [isDeadly=" + isDeadly + ", name=" + name
-				+ ", color=" + color + ", blockSize=" + blockSize + "]";
+	public String infoIsDeadly(){
+		return ((getIsDeadly() == true) ? "isDeadly" : "");
 	}
 	
+	public String infoSize(){
+		return  getX()+"x"+getY();
+	}
 	
 }

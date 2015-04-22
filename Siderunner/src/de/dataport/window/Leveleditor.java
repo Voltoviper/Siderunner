@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.usercontrols.GameblockListElement;
@@ -44,12 +43,14 @@ public class Leveleditor {
 
 	private void TESTfillList() {
 
-		Gameblock peter = new Gameblock(null, null, false, "Peter", Color.BLUE);
-		Gameblock peter1 = new Gameblock(null, null, false, "Peter1", Color.RED);
-		Gameblock peter2 = new Gameblock(null, null, false, "Peter2", Color.BLACK);
-		Gameblock peter3 = new Gameblock(null, null, false, "Peter3", Color.GREEN);
-		Gameblock peter4 = new Gameblock(null, null, false, "Peter4", Color.CYAN);
-		Gameblock peter5 = new Gameblock(null, null, false, "Peter5", Color.MAGENTA);
+		Gameblock peter = new Gameblock(10, 15, false, "Peter", Color.BLUE);
+		Gameblock peter1 = new Gameblock(10, 10, false, "Peter1", Color.RED);
+		Gameblock peter2 = new Gameblock(5, 5, false, "Peter2", Color.BLACK);
+		Gameblock peter3 = new Gameblock(30, 30, true, "Peter3", Color.GREEN);
+		Gameblock peter4 = new Gameblock(1, 1, false, "Peter4", Color.CYAN);
+		Gameblock peter5 = new Gameblock(1, 30, true, "Peter5", Color.MAGENTA);
+		Gameblock peter6 = new Gameblock(30, 1, false, "Peter6", Color.DARK_GRAY);
+		Gameblock peter7 = new Gameblock(13, 37, false, "Peter7", Color.YELLOW);
 		
         //create the model and add elements
         DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
@@ -59,17 +60,18 @@ public class Leveleditor {
         listModel.addElement(peter3);
         listModel.addElement(peter4);
         listModel.addElement(peter5);
+        listModel.addElement(peter6);
+        listModel.addElement(peter7);
 
         //create the list
-        JList<Gameblock> gameblockList = new JList<>(listModel);
-        gameblockList.setLayoutOrientation(JList.VERTICAL_WRAP);
+        JList<Gameblock> gameblockList = new JList<Gameblock>(listModel);
         gameblockList.setCellRenderer(new GameblockListElement());
-        JScrollPane scrollPane = new JScrollPane(gameblockList);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPane jsp = new JScrollPane(gameblockList);
         
-        scrollPane.setBounds(10, 83, 186, 251);
+        jsp.setBounds(10, 83, 186, 251);
 
-		frame.getContentPane().add(scrollPane);
+		frame.getContentPane().add(jsp);
+		
 	}
 
 	/**

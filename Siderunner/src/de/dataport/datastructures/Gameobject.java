@@ -21,10 +21,4 @@ public class Gameobject {
 		this.x = x;
 		this.y = y;
 	}
-	@Override
-	public String toString() {
-		return "Gameobject [x=" + x + ", y=" + y + "]";
-	}
-	
-	
 }
