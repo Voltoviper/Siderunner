@@ -4,6 +4,9 @@ public class Gameobject {
 
 	private Integer x;
 	private Integer y;
+	private Integer width;
+	private Integer heigth;
+	
 	public Integer getX() {
 		return x;
 	}
@@ -16,9 +19,25 @@ public class Gameobject {
 	public void setY(Integer y) {
 		this.y = y;
 	}
-	public Gameobject(Integer x, Integer y) {
+	public Integer getWidth() {
+		return width;
+	}
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+	public Integer getHeigth() {
+		return heigth;
+	}
+	public void setHeigth(Integer heigth) {
+		this.heigth = heigth;
+	}
+	public Gameobject(Integer x, Integer y, Integer width, Integer heigth) {
 		super();
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.heigth = heigth;
 	}
+	
+
 }

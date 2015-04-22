@@ -38,10 +38,10 @@ public class Gameblock extends Gameobject {
 	public Integer getBlockSize() {
 		return blockSize;
 	}
-
-	public Gameblock(Integer x, Integer y, Boolean isDeadly, String name,
-			Color color) {
-		super(x, y);
+	
+	public Gameblock(Integer x, Integer y, Integer width, Integer heigth,
+			Boolean isDeadly, String name, Color color) {
+		super(x, y, width, heigth);
 		this.isDeadly = isDeadly;
 		this.name = name;
 		this.color = color;
@@ -52,7 +52,7 @@ public class Gameblock extends Gameobject {
 	}
 	
 	public String infoSize(){
-		return  getX()+"x"+getY();
+		return  getWidth()+"x"+getHeigth();
 	}
 	
 }
