@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Rechtecke;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
@@ -39,6 +40,7 @@ public class Main {
 	public static JLabel lblNewLabel_1 = new JLabel("New label");
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
+	public static JLabel[] block = new JLabel[100];
 
 	/**
 	 * Launch the application.
@@ -86,7 +88,8 @@ public class Main {
 		spielfigur.setBounds(spieler.getX(), spieler.getY(), Spielfigur.getBreite(), Spielfigur.getHoehe());
 		spielfigur.setBackground(Color.GRAY);
 		frmJackRunner.getContentPane().add(spielfigur);
-
+		Kollision.koordinaten[0]=spieler.getX();
+		Kollision.koordinaten[1]=spieler.getY();
 		JMenuBar menuBar = new JMenuBar();
 		frmJackRunner.setJMenuBar(menuBar);
 
@@ -137,15 +140,16 @@ public class Main {
 		menu.add(mntmber);
 
 		level1.level1();
-		Canvas[] block = new Canvas[100];
+		
 
 		int i = 0;
 		for (Rechtecke rect : level1.getListe()) {
 			if (level1.getListe()[i] != null) {
-				block[i] = new Canvas();
+				block[i] = new JLabel();
 				block[i].setBounds(rect.getX(), rect.getY(), rect.getBreite(),
 						rect.getHoehe());
 				block[i].setBackground(Color.BLUE);
+				Statisches.Bild_Fass(block[i]);
 				frmJackRunner.getContentPane().add(block[i]);
 				i++;
 			}
