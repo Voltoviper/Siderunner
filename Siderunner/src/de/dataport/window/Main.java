@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 
 
+
+
 import javax.swing.JLabel;
 
 public class Main {
@@ -38,10 +40,10 @@ public class Main {
 	public static JLabel lblNewLabel_1 = new JLabel("New label");
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
+	public static JLabel[] block = new JLabel[100];
 
 	/**
 	 * Launch the application.
-	 * Buffalo Bill
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -61,7 +63,6 @@ public class Main {
 	 */
 	public Main() {
 		initialize();
-		for(int i = 0; i<2 ;i++){}
 	}
 
 	/**
@@ -139,15 +140,16 @@ public class Main {
 		menu.add(mntmber);
 
 		level1.level1();
-		Canvas[] block = new Canvas[100];
+		
 
 		int i = 0;
 		for (Rechtecke rect : level1.getListe()) {
 			if (level1.getListe()[i] != null) {
-				block[i] = new Canvas();
+				block[i] = new JLabel();
 				block[i].setBounds(rect.getX(), rect.getY(), rect.getBreite(),
 						rect.getHoehe());
 				block[i].setBackground(Color.BLUE);
+				Statisches.Bild_Fass(block[i]);
 				frmJackRunner.getContentPane().add(block[i]);
 				i++;
 			}
