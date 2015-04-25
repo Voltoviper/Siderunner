@@ -26,7 +26,7 @@ public class Spielfigur extends Gameobject {
 	public static int getGeschwindigkeit() {
 		return geschwindigkeit;
 	}
-	public static void setGeschwindigkeit(int geschwindigkeit) {  
+	public static void setGeschwindigkeit(int geschwindigkeit) {
 		Spielfigur.geschwindigkeit = geschwindigkeit;
 	}
 	

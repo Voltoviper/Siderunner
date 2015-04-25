@@ -35,7 +35,7 @@ public class Kollision {
 				}
 			}
 		}
-		return koordinaten;  
+		return koordinaten;
 
 	}
 

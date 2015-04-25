@@ -54,7 +54,7 @@ public class Gameblock extends Gameobject {
 		return getWidth() + "x" + getHeigth();
 	}
 
-	/** Painting and verification of the Gameblock-object */  
+	/** Painting and verification of the Gameblock-object */
 	public void paint(Canvas canvas, Level level) {
 		if (multiUsage) {
 
