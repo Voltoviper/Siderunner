@@ -7,3 +7,6 @@ Im derzeitigen Stadium ist allerdings noch vieles verbugt und nicht ganz funktio
 +++ Changelog +++  
 Bug #1 wurde gelöst (Springen auf Koordinaten 0|0)
 Grundlegendes ist eingerichtet
+
++++ Changelog +++  
+Lvleditor funktioniert (rudimentär).
