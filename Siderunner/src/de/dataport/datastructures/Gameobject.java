@@ -5,7 +5,7 @@ public class Gameobject {
 	private Integer x;
 	private Integer y;
 	private Integer width;
-	private Integer heigth;
+	private Integer heigth; 
 	
 	public Integer getX() {
 		return x;

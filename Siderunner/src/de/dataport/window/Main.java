@@ -146,7 +146,7 @@ public class Main {
 
 		int i = 0;
 		for (Gameblock rect : level1.getListe()) {
-			if (level1.getListe().get(i) != null) {
+			if (level1.getListe().get(i) != null) { 
 				block[i] = new JLabel();
 				block[i].setBounds(rect.getX(), rect.getY(), rect.getWidth(),
 						rect.getHeigth());

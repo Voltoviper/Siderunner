@@ -56,7 +56,7 @@ public class Level {
 		this.content = liste;
 	}
 
-	/** Checks if the block is too close to an existing block */
+	/** Checks if the block is too close to an existing block */ 
 	public boolean contentTooCloseTo(Gameblock gameblock) {
 		Rectangle rec = new Rectangle(gameblock.getX(), gameblock.getY(), gameblock.getWidth(), gameblock.getHeigth());
 		for (Gameblock gb : content) {

@@ -23,7 +23,7 @@ import de.dataport.usercontrols.GameblockListElement;
 
 public class Leveleditor {
 
-	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event to keep painting
+	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event to keep painting 
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;

@@ -14,7 +14,7 @@ public class Welt {
 	}
 
 	public void welt_bewegen(){
-		for(Gameblock rect: this.level.getListe()){
+		for(Gameblock rect: this.level.getListe()){ 
 			rect.setX(rect.getX()-Spielfigur.getGeschwindigkeit());
 		}
 	}
