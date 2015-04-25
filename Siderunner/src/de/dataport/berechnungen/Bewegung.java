@@ -25,7 +25,7 @@ public class Bewegung implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub 
+		// TODO Auto-generated method stub  
 		bewegen((int) e.getKeyCode());
 //		System.out.println(e.getKeyCode());
 //		System.out.println(e.getKeyText(e.getKeyCode()));
