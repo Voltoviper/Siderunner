@@ -1,8 +1,10 @@
 package de.dataport.datastructures;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+
 
 public class Gameblock extends Gameobject {
 
@@ -55,4 +57,9 @@ public class Gameblock extends Gameobject {
 		return  getWidth()+"x"+getHeigth();
 	}
 	
+	public void paint(Canvas c){
+		Graphics g = c.getGraphics();
+		g.setColor(getColor());
+		g.fillRect(getX()-getWidth()/2, getY()-getHeigth()/2, getWidth(), getHeigth());
+	}
 }

@@ -9,6 +9,7 @@ import de.dataport.Objekte.Rechtecke;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
 import de.dataport.berechnungen.Boden;
+import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.system.Statisches;
 import de.dataport.window.Info;
@@ -24,6 +25,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+
 
 
 
@@ -143,11 +145,11 @@ public class Main {
 		
 
 		int i = 0;
-		for (Rechtecke rect : level1.getListe()) {
-			if (level1.getListe()[i] != null) {
+		for (Gameblock rect : level1.getListe()) {
+			if (level1.getListe().get(i) != null) {
 				block[i] = new JLabel();
-				block[i].setBounds(rect.getX(), rect.getY(), rect.getBreite(),
-						rect.getHoehe());
+				block[i].setBounds(rect.getX(), rect.getY(), rect.getWidth(),
+						rect.getHeigth());
 				block[i].setBackground(Color.BLUE);
 				Statisches.Bild_Fass(block[i]);
 				frmJackRunner.getContentPane().add(block[i]);
