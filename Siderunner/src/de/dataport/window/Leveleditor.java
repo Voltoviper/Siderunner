@@ -21,6 +21,11 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.usercontrols.GameblockListElement;
 
+/**
+ * 
+ * @author Jan Koch
+ *
+ */
 public class Leveleditor {
 
 	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event to keep painting 
