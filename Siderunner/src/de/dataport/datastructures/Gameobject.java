@@ -40,7 +40,7 @@ public class Gameobject {
 	}
 	public Gameobject(Integer x, Integer y) {
 		super();
-		this.x = x;
+		this.x = x; 
 		this.y = y;
 	}
 	@Override

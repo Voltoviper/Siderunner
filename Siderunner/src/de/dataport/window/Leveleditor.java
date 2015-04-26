@@ -174,7 +174,7 @@ public class Leveleditor {
 	}
 
 	/**
-	 * Draws the chosen block on the canvas. Additionally verifies it and binds
+	 * Draws the chosen block on the canvas. Additionally verifies it and binds 
 	 * it to the level.
 	 */
 	private void DrawBlock(int x, int y) {

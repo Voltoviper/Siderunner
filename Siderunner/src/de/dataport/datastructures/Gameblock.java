@@ -73,7 +73,7 @@ public class Gameblock extends Gameobject {
 		}
 
 		/* painting and adding */
-		if (intersection == null && !this.getName().equals("Eraser")) {
+		if (intersection == null && !this.getName().equals("Eraser")) { 
 
 			Graphics g = canvas.getGraphics();
 			g.setColor(getColor());

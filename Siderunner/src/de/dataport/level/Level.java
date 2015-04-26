@@ -27,7 +27,7 @@ public class Level {
 	}
 
 	public void setGoal(Gameblock goal) {
-		this.goal = goal;
+		this.goal = goal; 
 	}
 
 	public Level() {
