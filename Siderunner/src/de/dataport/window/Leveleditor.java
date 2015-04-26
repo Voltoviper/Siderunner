@@ -19,6 +19,7 @@ import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.system.level_speichern;
 import de.dataport.usercontrols.GameblockListElement;
 
 /**
@@ -152,7 +153,7 @@ public class Leveleditor {
 		mntmSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				level_speichern.speichern(level);
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				// ! Save LEVEL for further usage !
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

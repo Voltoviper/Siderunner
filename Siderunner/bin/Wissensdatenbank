@@ -1,0 +1,1 @@
+25.04.2015 Christoph: Moin Jan, ich glaube das Problem bei den Key Events sind, dass die Events nur auf die Button in der Seite bezogen sind. Du malst ja aber dann auf einer anderen Klasse. In diesem Fall auf der Leveleditor.java wie wäre es, wenn du da eine Verlinkung herstellst? 
