@@ -19,6 +19,10 @@
 <Gameblock X="494" Y="272" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
 </Gameobject>
 <Goal>
+<<<<<<< HEAD
 <Gameblock X="494" Y="232" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
+=======
+<Gameblock X="308" Y="200" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
+>>>>>>> branch 'test' of https://github.com/Voltoviper/Siderunner
 </Goal>
 </level>
