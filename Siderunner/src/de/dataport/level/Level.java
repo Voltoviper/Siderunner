@@ -51,6 +51,8 @@ public class Level {
 	public List<Gameblock> getListe() {
 		return content;
 	}
+	
+	
 
 	public void setListe(List<Gameblock> liste) {
 		this.content = liste;
@@ -68,4 +70,6 @@ public class Level {
 		}
 		return false;
 	}
+	
+	
 }

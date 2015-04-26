@@ -1,10 +1,30 @@
-<?xml version="1.0" encoding="windows-1250"?>
-<level name="Level1" schwierigkeit="easy">
-   <gameobject x="" y="" width="" height="" hashCode="">
-        <gameblock  isDeadly="true" color="" multiUsage="">Spawn</gameblock>
-   </gameobject>
-   <gameobject hashCode="" height="" width="" x="" y="">
-   	<gameblock color="" isDeadly="true" multiUsage=""></gameblock>
-   </gameobject>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<level xmlns="http://www.wak-sh.de" version="0.5" schwierigkeit="EASY"
+	name="Level1">
+	<Spawn>
+		<Gameblock name="Spawn" width="10" isDeadly="true" height="10"
+			color="java.awt.Color[r=255,g=0,b=255]" Y="118" X="52" />
+	</Spawn>
+	<Gameobject>
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="146" X="66" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="149" X="103" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="151" X="138" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="151" X="168" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="151" X="168" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="148" X="198" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="153" X="229" />
+		<Gameblock name="vanilla" width="30" isDeadly="false"
+			height="30" color="java.awt.Color[r=0,g=0,b=255]" Y="156" X="259" />
+	</Gameobject>
+	<Spawn>
+		<Gameblock name="Goal" width="10" isDeadly="true" height="10"
+			color="java.awt.Color[r=0,g=255,b=255]" Y="169" X="292" />
+	</Spawn>
 </level>

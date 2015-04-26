@@ -21,6 +21,8 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.system.level_speichern;
 import de.dataport.usercontrols.GameblockListElement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -150,16 +152,12 @@ public class Leveleditor {
 		mnWorld.add(mntmLoad);
 
 		JMenuItem mntmSave = new JMenuItem("Save...");
-		mntmSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				level_speichern.speichern(level);
-				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				// ! Save LEVEL for further usage !
-				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				
 			}
 		});
+
 		mnWorld.add(mntmSave);
 
 		JMenu mnBlocks = new JMenu("Blocks");
