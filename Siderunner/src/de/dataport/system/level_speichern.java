@@ -100,7 +100,7 @@ public class level_speichern
 		
 		//Speichern des GOALPoints
 		
-		Element elementGoal1 = docSherd.createElement("Spawn");
+		Element elementGoal1 = docSherd.createElement("Goal");
 		nodeSherd.appendChild(elementGoal1);
 		Element elementGoal = docSherd.createElement("Gameblock");
 		elementGoal.setAttribute("name", level.getGoal().getName());
