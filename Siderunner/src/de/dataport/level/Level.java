@@ -36,6 +36,7 @@ public class Level {
 
 	public void addBlock(Gameblock gameblock) {
 		content.add(gameblock);
+		Collections.sort(content);
 	}
 
 	public void removeBlock(Gameblock gameblock) {

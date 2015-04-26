@@ -19,8 +19,10 @@ import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.standardcatalog.Standard;
 import de.dataport.system.level_speichern;
 import de.dataport.usercontrols.GameblockListElement;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -80,16 +82,9 @@ public class Leveleditor {
 
 	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
 	private ListModel<Gameblock> createDefaultBlockCatalog() {
-		Gameblock spawn = new Gameblock(null, null, 10, 10, false, "Spawn", Color.MAGENTA);
-		Gameblock goal = new Gameblock(null, null, 10, 10, false, "Goal", Color.CYAN);
-		Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
-		Gameblock eraser = new Gameblock(null, null, 10, 10, false, "Eraser", Color.WHITE);
-
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
-		listModel.addElement(spawn);
-		listModel.addElement(goal);
-		listModel.addElement(vanilla);
-		listModel.addElement(eraser);
+		for (Gameblock gb : Standard.getStandardBlocks())
+			listModel.addElement(gb);
 		return listModel;
 	}
 
@@ -174,7 +169,7 @@ public class Leveleditor {
 	}
 
 	/**
-	 * Draws the chosen block on the canvas. Additionally verifies it and binds 
+	 * Draws the chosen block on the canvas. Additionally verifies it and binds
 	 * it to the level.
 	 */
 	private void DrawBlock(int x, int y) {
@@ -188,7 +183,7 @@ public class Leveleditor {
 			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
-			
+
 			newBlock.paint(canvas, level);
 
 		}

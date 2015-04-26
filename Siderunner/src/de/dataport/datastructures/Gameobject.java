@@ -1,6 +1,6 @@
 package de.dataport.datastructures;
 
-public class Gameobject {
+public class Gameobject implements  Comparable<Gameobject> {
 
 	private Integer x;
 	private Integer y;
@@ -83,6 +83,12 @@ public class Gameobject {
 		} else if (!y.equals(other.y))
 			return false;
 		return true;
+	}
+	
+	/** Relative-Position-On-Screen-Sorting */
+	@Override
+	public int compareTo(Gameobject other) {
+		return this.getX().compareTo(other.getX());
 	}
 	
 	
