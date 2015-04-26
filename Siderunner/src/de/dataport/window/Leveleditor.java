@@ -3,28 +3,39 @@ package de.dataport.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Scrollbar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
+import de.dataport.level.Level;
+import de.dataport.system.level_speichern;
 import de.dataport.usercontrols.GameblockListElement;
 
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-
+/**
+ * 
+ * @author Jan Koch
+ *
+ */
 public class Leveleditor {
+
+	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event to keep painting 
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
+
+	private Level level;
 
 	/**
 	 * Launch the application.
@@ -47,93 +58,129 @@ public class Leveleditor {
 	 */
 	public Leveleditor() {
 		initialize();
+		fillList();
+		level = new Level();
 	}
 
-	private void TESTfillList() {
+	/** Instantiating and filling the Gameblock-Jlist */
+	private void fillList() {
 
-		Gameblock peter = new Gameblock(null,null,10, 15, false, "Peter", Color.BLUE);
-		Gameblock peter1 = new Gameblock(null,null,10, 10, false, "Peter1", Color.RED);
-		Gameblock peter2 = new Gameblock(null,null,5, 5, false, "Peter2", Color.BLACK);
-		Gameblock peter3 = new Gameblock(null,null,30, 30, true, "Peter3", Color.GREEN);
-		Gameblock peter4 = new Gameblock(null,null,1, 1, false, "Peter4", Color.CYAN);
-		Gameblock peter5 = new Gameblock(null,null,3, 60, true, "Peter5", Color.MAGENTA);
-		Gameblock peter6 = new Gameblock(null,null,30, 3, false, "Peter6",
-				Color.DARK_GRAY);
-		Gameblock peter7 = new Gameblock(null,null,13, 37, false, "Peter7", Color.YELLOW);
-
-		// create the model and add elements
-		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
-		listModel.addElement(peter);
-		listModel.addElement(peter1);
-		listModel.addElement(peter2);
-		listModel.addElement(peter3);
-		listModel.addElement(peter4);
-		listModel.addElement(peter5);
-		listModel.addElement(peter6);
-		listModel.addElement(peter7);
-
-		// create the list
-		gameblockList = new JList<Gameblock>(listModel);
+		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
 		JScrollPane jspGameblocks = new JScrollPane(gameblockList);
 
-		jspGameblocks.setBounds(10, 83, 186, 251);
+		jspGameblocks.setBounds(10, 11, 186, 251);
 
 		frame.getContentPane().add(jspGameblocks);
 
+	}
+
+	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
+	private ListModel<Gameblock> createDefaultBlockCatalog() {
+		Gameblock spawn = new Gameblock(null, null, 10, 10, true, "Spawn", Color.MAGENTA);
+		Gameblock goal = new Gameblock(null, null, 10, 10, true, "Goal", Color.CYAN);
+		Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
+
+		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
+		listModel.addElement(spawn);
+		listModel.addElement(goal);
+		listModel.addElement(vanilla);
+		return listModel;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		/*JFrame*/
 		frame = new JFrame();
-		frame.setBounds(100, 100, 514, 423);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		
+		/* Canvas*/
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
+		canvas.setBounds(202, 10, 582, 501);
 		canvas.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				/* Placing the selected Gameblock on the levelsurface. */
-				Graphics g = canvas.getGraphics();
-				canvas.paint(g);
-				int x = arg0.getX();
-				int y = arg0.getY();
-				int w = gameblockList.getSelectedValue().getWidth();
-				int h = gameblockList.getSelectedValue().getHeigth();
-				g.setColor(gameblockList.getSelectedValue().getColor());
-				g.fillRect(x-w/2, y-h/2, w, h);
-				
+			public void mousePressed(MouseEvent e) {
+				isMouseDown = true;
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				isMouseDown = false;
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DrawBlock(e.getX(), e.getY());
+			}
+
 		});
 		canvas.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				/*
-				 * Presenting the current selection, while moving the cursor
-				 * over the canvas
-				 */
-				
-				
+			public void mouseDragged(MouseEvent e) {
+				if (isMouseDown)
+					DrawBlock(e.getX(), e.getY());
+			}
+		});
+		frame.getContentPane().add(canvas);
+
+		/* Scrollbar */
+		Scrollbar scrollbar = new Scrollbar();
+		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
+		scrollbar.setBounds(202, 517, 582, 23);
+		frame.getContentPane().add(scrollbar);
+
+		/* Menu */
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+
+		JMenu mnWorld = new JMenu("World");
+		menuBar.add(mnWorld);
+
+		JMenuItem mntmNew = new JMenuItem("New...");
+		mnWorld.add(mntmNew);
+
+		JMenuItem mntmLoad = new JMenuItem("Load...");
+		mnWorld.add(mntmLoad);
+
+		JMenuItem mntmSave = new JMenuItem("Save...");
+		mntmSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				level_speichern.speichern(level);
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				// ! Save LEVEL for further usage !
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				
 			}
 		});
-		canvas.setBounds(202, 11, 286, 294);
-		frame.getContentPane().add(canvas);
+		mnWorld.add(mntmSave);
 
-		Scrollbar scrollbar = new Scrollbar();
-		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
-		scrollbar.setBounds(202, 311, 286, 23);
-		frame.getContentPane().add(scrollbar);
+		JMenu mnBlocks = new JMenu("Blocks");
+		menuBar.add(mnBlocks);
 
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(399, 350, 89, 23);
-		frame.getContentPane().add(btnSave);
+		JMenuItem mntmNew_1 = new JMenuItem("New...");
+		mnBlocks.add(mntmNew_1);
 
-		
-		TESTfillList();
+		JMenuItem mntmManage = new JMenuItem("Manage...");
+		mnBlocks.add(mntmManage);
+	}
+
+	/** Draws the chosen block on the canvas. Additionally verifies it and binds it to the level. */
+	private void DrawBlock(int x, int y) {
+		if (gameblockList.getSelectedValue() != null) {
+			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
+					.getSelectedValue().getHeigth(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
+					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
+
+			newBlock.paint(canvas, level);
+		}
+
 	}
 }

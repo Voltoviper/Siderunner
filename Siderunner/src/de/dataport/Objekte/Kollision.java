@@ -3,6 +3,7 @@ package de.dataport.Objekte;
 import javax.swing.JLabel;
 
 import de.dataport.berechnungen.Bewegung;
+import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.window.Main;
 
@@ -12,11 +13,11 @@ public class Kollision {
 
 	public static int[] kollision_rechts(JLabel figur, Level level) {
 
-		for (Rechtecke rect : level.getListe()) {
+		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
 
 				if (figur.getX() + figur.getWidth() + Spielfigur.getGeschwindigkeit() > rect.getX()
-						&& figur.getX() < rect.getX() + rect.getBreite()) {
+						&& figur.getX() < rect.getX() + rect.getWidth()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
 						koordinaten[0] = Main.spielfigur.getX() + Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
@@ -40,9 +41,9 @@ public class Kollision {
 
 	public static int[] kollision_links(JLabel figur, Level level) {
 
-		for (Rechtecke rect : level.getListe()) {
+		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
-				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect.getX() + rect.getBreite()
+				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect.getX() + rect.getWidth()
 						&& figur.getX() + Spielfigur.getBreite() > rect.getX()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
 						koordinaten[0] = Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit();
@@ -50,7 +51,7 @@ public class Kollision {
 						Bewegung.huepf2.stop();
 						break;
 					} else if (figur.getX() > rect.getX()) {
-						koordinaten[0] = rect.getX() + rect.getBreite();
+						koordinaten[0] = rect.getX() + rect.getWidth();
 						koordinaten[1] = Main.spielfigur.getY();
 						break;
 					}
@@ -69,12 +70,12 @@ public class Kollision {
 
 	public static int[] kollision_unten(JLabel figur, Level level) {
 
-		for (Rechtecke rect : level.getListe()) {
+		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
 				if (figur.getY() + Spielfigur.getHoehe() + 50 > rect.getY()
 						&& (figur.getX() + Spielfigur.getBreite() > rect
 								.getX() && figur.getX() < rect.getX()
-								+ rect.getBreite())) {
+								+ rect.getWidth())) {
 					koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 
 				}

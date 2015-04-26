@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<level name="Level1" schwierigkeit="easy">
+   <gameobject x="" y="" width="" height="" hashCode="">
+        <gameblock  isDeadly="true" color="" multiUsage="">Spawn</gameblock>
+   </gameobject>
+   <gameobject hashCode="" height="" width="" x="" y="">
+   	<gameblock color="" isDeadly="true" multiUsage=""></gameblock>
+   </gameobject>
+
+</level>

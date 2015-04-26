@@ -1,26 +1,15 @@
 package de.dataport.Objekte;
 
-public class Spielfigur {
+import de.dataport.datastructures.Gameobject;
+
+public class Spielfigur extends Gameobject {
 	
 	private int x=5,y=325;
 	private static int geschwindigkeit=10;
 	private static int breite=50, hoehe=85;
 	public Spielfigur(int x, int y) {
-		super();
-		this.x = x;
-		this.y = y;
-	}
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
+		super(x, y);
+
 	}
 	public static int getBreite() {
 		return breite;
