@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><level name="Level1" schwierigkeit="EASY" version="0.5" xmlns="http://www.wak-sh.de">
+<Spawn>
+<Gameblock X="136" Y="175" color="java.awt.Color[r=255,g=0,b=255]" height="10" isDeadly="true" name="Spawn" width="10"/>
+</Spawn>
+<Gameobject>
+<Gameblock X="168" Y="178" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
+<Gameblock X="198" Y="177" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
+<Gameblock X="229" Y="181" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
+<Gameblock X="264" Y="189" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
+</Gameobject>
+<Spawn>
+<Gameblock X="308" Y="200" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
+</Spawn>
+</level>

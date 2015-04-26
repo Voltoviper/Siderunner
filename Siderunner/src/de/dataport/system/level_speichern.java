@@ -76,7 +76,7 @@ public class level_speichern
 		elementSpawn1.appendChild(elementSpawn);
 		
 		
-		
+		//Speichern der platzierten Blöcke
 		Element[] elementGameobjects = new Element[1000];
 		Element[] elementGameobject = new Element[1000];
 		elementGameobjects[0] = docSherd.createElement("Gameobject");
@@ -111,22 +111,9 @@ public class level_speichern
 		elementGoal.setAttribute("isDeadly", level.getGoal().getIsDeadly()+"");
 		elementGoal.setAttribute("color", level.getGoal().getColor()+"");
 		elementGoal1.appendChild(elementGoal);
+
 		
-		
-		
-		
-		
-		
-		
-		
-		//Beispiel
-		
-		//Element elementGameobjects = docSherd.createElement("Gameobject");
-		//nodeSherd.appendChild(elementGameobjects);
-		//Element elementGameobject = docSherd.createElement("Gameblock");
-		//elementGameobject.setAttribute("x", "50");
-		//elementGameobjects.appendChild(elementGameobject);
-	
+		//SpeicherVorgang mit Konvertierung in XML
 		DOMSource domSource = new DOMSource(nodeSherd);
 		File fileOutput = new File("level.xml");
 		StreamResult streamResult = new StreamResult(fileOutput);
