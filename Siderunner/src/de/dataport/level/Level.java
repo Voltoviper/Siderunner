@@ -27,7 +27,7 @@ public class Level {
 	}
 
 	public void setGoal(Gameblock goal) {
-		this.goal = goal; 
+		this.goal = goal;
 	}
 
 	public Level() {
@@ -75,7 +75,10 @@ public class Level {
 
 	/** Creates a rectangle from the gameblock */
 	private Rectangle getRectangleFromGameblock(Gameblock gameblock) {
-		return new Rectangle(gameblock.getX(), gameblock.getY(), gameblock.getWidth(), gameblock.getHeigth());
+		/* 5 Pixel tolerance intern */
+		int t = 5;
+		return new Rectangle(gameblock.getX() + t, gameblock.getY() + t, gameblock.getWidth() - t,
+				gameblock.getHeigth() - t);
 	}
 
 	/** repaints the whole level on the specific canvas */
@@ -83,9 +86,9 @@ public class Level {
 		Graphics g = canvas.getGraphics();
 		g.setColor(canvas.getBackground());
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(Gameblock gb:getListe()){
+		for (Gameblock gb : getListe()) {
 			g.setColor(gb.getColor());
-			g.fillRect(gb.getX()-(gb.getWidth()/2), gb.getY()-(gb.getHeigth()/2), gb.getWidth(), gb.getHeigth());
+			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeigth() / 2), gb.getWidth(), gb.getHeigth());
 		}
 	}
 
