@@ -60,11 +60,6 @@ public class Level {
 		this.content = liste;
 	}
 
-	/** Erases the gameblock that is hit by the eraser */
-	public void eraseRelativeTo(Gameblock eraser) {
-		this.removeBlock(getIntersectingGameblock(eraser));
-	}
-
 	/** Checks for intersection of one gameblock to all level content */
 	public Gameblock getIntersectingGameblock(Gameblock gameblock) {
 		Rectangle rec = getRectangleFromGameblock(gameblock);
@@ -78,7 +73,7 @@ public class Level {
 		return null;
 	}
 
-	/* Creates a rectangle from the gameblock */
+	/** Creates a rectangle from the gameblock */
 	private Rectangle getRectangleFromGameblock(Gameblock gameblock) {
 		return new Rectangle(gameblock.getX(), gameblock.getY(), gameblock.getWidth(), gameblock.getHeigth());
 	}
