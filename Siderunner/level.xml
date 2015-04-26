@@ -8,7 +8,7 @@
 <Gameblock X="229" Y="181" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
 <Gameblock X="264" Y="189" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
 </Gameobject>
-<Spawn>
+<Goal>
 <Gameblock X="308" Y="200" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
-</Spawn>
+</Goal>
 </level>
