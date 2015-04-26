@@ -31,7 +31,8 @@ import java.awt.event.ActionEvent;
  */
 public class Leveleditor {
 
-	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event to keep painting 
+	private Boolean isMouseDown = false; // Indicator for the Mouse-Move Event
+											// to keep painting
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
@@ -79,14 +80,16 @@ public class Leveleditor {
 
 	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
 	private ListModel<Gameblock> createDefaultBlockCatalog() {
-		Gameblock spawn = new Gameblock(null, null, 10, 10, true, "Spawn", Color.MAGENTA);
-		Gameblock goal = new Gameblock(null, null, 10, 10, true, "Goal", Color.CYAN);
+		Gameblock spawn = new Gameblock(null, null, 10, 10, false, "Spawn", Color.MAGENTA);
+		Gameblock goal = new Gameblock(null, null, 10, 10, false, "Goal", Color.CYAN);
 		Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
+		Gameblock eraser = new Gameblock(null, null, 10, 10, false, "Eraser", Color.WHITE);
 
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
 		listModel.addElement(spawn);
 		listModel.addElement(goal);
 		listModel.addElement(vanilla);
+		listModel.addElement(eraser);
 		return listModel;
 	}
 
@@ -95,14 +98,14 @@ public class Leveleditor {
 	 */
 	private void initialize() {
 
-		/*JFrame*/
+		/* JFrame */
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		/* Canvas*/
+
+		/* Canvas */
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(202, 10, 582, 501);
@@ -170,14 +173,24 @@ public class Leveleditor {
 		mnBlocks.add(mntmManage);
 	}
 
-	/** Draws the chosen block on the canvas. Additionally verifies it and binds it to the level. */
+	/**
+	 * Draws the chosen block on the canvas. Additionally verifies it and binds
+	 * it to the level.
+	 */
 	private void DrawBlock(int x, int y) {
 		if (gameblockList.getSelectedValue() != null) {
+
+			/* Create NEW Block */
 			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
 					.getSelectedValue().getHeigth(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
 					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
 
+			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
+					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
+				return;
+			
 			newBlock.paint(canvas, level);
+
 		}
 
 	}

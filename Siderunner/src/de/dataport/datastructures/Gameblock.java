@@ -6,47 +6,37 @@ import java.awt.Graphics;
 
 import de.dataport.level.Level;
 
-public class Gameblock extends Gameobject
-{
+public class Gameblock extends Gameobject {
 
 	private Boolean isDeadly;
 	private String name;
 	private Color color;
-	private Boolean multiUsage = true;
 
-	public Boolean getIsDeadly()
-	{
+	public Boolean getIsDeadly() {
 		return isDeadly;
 	}
 
-	public void setIsDeadly(Boolean isDeadly)
-	{
+	public void setIsDeadly(Boolean isDeadly) {
 		this.isDeadly = isDeadly;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Color getColor()
-	{
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(Color color)
-	{
+	public void setColor(Color color) {
 		this.color = color;
 	}
 
-	public Gameblock(Integer x, Integer y, Integer width, Integer heigth,
-			Boolean isDeadly, String name, Color color)
-	{
+	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name, Color color) {
 		super(x, y, width, heigth);
 		this.isDeadly = isDeadly;
 		this.name = name;
@@ -54,61 +44,67 @@ public class Gameblock extends Gameobject
 	}
 
 	/** Info for the Leveleditor-View */
-	public String infoIsDeadly()
-	{
+	public String infoIsDeadly() {
 		return ((getIsDeadly() == true) ? "isDeadly" : "");
 	}
 
 	/** Info for the Leveleditor-View */
-	public String infoSize()
-	{
+	public String infoSize() {
 		return getWidth() + "x" + getHeigth();
 	}
 
 	/** Painting and verification of the Gameblock-object */
-	public void paint(Canvas canvas, Level level)
-	{
-		if (multiUsage)
-		{
+	public void paint(Canvas canvas, Level level) {
 
-			if (!level.contentTooCloseTo(this))
-			{
-				Graphics g = canvas.getGraphics();
-				g.setColor(getColor());
-				g.fillRect(getX() - getWidth() / 2, getY() - getHeigth() / 2,
-						getWidth(), getHeigth());
+		Gameblock intersection = level.getIntersectingGameblock(this);
 
-				if (getName().equals("Spawn") || getName().equals("Goal"))
-				{
-					if (getName().equals("Spawn"))
-						level.setSpawn(this);
-					if (getName().equals("Goal"))
-						level.setGoal(this);
-					multiUsage = !multiUsage;
-				}
-				else
-					level.addBlock(this);
+		/* erasing */
+		if (this.getName().equals("Eraser") && intersection != null) { 
+			level.removeBlock(intersection);
+			level.repaintAll(canvas);
+			
+			/* Spawn and goal unlock */
+			if (intersection.getName().equals("Spawn") || intersection.getName().equals("Goal")) {
+				if (intersection.getName().equals("Spawn"))
+					level.setSpawn(null);
+				if (intersection.getName().equals("Goal"))
+					level.setGoal(null);
 			}
 		}
+
+		/* painting and adding */
+		if (intersection == null && !this.getName().equals("Eraser")) {
+
+			Graphics g = canvas.getGraphics();
+			g.setColor(getColor());
+			g.fillRect(getX() - getWidth() / 2, getY() - getHeigth() / 2, getWidth(), getHeigth());
+
+			/* Spawn and goal lock */
+			if (getName().equals("Spawn") || getName().equals("Goal")) {
+				if (getName().equals("Spawn"))
+					level.setSpawn(this);
+				if (getName().equals("Goal"))
+					level.setGoal(this);
+			}
+			if (!level.getListe().contains(this))
+				level.addBlock(this);
+
+		}
+
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
-		result = prime * result
-				+ ((isDeadly == null) ? 0 : isDeadly.hashCode());
-		result = prime * result
-				+ ((multiUsage == null) ? 0 : multiUsage.hashCode());
+		result = prime * result + ((isDeadly == null) ? 0 : isDeadly.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -116,35 +112,23 @@ public class Gameblock extends Gameobject
 		if (getClass() != obj.getClass())
 			return false;
 		Gameblock other = (Gameblock) obj;
-		if (color == null)
-		{
+		if (color == null) {
 			if (other.color != null)
 				return false;
-		}
-		else if (!color.equals(other.color))
+		} else if (!color.equals(other.color))
 			return false;
-		if (isDeadly == null)
-		{
+		if (isDeadly == null) {
 			if (other.isDeadly != null)
 				return false;
-		}
-		else if (!isDeadly.equals(other.isDeadly))
+		} else if (!isDeadly.equals(other.isDeadly))
 			return false;
-		if (multiUsage == null)
-		{
-			if (other.multiUsage != null)
-				return false;
-		}
-		else if (!multiUsage.equals(other.multiUsage))
-			return false;
-		if (name == null)
-		{
+		if (name == null) {
 			if (other.name != null)
 				return false;
-		}
-		else if (!name.equals(other.name))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
+	
 
 }
