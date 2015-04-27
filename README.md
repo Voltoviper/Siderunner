@@ -9,4 +9,4 @@ Bug #1 wurde gelöst (Springen auf Koordinaten 0|0)
 Grundlegendes ist eingerichtet
 
 +++ Changelog +++  
-Lvleditor funktioniert (rudimentär).
+Lvleditor funktioniert (rudimentär). Es können Level nun an selbstbestimmten Orten abgelegt werden. Somit können eigene Level gebaut werden.
