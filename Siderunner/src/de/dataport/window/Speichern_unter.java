@@ -1,7 +1,10 @@
-package de.dataport.system;
+package de.dataport.window;
 
 import java.io.File;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,24 +23,30 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 
 /**
+ * 
  * @author Christoph Nebendahl
- * @version 0.1
+ *
+ * Dies ist die Klasse, die das Level speichern lässt und somit unterschiedliche Level erstellbar werden. 
  */
-public class level_speichern {
+
+public class Speichern_unter extends JFrame {
 
 	/**
-	 * Es wird eine XML Datei erstellt, in der das Level abgespeichert wird.
-	 * Hierfür wird das Tutorial von der Seite
-	 * http://www.cs.hs-rm.de/~knauf/SWTProjekt2009/xml/ verwendet
-	 * 
-	 * @author Christoph Nebendahl
-	 * @param level
-	 *            Übergebe ein Objekt der Klasse Level, um die Gameobjekte
-	 *            abzuspeichern.
 	 * 
 	 */
-	public static void speichern(Level level) {
-		// TODO Auto-generated method stub
+	private static final long serialVersionUID = 1L;
+
+	public Speichern_unter() {
+	}
+
+	/**
+	 * Methode die das derzeitige Level in eine XML Datei speichert. 
+	 * @param pfad vorgegebener Wert für den Speicherpfad null kann ausgewählt werden für einen Standardwert
+	 * @param level Level, das gespeichert werden soll
+	 * @return Gibt einen Boolschen Wert zurück, ob das speichern erfolgreich war.
+	 */
+	public boolean saveAs(String pfad, Level level) {
+
 		System.out.println("Speichern...");
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
 				.newInstance();
@@ -123,24 +132,60 @@ public class level_speichern {
 
 		// SpeicherVorgang mit Konvertierung in XML
 		DOMSource domSource = new DOMSource(nodeSherd);
-		File fileOutput = new File("level.xml");
-		StreamResult streamResult = new StreamResult(fileOutput);
-		TransformerFactory tf = TransformerFactory.newInstance();
-
-		Transformer serializer;
-		try {
-			serializer = tf.newTransformer();
-			serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-			serializer.transform(domSource, streamResult);
-		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		System.out.println("Speichern erfolgreich!");
+
+		JFileChooser chooser;
+		if (pfad == null)
+			pfad = System.getProperty("user.home");
+		
+		File file = new File(pfad.trim());
+
+		chooser = new JFileChooser(pfad);
+		chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+	
+		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
+				"Markup: xml", "xml");
+		chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
+		chooser.setFileFilter(markUpFilter);
+		chooser.setDialogTitle("Speichern unter...");
+		chooser.setVisible(true);
+
+		int result = chooser.showSaveDialog(this);
+
+		if (result == JFileChooser.APPROVE_OPTION) {
+
+			pfad = chooser.getSelectedFile().toString();
+			file = new File(pfad);
+			if (markUpFilter.accept(file)) {
+				System.out.println(pfad);
+				StreamResult streamResult = new StreamResult(file);
+				TransformerFactory tf = TransformerFactory.newInstance();
+
+				Transformer serializer;
+				try {
+					serializer = tf.newTransformer();
+					serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+					serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+					serializer.transform(domSource, streamResult);
+				} catch (TransformerConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TransformerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else
+			//Muss noch an den Benutzer herausgegeben werden!!!!
+				System.out.println(pfad + " ist der falsche Dateityp.");
+
+			chooser.setVisible(false);
+			return true;
+		}
+		
+		chooser.setVisible(false);
+
+		return false;
 	}
 
 }

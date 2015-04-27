@@ -20,7 +20,6 @@ import javax.swing.ListModel;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.standardcatalog.Standard;
-import de.dataport.system.level_speichern;
 import de.dataport.usercontrols.GameblockListElement;
 
 import java.awt.event.ActionListener;
@@ -152,7 +151,8 @@ public class Leveleditor {
 		JMenuItem mntmSave = new JMenuItem("Save...");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				level_speichern.speichern(level);
+				Speichern_unter speichern = new Speichern_unter();
+				speichern.saveAs(null, level);
 			}
 		});
 
