@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><level name="Level1" schwierigkeit="EASY" version="0.5" xmlns="http://www.wak-sh.de">
 <Spawn>
-<Gameblock X="93" Y="217" color="java.awt.Color[r=255,g=0,b=255]" height="10" isDeadly="true" name="Spawn" width="10"/>
+<Gameblock X="131" Y="197" color="java.awt.Color[r=255,g=0,b=255]" height="10" isDeadly="false" name="Spawn" width="10"/>
 </Spawn>
-<Gameobject>
-<Gameblock X="88" Y="269" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="120" Y="266" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="150" Y="264" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="180" Y="264" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="211" Y="267" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="242" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="272" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="302" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="333" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="363" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="398" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="429" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="463" Y="270" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-<Gameblock X="494" Y="272" color="java.awt.Color[r=0,g=0,b=255]" height="30" isDeadly="false" name="vanilla" width="30"/>
-</Gameobject>
+<Gameobject/>
 <Goal>
-<<<<<<< HEAD
-<Gameblock X="494" Y="232" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
-=======
-<Gameblock X="308" Y="200" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="true" name="Goal" width="10"/>
->>>>>>> branch 'test' of https://github.com/Voltoviper/Siderunner
+<Gameblock X="159" Y="194" color="java.awt.Color[r=0,g=255,b=255]" height="10" isDeadly="false" name="Goal" width="10"/>
 </Goal>
 </level>
