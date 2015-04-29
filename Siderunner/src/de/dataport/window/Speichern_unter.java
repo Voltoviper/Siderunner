@@ -26,7 +26,8 @@ import de.dataport.level.Level;
  * 
  * @author Christoph Nebendahl
  *
- * Dies ist die Klasse, die das Level speichern lässt und somit unterschiedliche Level erstellbar werden. 
+ *         Dies ist die Klasse, die das Level speichern lässt und somit
+ *         unterschiedliche Level erstellbar werden.
  */
 
 public class Speichern_unter extends JFrame {
@@ -40,10 +41,15 @@ public class Speichern_unter extends JFrame {
 	}
 
 	/**
-	 * Methode die das derzeitige Level in eine XML Datei speichert. 
-	 * @param pfad vorgegebener Wert für den Speicherpfad null kann ausgewählt werden für einen Standardwert
-	 * @param level Level, das gespeichert werden soll
-	 * @return Gibt einen Boolschen Wert zurück, ob das speichern erfolgreich war.
+	 * Methode die das derzeitige Level in eine XML Datei speichert.
+	 * 
+	 * @param pfad
+	 *            vorgegebener Wert für den Speicherpfad null kann ausgewählt
+	 *            werden für einen Standardwert
+	 * @param level
+	 *            Level, das gespeichert werden soll
+	 * @return Gibt einen Boolschen Wert zurück, ob das speichern erfolgreich
+	 *         war.
 	 */
 	public boolean saveAs(String pfad, Level level) {
 
@@ -132,18 +138,18 @@ public class Speichern_unter extends JFrame {
 
 		// SpeicherVorgang mit Konvertierung in XML
 		DOMSource domSource = new DOMSource(nodeSherd);
-		
+
 		System.out.println("Speichern erfolgreich!");
 
 		JFileChooser chooser;
 		if (pfad == null)
 			pfad = System.getProperty("user.home");
-		
+
 		File file = new File(pfad.trim());
 
 		chooser = new JFileChooser(pfad);
 		chooser.setDialogType(JFileChooser.SAVE_DIALOG);
-	
+
 		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
 				"Markup: xml", "xml");
 		chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
@@ -175,14 +181,33 @@ public class Speichern_unter extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else
-			//Muss noch an den Benutzer herausgegeben werden!!!!
+			} else {
+				// Muss noch an den Benutzer herausgegeben werden!!!!
 				System.out.println(pfad + " ist der falsche Dateityp.");
+				pfad = pfad+".xml";
+				file = new File(pfad);
+				System.out.println(pfad);
+				StreamResult streamResult = new StreamResult(file);
+				TransformerFactory tf = TransformerFactory.newInstance();
 
+				Transformer serializer;
+				try {
+					serializer = tf.newTransformer();
+					serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+					serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+					serializer.transform(domSource, streamResult);
+				} catch (TransformerConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TransformerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			chooser.setVisible(false);
 			return true;
 		}
-		
+
 		chooser.setVisible(false);
 
 		return false;
