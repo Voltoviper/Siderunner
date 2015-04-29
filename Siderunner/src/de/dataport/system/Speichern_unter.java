@@ -1,4 +1,4 @@
-package de.dataport.window;
+package de.dataport.system;
 
 import java.io.File;
 
@@ -32,9 +32,6 @@ import de.dataport.level.Level;
 
 public class Speichern_unter extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Speichern_unter() {
@@ -68,11 +65,9 @@ public class Speichern_unter extends JFrame {
 
 		Element nodeSherd = docSherd.createElementNS("http://www.wak-sh.de",
 				"level");
-
 		nodeSherd.setAttribute("name", "Level1");
 		nodeSherd.setAttribute("version", "0.5");
 		nodeSherd.setAttribute("schwierigkeit", "EASY");
-
 		// Speichern des SpawnPoints
 		if (level.getSpawn() != null) {
 			Element elementSpawn1 = docSherd.createElement("Spawn");
@@ -91,7 +86,6 @@ public class Speichern_unter extends JFrame {
 					.setAttribute("color", level.getSpawn().getColor() + "");
 			elementSpawn1.appendChild(elementSpawn);
 		}
-
 		// Speichern der platzierten Blöcke
 		if (level.getListe().size() != 0) {
 			Element[] elementGameobjects = new Element[1000];
@@ -135,39 +129,29 @@ public class Speichern_unter extends JFrame {
 			elementGoal.setAttribute("color", level.getGoal().getColor() + "");
 			elementGoal1.appendChild(elementGoal);
 		}
-
 		// SpeicherVorgang mit Konvertierung in XML
 		DOMSource domSource = new DOMSource(nodeSherd);
-
-		System.out.println("Speichern erfolgreich!");
-
 		JFileChooser chooser;
 		if (pfad == null)
 			pfad = System.getProperty("user.home");
-
 		File file = new File(pfad.trim());
-
 		chooser = new JFileChooser(pfad);
 		chooser.setDialogType(JFileChooser.SAVE_DIALOG);
-
 		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
 				"Markup: xml", "xml");
 		chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
 		chooser.setFileFilter(markUpFilter);
 		chooser.setDialogTitle("Speichern unter...");
 		chooser.setVisible(true);
-
 		int result = chooser.showSaveDialog(this);
-
+		//Überprüfung auf ordentliche Dateiendung.
 		if (result == JFileChooser.APPROVE_OPTION) {
-
 			pfad = chooser.getSelectedFile().toString();
 			file = new File(pfad);
 			if (markUpFilter.accept(file)) {
 				System.out.println(pfad);
 				StreamResult streamResult = new StreamResult(file);
 				TransformerFactory tf = TransformerFactory.newInstance();
-
 				Transformer serializer;
 				try {
 					serializer = tf.newTransformer();
@@ -181,6 +165,7 @@ public class Speichern_unter extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				System.out.println("Speichern erfolgreich!");
 			} else {
 				// Muss noch an den Benutzer herausgegeben werden!!!!
 				System.out.println(pfad + " ist der falsche Dateityp.");
@@ -189,7 +174,6 @@ public class Speichern_unter extends JFrame {
 				System.out.println(pfad);
 				StreamResult streamResult = new StreamResult(file);
 				TransformerFactory tf = TransformerFactory.newInstance();
-
 				Transformer serializer;
 				try {
 					serializer = tf.newTransformer();
@@ -205,6 +189,7 @@ public class Speichern_unter extends JFrame {
 				}
 			}
 			chooser.setVisible(false);
+			System.out.println("Speichern erfolgreich!");
 			return true;
 		}
 
