@@ -19,7 +19,7 @@ import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
-import de.dataport.standardcatalog.Standard;
+import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Speichern_unter;
 import de.dataport.usercontrols.GameblockListElement;
 
@@ -83,7 +83,7 @@ public class Leveleditor {
 	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
 	private ListModel<Gameblock> createDefaultBlockCatalog() {
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
-		for (Gameblock gb : Standard.getStandardBlocks())
+		for (Gameblock gb : StandardContent.getStandardBlocks())
 			listModel.addElement(gb);
 		return listModel;
 	}
