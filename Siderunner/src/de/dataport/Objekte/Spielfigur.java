@@ -4,7 +4,6 @@ import de.dataport.datastructures.Gameobject;
 
 public class Spielfigur extends Gameobject {
 	
-	private int x=5,y=325;
 	private static int geschwindigkeit=10;
 	private static int breite=50, hoehe=85;
 	public Spielfigur(int x, int y) {

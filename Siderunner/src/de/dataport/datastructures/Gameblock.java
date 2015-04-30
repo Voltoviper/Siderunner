@@ -35,13 +35,28 @@ public class Gameblock extends Gameobject {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
+/**
+ * 
+ * @param x
+ * @param y
+ * @param width
+ * @param heigth
+ * @param isDeadly
+ * @param name
+ * @param color
+ */
 	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name, Color color) {
 		super(x, y, width, heigth);
 		this.isDeadly = isDeadly;
 		this.name = name;
 		this.color = color;
 	}
+
+	@Override
+public String toString() {
+	return "Gameblock [isDeadly=" + isDeadly + ", name=" + name + ", color="
+			+ color + "]";
+}
 
 	/** Info for the Leveleditor-View */
 	public String infoIsDeadly() {

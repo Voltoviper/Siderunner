@@ -16,10 +16,12 @@ public class Kollision {
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
 
-				if (figur.getX() + figur.getWidth() + Spielfigur.getGeschwindigkeit() > rect.getX()
+				if (figur.getX() + figur.getWidth()
+						+ Spielfigur.getGeschwindigkeit() > rect.getX()
 						&& figur.getX() < rect.getX() + rect.getWidth()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
-						koordinaten[0] = Main.spielfigur.getX() + Spielfigur.getGeschwindigkeit();
+						koordinaten[0] = Main.spielfigur.getX()
+								+ Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 						Bewegung.huepf2.stop();
 						break;
@@ -30,7 +32,8 @@ public class Kollision {
 					}
 
 				} else {
-					koordinaten[0] = Main.spielfigur.getX() + Spielfigur.getGeschwindigkeit();
+					koordinaten[0] = Main.spielfigur.getX()
+							+ Spielfigur.getGeschwindigkeit();
 					koordinaten[1] = Main.test.getY() - Spielfigur.getHoehe();
 				}
 			}
@@ -43,10 +46,12 @@ public class Kollision {
 
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
-				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect.getX() + rect.getWidth()
+				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect
+						.getX() + rect.getWidth()
 						&& figur.getX() + Spielfigur.getBreite() > rect.getX()) {
 					if (figur.getY() <= rect.getY() - Spielfigur.getHoehe()) {
-						koordinaten[0] = Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit();
+						koordinaten[0] = Main.spielfigur.getX()
+								- Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 						Bewegung.huepf2.stop();
 						break;
@@ -59,7 +64,8 @@ public class Kollision {
 					// koordinaten[0] = level.getListe()[0].getX() -
 					// Spielfigur.getBreite();
 				} else {
-					koordinaten[0] = Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit();
+					koordinaten[0] = Main.spielfigur.getX()
+							- Spielfigur.getGeschwindigkeit();
 					koordinaten[1] = Main.test.getY() - Spielfigur.getHoehe();
 				}
 			}
@@ -73,9 +79,8 @@ public class Kollision {
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
 				if (figur.getY() + Spielfigur.getHoehe() + 50 > rect.getY()
-						&& (figur.getX() + Spielfigur.getBreite() > rect
-								.getX() && figur.getX() < rect.getX()
-								+ rect.getWidth())) {
+						&& (figur.getX() + Spielfigur.getBreite() > rect.getX() && figur
+								.getX() < rect.getX() + rect.getWidth())) {
 					koordinaten[1] = rect.getY() - Spielfigur.getHoehe();
 
 				}
