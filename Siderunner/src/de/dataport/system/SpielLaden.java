@@ -3,8 +3,12 @@ package de.dataport.system;
 import java.awt.Color;
 import java.io.File;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,11 +29,15 @@ import de.dataport.system.errorhandler.ProjectErrorHandler;
  * @author Wolfgang Knauf
  * 
  */
-public class SpielLaden {
+public class SpielLaden extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * DocumentBuilder für das Einlesen und Parsen von Sherd-Dokumenten, wird im
 	 * Konstruktor erzeugt.
-	 * 
+	 * s
 	 */
 	// private DocumentBuilderFactory documentBuilderFactory ;
 	private DocumentBuilder documentBuilder;
@@ -156,5 +164,48 @@ public class SpielLaden {
 		return level;
 
 	}
+	public String auswählen(){
+
+		String pfad =null;
+
+				
+				JFileChooser chooser;
+				if (pfad == null)
+					pfad = System.getProperty("user.home");
+				File file = new File(pfad.trim());
+				chooser = new JFileChooser(pfad);
+				chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+				FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
+						"Markup: xml", "xml");
+				chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
+				chooser.setFileFilter(markUpFilter);
+				chooser.setDialogTitle("Öffnen");
+				chooser.setVisible(true);
+				int result = chooser.showOpenDialog(this);
+				//Überprüfung auf ordentliche Dateiendung.
+				if (result == JFileChooser.APPROVE_OPTION) {
+					pfad = chooser.getSelectedFile().toString();
+					file = new File(pfad);
+					if (markUpFilter.accept(file)) {
+						System.out.println(pfad);
+						
+						return(pfad);
+						
+					} else {
+						
+					}
+					chooser.setVisible(false);
+					
+					
+				}
+
+				chooser.setVisible(false);
+
+				return pfad;
+			}
+
+		
+
+	
 
 }

@@ -142,7 +142,7 @@ public class Main extends JPanel {
 				try {
 					xmlReader = new SpielLaden();
 					level = (xmlReader
-							.parse("C:/Users/chris_000/Desktop/level.xml"));
+							.parse(xmlReader.auswählen()));
 					level.repaintAll(canvas);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
