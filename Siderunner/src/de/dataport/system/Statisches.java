@@ -17,7 +17,7 @@ public class Statisches {
 		try {
 			URL in = Main.class.getResource("graphics/pirat.png");
 			Main.myPicture = ImageIO.read(new File(in.getPath()));
-			Main.spielfigur.setIcon(new ImageIcon(Main.myPicture));
+		//	Main.spielfigur.setIcon(new ImageIcon(Main.myPicture));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -28,7 +28,7 @@ public class Statisches {
 		try {
 			URL in = Main.class.getResource("graphics/pirat2.png");
 			Main.myPicture = ImageIO.read(new File(in.getPath()));
-			Main.spielfigur.setIcon(new ImageIcon(Main.myPicture));
+		//	Main.spielfigur.setIcon(new ImageIcon(Main.myPicture));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

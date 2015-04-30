@@ -157,24 +157,4 @@ public class SpielLaden {
 
 	}
 
-	/**
-	 * Main-Methode, liest eine XML Datei im Programmverzeichnis ein und gibt
-	 * ihren Inhalt aus.
-	 * 
-	 * @param args
-	 *            Kommandozeile, hier bedeutungslos
-	 */
-	public static void main(String[] args) {
-		try {
-			SpielLaden xmlReader = new SpielLaden();
-
-			xmlReader.parse("C:/Users/chris_000/Desktop/level.xml");
-
-			System.out.println("Parsed!");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-
 }

@@ -17,26 +17,26 @@ import de.dataport.window.Info;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 
-
-
-
-
-
-
 import javax.swing.JLabel;
 
-public class Main {
-	public static JLabel spielfigur ;
+public class Main extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static Graphics spielfigur;
 	public static Spielfigur spieler = new Spielfigur(5, 325);
 	public static Boden test;
 	public static JFrame frmJackRunner;
@@ -46,6 +46,7 @@ public class Main {
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
 	public static JLabel[] block = new JLabel[100];
+	public static Level level;
 
 	/**
 	 * Launch the application.
@@ -86,15 +87,9 @@ public class Main {
 		test.boden_einpflegen();
 		Spielfigur spieler = new Spielfigur(5, test.getY()
 				- Spielfigur.getHoehe());
-		
-		
-		spielfigur = new JLabel();
 		Statisches.Bild_rechts();
-		spielfigur.setBounds(spieler.getX(), spieler.getY(), Spielfigur.getBreite(), Spielfigur.getHoehe());
-		spielfigur.setBackground(Color.GRAY);
-		frmJackRunner.getContentPane().add(spielfigur);
-		Kollision.koordinaten[0]=spieler.getX();
-		Kollision.koordinaten[1]=spieler.getY();
+		Kollision.koordinaten[0] = spieler.getX();
+		Kollision.koordinaten[1] = spieler.getY();
 		JMenuBar menuBar = new JMenuBar();
 		frmJackRunner.setJMenuBar(menuBar);
 
@@ -130,29 +125,30 @@ public class Main {
 		mnDatei.add(mntmKoordinatenAnzeigen);
 
 		mnDatei.add(mntmSchlieen);
-		
+
 		JMenu mnLevel = new JMenu("Level");
 		menuBar.add(mnLevel);
-		
+
 		Canvas canvas = new Canvas();
+		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(5, 10, 710, 479);
 		frmJackRunner.getContentPane().add(canvas);
-		
+
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				SpielLaden xmlReader;
 				try {
 					xmlReader = new SpielLaden();
-					(xmlReader.parse("C:/Users/chris_000/Desktop/level.xml")).repaintAll(canvas);;
-					
-					} catch (Exception e) {
+					level = (xmlReader
+							.parse("C:/Users/chris_000/Desktop/level.xml"));
+					level.repaintAll(canvas);
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				
 			}
 		});
 		mnLevel.add(mntmLaden);
@@ -169,31 +165,29 @@ public class Main {
 			}
 		});
 		menu.add(mntmber);
-
-//		level1.level1();
 		
 
-//		int i = 0;
-//		for (Gameblock rect : level1.getListe()) {
-//			if (level1.getListe().get(i) != null) {
-//				block[i] = new JLabel();
-//				block[i].setBounds(rect.getX(), rect.getY(), rect.getWidth(),
-//						rect.getHeigth());
-//				block[i].setBackground(Color.BLUE);
-//				Statisches.Bild_Fass(block[i]);
-//				frmJackRunner.getContentPane().add(block[i]);
-//				i++;
-//			}
-//		}
+//				spielfigur = canvas.getGraphics();
+//		spielfigur.setColor(Color.BLUE);
+//		spielfigur.fillRect(spieler.getX() - (spieler.getWidth() / 2),
+//				spieler.getY() - (spieler.getHeigth() / 2), spieler.getWidth(),
+//				spieler.getHeigth());
 
+		//paintComponent(spielfigur);
 		JLabel lblBewegenMitDen = new JLabel(
 				"Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frmJackRunner.getContentPane().add(lblBewegenMitDen);
-		
-		
 
 		Bewegung bewegung = new Bewegung();
 		bewegung.Bewegung_erkennen();
 	}
+	@Override
+	public void paintComponent(Graphics G){
+		super.paintComponent(G);
+		G.fillRect(spieler.getX() - (spieler.getWidth() / 2),
+				spieler.getY() - (spieler.getHeigth() / 2), spieler.getWidth(),
+				spieler.getHeigth());
+		}
+
 }

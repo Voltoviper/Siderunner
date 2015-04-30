@@ -43,56 +43,50 @@ public class Bewegung implements KeyListener {
 			// Nach Rechts gehen
 			Statisches.Bild_rechts();
 			int[] koordinaten1 = new int[2];
-			koordinaten1 = Kollision.kollision_rechts(Main.spielfigur,
+			koordinaten1 = Kollision.kollision_rechts(Main.spieler,
 					Main.level1);
-			if (Main.spielfigur.getX() + Spielfigur.getBreite() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
+			if (Main.spieler.getX() + Spielfigur.getBreite() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 					.getWidth()) {
-				Main.spielfigur
-						.setBounds(
-								Main.frmJackRunner.getWidth()
-										- Spielfigur.getBreite(),
-								Main.spielfigur.getY(),
-								Main.spielfigur.getWidth(),
-								Main.spielfigur.getHeight());
+				Main.spielfigur.fillRect(Main.frmJackRunner.getWidth()-Main.spieler.getWidth(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
+//				Main.spielfigur
+//						.setBounds(
+//								Main.frmJackRunner.getWidth()
+//										- Spielfigur.getBreite(),
+//								Main.spieler.getY(),
+//								Main.spieler.getWidth(),
+//								Main.spieler.getHeigth());
 			} else {
-				Main.spielfigur
-						.setBounds(koordinaten1[0], koordinaten1[1],
-								Main.spielfigur.getWidth(), Main.spielfigur
-										.getHeight());
+				Main.spielfigur.fillRect(koordinaten1[0],koordinaten1[1] , Main.spieler.getWidth(), Main.spieler.getHeigth());
+
 			}
-			Main.lblNewLabel.setText(Main.spielfigur.getX() + "");
-			Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
+			Main.lblNewLabel.setText(Main.spieler.getX() + "");
+			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			break;
 		case 37:
 			// Nach Links gehen
 			Statisches.Bild_links();
 			int[] koordinaten = new int[2];
-			if (Main.spielfigur.getX() - Spielfigur.getGeschwindigkeit() <= 0) {
-				Main.spielfigur
-						.setBounds(0, Main.spielfigur.getY(),
-								Main.spielfigur.getWidth(),
-								Main.spielfigur.getHeight());
+			if (Main.spieler.getX() - Spielfigur.getGeschwindigkeit() <= 0) {
+				Main.spielfigur.fillRect(0,Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
 			} else {
 				
-				koordinaten = Kollision.kollision_links(Main.spielfigur,
+				koordinaten = Kollision.kollision_links(Main.spieler,
 						Main.level1);
-				Main.spielfigur.setBounds(koordinaten[0],
-						koordinaten[1], Main.spielfigur.getWidth(),
-						Main.spielfigur.getHeight());
+				Main.spielfigur.fillRect(koordinaten[0],koordinaten[1] , Main.spieler.getWidth(), Main.spieler.getHeigth());
 			}
-			Main.lblNewLabel.setText(Main.spielfigur.getX() + "");
-			Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
+			Main.lblNewLabel.setText(Main.spieler.getX() + "");
+			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			break;
 		case 32:
 			
 			Thread huepf = new Thread() {
 				public void run() {
-					Main.spielfigur.setBounds(Main.spielfigur.getX(),
-							Main.spielfigur.getY() - 50,
-							Main.spielfigur.getWidth(),
-							Main.spielfigur.getHeight());
+					Main.spielfigur.fillRect(Main.spieler.getX(),
+							Main.spieler.getY() - 50,
+							Main.spieler.getWidth(),
+							Main.spieler.getHeigth());
 					
-					Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
+					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 				}
 			};
 			huepf2 = new Thread() {
@@ -104,21 +98,20 @@ public class Bewegung implements KeyListener {
 						e.printStackTrace();
 					}
 					int[] koordinaten2 = new int[2];
-					koordinaten2 = Kollision.kollision_unten(Main.spielfigur,
+					koordinaten2 = Kollision.kollision_unten(Main.spieler,
 							Main.level1);
-					
-					Main.spielfigur.setBounds(Main.spielfigur.getX(),
+					Main.spielfigur.fillRect(Main.spieler.getX(),
 							koordinaten2[1],
-							Main.spielfigur.getWidth(),
-							Main.spielfigur.getHeight());
-					Main.lblNewLabel.setText(Main.spielfigur.getX() + "");
-					Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
+							Main.spieler.getWidth(),
+							Main.spieler.getHeigth());
+					Main.lblNewLabel.setText(Main.spieler.getX() + "");
+					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 
 				}
 			};
 
 			huepf.start();
-			Main.lblNewLabel_1.setText(Main.spielfigur.getY() + "");
+			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			huepf2.start();
 			break;
 		}
