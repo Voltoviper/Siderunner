@@ -35,16 +35,17 @@ public class Gameblock extends Gameobject {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-/**
- * 
- * @param x
- * @param y
- * @param width
- * @param heigth
- * @param isDeadly
- * @param name
- * @param color
- */
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param heigth
+	 * @param isDeadly
+	 * @param name
+	 * @param color
+	 */
 	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name, Color color) {
 		super(x, y, width, heigth);
 		this.isDeadly = isDeadly;
@@ -52,11 +53,14 @@ public class Gameblock extends Gameobject {
 		this.color = color;
 	}
 
+	public Gameblock() {
+		super();
+	}
+
 	@Override
-public String toString() {
-	return "Gameblock [isDeadly=" + isDeadly + ", name=" + name + ", color="
-			+ color + "]";
-}
+	public String toString() {
+		return "Gameblock [isDeadly=" + isDeadly + ", name=" + name + ", color=" + color + "]";
+	}
 
 	/** Info for the Leveleditor-View */
 	public String infoIsDeadly() {
@@ -74,10 +78,10 @@ public String toString() {
 		Gameblock intersection = level.getIntersectingGameblock(this);
 
 		/* erasing */
-		if (this.getName().equals("Eraser") && intersection != null) { 
+		if (this.getName().equals("Eraser") && intersection != null) {
 			level.removeBlock(intersection);
 			level.repaintAll(canvas);
-			
+
 			/* Spawn and goal unlock */
 			if (intersection.getName().equals("Spawn") || intersection.getName().equals("Goal")) {
 				if (intersection.getName().equals("Spawn"))
@@ -88,7 +92,7 @@ public String toString() {
 		}
 
 		/* painting and adding */
-		if (intersection == null && !this.getName().equals("Eraser")) { 
+		if (intersection == null && !this.getName().equals("Eraser")) {
 
 			Graphics g = canvas.getGraphics();
 			g.setColor(getColor());
@@ -144,6 +148,5 @@ public String toString() {
 			return false;
 		return true;
 	}
-	
 
 }

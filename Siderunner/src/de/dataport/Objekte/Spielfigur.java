@@ -8,20 +8,10 @@ public class Spielfigur extends Gameobject {
 	private static int breite=50, hoehe=85;
 	public Spielfigur(int x, int y) {
 		super(x, y);
+		this.setHeigth(hoehe);
+		this.setWidth(breite);
+	}
 
-	}
-	public static int getBreite() {
-		return breite;
-	}
-	public static void setBreite(int breite) {
-		Spielfigur.breite = breite;
-	}
-	public static int getHoehe() {
-		return hoehe;
-	}
-	public static void setHoehe(int hoehe) {
-		Spielfigur.hoehe = hoehe;
-	}
 	public static int getGeschwindigkeit() {
 		return geschwindigkeit;
 	}

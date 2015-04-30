@@ -16,6 +16,8 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Start {
 
@@ -68,15 +70,23 @@ public class Start {
 		JLabel lblIcon = new JLabel("");
 		lblIcon.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Siderunner Test Logo.png")));
 		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
-//		ImageIcon image = new ImageIcon(getClass().getResource("/Siderunner Test Logo.png"));
-//		lblIcon.setIcon(image);
+		// ImageIcon image = new
+		// ImageIcon(getClass().getResource("/Siderunner Test Logo.png"));
+		// lblIcon.setIcon(image);
 		panel.add(lblIcon, BorderLayout.CENTER);
 
 		Box verticalBoxButtons = Box.createVerticalBox();
 		verticalBox.add(verticalBoxButtons);
 
 		JButton btnSingleplayer = new JButton("");
-		btnSingleplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
+		btnSingleplayer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Main().frmJackRunner.setVisible(true);
+			}
+		});
+		btnSingleplayer
+				.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
 		btnSingleplayer.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		verticalBoxButtons.add(btnSingleplayer);
 		btnSingleplayer.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -88,12 +98,16 @@ public class Start {
 		verticalBoxButtons.add(btnMultiplayer);
 
 		JButton btnLeveleditor = new JButton("");
+		btnLeveleditor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new Leveleditor().getFrame().setVisible(true);
+			}
+		});
 		btnLeveleditor.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Leveleditor.png")));
 		btnLeveleditor.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		verticalBoxButtons.add(btnLeveleditor);
 		btnLeveleditor.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		
 
 	}
 

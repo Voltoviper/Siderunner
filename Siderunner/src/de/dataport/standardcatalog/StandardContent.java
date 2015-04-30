@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 

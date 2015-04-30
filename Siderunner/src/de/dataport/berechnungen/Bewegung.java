@@ -45,7 +45,7 @@ public class Bewegung implements KeyListener {
 			int[] koordinaten1 = new int[2];
 			koordinaten1 = Kollision.kollision_rechts(Main.spieler,
 					Main.level1);
-			if (Main.spieler.getX() + Spielfigur.getBreite() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
+			if (Main.spieler.getX() + Main.spieler.getWidth() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 					.getWidth()) {
 				Main.spielfigur.fillRect(Main.frmJackRunner.getWidth()-Main.spieler.getWidth(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
 //				Main.spielfigur
@@ -56,7 +56,8 @@ public class Bewegung implements KeyListener {
 //								Main.spieler.getWidth(),
 //								Main.spieler.getHeigth());
 			} else {
-				Main.spielfigur.fillRect(koordinaten1[0],koordinaten1[1] , Main.spieler.getWidth(), Main.spieler.getHeigth());
+				Main.spieler.setX(Main.spieler.getX()+50);
+				
 
 			}
 			Main.lblNewLabel.setText(Main.spieler.getX() + "");
@@ -115,5 +116,7 @@ public class Bewegung implements KeyListener {
 			huepf2.start();
 			break;
 		}
+		Main.level.repaintAll(Main.canvas);
+		Main.spielfigur.fillRect(Main.spieler.getX(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
 	}
 }
