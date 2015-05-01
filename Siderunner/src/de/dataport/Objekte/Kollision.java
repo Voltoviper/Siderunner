@@ -21,7 +21,11 @@ public class Kollision {
 						koordinaten[0] = Main.spieler.getX()
 								+ Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Main.spieler.getHeigth();
-						Bewegung.huepf2.stop();
+						try{
+							Bewegung.huepf.stop();
+						}catch(Exception e){
+						}
+						
 						break;
 					} else if (Main.spieler.getX() + Main.spieler.getWidth() <= rect.getX()) {
 						koordinaten[0] = rect.getX() - Main.spieler.getWidth();
@@ -32,7 +36,7 @@ public class Kollision {
 				} else {
 					koordinaten[0] = Main.spieler.getX()
 							+ Spielfigur.getGeschwindigkeit();
-					koordinaten[1] = Main.test.getY() - Main.spieler.getHeigth();
+					//koordinaten[1] = Main.test.getY() - Main.spieler.getHeigth();
 				}
 			}
 		}
@@ -51,7 +55,7 @@ public class Kollision {
 						koordinaten[0] = Main.spieler.getX()
 								- Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Main.spieler.getHeigth();
-						Bewegung.huepf2.stop();
+						Bewegung.huepf.stop();
 						break;
 					} else if (figur.getX() > rect.getX()) {
 						koordinaten[0] = rect.getX() + rect.getWidth();

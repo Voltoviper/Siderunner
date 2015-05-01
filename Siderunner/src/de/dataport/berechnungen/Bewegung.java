@@ -10,7 +10,7 @@ import de.dataport.window.Main;
 
 public class Bewegung implements KeyListener {
 
-	public static Thread huepf2;
+	public static Thread huepf;
 	public static int zwischenspeicher;
 	
 	public void Bewegung_erkennen() {
@@ -43,16 +43,15 @@ public class Bewegung implements KeyListener {
 			// Nach Rechts gehen
 			Statisches.Bild_rechts();
 			int[] koordinaten1 = new int[2];
-//			koordinaten1 = Kollision.kollision_rechts(Main.spieler,
-//					Main.level1);
+			koordinaten1 = Kollision.kollision_rechts(Main.spieler,
+					Main.level);
 			if (Main.spieler.getX() + Main.spieler.getWidth() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 					.getWidth()) {
 				Main.spieler.setX(Main.frmJackRunner.getWidth()-Main.spieler.getWidth());
 				Main.spieler.setY(Main.spieler.getY());
 			} else {
-				Main.spieler.setX(Main.spieler.getX()+Spielfigur.getGeschwindigkeit());
+				Main.spieler.setX(koordinaten1[0]);
 				
-
 			}
 			Main.lblNewLabel.setText(Main.spieler.getX() + "");
 			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
@@ -74,10 +73,9 @@ public class Bewegung implements KeyListener {
 			break;
 		case 32:
 			
-			Thread huepf = new Thread() {
+			huepf = new Thread() {
 				public void run() {
 					Main.spieler.setY(Main.spieler.getY()-50);
-					
 					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 					try {
 						Thread.sleep(200);
@@ -86,12 +84,14 @@ public class Bewegung implements KeyListener {
 						e.printStackTrace();
 					}
 					Main.spieler.setY(Main.spieler.getY()+50);
+					Main.level.repaintAll(Main.canvas);
+					Main.spielfigur.fillRect(Main.spieler.getX(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
 				}
 			};
-			huepf2 = new Thread() {
-				public void run() {
-					
-					int[] koordinaten2 = new int[2];
+//			huepf2 = new Thread() {
+//				public void run() {
+//					
+//					int[] koordinaten2 = new int[2];
 //					koordinaten2 = Kollision.kollision_unten(Main.spieler,
 //							Main.level1);
 					
@@ -99,12 +99,12 @@ public class Bewegung implements KeyListener {
 //							koordinaten2[1],
 //							Main.spieler.getWidth(),
 //							Main.spieler.getHeigth());
-					Main.lblNewLabel.setText(Main.spieler.getX() + "");
-					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
-					Main.level.repaintAll(Main.canvas);
-					Main.spielfigur.fillRect(Main.spieler.getX(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
-				}
-			};
+//					Main.lblNewLabel.setText(Main.spieler.getX() + "");
+//					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+//					Main.level.repaintAll(Main.canvas);
+//					Main.spielfigur.fillRect(Main.spieler.getX(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
+//				}
+//			};
 
 			huepf.start();
 			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
