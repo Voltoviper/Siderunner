@@ -48,13 +48,7 @@ public class Bewegung implements KeyListener {
 			if (Main.spieler.getX() + Main.spieler.getWidth() + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 					.getWidth()) {
 				Main.spielfigur.fillRect(Main.frmJackRunner.getWidth()-Main.spieler.getWidth(),Main.spieler.getY() , Main.spieler.getWidth(), Main.spieler.getHeigth());
-//				Main.spielfigur
-//						.setBounds(
-//								Main.frmJackRunner.getWidth()
-//										- Spielfigur.getBreite(),
-//								Main.spieler.getY(),
-//								Main.spieler.getWidth(),
-//								Main.spieler.getHeigth());
+
 			} else {
 				Main.spieler.setX(Main.spieler.getX()+50);
 				

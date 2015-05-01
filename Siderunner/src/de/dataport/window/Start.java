@@ -2,19 +2,20 @@ package de.dataport.window;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -52,7 +53,8 @@ public class Start {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 450, 728);
+		frame.setBounds(Toolkit.getDefaultToolkit()
+	            .getScreenSize().width/2-225, 0, 450, 728);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
