@@ -139,7 +139,7 @@ public class Main{
 					level = Serializer.read(frmJackRunner);
 					if (level != null){
 						level.repaintAll(canvas);
-						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY());
+						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()-Spielfigur.getHoehe());
 						spielfigur = canvas.getGraphics();
 						spielfigur.setColor(Color.BLACK);
 						spielfigur.fillRect(spieler.getX(), spieler.getY(), spieler.getWidth(), spieler.getHeigth());
