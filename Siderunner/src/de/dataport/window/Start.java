@@ -68,6 +68,7 @@ public class Start {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblIcon = new JLabel("");
+		//Du musst die png Datei noch einmal mit in den GIT Pfad einbinden :) Da hast du beim Comitten ein Häkchen vergessen
 		lblIcon.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Siderunner Test Logo.png")));
 		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		// ImageIcon image = new
