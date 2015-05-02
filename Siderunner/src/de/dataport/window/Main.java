@@ -68,7 +68,7 @@ public class Main{
 		frmJackRunner.setResizable(true);
 		frmJackRunner.setTitle("Jack Runner");
 		frmJackRunner.setBounds(100, 100, 741, 554);
-		frmJackRunner.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmJackRunner.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmJackRunner.getContentPane().setLayout(null);
 
 //		test = new Boden(0, frmJackRunner.getHeight() - 65, frmJackRunner.getWidth(), 10);

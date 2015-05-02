@@ -8,19 +8,24 @@ import de.dataport.window.Main;
 public class Kollision {
 	boolean kollision;
 	public static int[] koordinaten = new int[2];
+	static Gameblock[] beruehrpunkte = new Gameblock[1000];
+	String orientierung;
 
 	public static int[] kollision_rechts(Spielfigur spielfigur, Level level) {
-
+		int i = 0;
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
-
+			
 				if (Main.spieler.getX() + Main.spieler.getWidth()
 						+ Spielfigur.getGeschwindigkeit() > rect.getX()
 						&& Main.spieler.getX() < rect.getX() + rect.getWidth()) {
 					if (Main.spieler.getY() <= rect.getY() - Main.spieler.getHeigth()) {
+					//	beruehrpunkte[i] = rect;
+						i++;
 						koordinaten[0] = Main.spieler.getX()
 								+ Spielfigur.getGeschwindigkeit();
 						koordinaten[1] = rect.getY() - Main.spieler.getHeigth();
+						
 						break;
 					} else if (Main.spieler.getX() + Main.spieler.getWidth() <= rect.getX()) {
 						koordinaten[0] = rect.getX() - Main.spieler.getWidth();
@@ -35,6 +40,7 @@ public class Kollision {
 				}
 			}
 		}
+		//koordinaten = auswählen(beruehrpunkte, 0);
 		return koordinaten;
 
 	}
@@ -88,5 +94,15 @@ public class Kollision {
 
 		return koordinaten;
 
+	}
+	private static int[] auswählen(Gameblock[] liste, int Orientierung){
+		switch(Orientierung){
+		case 0: 
+			
+			break;
+		}
+		
+		
+		return null;
 	}
 }
