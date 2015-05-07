@@ -19,8 +19,8 @@ import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
-import de.dataport.standardcatalog.Standard;
-import de.dataport.system.Speichern_unter;
+import de.dataport.standardcatalog.StandardContent;
+import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
 
 import java.awt.event.ActionListener;
@@ -41,6 +41,10 @@ public class Leveleditor {
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
+
+	public JFrame getFrame() {
+		return frame;
+	}
 
 	private Level level;
 
@@ -85,7 +89,7 @@ public class Leveleditor {
 	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
 	private ListModel<Gameblock> createDefaultBlockCatalog() {
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<>();
-		for (Gameblock gb : Standard.getStandardBlocks())
+		for (Gameblock gb : StandardContent.getStandardBlocks())
 			listModel.addElement(gb);
 		return listModel;
 	}
@@ -99,7 +103,7 @@ public class Leveleditor {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		/* Canvas */
@@ -159,8 +163,14 @@ public class Leveleditor {
 		JMenuItem mntmSave = new JMenuItem("Save...");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Speichern_unter speichern = new Speichern_unter();
-				speichern.saveAs(null, level);
+//				Speichern_unter speichern = new Speichern_unter();
+//				speichern.saveAs(null, level);
+				try {
+					Serializer.write(level, frame);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 

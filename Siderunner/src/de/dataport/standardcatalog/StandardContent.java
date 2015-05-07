@@ -7,7 +7,7 @@ import java.util.List;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 
-public abstract class Standard {
+public abstract class StandardContent{
 
 	public static List<Gameblock> getStandardBlocks(){
 		List<Gameblock> lBlocks=new ArrayList<>();
