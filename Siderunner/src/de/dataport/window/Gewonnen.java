@@ -32,7 +32,7 @@ public class Gewonnen extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JLabel lblHerzlichenGlckwunschSie = new JLabel("<html><body> Herzlichen Gl\u00FCckwunsch, sie haben das Ziel erreicht.<br> Klicken Sie auf OK, um zum Hauptmenü zurückzukehren.</body></html>");
-		lblHerzlichenGlckwunschSie.setBounds(65, 74, 288, 50);
+		lblHerzlichenGlckwunschSie.setBounds(65, 74, 306, 71);
 		contentPanel.add(lblHerzlichenGlckwunschSie);
 		{
 			JPanel buttonPane = new JPanel();
