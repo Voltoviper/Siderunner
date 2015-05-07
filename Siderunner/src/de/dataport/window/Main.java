@@ -67,7 +67,7 @@ public class Main{
 		frmJackRunner = new JFrame();
 		frmJackRunner.setResizable(true);
 		frmJackRunner.setTitle("Jack Runner");
-		frmJackRunner.setBounds(100, 100, 741, 554);
+		frmJackRunner.setBounds(100, 100, 900, 554);
 		frmJackRunner.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmJackRunner.getContentPane().setLayout(null);
 
@@ -93,19 +93,20 @@ public class Main{
 		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
 		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JLabel lblX = new JLabel("x");
-				lblX.setBounds(575, 11, 46, 14);
-				JLabel lblY = new JLabel("y");
-				lblY.setBounds(575, 29, 46, 14);
-				lblNewLabel.setText(spieler.getX() + "");
-				lblNewLabel.setBounds(612, 11, 46, 14);
-				lblNewLabel_1.setText(spieler.getY() + "");
-				lblNewLabel_1.setBounds(612, 29, 46, 14);
-
+				JLabel lblX = new JLabel("x:");
+				lblX.setBounds(780, 11, 46, 14);
+				JLabel lblY = new JLabel("y:");
+				lblY.setBounds(780, 29, 46, 14);
 				frmJackRunner.getContentPane().add(lblX);
 				frmJackRunner.getContentPane().add(lblY);
 				frmJackRunner.getContentPane().add(lblNewLabel);
 				frmJackRunner.getContentPane().add(lblNewLabel_1);
+				lblNewLabel.setText(spieler.getX() + "");
+				lblNewLabel.setBounds(800, 11, 46, 14);
+				lblNewLabel_1.setText(spieler.getY() + "");
+				lblNewLabel_1.setBounds(800, 29, 46, 14);
+
+				
 			}
 		});
 		mnDatei.add(mntmKoordinatenAnzeigen);

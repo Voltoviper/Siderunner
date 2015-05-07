@@ -16,6 +16,7 @@ public class Bewegung implements KeyListener {
 
 	public void Bewegung_erkennen() {
 		Main.frmJackRunner.addKeyListener(this);
+		Main.canvas.addKeyListener(this);
 	}
 
 	@Override
@@ -103,6 +104,7 @@ public class Bewegung implements KeyListener {
 						Main.spielfigur.fillRect(Main.spieler.getX(),
 								Main.spieler.getY(), Main.spieler.getWidth(),
 								Main.spieler.getHeigth());
+						Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 						jump = false;
 						}
 					}
@@ -119,8 +121,8 @@ public class Bewegung implements KeyListener {
 			// koordinaten2[1],
 			// Main.spieler.getWidth(),
 			// Main.spieler.getHeigth());
-			// Main.lblNewLabel.setText(Main.spieler.getX() + "");
-			// Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+			 Main.lblNewLabel.setText(Main.spieler.getX() + "");
+			 Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			// Main.level.repaintAll(Main.canvas);
 			// Main.spielfigur.fillRect(Main.spieler.getX(),Main.spieler.getY()
 			// , Main.spieler.getWidth(), Main.spieler.getHeigth());

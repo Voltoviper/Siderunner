@@ -53,6 +53,7 @@ public class Start {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
+		frame.setTitle("Jack Runner");
 		frame.setBounds(Toolkit.getDefaultToolkit()
 	            .getScreenSize().width/2-225, 0, 450, 728);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

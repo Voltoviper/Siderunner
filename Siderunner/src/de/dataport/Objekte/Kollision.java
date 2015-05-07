@@ -1,8 +1,11 @@
 package de.dataport.Objekte;
 
+import javax.swing.JDialog;
+
 import de.dataport.berechnungen.Bewegung;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.window.Gewonnen;
 import de.dataport.window.Main;
 
 public class Kollision {
@@ -10,6 +13,7 @@ public class Kollision {
 	public static int[] koordinaten = new int[2];
 	static Gameblock[] beruehrpunkte = new Gameblock[1000];
 	String orientierung;
+	public static Gewonnen fenster;
 
 	public static int[] kollision_rechts(Spielfigur spielfigur, Level level) {
 		int i = 0;
@@ -41,8 +45,18 @@ public class Kollision {
 			}
 		}
 		//koordinaten = auswählen(beruehrpunkte, 0);
+		zielprüfung(koordinaten);
 		return koordinaten;
 
+	}
+
+	private static void zielprüfung(int[] koordinaten2) {
+		// TODO Auto-generated method stub
+		if(koordinaten2[0]+Spielfigur.getBreite()>Main.level.getGoal().getX()){
+			fenster = new Gewonnen();
+			fenster.setVisible(true);
+			fenster.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		}
 	}
 
 	public static int[] kollision_links(Spielfigur figur, Level level) {
@@ -63,9 +77,6 @@ public class Kollision {
 						koordinaten[1] = Main.spieler.getY();
 						break;
 					}
-
-					// koordinaten[0] = level.getListe()[0].getX() -
-					// Spielfigur.getBreite();
 				} else {
 					koordinaten[0] = Main.spieler.getX()
 							- Spielfigur.getGeschwindigkeit();
