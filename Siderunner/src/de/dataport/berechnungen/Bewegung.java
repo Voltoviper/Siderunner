@@ -100,10 +100,7 @@ public class Bewegung implements KeyListener {
 							 koordinaten2 = Kollision.kollision_unten(Main.spieler,Main.level);
 
 						Main.spieler.setY(koordinaten2[1]);
-						Main.level.repaintAll(Main.canvas);
-						Main.spielfigur.fillRect(Main.spieler.getX(),
-								Main.spieler.getY(), Main.spieler.getWidth(),
-								Main.spieler.getHeigth());
+
 						Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 						jump = false;
 						}
@@ -135,7 +132,7 @@ public class Bewegung implements KeyListener {
 			break;
 		}
 		//Main.level.repaintAll(Main.canvas);
-		Main.spielfigur.fillRect(Main.spieler.getX(), Main.spieler.getY(),
-				Main.spieler.getWidth(), Main.spieler.getHeigth());
+//		Main.spielfigur.fillRect(Main.spieler.getX(), Main.spieler.getY(),
+//				Main.spieler.getWidth(), Main.spieler.getHeigth());
 	}
 }

@@ -5,13 +5,20 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.*;
 
+import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.window.Main;
 
 public class Level {
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
 	private Gameblock goal;
-
+	private List<Spielfigur> player = new ArrayList<Spielfigur>();
+	
+	public void addPlayer(Spielfigur spielfigur){
+		player.add(spielfigur);
+	}
+	
 	public Gameblock getSpawn() {
 		return spawn;
 	}
@@ -89,6 +96,7 @@ public class Level {
 			g.setColor(gb.getColor());
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeigth() / 2), gb.getWidth(), gb.getHeigth());
 		}
+		for(Spielfigur p:player)p.repaintPlayer(canvas);
 	}
 
 }

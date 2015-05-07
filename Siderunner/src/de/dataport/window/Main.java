@@ -125,13 +125,10 @@ public class Main {
 				try {
 					level = Serializer.read(frmJackRunner);
 					if (level != null) {
-						level.repaintAll(canvas);
 						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 								- Spielfigur.getHoehe());
-						spielfigur = canvas.getGraphics();
-						spielfigur.setColor(Color.BLACK);
-						spielfigur.fillRect(spieler.getX(), spieler.getY(), spieler.getWidth(),
-								spieler.getHeigth());
+						spieler.setImage("/de/dataport/window/graphics/pirat.png");
+						level.addPlayer(spieler);
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
 						
@@ -141,6 +138,7 @@ public class Main {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								level.repaintAll(canvas);
+								
 							}});
 						timer.start();
 						
