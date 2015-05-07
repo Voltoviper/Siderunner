@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.Timer;
 
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
@@ -21,7 +22,6 @@ import de.dataport.berechnungen.Bewegung;
 import de.dataport.berechnungen.Boden;
 import de.dataport.level.Level;
 import de.dataport.system.Serializer;
-import de.dataport.system.Statisches;
 
 public class Main {
 
@@ -134,6 +134,16 @@ public class Main {
 								spieler.getHeigth());
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
+						
+						
+						
+						Timer timer = new Timer(10, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								level.repaintAll(canvas);
+							}});
+						timer.start();
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -134,7 +134,7 @@ public class Bewegung implements KeyListener {
 			// huepf2.start();
 			break;
 		}
-		Main.level.repaintAll(Main.canvas);
+		//Main.level.repaintAll(Main.canvas);
 		Main.spielfigur.fillRect(Main.spieler.getX(), Main.spieler.getY(),
 				Main.spieler.getWidth(), Main.spieler.getHeigth());
 	}
