@@ -103,9 +103,7 @@ public String toString() {
 			}
 			if (!level.getListe().contains(this))
 				level.addBlock(this);
-
 		}
-
 	}
 
 	@Override

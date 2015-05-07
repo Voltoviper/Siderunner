@@ -1,13 +1,11 @@
 package de.dataport.level;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.*;
 
 import de.dataport.datastructures.Gameblock;
-import de.dataport.window.Main;
 
 public class Level {
 	private List<Gameblock> content = new ArrayList<Gameblock>();
