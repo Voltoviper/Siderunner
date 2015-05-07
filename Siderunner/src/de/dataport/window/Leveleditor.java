@@ -25,6 +25,8 @@ import de.dataport.usercontrols.GameblockListElement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.AdjustmentEvent;
 
 /**
  * 
@@ -136,6 +138,11 @@ public class Leveleditor {
 
 		/* Scrollbar */
 		Scrollbar scrollbar = new Scrollbar();
+		scrollbar.addAdjustmentListener(new AdjustmentListener() {
+			public void adjustmentValueChanged(AdjustmentEvent arg0) {
+				
+			}
+		});
 		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
 		scrollbar.setBounds(202, 517, 582, 23);
 		frame.getContentPane().add(scrollbar);
@@ -191,6 +198,7 @@ public class Leveleditor {
 					.getSelectedValue().getHeigth(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
 					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
 
+			/* Spawn & Goal - lock */
 			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;

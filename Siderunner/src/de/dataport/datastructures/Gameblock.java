@@ -107,9 +107,7 @@ public class Gameblock extends Gameobject {
 			}
 			if (!level.getListe().contains(this))
 				level.addBlock(this);
-
 		}
-
 	}
 
 	@Override

@@ -23,7 +23,7 @@ import de.dataport.level.Level;
 import de.dataport.system.Serializer;
 import de.dataport.system.Statisches;
 
-public class Main{
+public class Main {
 
 	public static Graphics spielfigur;
 	public static Spielfigur spieler;
@@ -71,12 +71,6 @@ public class Main{
 		frmJackRunner.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmJackRunner.getContentPane().setLayout(null);
 
-//		test = new Boden(0, frmJackRunner.getHeight() - 65, frmJackRunner.getWidth(), 10);
-//		test.boden_einpflegen();
-//		Spielfigur spieler = new Spielfigur(5, test.getY() - Spielfigur.getHoehe());
-//		Statisches.Bild_rechts();
-//		Kollision.koordinaten[0] = spieler.getX();
-//		Kollision.koordinaten[1] = spieler.getY();
 		JMenuBar menuBar = new JMenuBar();
 		frmJackRunner.setJMenuBar(menuBar);
 
@@ -106,7 +100,6 @@ public class Main{
 				lblNewLabel_1.setText(spieler.getY() + "");
 				lblNewLabel_1.setBounds(800, 29, 46, 14);
 
-				
 			}
 		});
 		mnDatei.add(mntmKoordinatenAnzeigen);
@@ -118,37 +111,31 @@ public class Main{
 
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
-		canvas.setBounds(5, 10, 710, 479);
+		canvas.setBounds(0, 0, 725, 494);
 		frmJackRunner.getContentPane().add(canvas);
+
+		// JPanel panel = new JPanel();
+		// panel.setBounds(0, 0, 725, 494);
+		// frmJackRunner.getContentPane().add(panel);
 
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// SpielLaden xmlReader;
-				// try {
-				// xmlReader = new SpielLaden();
-				// level = (xmlReader
-				// .parse(xmlReader.auswählen()));
-				// level.repaintAll(canvas);
-				// } catch (Exception e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
-
 				try {
 					level = Serializer.read(frmJackRunner);
-					if (level != null){
+					if (level != null) {
 						level.repaintAll(canvas);
-						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()-Spielfigur.getHoehe());
+						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+								- Spielfigur.getHoehe());
 						spielfigur = canvas.getGraphics();
 						spielfigur.setColor(Color.BLACK);
-						spielfigur.fillRect(spieler.getX(), spieler.getY(), spieler.getWidth(), spieler.getHeigth());
+						spielfigur.fillRect(spieler.getX(), spieler.getY(), spieler.getWidth(),
+								spieler.getHeigth());
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -169,13 +156,6 @@ public class Main{
 		});
 		menu.add(mntmber);
 
-//		 spielfigur = canvas.getGraphics();
-//		 spielfigur.setColor(Color.BLUE);
-		// spielfigur.fillRect(spieler.getX() - (spieler.getWidth() / 2),
-		// spieler.getY() - (spieler.getHeigth() / 2), spieler.getWidth(),
-		// spieler.getHeigth());
-
-		// paintComponent(spielfigur);
 		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frmJackRunner.getContentPane().add(lblBewegenMitDen);
@@ -183,5 +163,4 @@ public class Main{
 		Bewegung bewegung = new Bewegung();
 		bewegung.Bewegung_erkennen();
 	}
-
 }
