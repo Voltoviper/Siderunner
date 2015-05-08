@@ -134,11 +134,10 @@ public class Main {
 						
 						
 						
-						Timer timer = new Timer(10, new ActionListener() {
+						Timer timer = new Timer(1, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								level.repaintAll(canvas);
-								
+								level.repaintAll(canvas);	
 							}});
 						timer.start();
 						
