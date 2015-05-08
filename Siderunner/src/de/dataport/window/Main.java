@@ -36,6 +36,7 @@ public class Main {
 	public static BufferedImage myPicture = null;
 	public static Level level;
 	public static Canvas canvas;
+	public static Timer timer;
 
 	/**
 	 * Launch the application.
@@ -80,11 +81,17 @@ public class Main {
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (timer != null) {
+					if (timer.isRunning()) {
+						timer.stop();
+					}
+				}
 				System.exit(0);
 			}
 		});
 
-		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
+		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem(
+				"Koordinaten anzeigen");
 		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JLabel lblX = new JLabel("x:");
@@ -125,22 +132,21 @@ public class Main {
 				try {
 					level = Serializer.read(frmJackRunner);
 					if (level != null) {
-						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
-								- Spielfigur.getHoehe());
+						spieler = new Spielfigur(level.getSpawn().getX(), level
+								.getSpawn().getY() - Spielfigur.getHoehe());
 						spieler.setImage("/de/dataport/window/graphics/pirat.png");
 						level.addPlayer(spieler);
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
-						
-						
-						
-						Timer timer = new Timer(1, new ActionListener() {
+
+						timer = new Timer(1, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								level.repaintAll(canvas);	
-							}});
+								level.repaintAll(canvas);
+							}
+						});
 						timer.start();
-						
+
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -163,7 +169,8 @@ public class Main {
 		});
 		menu.add(mntmber);
 
-		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
+		JLabel lblBewegenMitDen = new JLabel(
+				"Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frmJackRunner.getContentPane().add(lblBewegenMitDen);
 
