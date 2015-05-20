@@ -10,8 +10,18 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.dataport.level.Level;
 
+/**
+ * Import und Export der Level in eine XML Datei. 
+ * @author Jan Koch/Christoph Nebendahl
+ *
+ */
 public abstract class Serializer {
-
+	/**
+	 * Speichern des Levels mit Hilfe eines Dialoges.
+	 * @param level Ein Level, dessen Gamebloecke gespeichert werden sollen
+	 * @param thisInstance
+	 * @throws Exception Wirft eine Exception, sobald ein Problem beim Speichern auftaucht.
+	 */
 	public static void write(Level level, Component thisInstance)
 			throws Exception {
 		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG,
@@ -24,6 +34,12 @@ public abstract class Serializer {
 		}
 	}
 
+	/**
+	 * Laden eines Levels mithilfe eines Dialoges.
+	 * @param thisInstance
+	 * @return Gibt keinen Wert zurück!!!
+	 * @throws Exception Wirft eine Exception, wenn beim Zugriff auf die Datei, oder beim Einlesen der Datei ein Fehler entsteht.
+	 */
 	public static Level read(Component thisInstance) throws Exception {
 		File f = getFileToChoose(thisInstance, JFileChooser.OPEN_DIALOG,
 				"Öffnen...");
@@ -36,7 +52,13 @@ public abstract class Serializer {
 		}
 		return null;
 	}
-
+	/**
+	 * Dialog zum Speichern und Laden einer XML Datei. 
+	 * @param openOnInstance Auf welcher Instanz dieser Dialog angezeigt werden soll
+	 * @param jFileChooserDialog Legt fest, ob ein Laden oder Speichern gewünscht ist, um die Button dementsprechend azupassen
+	 * @param text Legt den Titel des Dialoges fest.
+	 * @return Wenn eine Datei geladen werden soll, Wird ein String zurück gegeben, der den Pfad enthält
+	 */
 	private static File getFileToChoose(Component openOnInstance,
 			int jFileChooserDialog, String text) {
 		JFileChooser chooser;
@@ -59,6 +81,7 @@ public abstract class Serializer {
 			if (chooser.showSaveDialog(openOnInstance) == JFileChooser.APPROVE_OPTION) {
 				String pfad = chooser.getSelectedFile().toString();
 				File file = new File(pfad);
+				//Falls der Benutzer vergisst die Dateiendung ".xml" anzuhängen wird dieses hier abgefangen.
 				if (!markUpFilter.accept(file)) {
 					pfad = pfad+".xml";
 					file = new File(pfad);

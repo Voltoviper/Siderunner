@@ -5,7 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import de.dataport.level.Level;
-
+/**
+ * Datenstruktur, die vom Gameobject erbt. Es werden nur einige weitere Eigenschaften festgelegt.
+ * @author Jan Koch
+ *
+ */
 public class Gameblock extends Gameobject {
 
 	private Boolean isDeadly;

@@ -10,6 +10,11 @@ import javax.swing.ImageIcon;
 import de.dataport.datastructures.Gameobject;
 import de.dataport.window.Start;
 
+/**
+ * Klasse der Spielfigur. 
+ * @author chris_000
+ *
+ */
 public class Spielfigur extends Gameobject {
 	
 	private static int geschwindigkeit=10;

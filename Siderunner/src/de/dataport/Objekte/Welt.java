@@ -3,6 +3,11 @@ package de.dataport.Objekte;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 
+/**
+ * Vorbereitung für die Bewegende Spielwelt. 
+ * @author Christoph Nebendahl
+ *
+ */
 public class Welt {
 
 	String name;

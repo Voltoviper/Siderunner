@@ -9,6 +9,11 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.window.Main;
 
+/**
+ * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und die SPielfigur zusammen. 
+ * @author chris_000
+ *
+ */
 public class Level {
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
@@ -47,16 +52,6 @@ public class Level {
 	public void removeBlock(Gameblock gameblock) {
 		content.remove(gameblock);
 	}
-
-//	public List<Gameblock> level1() {
-//
-//		Gameblock rect1 = new Gameblock(200, Main.test.getY() - 40, 60, 40, false, "Peter", Color.BLUE);
-//		content.add(rect1);
-//		Gameblock rect2 = new Gameblock(400, Main.test.getY() - 20, 100, 10, false, "Peter", Color.BLUE);
-//		content.add(rect2);
-//
-//		return content;
-//	}
 
 	public List<Gameblock> getListe() {
 		return content;

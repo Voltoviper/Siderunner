@@ -7,7 +7,12 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.window.Gewonnen;
 import de.dataport.window.Main;
-
+/**
+ * Kollisionsabfragen... Es werden die Listen aus der Klasse Level verwendet. Um einen Kontakt zu überprüfen. 
+ * 
+ * @author Christoph Nebendahl
+ *
+ */
 public class Kollision {
 	boolean kollision;
 	public static int[] koordinaten = new int[2];
@@ -106,6 +111,12 @@ public class Kollision {
 		return koordinaten;
 
 	}
+	/**
+	 * Methode, die den nächsten Block berechnet, der berechnet werden muss.
+	 * @param liste	Ein gameblock Array, die geprüft werden müssen
+	 * @param Orientierung Integer, der die Orientierung vorgibt.
+	 * @return gibt ein Integer Array zurück, der an Position 0 den X-Wert und an Position 1 den Y-Wert für die SPielfigur enthält.
+	 */
 	private static int[] auswählen(Gameblock[] liste, int Orientierung){
 		switch(Orientierung){
 		case 0: 

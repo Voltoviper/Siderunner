@@ -1,5 +1,10 @@
 package de.dataport.datastructures;
 
+/**
+ * Gameobject Datenstruktur. Alle Spielelemente (Ausnahme Spielfigur) Sind aus dieses Klasse geerbt.
+ * @author Jan Koch
+ *
+ */
 public class Gameobject implements  Comparable<Gameobject> {
 
 	private Integer x;
