@@ -1,5 +1,7 @@
 package de.dataport.Objekte;
 
+import java.util.ArrayList;
+
 import javax.swing.JDialog;
 
 import de.dataport.berechnungen.Bewegung;
@@ -16,7 +18,7 @@ import de.dataport.window.Main;
 public class Kollision {
 	boolean kollision;
 	public static int[] koordinaten = new int[2];
-	static Gameblock[] beruehrpunkte = new Gameblock[1000];
+	static ArrayList<Gameblock> beruehrpunkte = new ArrayList<Gameblock>();;
 	String orientierung;
 	public static Gewonnen fenster;
 
@@ -24,7 +26,28 @@ public class Kollision {
 		int i = 0;
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
-			
+				//Testbereich bitte stehen lassensSs:)
+				
+				
+//			if((Main.spieler.getX()+ Spielfigur.getBreite()+ (2*Spielfigur.getGeschwindigkeit())>rect.getX())&&
+//					(Main.spieler.getX()+Spielfigur.getBreite()<rect.getX())
+//					){
+//				if((Main.spieler.getY()- (2*50)<rect.getY()+rect.getHeigth()&&Main.spieler.getY()>rect.getY())||
+//						Main.spieler.getY()+Spielfigur.getHoehe()+(2*50)>rect.getY()&&Main.spieler.getY()+Spielfigur.getHoehe()<rect.getY())
+//				{
+//					beruehrpunkte.add(rect);
+//				}
+//			}else if((Main.spieler.getX()-(2*Spielfigur.getGeschwindigkeit())<rect.getX())&&
+//					(Main.spieler.getX()>rect.getX())
+//					){
+//				if((Main.spieler.getY()- (2*50)<rect.getY()+rect.getHeigth()&&Main.spieler.getY()>rect.getY())||
+//						Main.spieler.getY()+Spielfigur.getHoehe()+(2*50)>rect.getY()&&Main.spieler.getY()+Spielfigur.getHoehe()<rect.getY())
+//				{
+//				beruehrpunkte.add(rect);
+//				}
+//			}
+	
+				
 				if (Main.spieler.getX() + Main.spieler.getWidth()
 						+ Spielfigur.getGeschwindigkeit() > rect.getX()
 						&& Main.spieler.getX() < rect.getX() + rect.getWidth()) {
@@ -118,12 +141,28 @@ public class Kollision {
 	 * @return gibt ein Integer Array zurück, der an Position 0 den X-Wert und an Position 1 den Y-Wert für die SPielfigur enthält.
 	 */
 	private static int[] auswählen(Gameblock[] liste, int Orientierung){
+		ArrayList<Gameblock> unten = new ArrayList<Gameblock>();;
 		switch(Orientierung){
 		case 0: 
+			for(Gameblock g:liste){
+				if(g.getY()>Main.spieler.getY()+Main.spieler.getHeigth()){
+					unten.add(g);
+				}
+				
+				if(g.getX()+g.getWidth()<Main.spieler.getX()){
+					
+				}
+			}
 			
 			break;
 		}
-		
+		int y=0;
+		Gameblock speicher;
+		for (Gameblock g: unten){
+			if(g.getX()>y){
+				speicher = g;
+			}
+		}
 		
 		return null;
 	}
