@@ -19,6 +19,7 @@ public class Spielfigur extends Gameobject {
 	
 	private static int geschwindigkeit=10;
 	private static int breite=50, hoehe=85;
+	private int[] vorherige_koord = new int[2];
 	private ImageIcon image;
 	
 	public ImageIcon getImage() {
@@ -41,6 +42,8 @@ public class Spielfigur extends Gameobject {
 		super(x, y);
 		this.setHeigth(getHoehe());
 		this.setWidth(breite);
+		vorherige_koord[0]=0;
+		vorherige_koord[1]=0;
 	}
 
 	public static int getGeschwindigkeit() {
@@ -62,6 +65,20 @@ public class Spielfigur extends Gameobject {
 		Graphics g = canvas.getGraphics();
 		g.setColor(Color.BLUE);
 		g.drawImage(getImage().getImage(), getX(), getY(), canvas);
+	}
+
+	public int[] getVorherige_koord()
+	{
+		return vorherige_koord;
+	}
+
+	public void setVorherige_koord(int x, int y)
+	{
+		int[] koord = new int[2];
+		koord[0]=x;
+		koord[1]=y;
+		
+		this.vorherige_koord = koord;
 	}
 	
 }

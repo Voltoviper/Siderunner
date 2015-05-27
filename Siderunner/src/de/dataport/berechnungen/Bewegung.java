@@ -51,7 +51,6 @@ public class Bewegung implements KeyListener {
 			int[] koordinaten1 = new int[2];
 			int[] koordinaten11 = new int[2];
 			koordinaten1 = Kollision.kollision_rechts(Main.spieler, Main.level);
-			koordinaten11 = Kollision.kollision_unten(Main.spieler, Main.level);
 			if (Main.spieler.getX() + Main.spieler.getWidth()
 					+ Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
 						.getWidth()) {
@@ -60,10 +59,8 @@ public class Bewegung implements KeyListener {
 				Main.spieler.setY(Main.spieler.getY());
 			} else {
 				Main.spieler.setX(koordinaten1[0]);
-				Main.spieler.setY(koordinaten11[1]);
+				Main.spieler.setY(koordinaten1[1]);
 			}
-			Main.lblNewLabel.setText(Main.spieler.getX() + "");
-			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			break;
 		case 37:
 			// Nach Links gehen
