@@ -168,6 +168,7 @@ public class Main {
 			}
 		});
 		menu.add(mntmber);
+		
 
 		JLabel lblBewegenMitDen = new JLabel(
 				"Bewegen mit den Pfeiltasten und springen mit der Leertaste");
