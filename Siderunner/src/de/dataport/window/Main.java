@@ -133,13 +133,13 @@ public class Main {
 					level = Serializer.read(frmJackRunner);
 					if (level != null) {
 						spieler = new Spielfigur(level.getSpawn().getX(), level
-								.getSpawn().getY() - Spielfigur.getHoehe());
-						spieler.setImage("/de/dataport/window/graphics/pirat.png");
+								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
+						
 						level.addPlayer(spieler);
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
-
-						timer = new Timer(1, new ActionListener() {
+						Bewegung.bewegen(39);		//hü-hüpf
+						timer = new Timer(250, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								level.repaintAll(canvas);

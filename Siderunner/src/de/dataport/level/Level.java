@@ -94,11 +94,12 @@ public class Level {
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeigth() / 2), gb.getWidth(), gb.getHeigth());
 		}
 		for(Spielfigur p:player){
+			// ???
 			if((Main.spieler.getVorherige_koord()[0]==0)&&(Main.spieler.getVorherige_koord()[1]==0)){
 				p.repaintPlayer(canvas);
 			}else if (!((Main.spieler.getX().equals(Main.spieler.getVorherige_koord()[0]))||Main.spieler.getY().equals(Main.spieler.getVorherige_koord()[1]))){
 				p.repaintPlayer(canvas);
-				Main.spieler.setVorherige_koord(Main.spieler.getX(), Main.spieler.getY());
+				Main.spieler.setVorherige_koord(Main.spieler.getX(), Main.spieler.getY()); 
 			}
 			
 		}

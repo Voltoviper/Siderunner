@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import de.dataport.level.Level;
+
 /**
- * Datenstruktur, die vom Gameobject erbt. Es werden nur einige weitere Eigenschaften festgelegt.
+ * Datenstruktur, die vom Gameobject erbt. Es werden nur einige weitere
+ * Eigenschaften festgelegt.
+ * 
  * @author Jan Koch
  *
  */
@@ -50,7 +53,8 @@ public class Gameblock extends Gameobject {
 	 * @param name
 	 * @param color
 	 */
-	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name, Color color) {
+	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name,
+			Color color) {
 		super(x, y, width, heigth);
 		this.isDeadly = isDeadly;
 		this.name = name;
@@ -110,7 +114,8 @@ public class Gameblock extends Gameobject {
 					level.setGoal(this);
 			}
 			if (!level.getListe().contains(this))
-				level.addBlock(this);
+				if (!getName().equals("Spawn"))
+					level.addBlock(this);
 		}
 	}
 

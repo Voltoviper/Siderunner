@@ -100,7 +100,4 @@ public class Gameobject implements  Comparable<Gameobject> {
 	public int compareTo(Gameobject other) {
 		return this.getX().compareTo(other.getX());
 	}
-	
-	
-
 }

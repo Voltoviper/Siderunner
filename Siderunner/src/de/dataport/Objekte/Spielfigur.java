@@ -38,10 +38,11 @@ public class Spielfigur extends Gameobject {
 		Spielfigur.breite = breite;
 	}
 
-	public Spielfigur(int x, int y) {
+	public Spielfigur(int x, int y, String imageSource) {
 		super(x, y);
-		this.setHeigth(getHoehe());
-		this.setWidth(breite);
+		this.setImage(imageSource);
+		this.setHeigth(getImage().getIconHeight());
+		this.setWidth(getImage().getIconWidth());
 		vorherige_koord[0]=0;
 		vorherige_koord[1]=0;
 	}
