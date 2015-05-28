@@ -10,7 +10,7 @@ public class Gameobject implements  Comparable<Gameobject> {
 	private Integer x;
 	private Integer y;
 	private Integer width;
-	private Integer heigth;
+	private Integer height;
 	
 	public Integer getX() {
 		return x;
@@ -30,18 +30,18 @@ public class Gameobject implements  Comparable<Gameobject> {
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
-	public Integer getHeigth() {
-		return heigth;
+	public Integer getHeight() {
+		return height;
 	}
-	public void setHeigth(Integer heigth) {
-		this.heigth = heigth;
+	public void setHeight(Integer height) {
+		this.height = height;
 	}
 	public Gameobject(Integer x, Integer y, Integer width, Integer heigth) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
-		this.heigth = heigth;
+		this.height = heigth;
 	}
 	public Gameobject(Integer x, Integer y) {
 		super();
@@ -57,7 +57,7 @@ public class Gameobject implements  Comparable<Gameobject> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((heigth == null) ? 0 : heigth.hashCode());
+		result = prime * result + ((height == null) ? 0 : height.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
 		result = prime * result + ((x == null) ? 0 : x.hashCode());
 		result = prime * result + ((y == null) ? 0 : y.hashCode());
@@ -72,10 +72,10 @@ public class Gameobject implements  Comparable<Gameobject> {
 		if (getClass() != obj.getClass())
 			return false;
 		Gameobject other = (Gameobject) obj;
-		if (heigth == null) {
-			if (other.heigth != null)
+		if (height == null) {
+			if (other.height != null)
 				return false;
-		} else if (!heigth.equals(other.heigth))
+		} else if (!height.equals(other.height))
 			return false;
 		if (width == null) {
 			if (other.width != null)

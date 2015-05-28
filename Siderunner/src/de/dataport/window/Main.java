@@ -139,14 +139,24 @@ public class Main {
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
 						Bewegung.bewegen(39);		//hü-hüpf
-						timer = new Timer(250, new ActionListener() {
+//						timer = new Timer(100, new ActionListener() {
+//							@Override
+//							public void actionPerformed(ActionEvent e) {
+								level.repaintLevel(canvas);
+//							}
+//						});
+//						timer.start();
+						Timer tPlayer = new Timer(1, new ActionListener(){
+
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								level.repaintAll(canvas);
+								level.repaintPlayer(canvas);
+								
 							}
+							
 						});
-						timer.start();
-
+						tPlayer.start();
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

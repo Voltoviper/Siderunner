@@ -53,9 +53,9 @@ public class Gameblock extends Gameobject {
 	 * @param name
 	 * @param color
 	 */
-	public Gameblock(Integer x, Integer y, Integer width, Integer heigth, Boolean isDeadly, String name,
+	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name,
 			Color color) {
-		super(x, y, width, heigth);
+		super(x, y, width, height);
 		this.isDeadly = isDeadly;
 		this.name = name;
 		this.color = color;
@@ -77,7 +77,7 @@ public class Gameblock extends Gameobject {
 
 	/** Info for the Leveleditor-View */
 	public String infoSize() {
-		return getWidth() + "x" + getHeigth();
+		return getWidth() + "x" + getHeight();
 	}
 
 	/** Painting and verification of the Gameblock-object */
@@ -88,7 +88,7 @@ public class Gameblock extends Gameobject {
 		/* erasing */
 		if (this.getName().equals("Eraser") && intersection != null) {
 			level.removeBlock(intersection);
-			level.repaintAll(canvas);
+			level.repaintLevel(canvas);
 
 			/* Spawn and goal unlock */
 			if (intersection.getName().equals("Spawn") || intersection.getName().equals("Goal")) {
@@ -104,7 +104,7 @@ public class Gameblock extends Gameobject {
 
 			Graphics g = canvas.getGraphics();
 			g.setColor(getColor());
-			g.fillRect(getX() - getWidth() / 2, getY() - getHeigth() / 2, getWidth(), getHeigth());
+			g.fillRect(getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(), getHeight());
 
 			/* Spawn and goal lock */
 			if (getName().equals("Spawn") || getName().equals("Goal")) {
@@ -114,7 +114,6 @@ public class Gameblock extends Gameobject {
 					level.setGoal(this);
 			}
 			if (!level.getListe().contains(this))
-				if (!getName().equals("Spawn"))
 					level.addBlock(this);
 		}
 	}

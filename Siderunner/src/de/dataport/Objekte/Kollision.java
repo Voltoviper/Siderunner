@@ -33,7 +33,7 @@ public abstract class Kollision {
 
 				if ((Main.spieler.getX() + Spielfigur.getBreite() + Spielfigur.getGeschwindigkeit() > rect
 						.getX()) && (Main.spieler.getX() + Spielfigur.getBreite() < rect.getX())) {
-					if ((Main.spieler.getY() - (2 * 50) < rect.getY() + rect.getHeigth() && Main.spieler
+					if ((Main.spieler.getY() - (2 * 50) < rect.getY() + rect.getHeight() && Main.spieler
 							.getY() > rect.getY())
 							|| Main.spieler.getY() + Spielfigur.getHoehe() + (2 * 50) > rect.getY()
 							&& Main.spieler.getY() + Spielfigur.getHoehe() < rect.getY()) {
@@ -41,7 +41,7 @@ public abstract class Kollision {
 					}
 				} else if ((Main.spieler.getX() - (2 * Spielfigur.getGeschwindigkeit()) < rect.getX())
 						&& (Main.spieler.getX() > rect.getX())) {
-					if ((Main.spieler.getY() - (2 * 50) < rect.getY() + rect.getHeigth() && Main.spieler
+					if ((Main.spieler.getY() - (2 * 50) < rect.getY() + rect.getHeight() && Main.spieler
 							.getY() > rect.getY())
 							|| Main.spieler.getY() + Spielfigur.getHoehe() + (2 * 50) > rect.getY()
 							&& Main.spieler.getY() + Spielfigur.getHoehe() < rect.getY()) {
@@ -97,9 +97,9 @@ public abstract class Kollision {
 			if (rect != null) {
 				if (figur.getX() - Spielfigur.getGeschwindigkeit() < rect.getX() + rect.getWidth()
 						&& figur.getX() + Main.spieler.getWidth() > rect.getX()) {
-					if (figur.getY() <= rect.getY() - Main.spieler.getHeigth()) {
+					if (figur.getY() <= rect.getY() - Main.spieler.getHeight()) {
 						koordinaten[0] = Main.spieler.getX() - Spielfigur.getGeschwindigkeit();
-						koordinaten[1] = rect.getY() - Main.spieler.getHeigth();
+						koordinaten[1] = rect.getY() - Main.spieler.getHeight();
 						Bewegung.huepf.stop();
 						break;
 					} else if (figur.getX() > rect.getX()) {
@@ -109,7 +109,7 @@ public abstract class Kollision {
 					}
 				} else {
 					koordinaten[0] = Main.spieler.getX() - Spielfigur.getGeschwindigkeit();
-					koordinaten[1] = Main.test.getY() - Main.spieler.getHeigth();
+					koordinaten[1] = Main.test.getY() - Main.spieler.getHeight();
 				}
 			}
 		}
@@ -128,10 +128,10 @@ public abstract class Kollision {
 
 		for (Gameblock rect : level.getListe()) {
 			if (rect != null) {
-				if (figur.getY() + Main.spieler.getHeigth() + 50 > rect.getY()
+				if (figur.getY() + Main.spieler.getHeight() + 50 > rect.getY()
 						&& (figur.getX() + Main.spieler.getWidth() > rect.getX() && figur.getX() < rect
 								.getX() + rect.getWidth())) {
-					koordinaten[1] = rect.getY() - Main.spieler.getHeigth() - rect.getHeigth() / 2;
+					koordinaten[1] = rect.getY() - Main.spieler.getHeight() - rect.getHeight() / 2;
 
 				}
 
@@ -159,11 +159,11 @@ public abstract class Kollision {
 		switch (Orientierung) {
 		case 0:
 			for (Gameblock g : beruehrpunkte2) {
-				if (g.getY() > Main.spieler.getY() + Main.spieler.getHeigth()) {
+				if (g.getY() > Main.spieler.getY() + Main.spieler.getHeight()) {
 					unten.add(g);
 				}
-				if ((g.getY() + g.getHeigth() > Main.spieler.getY())
-						&& (g.getY() < Main.spieler.getY() + Main.spieler.getHeigth())
+				if ((g.getY() + g.getHeight() > Main.spieler.getY())
+						&& (g.getY() < Main.spieler.getY() + Main.spieler.getHeight())
 						&& (g.getX() > Main.spieler.getX() + Spielfigur.getBreite())) {
 					rechts.add(g);
 				}
@@ -179,7 +179,7 @@ public abstract class Kollision {
 				speicher = g;
 			} else {
 				if ((g.getX() + g.getWidth() > Main.spieler.getX())
-						&& (g.getY() >= Main.spieler.getY() + Main.spieler.getHeigth())
+						&& (g.getY() >= Main.spieler.getY() + Main.spieler.getHeight())
 						&& (g.getX() < Main.spieler.getX() + Spielfigur.getBreite())) {
 					if (!(speicher.getY() < g.getY())) {
 						speicher = g;
@@ -215,7 +215,7 @@ public abstract class Kollision {
 
 	public static boolean collisionDetected() {
 		int t=10;
-		return (Main.level.getIntersectingGameblock(new Gameblock(Main.spieler.getX()-t, Main.spieler.getY()-t,
-				Main.spieler.getWidth()+t, Main.spieler.getHeigth()+t, null, null, null)) != null);
+		return (Main.level.getIntersectingGameblock(new Gameblock(Main.spieler.getX()-t, Main.spieler.getY()+t,
+				Main.spieler.getWidth()+t, Main.spieler.getHeight()+t, null, null, null)) != null);
 	}
 }

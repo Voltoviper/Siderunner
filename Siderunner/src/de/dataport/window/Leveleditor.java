@@ -195,7 +195,7 @@ public class Leveleditor {
 
 			/* Create NEW Block */
 			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
-					.getSelectedValue().getHeigth(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
+					.getSelectedValue().getHeight(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
 					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
 
 			/* Spawn & Goal - lock */

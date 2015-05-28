@@ -3,25 +3,36 @@ package de.dataport.Objekte;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
 
 import de.dataport.datastructures.Gameobject;
+import de.dataport.window.Main;
 import de.dataport.window.Start;
 
 /**
- * Klasse der Spielfigur. 
+ * Klasse der Spielfigur.
+ * 
  * @author chris_000
  *
  */
 public class Spielfigur extends Gameobject {
-	
-	private static int geschwindigkeit=10;
-	private static int breite=50, hoehe=85;
-	private int[] vorherige_koord = new int[2];
+
+	private static int geschwindigkeit = 10;
+	private static int breite = 50, hoehe = 85;
+	private Point vorherige_koord = new Point(0,0);
 	private ImageIcon image;
-	
+
+	public Point getVorherige_koord() {
+		return vorherige_koord;
+	}
+
+	public void setVorherige_koord(Point vorherige_koord) {
+		this.vorherige_koord = vorherige_koord;
+	}
+
 	public ImageIcon getImage() {
 		return image;
 	}
@@ -41,15 +52,14 @@ public class Spielfigur extends Gameobject {
 	public Spielfigur(int x, int y, String imageSource) {
 		super(x, y);
 		this.setImage(imageSource);
-		this.setHeigth(getImage().getIconHeight());
+		this.setHeight(getImage().getIconHeight());
 		this.setWidth(getImage().getIconWidth());
-		vorherige_koord[0]=0;
-		vorherige_koord[1]=0;
 	}
 
 	public static int getGeschwindigkeit() {
 		return geschwindigkeit;
 	}
+
 	public static void setGeschwindigkeit(int geschwindigkeit) {
 		Spielfigur.geschwindigkeit = geschwindigkeit;
 	}
@@ -61,25 +71,19 @@ public class Spielfigur extends Gameobject {
 	public static void setHoehe(int hoehe) {
 		Spielfigur.hoehe = hoehe;
 	}
-	
-	public void repaintPlayer(Canvas canvas){
-		Graphics g = canvas.getGraphics();
-		g.setColor(Color.BLUE);
-		g.drawImage(getImage().getImage(), getX(), getY(), canvas);
-	}
 
-	public int[] getVorherige_koord()
-	{
-		return vorherige_koord;
-	}
+	public void repaintPlayer(Canvas canvas) {
 
-	public void setVorherige_koord(int x, int y)
-	{
-		int[] koord = new int[2];
-		koord[0]=x;
-		koord[1]=y;
 		
-		this.vorherige_koord = koord;
+		if ((int) vorherige_koord.getX() != getX() || (int) vorherige_koord.getY() != getY()) {
+			Graphics g = canvas.getGraphics();	
+			g.setColor(canvas.getBackground());
+			g.fillRect((int) vorherige_koord.getX(), (int) vorherige_koord.getY(), getWidth(), getHeight());
+			g.setColor(Color.BLUE);
+			g.drawImage(getImage().getImage(), getX(), getY(), canvas);
+			Main.spieler.setVorherige_koord(new Point(Main.spieler.getX(),Main.spieler.getY()));
+			Main.level.repaintLevel(canvas);
+		}
 	}
-	
+
 }
