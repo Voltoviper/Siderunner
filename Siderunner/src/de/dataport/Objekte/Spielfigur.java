@@ -73,7 +73,9 @@ public class Spielfigur extends Gameobject {
 	}
 
 	public void repaintPlayer(Canvas canvas) {
-
+		
+		
+		
 		
 		if ((int) vorherige_koord.getX() != getX() || (int) vorherige_koord.getY() != getY()) {
 			Graphics g = canvas.getGraphics();	

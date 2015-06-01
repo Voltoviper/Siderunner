@@ -21,6 +21,7 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
 import de.dataport.berechnungen.Boden;
 import de.dataport.level.Level;
+import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 
 public class Main {
@@ -139,23 +140,16 @@ public class Main {
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
 						Bewegung.bewegen(39);		//hü-hüpf
-//						timer = new Timer(100, new ActionListener() {
-//							@Override
-//							public void actionPerformed(ActionEvent e) {
-								level.repaintLevel(canvas);
-//							}
-//						});
-//						timer.start();
-						Timer tPlayer = new Timer(1, new ActionListener(){
-
+						timer = new Timer(1, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								level.repaintPlayer(canvas);
-								
+								level.repaintLevel(canvas);
 							}
-							
 						});
-						tPlayer.start();
+						timer.start();
+						Painter p = new Painter(spieler);
+						p.start();
+						
 						
 					}
 				} catch (Exception e) {
