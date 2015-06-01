@@ -38,6 +38,7 @@ public class Main {
 	public static Level level;
 	public static Canvas canvas;
 	public static Timer timer;
+	public static Painter p;
 
 	/**
 	 * Launch the application.
@@ -81,10 +82,12 @@ public class Main {
 
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (timer != null) {
 					if (timer.isRunning()) {
 						timer.stop();
+						p.stop();
 					}
 				}
 				System.exit(0);
@@ -122,10 +125,6 @@ public class Main {
 		canvas.setBounds(0, 0, 725, 494);
 		frmJackRunner.getContentPane().add(canvas);
 
-		// JPanel panel = new JPanel();
-		// panel.setBounds(0, 0, 725, 494);
-		// frmJackRunner.getContentPane().add(panel);
-
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -135,10 +134,7 @@ public class Main {
 					if (level != null) {
 						spieler = new Spielfigur(level.getSpawn().getX(), level
 								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
-						
 						level.addPlayer(spieler);
-						Kollision.koordinaten[0] = spieler.getX();
-						Kollision.koordinaten[1] = spieler.getY();
 						Bewegung.bewegen(39);		//hü-hüpf
 						timer = new Timer(1, new ActionListener() {
 							@Override
@@ -147,7 +143,7 @@ public class Main {
 							}
 						});
 						timer.start();
-						Painter p = new Painter(spieler);
+						p = new Painter(spieler);
 						p.start();
 						
 						

@@ -44,6 +44,8 @@ public class Gewonnen extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 					try {
 						Main.frmJackRunner.dispose();
+						Main.p.stop();
+						Main.timer.stop();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

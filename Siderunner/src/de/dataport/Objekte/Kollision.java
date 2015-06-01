@@ -77,14 +77,14 @@ public abstract class Kollision {
 			}
 		}
 		koordinaten = auswählen(beruehrpunkte, 0);
-		zielprüfung(koordinaten);
+		//zielprüfung(koordinaten);
 		return koordinaten;
 
 	}
 
-	private static void zielprüfung(int[] koordinaten2) {
+	public static void zielprüfung(Spielfigur player) {
 		// TODO Auto-generated method stub
-		if (koordinaten2[0] + Spielfigur.getBreite() > Main.level.getGoal().getX()) {
+		if (player.getX() + Spielfigur.getBreite() > Main.level.getGoal().getX()) {
 			fenster = new Gewonnen();
 			fenster.setVisible(true);
 			fenster.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

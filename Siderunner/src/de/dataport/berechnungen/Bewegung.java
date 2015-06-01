@@ -53,52 +53,28 @@ public class Bewegung implements KeyListener {
 		
 		switch (keycode) {
 		case 39:
-			// Nach Rechts gehen
-			// int[] koordinaten1 = new int[2];
-			// int[] koordinaten11 = new int[2];
-			// koordinaten1 = Kollision.kollision_rechts(Main.spieler,
-			// Main.level);
-			// if (Main.spieler.getX() + Main.spieler.getWidth()
-			// + Spielfigur.getGeschwindigkeit() >= Main.frmJackRunner
-			// .getWidth()) {
-			// Main.spieler.setX(Main.frmJackRunner.getWidth()
-			// - Main.spieler.getWidth());
-			// Main.spieler.setY(Main.spieler.getY());
-			// } else {
-			// Main.spieler.setX(koordinaten1[0]);
-			// Main.spieler.setY(koordinaten1[1]);
-			// }
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() + 10);
-
+				
 				if (Kollision.collisionDetected() == true)
 					Main.spieler.setX(Main.spieler.getX() - 10);
+				while (Kollision.collisionDetected() == false)
+					Main.spieler.setY(Main.spieler.getY() + 1);
+				Main.spieler.setY(Main.spieler.getY() - 1);
+				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+				Kollision.zielprüfung(Main.spieler);
 			}
 			break;
 		case 37:
-			// Nach Links gehen
-			// int[] koordinaten = new int[2];
-			// int[] koordinaten01 = new int[2];
-			// koordinaten01 = Kollision.kollision_unten(Main.spieler,
-			// Main.level);
-			// if (Main.spieler.getX() - Spielfigur.getGeschwindigkeit() <= 0) {
-			// Main.spieler.setX(0);
-			// } else {
-			// Main.spieler.setX(Main.spieler.getX()
-			// - Spielfigur.getGeschwindigkeit());
-			// Main.spieler.setY(koordinaten01[1]);
-			// // koordinaten = Kollision.kollision_links(Main.spieler,
-			// // Main.level1);
-			// // Main.spielfigur.fillRect(koordinaten[0],koordinaten[1] ,
-			// // Main.spieler.getWidth(), Main.spieler.getHeigth());
-			// }
-			// Main.lblNewLabel.setText(Main.spieler.getX() + "");
-			// Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() - 10);
 
 				if (Kollision.collisionDetected() == true)
 					Main.spieler.setX(Main.spieler.getX() + 10);
+				while (Kollision.collisionDetected() == false)
+					Main.spieler.setY(Main.spieler.getY() + 1);
+				Main.spieler.setY(Main.spieler.getY() - 1);
+				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			}
 			break;
 		case 32:
@@ -118,13 +94,10 @@ public class Bewegung implements KeyListener {
 						}
 						if (jump) {
 							int[] koordinaten2 = new int[2];
-							// koordinaten2 =
-							// Kollision.kollision_unten(Main.spieler,Main.level);
+
 							while (Kollision.collisionDetected() == false)
 								Main.spieler.setY(Main.spieler.getY() + 1);
 							Main.spieler.setY(Main.spieler.getY() - 1);
-							// Main.spieler.setY(koordinaten2[1]);
-
 							Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 							jump = false;
 						}
