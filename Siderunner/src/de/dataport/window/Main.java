@@ -136,13 +136,7 @@ public class Main {
 								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 						level.addPlayer(spieler);
 						Bewegung.bewegen(39);		//hü-hüpf
-						timer = new Timer(1, new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								level.repaintLevel(canvas);
-							}
-						});
-						timer.start();
+
 						p = new Painter(spieler);
 						p.start();
 						
