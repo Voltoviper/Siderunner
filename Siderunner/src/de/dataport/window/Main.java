@@ -16,7 +16,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.Timer;
 
-import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
 import de.dataport.berechnungen.Boden;
@@ -47,7 +46,6 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main window = new Main();
 					Main.frmJackRunner.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

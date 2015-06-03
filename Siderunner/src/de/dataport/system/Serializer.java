@@ -59,7 +59,7 @@ public abstract class Serializer {
 	 * @param text Legt den Titel des Dialoges fest.
 	 * @return Wenn eine Datei geladen werden soll, Wird ein String zurück gegeben, der den Pfad enthält
 	 */
-	private static File getFileToChoose(Component openOnInstance,
+	public static File getFileToChoose(Component openOnInstance,
 			int jFileChooserDialog, String text) {
 		JFileChooser chooser;
 		chooser = new JFileChooser();

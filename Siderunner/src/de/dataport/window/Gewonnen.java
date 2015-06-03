@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import de.dataport.Objekte.Kollision;
-import de.dataport.system.Serializer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

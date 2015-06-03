@@ -7,7 +7,6 @@ import java.util.*;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.window.Main;
 
 /**
  * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
