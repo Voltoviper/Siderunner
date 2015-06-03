@@ -133,7 +133,7 @@ public class Main {
 								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 						level.addPlayer(spieler);
 
-						Bewegung.bewegen(39);		//hü-hüpf
+						Bewegung.bewegen(32);		//hü-hüpf
 
 						p = new Painter(spieler);
 						p.start();

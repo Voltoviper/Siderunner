@@ -92,8 +92,7 @@ public class Level {
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for (Gameblock gb : getListe()) {
 			g.setColor(gb.getColor());
-			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
-					gb.getHeight());
+			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
 		}
 	}
 
@@ -105,17 +104,16 @@ public class Level {
 	}
 
 	int xPositionAdditionInsideLevel = 0;
-// Der der am linksesten ist, ist die blockade
-// x+ speicher für alle 
+
+	// Der der am linksesten ist, ist die blockade
+	// x+ speicher für alle
 	public void move(boolean direction, Canvas canvas) {
 		for (Gameblock gb : getListe())
 			if (direction) {
-				xPositionAdditionInsideLevel -= Spielfigur.getGeschwindigkeit();
 				gb.setX(gb.getX() - Spielfigur.getGeschwindigkeit());
 			} else {
 				gb.setX(gb.getX() + Spielfigur.getGeschwindigkeit());
 			}
 		repaintLevel(canvas);
 	}
-
 }

@@ -173,20 +173,25 @@ public class Leveleditor {
 		editoranzeigen.setEnabled(false);
 		Editor.add(editoranzeigen);
 
-		
-		
 		canvas.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (isMouseDown)
 					DrawBlock(e.getX(), e.getY());
 			}
+
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(e.getX() > ((double)canvas.getWidth() * 0.90))
+				/* Canvas-Rand führt zur Erweiterung des Levels */
+				/* Level nach Rechts erweitern */
+				if (e.getX() > ((double) canvas.getWidth() * 0.95))
 					level.move(true, canvas);
-				else if (e.getX() < ((double)canvas.getWidth() * 0.10))
-					level.move(false,canvas);
+				/* Zurückscrollen --> Keine Erweiterung nach Links; Blockade beim Block der am weitesten Links ist. */
+				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
+					if (level.getListe() != null)
+						if (level.getListe().size() != 0)
+							if (level.getListe().get(0).getX()-level.getListe().get(0).getWidth() < 0)
+								level.move(false, canvas);
 			}
 		});
 
@@ -246,9 +251,9 @@ public class Leveleditor {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()),
-						Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(),
-						textField_2.getText().toString(), null);
+				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()), Integer
+						.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(), textField_2
+						.getText().toString(), null);
 
 				((DefaultListModel<Gameblock>) gameblockList.getModel()).addElement(gb);
 			}
@@ -278,13 +283,13 @@ public class Leveleditor {
 
 		JButton btnNewButton_1 = new JButton("Auswaehlen");
 		btnNewButton_1.setBounds(235, 140, 110, 22);
-		btnNewButton_1.addActionListener(new ActionListener(){
+		btnNewButton_1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				textField_3.setText(Serializer.getImagePath(frame, 0, "Bild auswählen"));
 			}
-			
+
 		});
 		panel2.add(btnNewButton_1);
 
@@ -303,16 +308,14 @@ public class Leveleditor {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
-			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(),
-					gameblockList.getSelectedValue().getHeight(), gameblockList.getSelectedValue()
-							.getIsDeadly(), gameblockList.getSelectedValue().getName(), gameblockList
-							.getSelectedValue().getColor());
+			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
+					.getSelectedValue().getHeight(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
+					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
 
 			/* Spawn & Goal - lock */
 			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
-
 			newBlock.paint(canvas, level);
 
 		}

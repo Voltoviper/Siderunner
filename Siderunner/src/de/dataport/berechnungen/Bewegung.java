@@ -50,7 +50,7 @@ public class Bewegung implements KeyListener {
 	public static void bewegen(int keycode) {
 
 		switch (keycode) {
-		case 39:
+		case 39:	// Rechts
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() + 10);
 
@@ -61,9 +61,12 @@ public class Bewegung implements KeyListener {
 				Main.spieler.setY(Main.spieler.getY() - 1);
 				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 				Kollision.zielprüfung(Main.spieler);
+				
+				/* Levelbewegung */
+				//...
 			}
 			break;
-		case 37:
+		case 37:	// Links
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() - 10);
 
@@ -75,7 +78,7 @@ public class Bewegung implements KeyListener {
 				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			}
 			break;
-		case 32:
+		case 32:	// Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
 			huepf = new Thread() {

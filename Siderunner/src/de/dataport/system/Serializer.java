@@ -36,6 +36,7 @@ public abstract class Serializer {
 		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG, "Speichern unter...", "Markup: xml",
 				new String[] { "xml" });
 		if (f != null) {
+			optimizePosition(level);
 			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
 			encoder.writeObject(level);
 			encoder.close();
@@ -129,5 +130,23 @@ public abstract class Serializer {
 		}
 
 		return null;
+	}
+	
+	/**
+	 * Skaliert die Position der Blöcke, wenn beim Editor negative x-Positionen
+	 * gespeichert wurden. (wegen Sidescrolling)
+	 * 
+	 * WIRD NUR BEIM SPEICHERN AUFGERUFEN!!!
+	 */
+	private static void optimizePosition(Level l) {
+		if (l.getListe() != null)
+			if (l.getListe().size() != 0)
+				if (l.getListe().get(0).getX() < 0) {
+					int optimizer = l.getListe().get(0).getX() * -1;
+					l.getListe().forEach(gb -> gb.setX(gb.getX() + optimizer));
+					l.getSpawn().setX(l.getSpawn().getX() + optimizer);
+					l.getGoal().setX(l.getGoal().getX() + optimizer);
+				}
+
 	}
 }
