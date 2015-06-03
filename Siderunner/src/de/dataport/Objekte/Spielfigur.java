@@ -72,20 +72,5 @@ public class Spielfigur extends Gameobject {
 		Spielfigur.hoehe = hoehe;
 	}
 
-	public void repaintPlayer(Canvas canvas) {
-		
-		
-		
-		
-		if ((int) vorherige_koord.getX() != getX() || (int) vorherige_koord.getY() != getY()) {
-			Graphics g = canvas.getGraphics();	
-			g.setColor(canvas.getBackground());
-			g.fillRect((int) vorherige_koord.getX(), (int) vorherige_koord.getY(), getWidth(), getHeight());
-			g.setColor(Color.BLUE);
-			g.drawImage(getImage().getImage(), getX(), getY(), canvas);
-			Main.spieler.setVorherige_koord(new Point(Main.spieler.getX(),Main.spieler.getY()));
-			Main.level.repaintLevel(canvas);
-		}
-	}
 
 }

@@ -85,15 +85,11 @@ public class Level {
 	/** repaints the whole level on the specific canvas */
 	public void repaintLevel(Canvas canvas) {
 		Graphics g = canvas.getGraphics();
+		g.setColor(canvas.getBackground());
+		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for (Gameblock gb : getListe()) {
 			g.setColor(gb.getColor());
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
-		}
-	}
-	public void repaintPlayer(Canvas canvas){
-		for(Spielfigur p:player){
-			
-			p.repaintPlayer(canvas);
 		}
 	}
 
