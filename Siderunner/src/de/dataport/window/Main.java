@@ -138,7 +138,7 @@ public class Main {
 						level.addPlayer(spieler);
 						Kollision.koordinaten[0] = spieler.getX();
 						Kollision.koordinaten[1] = spieler.getY();
-						Bewegung.bewegen(39);		//hü-hüpf
+						
 //						timer = new Timer(100, new ActionListener() {
 //							@Override
 //							public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class Main {
 							
 						});
 						tPlayer.start();
-						
+						Bewegung.bewegen(39);		//hü-hüpf
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

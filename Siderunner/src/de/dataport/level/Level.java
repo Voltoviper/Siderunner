@@ -10,7 +10,9 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.window.Main;
 
 /**
- * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und die SPielfigur zusammen. 
+ * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
+ * die SPielfigur zusammen.
+ * 
  * @author chris_000
  *
  */
@@ -19,11 +21,11 @@ public class Level {
 	private Gameblock spawn;
 	private Gameblock goal;
 	private List<Spielfigur> player = new ArrayList<Spielfigur>();
-	
-	public void addPlayer(Spielfigur spielfigur){
+
+	public void addPlayer(Spielfigur spielfigur) {
 		player.add(spielfigur);
 	}
-	
+
 	public Gameblock getSpawn() {
 		return spawn;
 	}
@@ -84,17 +86,24 @@ public class Level {
 
 	/** repaints the whole level on the specific canvas */
 	public void repaintLevel(Canvas canvas) {
-		Graphics g = canvas.getGraphics();
-//		g.setColor(canvas.getBackground());
-//		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for (Gameblock gb : getListe()) {
-			g.setColor(gb.getColor());
-			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
+			paint(gb, canvas);
 		}
+		if (getSpawn() != null)
+			paint(getSpawn(), canvas);
+		if (getGoal() != null)
+			paint(getGoal(), canvas);
 	}
-	public void repaintPlayer(Canvas canvas){
-		for(Spielfigur p:player){
-			
+
+	private void paint(Gameblock gb, Canvas canvas) {
+		Graphics g = canvas.getGraphics();
+		g.setColor(gb.getColor());
+		g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
+				gb.getHeight());
+	}
+
+	public void repaintPlayer(Canvas canvas) {
+		for (Spielfigur p : player) {
 			p.repaintPlayer(canvas);
 		}
 	}

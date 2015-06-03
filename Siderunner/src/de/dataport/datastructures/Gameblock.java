@@ -114,7 +114,9 @@ public class Gameblock extends Gameobject {
 					level.setGoal(this);
 			}
 			if (!level.getListe().contains(this))
-					level.addBlock(this);
+				if (!getName().equals("Spawn"))
+					if (!getName().equals("Goal"))
+						level.addBlock(this);
 		}
 	}
 
