@@ -91,16 +91,6 @@ public class Leveleditor {
 	private void fillList() {
 
 		canvas.setBackground(Color.WHITE);
-		Scrollbar scrollbar = new Scrollbar();
-		scrollbar.setBounds(208, 519, 582, 23);
-		panel.add(scrollbar);
-		scrollbar.setBackground(Color.WHITE);
-		scrollbar.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent arg0) {
-
-			}
-		});
-		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
 
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
@@ -183,11 +173,20 @@ public class Leveleditor {
 		editoranzeigen.setEnabled(false);
 		Editor.add(editoranzeigen);
 
+		
+		
 		canvas.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (isMouseDown)
 					DrawBlock(e.getX(), e.getY());
+			}
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(e.getX() > ((double)canvas.getWidth() * 0.90))
+					level.move(true, canvas);
+				else if (e.getX() < ((double)canvas.getWidth() * 0.10))
+					level.move(false,canvas);
 			}
 		});
 

@@ -7,6 +7,7 @@ import java.util.*;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.window.Main;
 
 /**
  * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
@@ -85,7 +86,7 @@ public class Level {
 
 	/** repaints the whole level on the specific canvas */
 	public void repaintLevel(Canvas canvas) {
-		
+
 		Graphics g = canvas.getGraphics();
 		g.setColor(canvas.getBackground());
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -94,15 +95,26 @@ public class Level {
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
 					gb.getHeight());
 		}
-
 	}
- 
 
-	
-	public void deleteLevel(Canvas canvas){
+	public void deleteLevel(Canvas canvas) {
 		this.content.clear();
 		this.setGoal(null);
 		this.setSpawn(null);
+		repaintLevel(canvas);
+	}
+
+	int xPositionAdditionInsideLevel = 0;
+// Der der am linksesten ist, ist die blockade
+// x+ speicher für alle
+	public void move(boolean direction, Canvas canvas) {
+		for (Gameblock gb : getListe())
+			if (direction) {
+				xPositionAdditionInsideLevel -= Spielfigur.getGeschwindigkeit();
+				gb.setX(gb.getX() - Spielfigur.getGeschwindigkeit());
+			} else {
+				gb.setX(gb.getX() + Spielfigur.getGeschwindigkeit());
+			}
 		repaintLevel(canvas);
 	}
 
