@@ -92,5 +92,12 @@ public class Level {
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
 		}
 	}
+	
+	public void deleteLevel(Canvas canvas){
+		this.content.clear();
+		this.setGoal(null);
+		this.setSpawn(null);
+		repaintLevel(canvas);
+	}
 
 }

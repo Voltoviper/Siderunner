@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,6 +29,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Point;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 /**
  * 
  * @author Jan Koch
@@ -41,12 +49,19 @@ public class Leveleditor {
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
-
+	private JPanel panel, panel2;
+	private JMenuBar menuBar;
+	private JMenuItem editoranzeigen,mntmNew_1;
+	
 	public JFrame getFrame() {
 		return frame;
 	}
 
 	private Level level;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -76,13 +91,107 @@ public class Leveleditor {
 	/** Instantiating and filling the Gameblock-Jlist */
 	private void fillList() {
 
+		
+		canvas.setBackground(Color.WHITE);
+		Scrollbar scrollbar = new Scrollbar();
+		scrollbar.setBounds(208, 519, 582, 23);
+		panel.add(scrollbar);
+		scrollbar.setBackground(Color.WHITE);
+		scrollbar.addAdjustmentListener(new AdjustmentListener() {
+			public void adjustmentValueChanged(AdjustmentEvent arg0) {
+
+			}
+		});
+		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
+
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
 		JScrollPane jspGameblocks = new JScrollPane(gameblockList);
+		jspGameblocks.setBounds(10, 28, 186, 251);
+		panel.add(jspGameblocks);
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 794, 21);
+		panel.add(menuBar);
 
-		jspGameblocks.setBounds(10, 11, 186, 251);
+		JMenu mnWorld = new JMenu("World");
+		menuBar.add(mnWorld);
 
-		frame.getContentPane().add(jspGameblocks);
+		JMenuItem mntmNew = new JMenuItem("New...");
+		mntmNew.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				level.deleteLevel(canvas);
+			}
+		});
+		mnWorld.add(mntmNew);
+
+		JMenuItem mntmLoad = new JMenuItem("Load...");
+		mnWorld.add(mntmLoad);
+
+		JMenuItem mntmSave = new JMenuItem("Save...");
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Speichern_unter speichern = new Speichern_unter();
+				// speichern.saveAs(null, level);
+				try {
+					Serializer.write(level, frame);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		mnWorld.add(mntmSave);
+
+		JMenu mnBlocks = new JMenu("Blocks");
+		menuBar.add(mnBlocks);
+
+		mntmNew_1 = new JMenuItem("New...");
+		mntmNew_1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				panel2();
+				
+			}
+			
+		});
+		mnBlocks.add(mntmNew_1);
+
+		JMenuItem mntmManage = new JMenuItem("Manage...");
+		mnBlocks.add(mntmManage);
+		canvas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				isMouseDown = true;
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				isMouseDown = false;
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DrawBlock(e.getX(), e.getY());
+			}
+
+		});
+		JMenu Editor = new JMenu("Editor");
+		menuBar.add(Editor);
+		
+		editoranzeigen = new JMenuItem("anzeigen");
+		editoranzeigen.setEnabled(false);
+		Editor.add(editoranzeigen);
+		
+		canvas.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if (isMouseDown)
+					DrawBlock(e.getX(), e.getY());
+			}
+		});
 
 	}
 
@@ -102,88 +211,85 @@ public class Leveleditor {
 		/* JFrame */
 		frame = new JFrame();
 		frame.setResizable(false);
+		frame.setTitle("Leveleditor");
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		/* Canvas */
+		panel = new JPanel();
+		panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		canvas = new Canvas();
-		canvas.setBackground(Color.WHITE);
-		canvas.setBounds(202, 10, 582, 501);
-		canvas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				isMouseDown = true;
-			}
+		canvas.setBounds(208, 20, 582, 501);
+		panel.add(canvas);
+		panel2 = new JPanel();
+		panel2.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		frame.getContentPane().add(panel2);
+		panel2.setLayout(null);
+		panel2.setVisible(false);
+		JLabel label = new JLabel("Breite");
+		label.setBounds(10, 50, 75, 23);
+		panel2.add(label);
+		JLabel label2 = new JLabel("Hoehe");
+		label2.setBounds(10, 80, 75, 23);
+		panel2.add(label2);
+		JLabel label3 = new JLabel("Name");
+		label3.setBounds(10, 110, 75, 23);
+		panel2.add(label3);	
+		JCheckBox chckbxNewCheckBox = new JCheckBox("toedlich?");
+		chckbxNewCheckBox.setBounds(40, 170, 100, 23);
+		panel2.add(chckbxNewCheckBox);
+		JLabel label4 = new JLabel("Bild");
+		label4.setBounds(10, 140, 75, 23);
+		panel2.add(label4);
+		
+		JButton btnNewButton = new JButton("Hinzufuegen");
+		btnNewButton.setBounds(10, 200, 150, 23);
+		panel2.add(btnNewButton);
+		
+		textField = new JTextField();
+		textField.setBounds(85, 50, 86, 23);
+		panel2.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(85, 80, 86, 23);
+		panel2.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(85, 110, 86, 23);
+		panel2.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(85, 140, 150, 23);
+		panel2.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("Auswaehlen");
+		btnNewButton_1.setBounds(235, 140, 110, 22);
+		btnNewButton_1.addActionListener(new ActionListener(){
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				isMouseDown = false;
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				DrawBlock(e.getX(), e.getY());
-			}
-
-		});
-		canvas.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				if (isMouseDown)
-					DrawBlock(e.getX(), e.getY());
-			}
-		});
-		frame.getContentPane().add(canvas);
-
-		/* Scrollbar */
-		Scrollbar scrollbar = new Scrollbar();
-		scrollbar.addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				Gameblock gb = new Gameblock(0,0, Integer.parseInt(textField.getText().toString()), Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected() , textField_2.getText().toString(), null);
+				
+				ListModel<Gameblock> listModel = gameblockList.getModel();
+				
 				
 			}
+			
 		});
-		scrollbar.setOrientation(Scrollbar.HORIZONTAL);
-		scrollbar.setBounds(202, 517, 582, 23);
-		frame.getContentPane().add(scrollbar);
+		panel2.add(btnNewButton_1);
+		
+		
+
+		/* Canvas */
+
+		/* Scrollbar */
 
 		/* Menu */
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-
-		JMenu mnWorld = new JMenu("World");
-		menuBar.add(mnWorld);
-
-		JMenuItem mntmNew = new JMenuItem("New...");
-		mnWorld.add(mntmNew);
-
-		JMenuItem mntmLoad = new JMenuItem("Load...");
-		mnWorld.add(mntmLoad);
-
-		JMenuItem mntmSave = new JMenuItem("Save...");
-		mntmSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				Speichern_unter speichern = new Speichern_unter();
-//				speichern.saveAs(null, level);
-				try {
-					Serializer.write(level, frame);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		mnWorld.add(mntmSave);
-
-		JMenu mnBlocks = new JMenu("Blocks");
-		menuBar.add(mnBlocks);
-
-		JMenuItem mntmNew_1 = new JMenuItem("New...");
-		mnBlocks.add(mntmNew_1);
-
-		JMenuItem mntmManage = new JMenuItem("Manage...");
-		mnBlocks.add(mntmManage);
 	}
 
 	/**
@@ -194,18 +300,53 @@ public class Leveleditor {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
-			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
-					.getSelectedValue().getHeight(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
-					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
+			Gameblock newBlock = new Gameblock(x, y, gameblockList
+					.getSelectedValue().getWidth(), gameblockList
+					.getSelectedValue().getHeight(), gameblockList
+					.getSelectedValue().getIsDeadly(), gameblockList
+					.getSelectedValue().getName(), gameblockList
+					.getSelectedValue().getColor());
 
 			/* Spawn & Goal - lock */
-			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
-					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
+			if ((this.level.getSpawn() != null && newBlock.getName().equals(
+					"Spawn"))
+					|| (this.level.getGoal() != null && newBlock.getName()
+							.equals("Goal")))
 				return;
 
 			newBlock.paint(canvas, level);
 
 		}
+		
+	}
+	private void panel2(){
+			if(panel.isVisible()){
+				panel.setVisible(false);
+			}
+			panel2.add(menuBar);
+			frame.setTitle("Block hinzufuegen");
+			panel2.setVisible(true);
+			mntmNew_1.setEnabled(false);
+			editoranzeigen.setEnabled(true);
+			editoranzeigen.addActionListener(new ActionListener(){
 
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					panel();
+					
+				}
+				
+			});
+			
+	}
+	private void panel(){
+		if(panel2.isVisible()){
+			panel2.setVisible(false);
+		}
+		frame.setTitle("Leveleditor");
+		panel.add(menuBar);
+		panel.setVisible(true);
+		mntmNew_1.setEnabled(true);
+		editoranzeigen.setEnabled(false);
 	}
 }
