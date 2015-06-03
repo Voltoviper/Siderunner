@@ -79,33 +79,32 @@ public class Level {
 	/** Creates a rectangle from the gameblock */
 	private Rectangle getRectangleFromGameblock(Gameblock gameblock) {
 		/* 5 Pixel tolerance intern */
-		int t = 5;
+		int t = 7;
 		return new Rectangle(gameblock.getX() + t, gameblock.getY() + t, gameblock.getWidth() - t,
 				gameblock.getHeight() - t);
 	}
 
 	/** repaints the whole level on the specific canvas */
 	public void repaintLevel(Canvas canvas) {
-		for (Gameblock gb : getListe()) {
-			paint(gb, canvas);
-		}
-		if (getSpawn() != null)
-			paint(getSpawn(), canvas);
-		if (getGoal() != null)
-			paint(getGoal(), canvas);
-	}
-
-	private void paint(Gameblock gb, Canvas canvas) {
+		
 		Graphics g = canvas.getGraphics();
-		g.setColor(gb.getColor());
-		g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
-				gb.getHeight());
+		g.setColor(canvas.getBackground());
+		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		for (Gameblock gb : getListe()) {
+			g.setColor(gb.getColor());
+			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
+					gb.getHeight());
+		}
+
 	}
 
-	public void repaintPlayer(Canvas canvas) {
-		for (Spielfigur p : player) {
-			p.repaintPlayer(canvas);
-		}
+
+	
+	public void deleteLevel(Canvas canvas){
+		this.content.clear();
+		this.setGoal(null);
+		this.setSpawn(null);
+		repaintLevel(canvas);
 	}
 
 }

@@ -21,6 +21,7 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
 import de.dataport.berechnungen.Boden;
 import de.dataport.level.Level;
+import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 
 public class Main {
@@ -37,6 +38,7 @@ public class Main {
 	public static Level level;
 	public static Canvas canvas;
 	public static Timer timer;
+	public static Painter p;
 
 	/**
 	 * Launch the application.
@@ -80,10 +82,12 @@ public class Main {
 
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (timer != null) {
 					if (timer.isRunning()) {
 						timer.stop();
+						p.stop();
 					}
 				}
 				System.exit(0);
@@ -121,10 +125,6 @@ public class Main {
 		canvas.setBounds(0, 0, 725, 494);
 		frmJackRunner.getContentPane().add(canvas);
 
-		// JPanel panel = new JPanel();
-		// panel.setBounds(0, 0, 725, 494);
-		// frmJackRunner.getContentPane().add(panel);
-
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,29 +134,12 @@ public class Main {
 					if (level != null) {
 						spieler = new Spielfigur(level.getSpawn().getX(), level
 								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
-						
 						level.addPlayer(spieler);
-						Kollision.koordinaten[0] = spieler.getX();
-						Kollision.koordinaten[1] = spieler.getY();
-						
-//						timer = new Timer(100, new ActionListener() {
-//							@Override
-//							public void actionPerformed(ActionEvent e) {
-								level.repaintLevel(canvas);
-//							}
-//						});
-//						timer.start();
-						Timer tPlayer = new Timer(1, new ActionListener(){
 
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								level.repaintPlayer(canvas);
-								
-							}
-							
-						});
-						tPlayer.start();
 						Bewegung.bewegen(39);		//hü-hüpf
+
+						p = new Painter(spieler);
+						p.start();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
