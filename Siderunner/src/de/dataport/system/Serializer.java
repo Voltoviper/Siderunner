@@ -83,6 +83,7 @@ public abstract class Serializer {
 	 */
 	private static File getFileToChoose(Component openOnInstance, int jFileChooserDialog, String text,
 			String markup, String[] suffixes) {
+
 		JFileChooser chooser;
 		chooser = new JFileChooser();
 

@@ -1,11 +1,9 @@
 package de.dataport.berechnungen;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import de.dataport.Objekte.Kollision;
-import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Main;
 
 public class Bewegung implements KeyListener {
@@ -93,7 +91,6 @@ public class Bewegung implements KeyListener {
 							e.printStackTrace();
 						}
 						if (jump) {
-							int[] koordinaten2 = new int[2];
 
 							while (Kollision.collisionDetected() == false)
 								Main.spieler.setY(Main.spieler.getY() + 1);

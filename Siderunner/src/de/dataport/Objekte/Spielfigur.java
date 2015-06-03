@@ -1,15 +1,10 @@
 package de.dataport.Objekte;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
 
 import de.dataport.datastructures.Gameobject;
-import de.dataport.window.Main;
 import de.dataport.window.Start;
 
 /**

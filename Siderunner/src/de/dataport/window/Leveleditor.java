@@ -30,8 +30,6 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 
 import javax.swing.JPanel;
-import java.awt.Dimension;
-import java.awt.Point;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -281,7 +279,14 @@ public class Leveleditor {
 
 		JButton btnNewButton_1 = new JButton("Auswaehlen");
 		btnNewButton_1.setBounds(235, 140, 110, 22);
+		btnNewButton_1.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				textField_3.setText(Serializer.getImagePath(frame, 0, "Bild auswählen"));
+			}
+			
+		});
 		panel2.add(btnNewButton_1);
 
 		/* Canvas */
