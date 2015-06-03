@@ -18,12 +18,13 @@ public class Painter extends Thread
 	Spielfigur p;
 	Image dbImage;
 	Graphics dbGraphics;
+	public static boolean run=true;
 	/**
 	 * Run Methode,  die alle 30ms durchgeführt wird
 	 */
 	public void run()
 	{
-		while (true)
+		while (run)
 		{
 			update(Main.canvas);
 			try

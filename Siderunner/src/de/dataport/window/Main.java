@@ -80,12 +80,11 @@ public class Main {
 
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (timer != null) {
 					if (timer.isRunning()) {
 						timer.stop();
-						p.stop();
+						Painter.run = false;
 					}
 				}
 				System.exit(0);
