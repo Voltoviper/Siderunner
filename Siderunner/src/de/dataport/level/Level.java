@@ -97,7 +97,7 @@ public class Level {
 		}
 
 	}
-
+ 
 
 	
 	public void deleteLevel(Canvas canvas){
