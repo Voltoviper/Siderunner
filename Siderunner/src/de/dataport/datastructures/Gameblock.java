@@ -60,6 +60,11 @@ public class Gameblock extends Gameobject {
 		this.name = name;
 		this.color = color;
 	}
+	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name) {
+		super(x, y, imageSource);
+		this.isDeadly = isDeadly;
+		this.name = name;
+	}
 
 	public Gameblock() {
 		super();

@@ -17,8 +17,9 @@ import javax.swing.border.TitledBorder;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.datastructures.IconHelper;
 
-public class GameblockListElement extends JPanel implements
-		ListCellRenderer<Gameblock> {
+public class GameblockListElement extends JPanel implements ListCellRenderer<Gameblock> {
+	public GameblockListElement() {
+	}
 
 	/**
 	 * 
@@ -27,28 +28,26 @@ public class GameblockListElement extends JPanel implements
 
 	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-	protected static Border noFocusBorder = new MatteBorder(0,0,1,0,Color.BLACK);
+	protected static Border noFocusBorder = new MatteBorder(0, 0, 1, 0, Color.BLACK);
 
-	protected static TitledBorder focusBorder = new TitledBorder(
-			LineBorder.createGrayLineBorder(), "");
+	protected static TitledBorder focusBorder = new TitledBorder(LineBorder.createGrayLineBorder(), "");
 
 	@Override
-	public Component getListCellRendererComponent(
-			JList<? extends Gameblock> list, Gameblock gameblock, int index,
+	public Component getListCellRendererComponent(JList<? extends Gameblock> list, Gameblock gameblock, int index,
 			boolean isSelected, boolean cellHasFocus) {
 		// TODO Auto-generated method stub
 
-		JLabel renderer = (JLabel) defaultRenderer
-				.getListCellRendererComponent(list, gameblock, index,
-						isSelected, cellHasFocus);
+		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, gameblock, index, isSelected,
+				cellHasFocus);
 
 		renderer.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		renderer.setText("<html><body><p style=\"padding:1; font-size:19\">"
-				+ gameblock.getName()
-				+ "</p><p style=\"padding:1; font-size:10\">"
-				+ gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
+		renderer.setText("<html><body><p style=\"padding:1; font-size:19\">" + gameblock.getName()
+				+ "</p><p style=\"padding:1; font-size:10\">" + gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
 				+ "</p></body></html>");
-		renderer.setIcon(new IconHelper(40, 40, gameblock.getColor()));
+		if (gameblock.getImage() == null)
+			renderer.setIcon(new IconHelper(40, 40, gameblock.getColor()));
+		else
+			renderer.setIcon(gameblock.getImage());
 
 		renderer.setBorder(cellHasFocus ? focusBorder : noFocusBorder);
 		return renderer;

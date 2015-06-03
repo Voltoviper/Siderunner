@@ -45,10 +45,7 @@ public class Spielfigur extends Gameobject {
 	}
 
 	public Spielfigur(int x, int y, String imageSource) {
-		super(x, y);
-		this.setImage(imageSource);
-		this.setHeight(getImage().getIconHeight());
-		this.setWidth(getImage().getIconWidth());
+		super(x, y, imageSource);
 	}
 
 	public static int getGeschwindigkeit() {

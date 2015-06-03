@@ -1,5 +1,9 @@
 package de.dataport.datastructures;
 
+import javax.swing.ImageIcon;
+
+import de.dataport.window.Start;
+
 /**
  * Gameobject Datenstruktur. Alle Spielelemente (Ausnahme Spielfigur) Sind aus dieses Klasse geerbt.
  * @author Jan Koch
@@ -11,6 +15,7 @@ public class Gameobject implements  Comparable<Gameobject> {
 	private Integer y;
 	private Integer width;
 	private Integer height;
+	private ImageIcon image;
 	
 	public Integer getX() {
 		return x;
@@ -36,6 +41,13 @@ public class Gameobject implements  Comparable<Gameobject> {
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
+	public ImageIcon getImage() {
+		return image;
+	}
+	public void setImage(String source) {
+		this.image = new ImageIcon(Start.class.getResource(source));
+	}
+	
 	public Gameobject(Integer x, Integer y, Integer width, Integer heigth) {
 		super();
 		this.x = x;
@@ -43,10 +55,13 @@ public class Gameobject implements  Comparable<Gameobject> {
 		this.width = width;
 		this.height = heigth;
 	}
-	public Gameobject(Integer x, Integer y) {
+	public Gameobject(Integer x, Integer y, String imageSource) {
 		super();
 		this.x = x; 
 		this.y = y;
+		setImage(imageSource);
+		this.width = getImage().getIconWidth();
+		this.height = getImage().getIconHeight();
 	}
 	
 	public Gameobject() {
