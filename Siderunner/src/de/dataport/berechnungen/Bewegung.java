@@ -48,12 +48,12 @@ public class Bewegung implements KeyListener {
 	 *            Integer, der den Tastencode enthalten muss.
 	 */
 	public static void bewegen(int keycode) {
-		
+
 		switch (keycode) {
 		case 39:
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() + 10);
-				
+
 				if (Kollision.collisionDetected() == true)
 					Main.spieler.setX(Main.spieler.getX() - 10);
 				while (Kollision.collisionDetected() == false)
@@ -80,25 +80,35 @@ public class Bewegung implements KeyListener {
 			// fallen weitere Tastaturanschläge zu erkennen.
 			huepf = new Thread() {
 				public void run() {
-					if (!jump) {
-						jump = true;
-						Main.spieler.setY(Main.spieler.getY() - 50);
-						Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
-						try {
-							Thread.sleep(200);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						if (jump) {
 
-							while (Kollision.collisionDetected() == false)
-								Main.spieler.setY(Main.spieler.getY() + 1);
-							Main.spieler.setY(Main.spieler.getY() - 1);
-							Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
-							jump = false;
+					jump = true;
+					int y = 0;
+					int speicher = 0;
+					int time = 10;
+					while (time >= 0) {
+						if (!Kollision.collisionDetected()) {
+							y = 2 * (-1 * (time * time) + 10 * time);
+							time -= 1;
+							try {
+								Thread.sleep(18);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							System.out.println(y - speicher);
+
+							Main.spieler.setY(Main.spieler.getY()
+									- (y - speicher));
+							speicher = y;
+						} else {
+							while (Kollision.collisionDetected()) {
+								Main.spieler.setY(Main.spieler.getY() - 1);
+							}
 						}
 					}
+					y = 0;
+					speicher = 0;
+					time = 10;
 				}
 			};
 			Main.lblNewLabel.setText(Main.spieler.getX() + "");
