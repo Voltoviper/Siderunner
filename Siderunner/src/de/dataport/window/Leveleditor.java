@@ -52,6 +52,7 @@ public class Leveleditor {
 	private JPanel panel, panel2;
 	private JMenuBar menuBar;
 	private JMenuItem editoranzeigen,mntmNew_1;
+	private JScrollPane jspGameblocks;
 	
 	public JFrame getFrame() {
 		return frame;
@@ -106,7 +107,7 @@ public class Leveleditor {
 
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
-		JScrollPane jspGameblocks = new JScrollPane(gameblockList);
+		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 28, 186, 251);
 		panel.add(jspGameblocks);
 		menuBar = new JMenuBar();
@@ -275,9 +276,11 @@ public class Leveleditor {
 			public void actionPerformed(ActionEvent e) {
 				Gameblock gb = new Gameblock(0,0, Integer.parseInt(textField.getText().toString()), Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected() , textField_2.getText().toString(), null);
 				
-				ListModel<Gameblock> listModel = gameblockList.getModel();
-				
-				
+				DefaultListModel<Gameblock> listModel = (DefaultListModel<Gameblock>) gameblockList.getModel();
+				listModel.addElement(gb);
+				gameblockList = new JList<Gameblock>(listModel);
+				gameblockList.setCellRenderer(new GameblockListElement());
+				jspGameblocks.setViewportView(gameblockList);
 			}
 			
 		});
