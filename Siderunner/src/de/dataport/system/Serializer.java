@@ -64,8 +64,14 @@ public abstract class Serializer {
 	}
 
 	public static String getImagePath(Component openOnInstance, int jFileChooserDialog, String dialogTitle) {
-		return (getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",
-				ImageIO.getReaderFileSuffixes())).getPath();
+		File path = getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",
+				ImageIO.getReaderFileSuffixes());
+		if(path==null){
+			return null;
+		}else{
+			return path.getPath();
+		}
+		
 	}
 
 	/**
@@ -95,13 +101,16 @@ public abstract class Serializer {
 		chooser.setVisible(true);
 		switch (jFileChooserDialog) {
 		case 0:
-			if (chooser.showOpenDialog(openOnInstance) == JFileChooser.APPROVE_OPTION) {
+			int dialog = chooser.showOpenDialog(openOnInstance);
+			if (dialog == JFileChooser.APPROVE_OPTION) {
 				return chooser.getSelectedFile();
-			}
-			;
+			}else if (dialog == JFileChooser.CANCEL_OPTION) {
+			    System.out.println("Abbrechen wurde ausgewählt!");
+			};
 			break;
 		case 1:
-			if (chooser.showSaveDialog(openOnInstance) == JFileChooser.APPROVE_OPTION) {
+			int dialog1 = chooser.showSaveDialog(openOnInstance);
+			if (dialog1 == JFileChooser.APPROVE_OPTION) {
 				String pfad = chooser.getSelectedFile().toString();
 				File file = new File(pfad);
 				// Falls der Benutzer vergisst die Dateiendung ".xml" anzuhängen
@@ -112,6 +121,8 @@ public abstract class Serializer {
 					chooser.setSelectedFile(file);
 				}
 				return chooser.getSelectedFile();
+			}else if (dialog1 == JFileChooser.CANCEL_OPTION) {
+			    System.out.println("Abbrechen wurde ausgewählt!");
 			}
 			;
 			break;

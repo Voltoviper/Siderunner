@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import de.dataport.Objekte.Kollision;
+import de.dataport.system.Painter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ public class Gewonnen extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 					try {
 						Main.frmJackRunner.dispose();
-						Main.p.stop();
+						Painter.run= false;
 						Main.timer.stop();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
