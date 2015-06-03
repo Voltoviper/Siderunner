@@ -51,9 +51,9 @@ public class Leveleditor {
 	private JFrame frame;
 	private JPanel panel, panel2;
 	private JMenuBar menuBar;
-	private JMenuItem editoranzeigen,mntmNew_1;
+	private JMenuItem editoranzeigen, mntmNew_1;
 	private JScrollPane jspGameblocks;
-	
+
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -92,7 +92,6 @@ public class Leveleditor {
 	/** Instantiating and filling the Gameblock-Jlist */
 	private void fillList() {
 
-		
 		canvas.setBackground(Color.WHITE);
 		Scrollbar scrollbar = new Scrollbar();
 		scrollbar.setBounds(208, 519, 582, 23);
@@ -149,14 +148,14 @@ public class Leveleditor {
 		menuBar.add(mnBlocks);
 
 		mntmNew_1 = new JMenuItem("New...");
-		mntmNew_1.addActionListener(new ActionListener(){
+		mntmNew_1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				panel2();
-				
+
 			}
-			
+
 		});
 		mnBlocks.add(mntmNew_1);
 
@@ -181,11 +180,11 @@ public class Leveleditor {
 		});
 		JMenu Editor = new JMenu("Editor");
 		menuBar.add(Editor);
-		
+
 		editoranzeigen = new JMenuItem("anzeigen");
 		editoranzeigen.setEnabled(false);
 		Editor.add(editoranzeigen);
-		
+
 		canvas.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -236,57 +235,54 @@ public class Leveleditor {
 		panel2.add(label2);
 		JLabel label3 = new JLabel("Name");
 		label3.setBounds(10, 110, 75, 23);
-		panel2.add(label3);	
+		panel2.add(label3);
 		JCheckBox chckbxNewCheckBox = new JCheckBox("toedlich?");
 		chckbxNewCheckBox.setBounds(40, 170, 100, 23);
 		panel2.add(chckbxNewCheckBox);
 		JLabel label4 = new JLabel("Bild");
 		label4.setBounds(10, 140, 75, 23);
 		panel2.add(label4);
-		
+
 		JButton btnNewButton = new JButton("Hinzufuegen");
 		btnNewButton.setBounds(10, 200, 150, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()),
+						Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(),
+						textField_2.getText().toString(), null);
+
+				((DefaultListModel<Gameblock>) gameblockList.getModel()).addElement(gb);
+			}
+
+		});
 		panel2.add(btnNewButton);
-		
+
 		textField = new JTextField();
 		textField.setBounds(85, 50, 86, 23);
 		panel2.add(textField);
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setBounds(85, 80, 86, 23);
 		panel2.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(85, 110, 86, 23);
 		panel2.add(textField_2);
 		textField_2.setColumns(10);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setBounds(85, 140, 150, 23);
 		panel2.add(textField_3);
 		textField_3.setColumns(10);
-		
+
 		JButton btnNewButton_1 = new JButton("Auswaehlen");
 		btnNewButton_1.setBounds(235, 140, 110, 22);
-		btnNewButton_1.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Gameblock gb = new Gameblock(0,0, Integer.parseInt(textField.getText().toString()), Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected() , textField_2.getText().toString(), null);
-				
-				DefaultListModel<Gameblock> listModel = (DefaultListModel<Gameblock>) gameblockList.getModel();
-				listModel.addElement(gb);
-				gameblockList = new JList<Gameblock>(listModel);
-				gameblockList.setCellRenderer(new GameblockListElement());
-				jspGameblocks.setViewportView(gameblockList);
-			}
-			
-		});
 		panel2.add(btnNewButton_1);
-		
-		
 
 		/* Canvas */
 
@@ -303,47 +299,45 @@ public class Leveleditor {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
-			Gameblock newBlock = new Gameblock(x, y, gameblockList
-					.getSelectedValue().getWidth(), gameblockList
-					.getSelectedValue().getHeight(), gameblockList
-					.getSelectedValue().getIsDeadly(), gameblockList
-					.getSelectedValue().getName(), gameblockList
-					.getSelectedValue().getColor());
+			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(),
+					gameblockList.getSelectedValue().getHeight(), gameblockList.getSelectedValue()
+							.getIsDeadly(), gameblockList.getSelectedValue().getName(), gameblockList
+							.getSelectedValue().getColor());
 
 			/* Spawn & Goal - lock */
-			if ((this.level.getSpawn() != null && newBlock.getName().equals(
-					"Spawn"))
-					|| (this.level.getGoal() != null && newBlock.getName()
-							.equals("Goal")))
+			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
+					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
 
 			newBlock.paint(canvas, level);
 
 		}
-		
-	}
-	private void panel2(){
-			if(panel.isVisible()){
-				panel.setVisible(false);
-			}
-			panel2.add(menuBar);
-			frame.setTitle("Block hinzufuegen");
-			panel2.setVisible(true);
-			mntmNew_1.setEnabled(false);
-			editoranzeigen.setEnabled(true);
-			editoranzeigen.addActionListener(new ActionListener(){
 
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					panel();
-					
-				}
-				
-			});
-			
 	}
-	private void panel(){
-		if(panel2.isVisible()){
+
+	private void panel2() {
+		if (panel.isVisible()) {
+			panel.setVisible(false);
+		}
+		panel2.add(menuBar);
+		frame.setTitle("Block hinzufuegen");
+		panel2.setVisible(true);
+		mntmNew_1.setEnabled(false);
+		editoranzeigen.setEnabled(true);
+		editoranzeigen.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				panel();
+
+			}
+
+		});
+
+	}
+
+	private void panel() {
+		if (panel2.isVisible()) {
 			panel2.setVisible(false);
 		}
 		frame.setTitle("Leveleditor");
