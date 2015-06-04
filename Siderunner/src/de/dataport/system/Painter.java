@@ -27,8 +27,17 @@ public class Painter extends Thread {
 	/**
 	 * Run Methode, die alle 30ms durchgeführt wird
 	 */
-	public void run() {
-		while (run) {
+
+	public void run()
+	{
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		while (run)
+		{
 			update(canvas);
 			try {
 				Thread.sleep(30);

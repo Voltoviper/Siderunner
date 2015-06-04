@@ -79,7 +79,7 @@ public class Main {
 			public void windowClosing(WindowEvent e) {
 				int i = JOptionPane.showConfirmDialog(frmJackRunner, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					frmJackRunner.dispose();
+					Menu.dispose(frmJackRunner);
 			}
 		});
 
@@ -92,13 +92,9 @@ public class Main {
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (timer != null) {
-					if (timer.isRunning()) {
-						timer.stop();
-						Painter.run = false;
-					}
-				}
-				System.exit(0);
+				int i = JOptionPane.showConfirmDialog(frmJackRunner, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				if (i == 0)
+					Menu.dispose(frmJackRunner);
 			}
 		});
 

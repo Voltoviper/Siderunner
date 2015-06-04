@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
@@ -29,6 +30,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
@@ -52,12 +55,8 @@ public class Leveleditor {
 	private JMenuBar menuBar;
 	private JMenuItem editoranzeigen, mntmNew_1;
 	private JScrollPane jspGameblocks;
-	private Painter backgroundPainter;
+	public static  Painter backgroundPainter;
 
-	public Painter getPainter(){
-		return backgroundPainter;
-	}
-	
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -139,6 +138,19 @@ public class Leveleditor {
 		});
 
 		mnWorld.add(mntmSave);
+		
+		JMenuItem mntmClose = new JMenuItem("Close");
+		mntmClose.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				if (i == 0)
+					Menu.dispose(frame);
+			}
+			
+		});
+		mnWorld.add(mntmClose);
 
 		JMenu mnBlocks = new JMenu("Blocks");
 		menuBar.add(mnBlocks);
@@ -227,6 +239,13 @@ public class Leveleditor {
 		frame.setTitle("Leveleditor");
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				if (i == 0)
+					Menu.dispose(frame);
+			}
+		});
 		frame.getContentPane().setLayout(null);
 		panel = new JPanel();
 		panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
