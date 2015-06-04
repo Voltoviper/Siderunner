@@ -2,9 +2,16 @@ package de.dataport.berechnungen;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.URL;
+
+import javax.print.attribute.standard.Media;
 
 import de.dataport.Objekte.Kollision;
+import de.dataport.Objekte.Spielfigur;
+import de.dataport.datastructures.Gameblock;
 import de.dataport.window.Main;
+import de.dataport.window.Start;
+import de.dataport.window.tone.Ton;
 
 public class Bewegung implements KeyListener {
 
@@ -50,23 +57,25 @@ public class Bewegung implements KeyListener {
 	public static void bewegen(int keycode) {
 
 		switch (keycode) {
-		case 39:	// Rechts
-			if (Kollision.collisionDetected() == false) {
-				Main.spieler.setX(Main.spieler.getX() + 10);
+		case 39: // Rechts
+			if (Main.spieler.getX() + Spielfigur.getGeschwindigkeit() <= Main.canvas.getWidth()/2) {
+				if (Kollision.collisionDetected() == false) {
+					Main.spieler.setX(Main.spieler.getX() + 10);
 
-				if (Kollision.collisionDetected() == true)
-					Main.spieler.setX(Main.spieler.getX() - 10);
-				while (Kollision.collisionDetected() == false)
-					Main.spieler.setY(Main.spieler.getY() + 1);
-				Main.spieler.setY(Main.spieler.getY() - 1);
-				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
-				Kollision.zielprüfung(Main.spieler);
-				
-				/* Levelbewegung */
-				//...
+					if (Kollision.collisionDetected() == true)
+						Main.spieler.setX(Main.spieler.getX() - 10);
+					while (Kollision.collisionDetected() == false)
+						Main.spieler.setY(Main.spieler.getY() + 1);
+					Main.spieler.setY(Main.spieler.getY() - 1);
+					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+					Kollision.zielprüfung(Main.spieler);
+				} else {
+					Main.level.move(true, Main.canvas);
+				}
+
 			}
 			break;
-		case 37:	// Links
+		case 37: // Links
 			if (Kollision.collisionDetected() == false) {
 				Main.spieler.setX(Main.spieler.getX() - 10);
 
@@ -78,18 +87,23 @@ public class Bewegung implements KeyListener {
 				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
 			}
 			break;
-		case 32:	// Hüpfen
+		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
 			huepf = new Thread() {
 				public void run() {
-
+					if(!jump){
 					jump = true;
+					
 					int y = 0;
 					int speicher = 0;
 					int time = 10;
+					String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3").getPath();
+					Ton mp3 = new Ton(mp3Source);
+			        mp3.play();
 					while (time >= 0) {
 						if (!Kollision.collisionDetected()) {
+						
 							y = 2 * (-1 * (time * time) + 10 * time);
 							time -= 1;
 							try {
@@ -98,8 +112,6 @@ public class Bewegung implements KeyListener {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							System.out.println(y - speicher);
-
 							Main.spieler.setY(Main.spieler.getY()
 									- (y - speicher));
 							speicher = y;
@@ -112,6 +124,8 @@ public class Bewegung implements KeyListener {
 					y = 0;
 					speicher = 0;
 					time = 10;
+					jump=false;
+					}
 				}
 			};
 			Main.lblNewLabel.setText(Main.spieler.getX() + "");
