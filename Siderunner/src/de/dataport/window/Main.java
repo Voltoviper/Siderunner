@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JDialog;
@@ -14,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import de.dataport.Objekte.Spielfigur;
@@ -69,8 +72,16 @@ public class Main {
 		frmJackRunner.setResizable(true);
 		frmJackRunner.setTitle("Jack Runner");
 		frmJackRunner.setBounds(100, 100, 900, 554);
-		frmJackRunner.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmJackRunner.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmJackRunner.getContentPane().setLayout(null);
+
+		frmJackRunner.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int i = JOptionPane.showConfirmDialog(frmJackRunner, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				if (i == 0)
+					frmJackRunner.dispose();
+			}
+		});
 
 		JMenuBar menuBar = new JMenuBar();
 		frmJackRunner.setJMenuBar(menuBar);
@@ -91,8 +102,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem(
-				"Koordinaten anzeigen");
+		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
 		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JLabel lblX = new JLabel("x:");
@@ -129,11 +139,11 @@ public class Main {
 				try {
 					level = Serializer.read(frmJackRunner);
 					if (level != null) {
-						spieler = new Spielfigur(level.getSpawn().getX(), level
-								.getSpawn().getY() - Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
+						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 						level.addPlayer(spieler);
 
-						Bewegung.bewegen(32);		//hü-hüpf
+						Bewegung.bewegen(32); // hü-hüpf
 
 						p = new Painter(spieler);
 						p.start();
@@ -158,10 +168,8 @@ public class Main {
 			}
 		});
 		menu.add(mntmber);
-		
 
-		JLabel lblBewegenMitDen = new JLabel(
-				"Bewegen mit den Pfeiltasten und springen mit der Leertaste");
+		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frmJackRunner.getContentPane().add(lblBewegenMitDen);
 

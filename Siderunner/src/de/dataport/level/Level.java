@@ -103,10 +103,6 @@ public class Level {
 		repaintLevel(canvas);
 	}
 
-	int xPositionAdditionInsideLevel = 0;
-
-	// Der der am linksesten ist, ist die blockade
-	// x+ speicher für alle
 	public void move(boolean direction, Canvas canvas) {
 		for (Gameblock gb : getListe())
 			if (direction) {
