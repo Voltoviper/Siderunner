@@ -2,10 +2,7 @@ package de.dataport.Objekte;
 
 import java.awt.Point;
 
-import javax.swing.ImageIcon;
-
 import de.dataport.datastructures.Gameobject;
-import de.dataport.window.Start;
 
 /**
  * Klasse der Spielfigur.

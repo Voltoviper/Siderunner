@@ -24,6 +24,10 @@ public abstract class StandardContent{
 		return lBlocks;
 	}
 	
+	public static boolean isStandardBlock(Gameblock gb){
+		return getStandardBlocks().contains(gb);
+	}
+	
 	public static Level getStandardLevel(){
 		return null;
 	}

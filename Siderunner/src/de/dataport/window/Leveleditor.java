@@ -24,6 +24,8 @@ import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
+import de.dataport.usercontrols.PopUpClickListener;
+import de.dataport.usercontrols.PopUpMenuGameblock;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -96,11 +98,36 @@ public class Leveleditor {
 
 		canvas.setBackground(Color.WHITE);
 
+		/* Gameblock-List */
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
 		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 28, 186, 251);
+		
+		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
+		gameblockList.addMouseListener(new PopUpClickListener(){
+			@Override
+			public void mousePressed(MouseEvent e){
+		        if (e.isPopupTrigger()){
+		        	StartPopUp(e,gameblockList);
+		        }
+		    }
+			@Override
+		    public void mouseReleased(MouseEvent e){
+		        if (e.isPopupTrigger()){
+		        	StartPopUp(e,gameblockList);
+
+		        }
+		    }
+			private void StartPopUp(MouseEvent e, JList<Gameblock> gameblockList) {
+	        	PopUpMenuGameblock menu = new PopUpMenuGameblock(gameblockList);
+	            menu.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+		
 		panel.add(jspGameblocks);
+		
+		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 794, 21);
 		panel.add(menuBar);

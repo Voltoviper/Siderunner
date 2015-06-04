@@ -20,10 +20,7 @@ import de.dataport.datastructures.IconHelper;
 public class GameblockListElement extends JPanel implements ListCellRenderer<Gameblock> {
 	public GameblockListElement() {
 	}
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();

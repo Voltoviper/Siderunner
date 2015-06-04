@@ -2,13 +2,9 @@ package de.dataport.berechnungen;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.net.URL;
-
-import javax.print.attribute.standard.Media;
 
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
-import de.dataport.datastructures.Gameblock;
 import de.dataport.window.Main;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
