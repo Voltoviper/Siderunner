@@ -43,16 +43,14 @@ public class Gameblock extends Gameobject {
 		this.color = color;
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param heigth
-	 * @param isDeadly
-	 * @param name
-	 * @param color
-	 */
+	
+	
+	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name) {
+		super(x, y, imageSource);
+		this.isDeadly = isDeadly;
+		this.name = name;
+	}
+	
 	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name,
 			Color color) {
 		super(x, y, width, height);
@@ -60,11 +58,7 @@ public class Gameblock extends Gameobject {
 		this.name = name;
 		this.color = color;
 	}
-	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name) {
-		super(x, y, imageSource);
-		this.isDeadly = isDeadly;
-		this.name = name;
-	}
+
 
 	public Gameblock() {
 		super();

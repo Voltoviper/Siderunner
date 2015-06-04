@@ -84,27 +84,27 @@ public class Level {
 				gameblock.getHeight() - t);
 	}
 
-	/** repaints the whole level on the specific canvas */
-	public void repaintLevel(Canvas canvas) {
-
-		Graphics g = canvas.getGraphics();
-		g.setColor(canvas.getBackground());
-		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for (Gameblock gb : getListe()) {
-			g.setColor(gb.getColor());
-			if (gb.getImage() == null)
-				g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
-						gb.getHeight());
-			else
-				g.drawImage(gb.getImage().getImage(), gb.getX(), gb.getY(), canvas);
-		}
-	}
+//	/** repaints the whole level on the specific canvas */
+//	public void repaintLevel(Canvas canvas) {
+//
+//		Graphics g = canvas.getGraphics();
+//		g.setColor(canvas.getBackground());
+//		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//		for (Gameblock gb : getListe()) {
+//			if (gb.getImage() == null) {
+//				g.setColor(gb.getColor());
+//				g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
+//						gb.getHeight());
+//			} else
+//				g.drawImage(gb.getImage().getImage(), gb.getX(), gb.getY(), canvas);
+//		}
+//	}
 
 	public void deleteLevel(Canvas canvas) {
 		this.content.clear();
 		this.setGoal(null);
 		this.setSpawn(null);
-		repaintLevel(canvas);
+//		repaintLevel(canvas);
 	}
 
 	public void move(boolean direction, Canvas canvas) {
@@ -114,6 +114,6 @@ public class Level {
 			} else {
 				gb.setX(gb.getX() + Spielfigur.getGeschwindigkeit());
 			}
-		repaintLevel(canvas);
+//		repaintLevel(canvas);
 	}
 }
