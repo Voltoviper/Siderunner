@@ -18,7 +18,6 @@ public class Spielfigur extends Gameobject {
 	private static int geschwindigkeit = 10;
 	private static int breite = 50, hoehe = 85;
 	private Point vorherige_koord = new Point(0,0);
-	private ImageIcon image;
 
 	public Point getVorherige_koord() {
 		return vorherige_koord;
@@ -26,14 +25,6 @@ public class Spielfigur extends Gameobject {
 
 	public void setVorherige_koord(Point vorherige_koord) {
 		this.vorherige_koord = vorherige_koord;
-	}
-
-	public ImageIcon getImage() {
-		return image;
-	}
-
-	public void setImage(String source) {
-		this.image = new ImageIcon(Start.class.getResource(source));
 	}
 
 	public static int getBreite() {

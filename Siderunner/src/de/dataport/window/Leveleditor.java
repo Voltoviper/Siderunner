@@ -3,7 +3,6 @@ package de.dataport.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Scrollbar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -28,8 +27,6 @@ import de.dataport.usercontrols.GameblockListElement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -182,7 +179,7 @@ public class Leveleditor {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DrawBlock(e.getX(), e.getY());
+				AddBlock(e.getX(), e.getY());
 			}
 
 		});
@@ -197,7 +194,7 @@ public class Leveleditor {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (isMouseDown)
-					DrawBlock(e.getX(), e.getY());
+					AddBlock(e.getX(), e.getY());
 			}
 
 			@Override
@@ -334,7 +331,7 @@ public class Leveleditor {
 	 * Draws the chosen block on the canvas. Additionally verifies it and binds
 	 * it to the level.
 	 */
-	private void DrawBlock(int x, int y) {
+	private void AddBlock(int x, int y) {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
@@ -352,8 +349,7 @@ public class Leveleditor {
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
 			
-			newBlock.verification(level);
-			
+			level.verification(newBlock);
 		}
 
 	}

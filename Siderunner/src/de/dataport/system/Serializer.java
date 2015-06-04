@@ -67,12 +67,12 @@ public abstract class Serializer {
 	public static String getImagePath(Component openOnInstance, int jFileChooserDialog, String dialogTitle) {
 		File path = getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",
 				ImageIO.getReaderFileSuffixes());
-		if(path==null){
+		if (path == null) {
 			return null;
-		}else{
+		} else {
 			return path.getPath();
 		}
-		
+
 	}
 
 	/**
@@ -88,8 +88,8 @@ public abstract class Serializer {
 	 * @return Wenn eine Datei geladen werden soll, Wird ein String zurück
 	 *         gegeben, der den Pfad enthält
 	 */
-	private static File getFileToChoose(Component openOnInstance, int jFileChooserDialog, String text,
-			String markup, String[] suffixes) {
+	private static File getFileToChoose(Component openOnInstance, int jFileChooserDialog, String text, String markup,
+			String[] suffixes) {
 
 		JFileChooser chooser;
 		chooser = new JFileChooser();
@@ -105,9 +105,10 @@ public abstract class Serializer {
 			int dialog = chooser.showOpenDialog(openOnInstance);
 			if (dialog == JFileChooser.APPROVE_OPTION) {
 				return chooser.getSelectedFile();
-			}else if (dialog == JFileChooser.CANCEL_OPTION) {
-			    System.out.println("Abbrechen wurde ausgewählt!");
-			};
+			} else if (dialog == JFileChooser.CANCEL_OPTION) {
+				System.out.println("Abbrechen wurde ausgewählt!");
+			}
+
 			break;
 		case 1:
 			int dialog1 = chooser.showSaveDialog(openOnInstance);
@@ -122,16 +123,16 @@ public abstract class Serializer {
 					chooser.setSelectedFile(file);
 				}
 				return chooser.getSelectedFile();
-			}else if (dialog1 == JFileChooser.CANCEL_OPTION) {
-			    System.out.println("Abbrechen wurde ausgewählt!");
+			} else if (dialog1 == JFileChooser.CANCEL_OPTION) {
+				System.out.println("Abbrechen wurde ausgewählt!");
 			}
-			;
+
 			break;
 		}
 
 		return null;
 	}
-	
+
 	/**
 	 * Skaliert die Position der Blöcke, wenn beim Editor negative x-Positionen
 	 * gespeichert wurden. (wegen Sidescrolling)
@@ -144,8 +145,6 @@ public abstract class Serializer {
 				if (l.getListe().get(0).getX() < 0) {
 					int optimizer = l.getListe().get(0).getX() * -1;
 					l.getListe().forEach(gb -> gb.setX(gb.getX() + optimizer));
-//					l.getSpawn().setX(l.getSpawn().getX() + optimizer);
-//					l.getGoal().setX(l.getGoal().getX() + optimizer);
 				}
 
 	}
