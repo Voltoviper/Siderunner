@@ -144,8 +144,8 @@ public abstract class Serializer {
 				if (l.getListe().get(0).getX() < 0) {
 					int optimizer = l.getListe().get(0).getX() * -1;
 					l.getListe().forEach(gb -> gb.setX(gb.getX() + optimizer));
-					l.getSpawn().setX(l.getSpawn().getX() + optimizer);
-					l.getGoal().setX(l.getGoal().getX() + optimizer);
+//					l.getSpawn().setX(l.getSpawn().getX() + optimizer);
+//					l.getGoal().setX(l.getGoal().getX() + optimizer);
 				}
 
 	}
