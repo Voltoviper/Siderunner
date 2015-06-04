@@ -13,8 +13,9 @@ public abstract class StandardContent{
 		List<Gameblock> lBlocks=new ArrayList<>();
 		final Gameblock spawn = new Gameblock(null, null, 10, 10, false, "Spawn", Color.MAGENTA);
 		final Gameblock goal = new Gameblock(null, null, 10, 10, false, "Goal", Color.CYAN);
-		final Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
+		//final Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
 		//final Gameblock eraser = new Gameblock(null, null, 10, 10, false, "Eraser", Color.WHITE);
+		final Gameblock vanilla = new Gameblock(null, null, "/de/dataport/window/graphics/vanilla.jpg", false, "vanilla");
 		final Gameblock eraser = new Gameblock(null, null, "/de/dataport/window/graphics/eraser.jpg", false, "Eraser");
 		lBlocks.add(spawn);
 		lBlocks.add(goal);

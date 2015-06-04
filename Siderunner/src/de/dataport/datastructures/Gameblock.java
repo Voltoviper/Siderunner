@@ -86,14 +86,14 @@ public class Gameblock extends Gameobject {
 	}
 
 	/** Painting and verification of the Gameblock-object */
-	public void paint(Canvas canvas, Level level) {
+	public void verification( Level level) {
 
 		Gameblock intersection = level.getIntersectingGameblock(this);
 
 		/* erasing */
 		if (this.getName().equals("Eraser") && intersection != null) {
 			level.removeBlock(intersection);
-			level.repaintLevel(canvas);
+//			level.repaintLevel(canvas);
 
 			/* Spawn and goal unlock */
 			if (intersection.getName().equals("Spawn") || intersection.getName().equals("Goal")) {
@@ -107,9 +107,17 @@ public class Gameblock extends Gameobject {
 		/* painting and adding */
 		if (intersection == null && !this.getName().equals("Eraser")) {
 
-			Graphics g = canvas.getGraphics();
-			g.setColor(getColor());
-			g.fillRect(getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(), getHeight());
+//			Graphics g = canvas.getGraphics();
+//			if (getImage() == null){
+//				g.setColor(getColor());
+//				g.fillRect(getX() - (getWidth() / 2), getY() - (getHeight() / 2), getWidth(),
+//						getHeight());
+//			}
+//			else
+//				g.drawImage(getImage().getImage(), getX(), getY(), canvas);
+//		
+//			
+//			
 
 			/* Spawn and goal lock */
 			if (getName().equals("Spawn") || getName().equals("Goal")) {
@@ -121,6 +129,7 @@ public class Gameblock extends Gameobject {
 			if (!level.getListe().contains(this))
 						level.addBlock(this);
 		}
+		
 	}
 
 	@Override

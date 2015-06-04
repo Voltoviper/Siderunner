@@ -145,7 +145,7 @@ public class Main {
 
 						Bewegung.bewegen(32); // hü-hüpf
 
-						p = new Painter(spieler);
+						p = new Painter(spieler, canvas, level);
 						p.start();
 					}
 				} catch (Exception e) {

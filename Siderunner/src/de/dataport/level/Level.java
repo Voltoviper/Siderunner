@@ -92,7 +92,11 @@ public class Level {
 		g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for (Gameblock gb : getListe()) {
 			g.setColor(gb.getColor());
-			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
+			if (gb.getImage() == null)
+				g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
+						gb.getHeight());
+			else
+				g.drawImage(gb.getImage().getImage(), gb.getX(), gb.getY(), canvas);
 		}
 	}
 

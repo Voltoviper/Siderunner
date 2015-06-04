@@ -5,49 +5,65 @@ import javax.swing.ImageIcon;
 import de.dataport.window.Start;
 
 /**
- * Gameobject Datenstruktur. Alle Spielelemente (Ausnahme Spielfigur) Sind aus dieses Klasse geerbt.
+ * Gameobject Datenstruktur. Alle Spielelemente (Ausnahme Spielfigur) Sind aus
+ * dieses Klasse geerbt.
+ * 
  * @author Jan Koch
  *
  */
-public class Gameobject implements  Comparable<Gameobject> {
+public class Gameobject implements Comparable<Gameobject> {
 
 	private Integer x;
 	private Integer y;
 	private Integer width;
 	private Integer height;
 	private ImageIcon image;
-	
+	private String imageSource;
+
+	public String getImageSource() {
+		return imageSource;
+	}
+
 	public Integer getX() {
 		return x;
 	}
+
 	public void setX(Integer x) {
 		this.x = x;
 	}
+
 	public Integer getY() {
 		return y;
 	}
+
 	public void setY(Integer y) {
 		this.y = y;
 	}
+
 	public Integer getWidth() {
 		return width;
 	}
+
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
+
 	public Integer getHeight() {
 		return height;
 	}
+
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
+
 	public ImageIcon getImage() {
 		return image;
 	}
+
 	public void setImage(String source) {
 		this.image = new ImageIcon(Start.class.getResource(source));
 	}
-	
+
 	public Gameobject(Integer x, Integer y, Integer width, Integer heigth) {
 		super();
 		this.x = x;
@@ -55,19 +71,21 @@ public class Gameobject implements  Comparable<Gameobject> {
 		this.width = width;
 		this.height = heigth;
 	}
+
 	public Gameobject(Integer x, Integer y, String imageSource) {
 		super();
-		this.x = x; 
+		this.x = x;
 		this.y = y;
 		setImage(imageSource);
+		this.imageSource = imageSource;
 		this.width = getImage().getIconWidth();
 		this.height = getImage().getIconHeight();
 	}
-	
+
 	public Gameobject() {
 		super();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,6 +96,7 @@ public class Gameobject implements  Comparable<Gameobject> {
 		result = prime * result + ((y == null) ? 0 : y.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -109,7 +128,7 @@ public class Gameobject implements  Comparable<Gameobject> {
 			return false;
 		return true;
 	}
-	
+
 	/** Relative-Position-On-Screen-Sorting */
 	@Override
 	public int compareTo(Gameobject other) {

@@ -7,6 +7,7 @@ import java.awt.Image;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.level.Level;
 import de.dataport.window.Main;
 /**
  * Malt auf den Main.canvas die Levelelemente und den Spieler.
@@ -18,6 +19,8 @@ public class Painter extends Thread
 	Spielfigur p;
 	Image dbImage;
 	Graphics dbGraphics;
+	private Canvas canvas;
+	private Level level;
 	public static boolean run=true;
 	/**
 	 * Run Methode,  die alle 30ms durchgeführt wird
@@ -26,7 +29,7 @@ public class Painter extends Thread
 	{
 		while (run)
 		{
-			update(Main.canvas);
+			update(canvas);
 			try
 			{
 				Thread.sleep(30);
@@ -38,8 +41,10 @@ public class Painter extends Thread
 		}
 	}
 
-	public Painter (Spielfigur player){
+	public Painter (Spielfigur player, Canvas canvas, Level level){
 		this.p =player;
+		this.canvas = canvas;
+		this.level = level;
 	}
 	/**
 	 * Kopiert den Bildschirm und baut den neuen auf. Erst nachdem dieser vollständig aufgebaut ist wird diese angezeigt.
@@ -52,13 +57,13 @@ public class Painter extends Thread
 		// TODO Auto-generated method stub
 		if (dbImage == null)
 		{
-			dbImage = Main.canvas.createImage(725, 494);
+			dbImage = canvas.createImage(725, 494);
 			dbGraphics = dbImage.getGraphics();
 		}
 			dbGraphics.setColor(Color.white);
-			dbGraphics.fillRect(0, 0, Main.canvas.getSize().width, Main.canvas.getSize().height);
-			dbGraphics.setColor(Main.canvas.getForeground());
-			paint(dbGraphics);
+			dbGraphics.fillRect(0, 0, canvas.getSize().width, canvas.getSize().height);
+			dbGraphics.setColor(canvas.getForeground());
+			if(p!=null)paint(dbGraphics);
 			paintlevel(dbGraphics);
 			g.drawImage(dbImage, 0, 0, canvas);
 		}catch(Exception e){
@@ -70,7 +75,7 @@ public class Painter extends Thread
  * @param g Bitte gebe die Grafik an, auf die gemalt werden soll
  */
 	public void paintlevel(Graphics g){
-		for (Gameblock gb : Main.level.getListe()) {
+		for (Gameblock gb : level.getListe()) {
 			g.setColor(gb.getColor());
 			g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(), gb.getHeight());
 		}
@@ -82,7 +87,7 @@ public class Painter extends Thread
 	public void paint(Graphics g)
 	{
 		g.setColor(Color.white);
-		g.drawImage(p.getImage().getImage(), p.getX(), p.getY(), Main.canvas);
+		g.drawImage(p.getImage().getImage(), p.getX(), p.getY(), canvas);
 		
 	}
 }

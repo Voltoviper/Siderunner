@@ -21,6 +21,7 @@ import javax.swing.ListModel;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
 import de.dataport.standardcatalog.StandardContent;
+import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
 
@@ -51,7 +52,12 @@ public class Leveleditor {
 	private JMenuBar menuBar;
 	private JMenuItem editoranzeigen, mntmNew_1;
 	private JScrollPane jspGameblocks;
+	private Painter backgroundPainter;
 
+	public Painter getPainter(){
+		return backgroundPainter;
+	}
+	
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -85,6 +91,8 @@ public class Leveleditor {
 		initialize();
 		fillList();
 		level = new Level();
+		backgroundPainter=new Painter(null, canvas, level);
+		backgroundPainter.start();
 	}
 
 	/** Instantiating and filling the Gameblock-Jlist */
@@ -186,11 +194,14 @@ public class Leveleditor {
 				/* Level nach Rechts erweitern */
 				if (e.getX() > ((double) canvas.getWidth() * 0.95))
 					level.move(true, canvas);
-				/* Zurückscrollen --> Keine Erweiterung nach Links; Blockade beim Block der am weitesten Links ist. */
+				/*
+				 * Zurückscrollen --> Keine Erweiterung nach Links; Blockade
+				 * beim Block der am weitesten Links ist.
+				 */
 				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
 					if (level.getListe() != null)
 						if (level.getListe().size() != 0)
-							if (level.getListe().get(0).getX()-level.getListe().get(0).getWidth() < 0)
+							if (level.getListe().get(0).getX() - level.getListe().get(0).getWidth() < 0)
 								level.move(false, canvas);
 			}
 		});
@@ -251,9 +262,9 @@ public class Leveleditor {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()), Integer
-						.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(), textField_2
-						.getText().toString(), null);
+				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()),
+						Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(),
+						textField_2.getText().toString(), null);
 
 				((DefaultListModel<Gameblock>) gameblockList.getModel()).addElement(gb);
 			}
@@ -308,16 +319,22 @@ public class Leveleditor {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
-			Gameblock newBlock = new Gameblock(x, y, gameblockList.getSelectedValue().getWidth(), gameblockList
-					.getSelectedValue().getHeight(), gameblockList.getSelectedValue().getIsDeadly(), gameblockList
-					.getSelectedValue().getName(), gameblockList.getSelectedValue().getColor());
-
+			Gameblock parent = gameblockList.getSelectedValue();
+			Gameblock newBlock;
+			if (parent.getImage() == null)
+				newBlock = new Gameblock(x, y, parent.getWidth(), parent.getHeight(), parent.getIsDeadly(),
+						parent.getName(), parent.getColor());
+			else
+				newBlock = new Gameblock(x, y, parent.getImageSource(), parent.getIsDeadly(),
+						parent.getName());
+			
 			/* Spawn & Goal - lock */
 			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
-			newBlock.paint(canvas, level);
-
+			
+			newBlock.verification(level);
+			
 		}
 
 	}
