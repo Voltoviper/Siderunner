@@ -16,7 +16,12 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import de.dataport.network.Client;
+import de.dataport.network.RMIClient;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -97,6 +102,16 @@ public class Start {
 		btnMultiplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Multiplayer.png")));
 		btnMultiplayer.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnMultiplayer.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnMultiplayer.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Client client = new Client("Hans Peter");
+				RMIClient network = new RMIClient();
+				network.start(client);
+			}
+		});
 		verticalBoxButtons.add(btnMultiplayer);
 
 		JButton btnLeveleditor = new JButton("");
