@@ -3,8 +3,13 @@ package de.dataport.network;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+
+
+import javax.swing.JOptionPane;
 
 import de.dataport.network.Client;
 
@@ -13,14 +18,22 @@ public class Game_Finder implements Game_FinderInterface{
 	ArrayList<Client> searching = new ArrayList<Client>();
 
 	public static void main(String[] args) {
+		String[] options = {"OK"};
 		try {
+			
+			
 			Registry registry = LocateRegistry.createRegistry(1100);
 			
 			Game_FinderInterface stub = (Game_FinderInterface) UnicastRemoteObject.exportObject(new Game_Finder(), 0);
 			registry.rebind("Game_Finder", stub);
+			
+
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if(JOptionPane.showOptionDialog(null, "Server beenden?", "Siderunner Server", JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE, null, options, options[0] )==JOptionPane.OK_OPTION){
+			System.exit(0);
 		}
 	}
 
@@ -30,6 +43,7 @@ public class Game_Finder implements Game_FinderInterface{
 	 */
 	@Override
 	public Client getClient() throws RemoteException {
+		
 		if(!searching.isEmpty()){
 			return searching.get(0);
 		}else{
@@ -44,13 +58,15 @@ public class Game_Finder implements Game_FinderInterface{
 	@Override
 	public boolean SearchGamepartner(Client client) throws RemoteException {
 		try{
+			client.setIp(RemoteServer.getClientHost());
 		searching.add(client);
-		System.out.println("Added: "+ client.getName());
+		System.out.println("Added: "+ client.getName()+ " "+ client.getIp());
 		return true;
 		}catch(Exception e){
 			return false;
 		}
 		
 	}
+	
 
 }

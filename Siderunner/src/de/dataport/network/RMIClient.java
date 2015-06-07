@@ -7,8 +7,7 @@ import java.rmi.registry.Registry;
 
 
 public class RMIClient {
-	public void start(Client client) {
-		try {
+	public void start(Client client) throws RemoteException, NotBoundException {
 			
 			
 			Registry registry = LocateRegistry.getRegistry("localhost", 1100);
@@ -16,9 +15,6 @@ public class RMIClient {
 
 			stub.SearchGamepartner(client);
 			System.out.println(stub.getClient().getName());
-		}
-		catch (RemoteException | NotBoundException ex) {
-			ex.printStackTrace();
-		}
+		
 	}
 }

@@ -107,9 +107,8 @@ public class Start {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Client client = new Client("Hans Peter");
-				RMIClient network = new RMIClient();
-				network.start(client);
+				Multiplayer Multi = new Multiplayer();
+				
 			}
 		});
 		verticalBoxButtons.add(btnMultiplayer);
