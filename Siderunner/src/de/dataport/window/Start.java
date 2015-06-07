@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import de.dataport.network.Client;
-import de.dataport.network.RMIClient;
+import de.dataport.network.RandomServerClient;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

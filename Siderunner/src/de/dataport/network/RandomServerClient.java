@@ -6,7 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-public class RMIClient {
+public class RandomServerClient {
 	public void start(Client client) throws RemoteException, NotBoundException {
 			
 			

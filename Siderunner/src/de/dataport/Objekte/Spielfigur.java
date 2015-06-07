@@ -1,6 +1,7 @@
 package de.dataport.Objekte;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 import de.dataport.datastructures.Gameobject;
 
@@ -10,8 +11,12 @@ import de.dataport.datastructures.Gameobject;
  * @author chris_000
  *
  */
-public class Spielfigur extends Gameobject {
+public class Spielfigur extends Gameobject implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static int geschwindigkeit = 10;
 	private static int breite = 50, hoehe = 85;
 	private Point vorherige_koord = new Point(0,0);

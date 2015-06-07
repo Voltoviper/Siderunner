@@ -19,7 +19,9 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import de.dataport.network.Client;
-import de.dataport.network.RMIClient;
+import de.dataport.network.Game_Link_Client;
+import de.dataport.network.Game_Link_Server;
+import de.dataport.network.RandomServerClient;
 
 public class Multiplayer extends JFrame
 {
@@ -33,6 +35,8 @@ public class Multiplayer extends JFrame
 	private JPanel contentPane;
 	private JTextField textField;
 	JLabel LabelLoading;
+	JLabel LabelIcon;
+	JLabel lblServerGestartet;
 
 	/**
 	 * Launch the application.
@@ -62,7 +66,7 @@ public class Multiplayer extends JFrame
 	public Multiplayer()
 	{
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -72,7 +76,7 @@ public class Multiplayer extends JFrame
 		frame.setVisible(true);
 
 		textField = new JTextField();
-		textField.setBounds(299, 78, 125, 20);
+		textField.setBounds(299, 105, 125, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		textField.setVisible(false);
@@ -80,7 +84,7 @@ public class Multiplayer extends JFrame
 		JLabel lblNewLabel = new JLabel("IP:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setLabelFor(textField);
-		lblNewLabel.setBounds(250, 81, 46, 14);
+		lblNewLabel.setBounds(254, 108, 46, 14);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setVisible(false);
 
@@ -112,8 +116,34 @@ public class Multiplayer extends JFrame
 		radiobuttons.add(RadioRandomSearching);
 		contentPane.add(RadioRandomSearching);
 
+		JRadioButton RadioHost = new JRadioButton("Host Game");
+		RadioHost.setBounds(278, 49, 109, 23);
+		RadioHost.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				if (RadioHost.isSelected())
+				{
+
+					textField.setVisible(false);
+					lblNewLabel.setVisible(false);
+				}
+				else
+				{
+					textField.setVisible(true);
+					lblNewLabel.setVisible(true);
+				}
+			}
+
+		});
+		contentPane.add(RadioHost);
+		radiobuttons.add(RadioHost);
+
 		JRadioButton RadioSearchDirect = new JRadioButton("Direct Search");
-		RadioSearchDirect.setBounds(278, 48, 135, 23);
+		RadioSearchDirect.setBounds(278, 75, 135, 23);
 		RadioSearchDirect.addActionListener(new ActionListener()
 		{
 			@Override
@@ -137,32 +167,61 @@ public class Multiplayer extends JFrame
 		contentPane.add(RadioSearchDirect);
 
 		JButton ButtonSearch = new JButton("Search");
-		ButtonSearch.setBounds(278, 121, 146, 23);
-		ButtonSearch.addActionListener(new ActionListener(){
+		ButtonSearch.setBounds(278, 141, 146, 23);
+		ButtonSearch.addActionListener(new ActionListener()
+		{
 
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				// TODO Auto-generated method stub
 				LabelLoading.setVisible(true);
-				if(RadioRandomSearching.isSelected()){
+				if (RadioRandomSearching.isSelected())
+				{
 					Client client = new Client("Hans Peter", 1);
-					RMIClient network = new RMIClient();
+					RandomServerClient network = new RandomServerClient();
 					try
 					{
 						network.start(client);
 					} catch (RemoteException | NotBoundException e1)
 					{
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					LabelLoading.setVisible(false);
-					
-				}else if(RadioSearchDirect.isSelected()){
-					
+
+				}
+				else if (RadioSearchDirect.isSelected())
+				{
+					Game_Link_Client client = new Game_Link_Client();
+					try
+					{
+						lblServerGestartet.setText(client.start("localhost"));
+						LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+					} catch (RemoteException e1)
+					{
+						lblServerGestartet.setText("Fehler bei der Verbindung!");
+						LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
+					} catch (NotBoundException e1)
+					{
+						e1.printStackTrace();
+						LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
+						lblServerGestartet.setText("Fehler bei der Verbindung!");
+					}
+					lblServerGestartet.setVisible(true);
+					LabelIcon.setVisible(true);
+					LabelLoading.setVisible(false);
+				}
+				else if (RadioHost.isSelected())
+				{
+					Game_Link_Server server = new Game_Link_Server();
+					server.start();
+
+					LabelIcon.setVisible(true);
+					lblServerGestartet.setVisible(true);
+					LabelLoading.setVisible(false);
 				}
 			}
-			
+
 		});
 		contentPane.add(ButtonSearch);
 
@@ -175,6 +234,18 @@ public class Multiplayer extends JFrame
 		LabelLoading.setBounds(404, 231, 20, 20);
 		contentPane.add(LabelLoading);
 		LabelLoading.setVisible(false);
+
+		LabelIcon = new JLabel();
+		LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		LabelIcon.setBounds(52, 34, 166, 135);
+		contentPane.add(LabelIcon);
+		LabelIcon.setVisible(false);
+
+		lblServerGestartet = new JLabel("Server gestartet");
+		lblServerGestartet.setHorizontalAlignment(SwingConstants.CENTER);
+		lblServerGestartet.setBounds(52, 180, 166, 14);
+		contentPane.add(lblServerGestartet);
+		lblServerGestartet.setVisible(false);
 
 	}
 }
