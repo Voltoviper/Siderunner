@@ -45,7 +45,9 @@ public class Game_Finder implements Game_FinderInterface{
 	public Client getClient() throws RemoteException {
 		
 		if(!searching.isEmpty()){
-			return searching.get(0);
+			Client c = searching.get(0);
+			searching.remove(searching.get(0));
+			return c;
 		}else{
 		return null;
 		}

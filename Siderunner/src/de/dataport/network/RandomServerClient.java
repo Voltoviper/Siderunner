@@ -13,8 +13,17 @@ public class RandomServerClient {
 			Registry registry = LocateRegistry.getRegistry("localhost", 1100);
 			Game_FinderInterface stub = (Game_FinderInterface) registry.lookup("Game_Finder");
 
-			stub.SearchGamepartner(client);
-			System.out.println(stub.getClient().getName());
+			Client c = stub.getClient();
+			Game_Link_Client game_client = new Game_Link_Client();
+			if(c!=null){
+				System.out.println(c.getName());
+				System.out.println(game_client.start(c.getIp()));
+			}else{
+				stub.SearchGamepartner(client);
+				Game_Link_Server game_server = new Game_Link_Server();
+				game_server.start();
+			}
+			
 		
 	}
 }

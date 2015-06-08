@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Random;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -37,6 +38,7 @@ public class Multiplayer extends JFrame
 	JLabel LabelLoading;
 	JLabel LabelIcon;
 	JLabel lblServerGestartet;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -178,7 +180,13 @@ public class Multiplayer extends JFrame
 				LabelLoading.setVisible(true);
 				if (RadioRandomSearching.isSelected())
 				{
-					Client client = new Client("Hans Peter", 1);
+					Client client;
+					if(textField_1.getText()!=null){
+					client = new Client(textField_1.getText(), 1);
+					}
+					else{
+						client = new Client("Player"+Math.random()*10000,1);
+					}
 					RandomServerClient network = new RandomServerClient();
 					try
 					{
@@ -245,6 +253,19 @@ public class Multiplayer extends JFrame
 		lblServerGestartet.setHorizontalAlignment(SwingConstants.CENTER);
 		lblServerGestartet.setBounds(52, 180, 166, 14);
 		contentPane.add(lblServerGestartet);
+		
+		JLabel lblNewLabel_1 = new JLabel("Name:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1.setBounds(241, 180, 46, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		lblNewLabel_1.setLabelFor(textField_1);
+		textField_1.setBounds(299, 175, 125, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		double rand = Math.random()*10000;
+		textField_1.setText("Player"+ (int)rand);
 		lblServerGestartet.setVisible(false);
 
 	}
