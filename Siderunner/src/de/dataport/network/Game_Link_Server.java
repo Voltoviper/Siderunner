@@ -7,13 +7,23 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Game_Link_Server implements Game_Link_Interface
 {
+Client client;
 
-	public void start(){
+
+	public Game_Link_Server(Client client) {
+	super();
+	this.client = client;
+}
+	public Game_Link_Server(){
+		
+	}
+
+	public void start(Client client){
 		Registry registry;
 		try
 		{
 			registry = LocateRegistry.createRegistry(1101);
-			Game_Link_Interface stub = (Game_Link_Interface) UnicastRemoteObject.exportObject(new Game_Link_Server(), 0);
+			Game_Link_Interface stub = (Game_Link_Interface) UnicastRemoteObject.exportObject(new Game_Link_Server(client), 0);
 			registry.rebind("Game_Link", stub);
 		} catch (RemoteException e)
 		{
@@ -25,11 +35,13 @@ public class Game_Link_Server implements Game_Link_Interface
 	}
 	
 	@Override
-	public Client getClient() throws RemoteException
+	public Client getClient(Client client_Client) throws RemoteException
 	{
 		// TODO Auto-generated method stub
-		Client c = new Client("Christoph Nebendahl", 1);
-		return c ;
+		System.out.println(client_Client.getName());
+		
+		
+		return client ;
 	}
 
 	@Override

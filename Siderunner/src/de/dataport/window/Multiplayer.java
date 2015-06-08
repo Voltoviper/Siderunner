@@ -39,6 +39,7 @@ public class Multiplayer extends JFrame
 	JLabel LabelIcon;
 	JLabel lblServerGestartet;
 	private JTextField textField_1;
+	Client client;
 
 	/**
 	 * Launch the application.
@@ -178,15 +179,16 @@ public class Multiplayer extends JFrame
 			{
 				// TODO Auto-generated method stub
 				LabelLoading.setVisible(true);
-				if (RadioRandomSearching.isSelected())
-				{
-					Client client;
-					if(textField_1.getText()!=null){
+				if(textField_1.getText()!=null){
 					client = new Client(textField_1.getText(), 1);
 					}
 					else{
 						client = new Client("Player"+Math.random()*10000,1);
 					}
+				if (RadioRandomSearching.isSelected())
+				{
+					
+					
 					RandomServerClient network = new RandomServerClient();
 					try
 					{
@@ -200,10 +202,12 @@ public class Multiplayer extends JFrame
 				}
 				else if (RadioSearchDirect.isSelected())
 				{
-					Game_Link_Client client = new Game_Link_Client();
+					Game_Link_Client game_link_client = new Game_Link_Client();
 					try
 					{
-						lblServerGestartet.setText(client.start("localhost"));
+						Client client1 = new Client("Player",1);
+						
+						lblServerGestartet.setText(game_link_client.start(client1));
 						LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
 					} catch (RemoteException e1)
 					{
@@ -221,8 +225,8 @@ public class Multiplayer extends JFrame
 				}
 				else if (RadioHost.isSelected())
 				{
-					Game_Link_Server server = new Game_Link_Server();
-					server.start();
+					Game_Link_Server server = new Game_Link_Server(client);
+					server.start(client);
 
 					LabelIcon.setVisible(true);
 					lblServerGestartet.setVisible(true);

@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 public interface Game_Link_Interface extends Remote 
 {
-	public Client getClient() throws RemoteException;
+	public Client getClient(Client client_Client) throws RemoteException;
 	public boolean Spielfigur(de.dataport.Objekte.Spielfigur spieler)throws RemoteException;
 	
 }

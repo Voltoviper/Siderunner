@@ -17,11 +17,11 @@ public class RandomServerClient {
 			Game_Link_Client game_client = new Game_Link_Client();
 			if(c!=null){
 				System.out.println(c.getName());
-				System.out.println(game_client.start(c.getIp()));
+				System.out.println(game_client.start(c));
 			}else{
 				stub.SearchGamepartner(client);
-				Game_Link_Server game_server = new Game_Link_Server();
-				game_server.start();
+				Game_Link_Server game_server = new Game_Link_Server(client);
+				game_server.start(client);
 			}
 			
 		
