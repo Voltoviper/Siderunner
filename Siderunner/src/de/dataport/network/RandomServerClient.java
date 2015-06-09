@@ -14,10 +14,11 @@ public class RandomServerClient {
 			Game_FinderInterface stub = (Game_FinderInterface) registry.lookup("Game_Finder");
 
 			Client c = stub.getClient();
-			Game_Link_Client game_client = new Game_Link_Client();
+			
 			if(c!=null){
 				System.out.println(c.getName());
-				System.out.println(game_client.start(c));
+				Game_Link_Client game_client = new Game_Link_Client();
+				game_client.start(client);
 			}else{
 				stub.SearchGamepartner(client);
 				Game_Link_Server game_server = new Game_Link_Server(client);
