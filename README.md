@@ -10,3 +10,6 @@ Grundlegendes ist eingerichtet
 
 +++ Changelog +++  
 Lvleditor funktioniert (rudimentär). Es können Level nun an selbstbestimmten Orten abgelegt werden. Somit können eigene Level gebaut werden. Siehe #5
+
++++ Changelog +++
+So, in den letzten Tagen hat sich einiges getan. Der Leveleditor ist nur "fertiger" Die Kollisionen wurden angepasst und ein Radiergummi hinzugefügt. Auch eigene Blöcke können ab jetzt Einzug halten :) Weiterhin wurde an der Multiplayer Fähigkeit angefangen zu basteln :)
