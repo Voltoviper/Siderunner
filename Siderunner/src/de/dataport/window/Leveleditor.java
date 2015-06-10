@@ -242,8 +242,11 @@ public class Leveleditor {
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
-				if (i == 0)
+				if (i == 0){
+					backgroundPainter.run=false;
 					Menu.dispose(frame);
+					
+				}
 			}
 		});
 		frame.getContentPane().setLayout(null);

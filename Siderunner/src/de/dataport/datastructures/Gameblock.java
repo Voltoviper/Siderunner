@@ -18,6 +18,7 @@ public class Gameblock extends Gameobject {
 	private Boolean isDeadly;
 	private String name;
 	private Color color;
+	private String imageSource;
 
 	public Boolean getIsDeadly() {
 		return isDeadly;
@@ -49,6 +50,7 @@ public class Gameblock extends Gameobject {
 		super(x, y, imageSource);
 		this.isDeadly = isDeadly;
 		this.name = name;
+		this.imageSource = "peter";
 	}
 	
 	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name,
