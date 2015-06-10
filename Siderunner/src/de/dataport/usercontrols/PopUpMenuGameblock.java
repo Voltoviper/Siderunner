@@ -3,6 +3,7 @@ package de.dataport.usercontrols;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -49,7 +50,12 @@ public class PopUpMenuGameblock extends JPopupMenu {
 				jmiDelete.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						gameblockList.remove(gameblockList.getSelectedIndex());
+						DefaultListModel<Gameblock> model = (DefaultListModel<Gameblock>) gameblockList.getModel();
+						int selectedIndex = gameblockList.getSelectedIndex();
+						if (selectedIndex != -1) {
+						    model.remove(selectedIndex);
+						}
+						gameblockList.setModel(gameblockList.getModel());
 					}
 				});
 				add(jmiDelete);

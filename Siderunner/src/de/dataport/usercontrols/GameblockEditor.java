@@ -25,17 +25,34 @@ import java.awt.event.ActionEvent;
 
 public class GameblockEditor extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldImageSource;
 	private JDialog thisDialog;
 	private JCheckBox chckbxIsDeadly;
 	private JTextField textFieldName;
-	JScrollPane jspGameblockView;
+	private JScrollPane jspGameblockView;
 
+	private JList<Gameblock> gameblockList;
+	GameblockEditorMode mode;
+
+	/**
+	 * Creates a view for editing or adding a Gameblock.
+	 * 
+	 * @param gameblockList
+	 *            List, that contains or will contain the Gameblock.
+	 * @param mode
+	 *            Defines if selected Gameblock from list will be edited or a
+	 *            new one will be added.
+	 */
 	public GameblockEditor(JList<Gameblock> gameblockList, GameblockEditorMode mode) {
+		this.gameblockList = gameblockList;
+		this.mode = mode;
+		initialize();
+		if (mode == GameblockEditorMode.EDIT)
+			loadGameblockToView();
+	}
+
+	private void initialize() {
 		/* JDialog */
 		thisDialog = this;
 		setResizable(false);
@@ -117,10 +134,23 @@ public class GameblockEditor extends JDialog {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultListModel<Gameblock> listModel = (DefaultListModel<Gameblock>)gameblockList.getModel();
-				listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(), chckbxIsDeadly.isSelected(),
-						textFieldName.getText()));
+				DefaultListModel<Gameblock> listModel = (DefaultListModel<Gameblock>) gameblockList
+						.getModel();
+
+				if (mode == GameblockEditorMode.ADD) {
+					listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(),
+							chckbxIsDeadly.isSelected(), textFieldName.getText()));
+				} else {
+					Gameblock gb = gameblockList.getSelectedValue();
+					if (gb != null) {
+						gb.setImageSource(textFieldImageSource.getText());
+						gb.setIsDeadly(chckbxIsDeadly.isSelected());
+						gb.setName(textFieldName.getText());
+					}
+				}
+
 				gameblockList.setModel(gameblockList.getModel());
+				dispose();
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -130,12 +160,23 @@ public class GameblockEditor extends JDialog {
 	}
 
 	private void UpdateView() {
+		
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<Gameblock>();
-		listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(), chckbxIsDeadly.isSelected(),
-				textFieldName.getText()));
+		listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(), chckbxIsDeadly
+				.isSelected(), textFieldName.getText()));
 
 		JList<Gameblock> gameblock = new JList<Gameblock>(listModel);
 		gameblock.setCellRenderer(new GameblockListElement());
 		jspGameblockView.setViewportView(gameblock);
 	}
+
+	private void loadGameblockToView() {
+		if (gameblockList.getSelectedValue() != null) {
+			textFieldName.setText(gameblockList.getSelectedValue().getName());
+			textFieldImageSource.setText(gameblockList.getSelectedValue().getImageSource());
+			chckbxIsDeadly.setSelected(gameblockList.getSelectedValue().getIsDeadly());
+			UpdateView();
+		}
+	}
+
 }
