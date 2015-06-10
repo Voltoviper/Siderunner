@@ -3,7 +3,6 @@ package de.dataport.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Scrollbar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -25,11 +24,11 @@ import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
+import de.dataport.usercontrols.PopUpClickListener;
+import de.dataport.usercontrols.PopUpMenuGameblock;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -99,11 +98,36 @@ public class Leveleditor {
 
 		canvas.setBackground(Color.WHITE);
 
+		/* Gameblock-List */
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
 		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 28, 186, 251);
+		
+		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
+		gameblockList.addMouseListener(new PopUpClickListener(){
+			@Override
+			public void mousePressed(MouseEvent e){
+		        if (e.isPopupTrigger()){
+		        	StartPopUp(e,gameblockList);
+		        }
+		    }
+			@Override
+		    public void mouseReleased(MouseEvent e){
+		        if (e.isPopupTrigger()){
+		        	StartPopUp(e,gameblockList);
+
+		        }
+		    }
+			private void StartPopUp(MouseEvent e, JList<Gameblock> gameblockList) {
+	        	PopUpMenuGameblock menu = new PopUpMenuGameblock(gameblockList);
+	            menu.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+		
 		panel.add(jspGameblocks);
+		
+		
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 794, 21);
 		panel.add(menuBar);
@@ -182,7 +206,7 @@ public class Leveleditor {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DrawBlock(e.getX(), e.getY());
+				AddBlock(e.getX(), e.getY());
 			}
 
 		});
@@ -197,7 +221,7 @@ public class Leveleditor {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (isMouseDown)
-					DrawBlock(e.getX(), e.getY());
+					AddBlock(e.getX(), e.getY());
 			}
 
 			@Override
@@ -337,7 +361,7 @@ public class Leveleditor {
 	 * Draws the chosen block on the canvas. Additionally verifies it and binds
 	 * it to the level.
 	 */
-	private void DrawBlock(int x, int y) {
+	private void AddBlock(int x, int y) {
 		if (gameblockList.getSelectedValue() != null) {
 
 			/* Create NEW Block */
@@ -355,8 +379,7 @@ public class Leveleditor {
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
 			
-			newBlock.verification(level);
-			
+			level.verification(newBlock);
 		}
 
 	}

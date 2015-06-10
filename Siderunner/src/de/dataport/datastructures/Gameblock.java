@@ -1,10 +1,6 @@
 package de.dataport.datastructures;
 
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Graphics;
-
-import de.dataport.level.Level;
 
 /**
  * Datenstruktur, die vom Gameobject erbt. Es werden nur einige weitere
@@ -44,15 +40,6 @@ public class Gameblock extends Gameobject {
 		this.color = color;
 	}
 
-	
-	
-	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name) {
-		super(x, y, imageSource);
-		this.isDeadly = isDeadly;
-		this.name = name;
-		this.imageSource = "peter";
-	}
-	
 	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name,
 			Color color) {
 		super(x, y, width, height);
@@ -60,12 +47,18 @@ public class Gameblock extends Gameobject {
 		this.name = name;
 		this.color = color;
 	}
-
+	
+	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name) {
+		super(x, y, imageSource);
+		this.isDeadly = isDeadly;
+		this.name = name;
+	}
 
 	public Gameblock() {
 		super();
 	}
 
+	/** Testausgabe */
 	@Override
 	public String toString() {
 		return "Gameblock [isDeadly=" + isDeadly + ", name=" + name + ", color=" + color + "]";
@@ -81,52 +74,7 @@ public class Gameblock extends Gameobject {
 		return getWidth() + "x" + getHeight();
 	}
 
-	/** Painting and verification of the Gameblock-object */
-	public void verification( Level level) {
-
-		Gameblock intersection = level.getIntersectingGameblock(this);
-
-		/* erasing */
-		if (this.getName().equals("Eraser") && intersection != null) {
-			level.removeBlock(intersection);
-//			level.repaintLevel(canvas);
-
-			/* Spawn and goal unlock */
-			if (intersection.getName().equals("Spawn") || intersection.getName().equals("Goal")) {
-				if (intersection.getName().equals("Spawn"))
-					level.setSpawn(null);
-				if (intersection.getName().equals("Goal"))
-					level.setGoal(null);
-			}
-		}
-
-		/* painting and adding */
-		if (intersection == null && !this.getName().equals("Eraser")) {
-
-//			Graphics g = canvas.getGraphics();
-//			if (getImage() == null){
-//				g.setColor(getColor());
-//				g.fillRect(getX() - (getWidth() / 2), getY() - (getHeight() / 2), getWidth(),
-//						getHeight());
-//			}
-//			else
-//				g.drawImage(getImage().getImage(), getX(), getY(), canvas);
-//		
-//			
-//			
-
-			/* Spawn and goal lock */
-			if (getName().equals("Spawn") || getName().equals("Goal")) {
-				if (getName().equals("Spawn"))
-					level.setSpawn(this);
-				if (getName().equals("Goal"))
-					level.setGoal(this);
-			}
-			if (!level.getListe().contains(this))
-						level.addBlock(this);
-		}
-		
-	}
+	
 
 	@Override
 	public int hashCode() {

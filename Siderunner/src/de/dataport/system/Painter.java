@@ -8,7 +8,6 @@ import java.awt.Image;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
-import de.dataport.window.Main;
 
 /**
  * Malt auf den Main.canvas die Levelelemente und den Spieler.

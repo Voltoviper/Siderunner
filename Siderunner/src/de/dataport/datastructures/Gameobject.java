@@ -20,10 +20,6 @@ public class Gameobject implements Comparable<Gameobject> {
 	private ImageIcon image;
 	private String imageSource;
 
-	public String getImageSource() {
-		return imageSource;
-	}
-
 	public Integer getX() {
 		return x;
 	}
@@ -60,26 +56,38 @@ public class Gameobject implements Comparable<Gameobject> {
 		return image;
 	}
 
-	public void setImage(String source) {
-		this.image = new ImageIcon(Start.class.getResource(source));
+	public void setImage(ImageIcon image) {
+		this.image = image;
+	}
+
+	public void setImageSource(String imageSource) {
+		this.imageSource = imageSource;
+		if (Start.class.getResource(imageSource) != null)
+			this.image = new ImageIcon(Start.class.getResource(imageSource));
+		else
+			this.image = new ImageIcon(imageSource);
+	}
+
+	public String getImageSource() {
+		return imageSource;
 	}
 
 	public Gameobject(Integer x, Integer y, Integer width, Integer heigth) {
 		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = heigth;
+		initialize(x, y, width, heigth);
 	}
 
 	public Gameobject(Integer x, Integer y, String imageSource) {
 		super();
+		setImageSource(imageSource);
+		initialize(x, y, image.getIconWidth(), image.getIconHeight());
+	}
+
+	private void initialize(Integer x, Integer y, Integer width, Integer heigth) {
 		this.x = x;
 		this.y = y;
-		setImage(imageSource);
-		this.imageSource = imageSource;
-		this.width = getImage().getIconWidth();
-		this.height = getImage().getIconHeight();
+		this.width = width;
+		this.height = heigth;
 	}
 
 	public Gameobject() {
