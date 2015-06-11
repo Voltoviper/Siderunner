@@ -43,7 +43,7 @@ public class Gewonnen extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 					try {
-						Singleplayer.fame.dispose();
+						Singleplayer.frame.dispose();
 						Painter.run= false;
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

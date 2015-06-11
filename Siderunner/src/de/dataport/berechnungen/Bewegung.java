@@ -16,7 +16,7 @@ public class Bewegung implements KeyListener {
 	public static boolean jump = false;
 
 	public void Bewegung_erkennen() {
-		Singleplayer.fame.addKeyListener(this);
+		Singleplayer.frame.addKeyListener(this);
 		Singleplayer.canvas.addKeyListener(this);
 	}
 

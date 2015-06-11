@@ -21,7 +21,6 @@ import javax.swing.Timer;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
-import de.dataport.berechnungen.Boden;
 import de.dataport.level.Level;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
@@ -30,8 +29,7 @@ public class Singleplayer {
 
 	public static Graphics graphics;
 	public static Spielfigur player;
-	public static Boden test;
-	public static JFrame fame;
+	public static JFrame frame;
 	public static Level level1 = new Level();
 	public static JLabel lblNewLabel = new JLabel("New label");
 	public static JLabel lblNewLabel_1 = new JLabel("New label");
@@ -49,7 +47,7 @@ public class Singleplayer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Singleplayer.fame.setVisible(true);
+					Singleplayer.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,23 +66,23 @@ public class Singleplayer {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		fame = new JFrame();
-		fame.setResizable(true);
-		fame.setTitle("Jack Runner");
-		fame.setBounds(100, 100, 900, 554);
-		fame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		fame.getContentPane().setLayout(null);
+		frame = new JFrame();
+		frame.setResizable(true);
+		frame.setTitle("Jack Runner");
+		frame.setBounds(100, 100, 900, 554);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 
-		fame.addWindowListener(new WindowAdapter() {
+		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(fame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					Menu.dispose(fame);
+					Menu.dispose(frame);
 			}
 		});
 
 		JMenuBar menuBar = new JMenuBar();
-		fame.setJMenuBar(menuBar);
+		frame.setJMenuBar(menuBar);
 
 		JMenu mnDatei = new JMenu("Datei");
 		menuBar.add(mnDatei);
@@ -92,9 +90,9 @@ public class Singleplayer {
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = JOptionPane.showConfirmDialog(fame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					Menu.dispose(fame);
+					Menu.dispose(frame);
 			}
 		});
 
@@ -105,10 +103,10 @@ public class Singleplayer {
 				lblX.setBounds(780, 11, 46, 14);
 				JLabel lblY = new JLabel("y:");
 				lblY.setBounds(780, 29, 46, 14);
-				fame.getContentPane().add(lblX);
-				fame.getContentPane().add(lblY);
-				fame.getContentPane().add(lblNewLabel);
-				fame.getContentPane().add(lblNewLabel_1);
+				frame.getContentPane().add(lblX);
+				frame.getContentPane().add(lblY);
+				frame.getContentPane().add(lblNewLabel);
+				frame.getContentPane().add(lblNewLabel_1);
 				lblNewLabel.setText(player.getX() + "");
 				lblNewLabel.setBounds(800, 11, 46, 14);
 				lblNewLabel_1.setText(player.getY() + "");
@@ -126,14 +124,14 @@ public class Singleplayer {
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(0, 0, 725, 494);
-		fame.getContentPane().add(canvas);
+		frame.getContentPane().add(canvas);
 
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					level = Serializer.read(fame);
+					level = Serializer.read(frame);
 					if (level != null) {
 						player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
@@ -167,7 +165,7 @@ public class Singleplayer {
 
 		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
-		fame.getContentPane().add(lblBewegenMitDen);
+		frame.getContentPane().add(lblBewegenMitDen);
 
 		Bewegung bewegung = new Bewegung();
 		bewegung.Bewegung_erkennen();

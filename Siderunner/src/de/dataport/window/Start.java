@@ -89,7 +89,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Singleplayer();
-				Singleplayer.fame.setVisible(true);
+				Singleplayer.frame.setVisible(true);
 			}
 		});
 		btnSingleplayer
