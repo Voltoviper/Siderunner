@@ -1,6 +1,6 @@
 package de.dataport.standardcatalog;
 
-public enum GameblockEditorMode {
+public enum EnumGameblockEditorMode {
 	ADD,
 	EDIT;
 }

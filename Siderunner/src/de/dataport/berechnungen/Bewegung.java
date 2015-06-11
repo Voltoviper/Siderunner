@@ -3,6 +3,8 @@ package de.dataport.berechnungen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JFrame;
+
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Singleplayer;
@@ -14,11 +16,6 @@ public class Bewegung implements KeyListener {
 	public static Thread huepf;
 	public static int zwischenspeicher;
 	public static boolean jump = false;
-
-	public void Bewegung_erkennen() {
-		Singleplayer.frame.addKeyListener(this);
-		Singleplayer.canvas.addKeyListener(this);
-	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {

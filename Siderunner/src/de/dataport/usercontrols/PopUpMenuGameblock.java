@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import de.dataport.datastructures.Gameblock;
-import de.dataport.standardcatalog.GameblockEditorMode;
+import de.dataport.standardcatalog.EnumGameblockEditorMode;
 import de.dataport.standardcatalog.StandardContent;
 
 public class PopUpMenuGameblock extends JPopupMenu {
@@ -28,7 +28,7 @@ public class PopUpMenuGameblock extends JPopupMenu {
 		jmiAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new GameblockEditor(gameblockList, GameblockEditorMode.ADD);
+				new GameblockEditor(gameblockList, EnumGameblockEditorMode.ADD);
 			}
 		});
 		add(jmiAdd);
@@ -40,7 +40,7 @@ public class PopUpMenuGameblock extends JPopupMenu {
 				jmiEdit.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						new GameblockEditor(gameblockList, GameblockEditorMode.EDIT);
+						new GameblockEditor(gameblockList, EnumGameblockEditorMode.EDIT);
 					}
 				});
 				add(jmiEdit);

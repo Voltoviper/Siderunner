@@ -2,28 +2,21 @@ package de.dataport.window;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import de.dataport.network.Client;
-import de.dataport.network.RandomServerClient;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import de.dataport.usercontrols.RotatingLogo;
 
 public class Start {
 
@@ -47,44 +40,58 @@ public class Start {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public Start() {
+	public Start() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setTitle("Jack Runner");
-		frame.setBounds(Toolkit.getDefaultToolkit()
-	            .getScreenSize().width/2-225, 0, 450, 728);
+		frame.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 225, 0, 800, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
-		Box verticalBox = Box.createVerticalBox();
-		verticalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-		frame.getContentPane().add(verticalBox);
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		frame.getContentPane().add(horizontalBox);
 
 		Box horizontalBoxLogo = Box.createHorizontalBox();
-		verticalBox.add(horizontalBoxLogo);
+		horizontalBox.add(horizontalBoxLogo);
 
-		JPanel panel = new JPanel();
-		horizontalBoxLogo.add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-
-		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Siderunner Test Logo.png")));
-		lblIcon.setHorizontalAlignment(SwingConstants.CENTER);
-
-		panel.add(lblIcon, BorderLayout.CENTER);
-
+		RotatingLogo logo = new RotatingLogo();
+		horizontalBoxLogo.add(logo);
+		
 		Box verticalBoxButtons = Box.createVerticalBox();
-		verticalBox.add(verticalBoxButtons);
+		horizontalBox.add(verticalBoxButtons);
 
+		/* Singleplayer-Button */
 		JButton btnSingleplayer = new JButton("");
+		btnSingleplayer
+				.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
+		buttonGeneralSetting(btnSingleplayer);
+		verticalBoxButtons.add(btnSingleplayer);
+		
+		/* Multiplayer-Button */
+		JButton btnMultiplayer = new JButton("");
+		btnMultiplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Multiplayer.png")));
+		buttonGeneralSetting(btnMultiplayer);
+		verticalBoxButtons.add(btnMultiplayer);
+
+		/* Leveleditor-Button */
+		JButton btnLeveleditor = new JButton("");
+		btnLeveleditor.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Leveleditor.png")));
+		buttonGeneralSetting(btnLeveleditor);
+		verticalBoxButtons.add(btnLeveleditor);
+
+
+		/* Events */
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -92,39 +99,27 @@ public class Start {
 				Singleplayer.frame.setVisible(true);
 			}
 		});
-		btnSingleplayer
-				.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
-		btnSingleplayer.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		verticalBoxButtons.add(btnSingleplayer);
-		btnSingleplayer.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		JButton btnMultiplayer = new JButton("");
-		btnMultiplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Multiplayer.png")));
-		btnMultiplayer.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnMultiplayer.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnMultiplayer.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Multiplayer Multi = new Multiplayer();
-				
+				new Multiplayer();
+
 			}
 		});
-		verticalBoxButtons.add(btnMultiplayer);
-
-		JButton btnLeveleditor = new JButton("");
 		btnLeveleditor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new Leveleditor().getFrame().setVisible(true);
 			}
 		});
-		btnLeveleditor.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Leveleditor.png")));
-		btnLeveleditor.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		verticalBoxButtons.add(btnLeveleditor);
-		btnLeveleditor.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+	}
+	
+	private void buttonGeneralSetting(JButton button){
+		button.setAlignmentX(Component.CENTER_ALIGNMENT);
+		button.setOpaque(false);
+		button.setContentAreaFilled(false);
+		button.setBorderPainted(false);
 	}
 
 }

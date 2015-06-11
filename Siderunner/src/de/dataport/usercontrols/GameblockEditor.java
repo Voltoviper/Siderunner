@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 
 import de.dataport.datastructures.Gameblock;
-import de.dataport.standardcatalog.GameblockEditorMode;
+import de.dataport.standardcatalog.EnumGameblockEditorMode;
 import de.dataport.system.Serializer;
 
 import javax.swing.DefaultListModel;
@@ -33,7 +33,7 @@ public class GameblockEditor extends JDialog {
 	private JScrollPane jspGameblockView;
 
 	private JList<Gameblock> gameblockList;
-	GameblockEditorMode mode;
+	EnumGameblockEditorMode mode;
 
 	/**
 	 * Creates a view for editing or adding a Gameblock.
@@ -44,11 +44,11 @@ public class GameblockEditor extends JDialog {
 	 *            Defines if selected Gameblock from list will be edited or a
 	 *            new one will be added.
 	 */
-	public GameblockEditor(JList<Gameblock> gameblockList, GameblockEditorMode mode) {
+	public GameblockEditor(JList<Gameblock> gameblockList, EnumGameblockEditorMode mode) {
 		this.gameblockList = gameblockList;
 		this.mode = mode;
 		initialize();
-		if (mode == GameblockEditorMode.EDIT)
+		if (mode == EnumGameblockEditorMode.EDIT)
 			loadGameblockToView();
 	}
 
@@ -137,7 +137,7 @@ public class GameblockEditor extends JDialog {
 				DefaultListModel<Gameblock> listModel = (DefaultListModel<Gameblock>) gameblockList
 						.getModel();
 
-				if (mode == GameblockEditorMode.ADD) {
+				if (mode == EnumGameblockEditorMode.ADD) {
 					listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(),
 							chckbxIsDeadly.isSelected(), textFieldName.getText()));
 				} else {
