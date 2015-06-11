@@ -74,6 +74,16 @@ public abstract class Serializer {
 		}
 
 	}
+	public static String getStringPath(Component openOnInstance) {
+		File path = getFileToChoose(openOnInstance, JFileChooser.OPEN_DIALOG, "Öffnen...", "Markup: xml",
+				new String[] { "xml" });
+		if (path == null) {
+			return null;
+		} else {
+			return path.getPath();
+		}
+
+	}
 
 	/**
 	 * Dialog zum Speichern und Laden einer XML Datei.

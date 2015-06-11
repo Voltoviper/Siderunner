@@ -22,10 +22,11 @@ import de.dataport.network.Client;
 import de.dataport.network.Game_Link_Client;
 import de.dataport.network.Game_Link_Server;
 import de.dataport.network.RandomServerClient;
+import de.dataport.system.Serializer;
+
 import java.awt.Label;
+
 import javax.swing.JSeparator;
-
-
 
 public class Multiplayer extends JFrame {
 
@@ -41,15 +42,17 @@ public class Multiplayer extends JFrame {
 	static JLabel LabelIcon;
 	static JLabel lblServerGestartet;
 	private JTextField textField_1;
-	Client client;
+	public static Client client;
 	RandomServerClient network;
 	JButton ButtonAbbrechen;
 	static JButton ButtonSpielstarten;
 	Game_Link_Client game_client;
 	Game_Link_Server game_server;
 	public static boolean spiel_server, spiel_client = false;
-	private JTextField textField_2;
+	private static JTextField textField_2;
 	private JButton btnAuswhlen;
+	JLabel lblNewLabel_1;
+	static boolean isHost;
 
 	/**
 	 * Launch the application.
@@ -157,10 +160,10 @@ public class Multiplayer extends JFrame {
 		JButton ButtonSearch = new JButton("Search");
 		ButtonSearch.setBounds(278, 141, 146, 23);
 		ButtonSearch.addActionListener(new ActionListener() {
-		
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (textField_1.getText() != null) {
 					client = new Client(textField_1.getText(), 1);
 				} else {
@@ -177,46 +180,51 @@ public class Multiplayer extends JFrame {
 							try {
 								LabelLoading.setVisible(true);
 								Client c = network.start(client);
-								if(c!=null){
+								if (c != null) {
 									System.out.println(c.getName());
 									game_client = new Game_Link_Client();
-									c = game_client.start(client);
+									c = game_client.start(c);
 									Nachricht(c.getName(), Icons.OK);
+									isHost = false;
 									SpielstartenButon();
-								}else{
+
+								} else {
 									network.waitforClient(client);
-									Game_Link_Server game_server = new Game_Link_Server(client);
+									Game_Link_Server game_server = new Game_Link_Server(
+											client);
 									game_server.start(client);
+									isHost = true;
 									Nachricht("Warte auf Verbindung!", Icons.OK);
 									ButtonSearch.setEnabled(false);
 									ButtonAbbrechen.setVisible(true);
+									textField_2.setVisible(true);
+									btnAuswhlen.setVisible(true);
 								}
-								
+
 								LabelLoading.setVisible(false);
 							} catch (RemoteException | NotBoundException e) {
 								System.out.println(e);
-								Nachricht("Fehler bei der Verbindung", Icons.ERROR);
+								Nachricht("Fehler bei der Verbindung",
+										Icons.ERROR);
 								LabelLoading.setVisible(false);
 							}
 						}
 
 					});
 					net.start();
-					
-					
 
 				} else if (RadioSearchDirect.isSelected()) {
 					Game_Link_Client game_link_client = new Game_Link_Client();
 					try {
 						Client client1 = new Client("Player", 1);
-						Nachricht(game_link_client
-								.start(client1).getName(), Icons.OK);
+						Nachricht(game_link_client.start(client1).getName(),
+								Icons.OK);
 					} catch (RemoteException e1) {
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
 					} catch (NotBoundException e1) {
 						e1.printStackTrace();
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
-						
+
 					}
 					lblServerGestartet.setVisible(true);
 					LabelIcon.setVisible(true);
@@ -260,7 +268,7 @@ public class Multiplayer extends JFrame {
 		lblServerGestartet.setBounds(38, 180, 166, 14);
 		contentPane.add(lblServerGestartet);
 
-		JLabel lblNewLabel_1 = new JLabel("Name:");
+		lblNewLabel_1 = new JLabel("Name:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(241, 180, 46, 14);
 		contentPane.add(lblNewLabel_1);
@@ -272,7 +280,7 @@ public class Multiplayer extends JFrame {
 		textField_1.setColumns(10);
 		double rand = Math.random() * 10000;
 		textField_1.setText("Player" + (int) rand);
-		
+
 		ButtonAbbrechen = new JButton("Abbrechen");
 		ButtonAbbrechen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -287,49 +295,60 @@ public class Multiplayer extends JFrame {
 		ButtonAbbrechen.setBounds(278, 205, 146, 23);
 		ButtonAbbrechen.setVisible(false);
 		contentPane.add(ButtonAbbrechen);
-		
+
 		ButtonSpielstarten = new JButton("Spiel starten");
 		ButtonSpielstarten.setBounds(52, 205, 140, 23);
 		contentPane.add(ButtonSpielstarten);
-		
+
 		Label LabelLevel = new Label("Level");
 		LabelLevel.setAlignment(Label.CENTER);
 		LabelLevel.setBounds(20, 231, 46, 22);
 		contentPane.add(LabelLevel);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(82, 261, 187, 22);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
-		
+		textField_2.setVisible(false);
+
 		btnAuswhlen = new JButton("Ausw\u00E4hlen");
 		btnAuswhlen.setBounds(278, 261, 109, 22);
+		btnAuswhlen.setVisible(false);
+		btnAuswhlen.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Serializer.getStringPath(frame);
+			}
+
+		});
 		contentPane.add(btnAuswhlen);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 242, 434, 9);
 		contentPane.add(separator);
-		
+
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1.setBounds(241, 0, 1, 243);
 		contentPane.add(separator_1);
 		ButtonSpielstarten.setVisible(false);
-		ButtonSpielstarten.addActionListener(new ActionListener(){
+		ButtonSpielstarten.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				LabelLoading.setVisible(true);
 				ButtonSpielstarten.setVisible(false);
-				Thread t = new Thread(new Runnable(){
+				Thread t = new Thread(new Runnable() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						while(true){
-							if(spiel_server==true){
-								if(spiel_client==true){
+						while (true) {
+							if (spiel_server == true) {
+								if (spiel_client == true) {
 									break;
 								}
 							}
@@ -344,51 +363,79 @@ public class Multiplayer extends JFrame {
 						LabelLoading.setVisible(false);
 						new Singleplayer();
 						Singleplayer.frame.setVisible(true);
-						
+
 					}
-					
+
 				});
 				t.start();
-				if(game_client!=null){
+				if (game_client != null) {
 					try {
-						if(game_client.Spielstarten()){
+						if (game_client.Spielstarten()) {
 							Nachricht("Beide haben gestartet", Icons.OK);
 							LabelLoading.setVisible(false);
 						}
-							
+
 					} catch (RemoteException | NotBoundException e1) {
 						Nachricht("Fehler bei der Übertragung", Icons.ERROR);
 					}
-				}else{
-					spiel_server=true;
+				} else {
+					spiel_server = true;
 				}
-				
+
 			}
-			
+
 		});
 		lblServerGestartet.setVisible(false);
 
 	}
-	public static void Nachricht(String string, Icons icon){
+
+	public static void Nachricht(String string, Icons icon) {
 		lblServerGestartet.setText(string);
-		if(icon == Icons.OK){
-			LabelIcon.setIcon(new ImageIcon(
-					Multiplayer.class
-							.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
-		}else if(icon == Icons.QUESTION){
-			LabelIcon.setIcon(new ImageIcon(
-					Multiplayer.class
-							.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
-		}else if(icon==Icons.ERROR){
-			LabelIcon.setIcon(new ImageIcon(
-					Multiplayer.class
-							.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
+		if (icon == Icons.OK) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		} else if (icon == Icons.QUESTION) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		} else if (icon == Icons.ERROR) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
 		}
 		lblServerGestartet.setVisible(true);
 		LabelIcon.setVisible(true);
-		
+
 	}
-	public static void SpielstartenButon(){
+
+	public static void SpielstartenButon() {
 		ButtonSpielstarten.setVisible(true);
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (isHost) {
+					while (textField_2.getText().equals("")) {
+
+						ButtonSpielstarten.setEnabled(false);
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				ButtonSpielstarten.setEnabled(true);
+			}
+
+		});
+		t.start();
+
 	}
 }
