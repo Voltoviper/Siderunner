@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import de.dataport.window.Multiplayer;
+
 public class Game_Link_Client
 {
 	Registry registry;
@@ -15,7 +17,7 @@ public class Game_Link_Client
 		 registry = LocateRegistry.getRegistry(client.getIp(), 1101);
 		 stub = (Game_Link_Interface) registry.lookup("Game_Link");
 
-		return stub.getClient(client);
+		return stub.getClient(Multiplayer.client);
 	}
 	public boolean Spielstarten() throws RemoteException, NotBoundException{
 		
