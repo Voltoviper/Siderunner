@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
-import de.dataport.window.Main;
+import de.dataport.window.Singleplayer;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
 
@@ -16,8 +16,8 @@ public class Bewegung implements KeyListener {
 	public static boolean jump = false;
 
 	public void Bewegung_erkennen() {
-		Main.frmJackRunner.addKeyListener(this);
-		Main.canvas.addKeyListener(this);
+		Singleplayer.fame.addKeyListener(this);
+		Singleplayer.canvas.addKeyListener(this);
 	}
 
 	@Override
@@ -54,33 +54,33 @@ public class Bewegung implements KeyListener {
 
 		switch (keycode) {
 		case 39: // Rechts
-			if (Main.spieler.getX() + Spielfigur.getGeschwindigkeit() <= Main.canvas.getWidth()/2) {
+			if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas.getWidth()/2) {
 				if (Kollision.collisionDetected() == false) {
-					Main.spieler.setX(Main.spieler.getX() + 10);
+					Singleplayer.player.setX(Singleplayer.player.getX() + 10);
 
 					if (Kollision.collisionDetected() == true)
-						Main.spieler.setX(Main.spieler.getX() - 10);
+						Singleplayer.player.setX(Singleplayer.player.getX() - 10);
 					while (Kollision.collisionDetected() == false)
-						Main.spieler.setY(Main.spieler.getY() + 1);
-					Main.spieler.setY(Main.spieler.getY() - 1);
-					Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
-					Kollision.zielprüfung(Main.spieler);
+						Singleplayer.player.setY(Singleplayer.player.getY() + 1);
+					Singleplayer.player.setY(Singleplayer.player.getY() - 1);
+					Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
+					Kollision.zielprüfung(Singleplayer.player);
 				} else {
-					Main.level.move(true, Main.canvas);
+					Singleplayer.level.move(true, Singleplayer.canvas);
 				}
 
 			}
 			break;
 		case 37: // Links
 			if (Kollision.collisionDetected() == false) {
-				Main.spieler.setX(Main.spieler.getX() - 10);
+				Singleplayer.player.setX(Singleplayer.player.getX() - 10);
 
 				if (Kollision.collisionDetected() == true)
-					Main.spieler.setX(Main.spieler.getX() + 10);
+					Singleplayer.player.setX(Singleplayer.player.getX() + 10);
 				while (Kollision.collisionDetected() == false)
-					Main.spieler.setY(Main.spieler.getY() + 1);
-				Main.spieler.setY(Main.spieler.getY() - 1);
-				Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+					Singleplayer.player.setY(Singleplayer.player.getY() + 1);
+				Singleplayer.player.setY(Singleplayer.player.getY() - 1);
+				Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
 			}
 			break;
 		case 32: // Hüpfen
@@ -108,12 +108,12 @@ public class Bewegung implements KeyListener {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							Main.spieler.setY(Main.spieler.getY()
+							Singleplayer.player.setY(Singleplayer.player.getY()
 									- (y - speicher));
 							speicher = y;
 						} else {
 							while (Kollision.collisionDetected()) {
-								Main.spieler.setY(Main.spieler.getY() - 1);
+								Singleplayer.player.setY(Singleplayer.player.getY() - 1);
 							}
 						}
 					}
@@ -124,9 +124,13 @@ public class Bewegung implements KeyListener {
 					}
 				}
 			};
-			Main.lblNewLabel.setText(Main.spieler.getX() + "");
-			Main.lblNewLabel_1.setText(Main.spieler.getY() + "");
+			Singleplayer.lblNewLabel.setText(Singleplayer.player.getX() + "");
+			Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
 			huepf.start();
+			break;
+		case 27:
+			/* Pause-Menu */
+			
 			break;
 		}
 

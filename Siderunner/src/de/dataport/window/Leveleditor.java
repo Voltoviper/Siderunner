@@ -52,9 +52,8 @@ public class Leveleditor {
 	private JFrame frame;
 	private JPanel panel, panel2;
 	private JMenuBar menuBar;
-	private JMenuItem editoranzeigen, mntmNew_1;
 	private JScrollPane jspGameblocks;
-	public static  Painter backgroundPainter;
+	public static Painter backgroundPainter;
 
 	public JFrame getFrame() {
 		return frame;
@@ -89,7 +88,7 @@ public class Leveleditor {
 		initialize();
 		fillList();
 		level = new Level();
-		backgroundPainter=new Painter(null, canvas, level);
+		backgroundPainter = new Painter(canvas, level);
 		backgroundPainter.start();
 	}
 
@@ -103,145 +102,31 @@ public class Leveleditor {
 		gameblockList.setCellRenderer(new GameblockListElement());
 		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 28, 186, 251);
-		
+
 		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
-		gameblockList.addMouseListener(new PopUpClickListener(){
-			@Override
-			public void mousePressed(MouseEvent e){
-		        if (e.isPopupTrigger()){
-		        	StartPopUp(e,gameblockList);
-		        }
-		    }
-			@Override
-		    public void mouseReleased(MouseEvent e){
-		        if (e.isPopupTrigger()){
-		        	StartPopUp(e,gameblockList);
-
-		        }
-		    }
-			private void StartPopUp(MouseEvent e, JList<Gameblock> gameblockList) {
-	        	PopUpMenuGameblock menu = new PopUpMenuGameblock(gameblockList);
-	            menu.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-		
-		panel.add(jspGameblocks);
-		
-		
-		menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 794, 21);
-		panel.add(menuBar);
-
-		JMenu mnWorld = new JMenu("World");
-		menuBar.add(mnWorld);
-
-		JMenuItem mntmNew = new JMenuItem("New...");
-		mntmNew.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				level.deleteLevel(canvas);
-			}
-		});
-		mnWorld.add(mntmNew);
-
-		JMenuItem mntmLoad = new JMenuItem("Load...");
-		mnWorld.add(mntmLoad);
-
-		JMenuItem mntmSave = new JMenuItem("Save...");
-		mntmSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Speichern_unter speichern = new Speichern_unter();
-				// speichern.saveAs(null, level);
-				try {
-					Serializer.write(level, frame);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		mnWorld.add(mntmSave);
-		
-		JMenuItem mntmClose = new JMenuItem("Close");
-		mntmClose.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
-				if (i == 0)
-					Menu.dispose(frame);
-			}
-			
-		});
-		mnWorld.add(mntmClose);
-
-		JMenu mnBlocks = new JMenu("Blocks");
-		menuBar.add(mnBlocks);
-
-		mntmNew_1 = new JMenuItem("New...");
-		mntmNew_1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				panel2();
-
-			}
-
-		});
-		mnBlocks.add(mntmNew_1);
-
-		JMenuItem mntmManage = new JMenuItem("Manage...");
-		mnBlocks.add(mntmManage);
-		canvas.addMouseListener(new MouseAdapter() {
+		gameblockList.addMouseListener(new PopUpClickListener() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				isMouseDown = true;
+				if (e.isPopupTrigger()) {
+					StartPopUp(e, gameblockList);
+				}
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				isMouseDown = false;
+				if (e.isPopupTrigger()) {
+					StartPopUp(e, gameblockList);
+
+				}
 			}
 
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AddBlock(e.getX(), e.getY());
-			}
-
-		});
-		JMenu Editor = new JMenu("Editor");
-		menuBar.add(Editor);
-
-		editoranzeigen = new JMenuItem("anzeigen");
-		editoranzeigen.setEnabled(false);
-		Editor.add(editoranzeigen);
-
-		canvas.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				if (isMouseDown)
-					AddBlock(e.getX(), e.getY());
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				/* Canvas-Rand führt zur Erweiterung des Levels */
-				/* Level nach Rechts erweitern */
-				if (e.getX() > ((double) canvas.getWidth() * 0.95))
-					level.move(true, canvas);
-				/*
-				 * Zurückscrollen --> Keine Erweiterung nach Links; Blockade
-				 * beim Block der am weitesten Links ist.
-				 */
-				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
-					if (level.getListe() != null)
-						if (level.getListe().size() != 0)
-							if (level.getListe().get(0).getX() - level.getListe().get(0).getWidth() < 0)
-								level.move(false, canvas);
+			private void StartPopUp(MouseEvent e, JList<Gameblock> gameblockList) {
+				PopUpMenuGameblock menu = new PopUpMenuGameblock(gameblockList);
+				menu.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
 
+		panel.add(jspGameblocks);
 	}
 
 	/** Defaultcatalog for the Gameblock-Jlist -> Spawn, Goal, Vanilla(normal) */
@@ -262,14 +147,14 @@ public class Leveleditor {
 		frame.setResizable(false);
 		frame.setTitle("Leveleditor");
 		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
-				if (i == 0){
-					backgroundPainter.run=false;
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
+				if (i == 0) {
+					Painter.run = false;
 					Menu.dispose(frame);
-					
 				}
 			}
 		});
@@ -281,80 +166,90 @@ public class Leveleditor {
 		canvas = new Canvas();
 		canvas.setBounds(208, 20, 582, 501);
 		panel.add(canvas);
-		panel2 = new JPanel();
-		panel2.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		frame.getContentPane().add(panel2);
-		panel2.setLayout(null);
-		panel2.setVisible(false);
-		JLabel label = new JLabel("Breite");
-		label.setBounds(10, 50, 75, 23);
-		panel2.add(label);
-		JLabel label2 = new JLabel("Hoehe");
-		label2.setBounds(10, 80, 75, 23);
-		panel2.add(label2);
-		JLabel label3 = new JLabel("Name");
-		label3.setBounds(10, 110, 75, 23);
-		panel2.add(label3);
-		JCheckBox chckbxNewCheckBox = new JCheckBox("toedlich?");
-		chckbxNewCheckBox.setBounds(40, 170, 100, 23);
-		panel2.add(chckbxNewCheckBox);
-		JLabel label4 = new JLabel("Bild");
-		label4.setBounds(10, 140, 75, 23);
-		panel2.add(label4);
 
-		JButton btnNewButton = new JButton("Hinzufuegen");
-		btnNewButton.setBounds(10, 200, 150, 23);
-		btnNewButton.addActionListener(new ActionListener() {
+		/* MenuBar */
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 794, 21);
+		panel.add(menuBar);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Gameblock gb = new Gameblock(null, null, Integer.parseInt(textField.getText().toString()),
-						Integer.parseInt(textField_1.getText().toString()), chckbxNewCheckBox.isSelected(),
-						textField_2.getText().toString(), null);
+		/* Level-Menu */
+		JMenu jmLevel = new JMenu("Level");
+		menuBar.add(jmLevel);
 
-				((DefaultListModel<Gameblock>) gameblockList.getModel()).addElement(gb);
-			}
-
-		});
-		panel2.add(btnNewButton);
-
-		textField = new JTextField();
-		textField.setBounds(85, 50, 86, 23);
-		panel2.add(textField);
-		textField.setColumns(10);
-
-		textField_1 = new JTextField();
-		textField_1.setBounds(85, 80, 86, 23);
-		panel2.add(textField_1);
-		textField_1.setColumns(10);
-
-		textField_2 = new JTextField();
-		textField_2.setBounds(85, 110, 86, 23);
-		panel2.add(textField_2);
-		textField_2.setColumns(10);
-
-		textField_3 = new JTextField();
-		textField_3.setBounds(85, 140, 150, 23);
-		panel2.add(textField_3);
-		textField_3.setColumns(10);
-
-		JButton btnNewButton_1 = new JButton("Auswaehlen");
-		btnNewButton_1.setBounds(235, 140, 110, 22);
-		btnNewButton_1.addActionListener(new ActionListener() {
-
+		JMenuItem jmiNewLevel = new JMenuItem("New...");
+		jmiNewLevel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				textField_3.setText(Serializer.getImagePath(frame, 0, "Bild auswählen"));
+				level.deleteLevel(canvas);
+			}
+		});
+		jmLevel.add(jmiNewLevel);
+
+		JMenuItem jmiLoadLevel = new JMenuItem("Load...");
+		jmLevel.add(jmiLoadLevel);
+
+		JMenuItem jmiSave = new JMenuItem("Save...");
+		jmiSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Speichern_unter speichern = new Speichern_unter();
+				// speichern.saveAs(null, level);
+				try {
+					Serializer.write(level, frame);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		jmLevel.add(jmiSave);
+
+		/* Block-Menu */
+		JMenu jmBlocks = new JMenu("Blocks");
+		menuBar.add(jmBlocks);
+		JMenuItem jmiSaveBlocks = new JMenuItem("Save...");
+		jmBlocks.add(jmiSaveBlocks);
+
+		/* Canvas-Mouse-Interaction for Painting */
+		canvas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				isMouseDown = true;
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				isMouseDown = false;
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AddBlock(e.getX(), e.getY());
 			}
 
 		});
-		panel2.add(btnNewButton_1);
+		canvas.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if (isMouseDown)
+					AddBlock(e.getX(), e.getY());
+			}
 
-		/* Canvas */
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				/* Canvas-5%-Border leads to a Level extension*/
+				/* Extend Level to the right */
+				if (e.getX() > ((double) canvas.getWidth() * 0.95))
+					level.move(true, canvas);
+				/* Scrolling back to the first block is allowed */
+				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
+					if (level.getListe() != null)
+						if (level.getListe().size() != 0)
+							if (level.getListe().get(0).getX() - level.getListe().get(0).getWidth() < 0)
+								level.move(false, canvas);
+			}
+		});
 
-		/* Scrollbar */
-
-		/* Menu */
 	}
 
 	/**
@@ -373,46 +268,15 @@ public class Leveleditor {
 			else
 				newBlock = new Gameblock(x, y, parent.getImageSource(), parent.getIsDeadly(),
 						parent.getName());
-			
+
 			/* Spawn & Goal - lock */
 			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
 					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
 				return;
 			
-			level.verification(newBlock);
+			level.processNewBlock(newBlock);
 		}
 
 	}
 
-	private void panel2() {
-		if (panel.isVisible()) {
-			panel.setVisible(false);
-		}
-		panel2.add(menuBar);
-		frame.setTitle("Block hinzufuegen");
-		panel2.setVisible(true);
-		mntmNew_1.setEnabled(false);
-		editoranzeigen.setEnabled(true);
-		editoranzeigen.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				panel();
-
-			}
-
-		});
-
-	}
-
-	private void panel() {
-		if (panel2.isVisible()) {
-			panel2.setVisible(false);
-		}
-		frame.setTitle("Leveleditor");
-		panel.add(menuBar);
-		panel.setVisible(true);
-		mntmNew_1.setEnabled(true);
-		editoranzeigen.setEnabled(false);
-	}
 }

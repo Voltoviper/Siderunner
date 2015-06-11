@@ -18,10 +18,14 @@ public class Level {
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
 	private Gameblock goal;
-	private List<Spielfigur> player = new ArrayList<Spielfigur>();
+	private List<Spielfigur> allPlayer = new ArrayList<Spielfigur>();
 
 	public void addPlayer(Spielfigur spielfigur) {
-		player.add(spielfigur);
+		allPlayer.add(spielfigur);
+	}
+	
+	public List<Spielfigur> getAllPlayer(){
+		return allPlayer;
 	}
 
 	public Gameblock getSpawn() {
@@ -83,7 +87,7 @@ public class Level {
 	}
 
 	/** Verification of the Gameblock-object */
-	public void verification(Gameblock gb) {
+	public void processNewBlock(Gameblock gb) {
 
 		Gameblock intersection = getIntersectingGameblock(gb);
 

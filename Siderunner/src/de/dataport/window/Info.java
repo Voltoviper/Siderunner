@@ -50,7 +50,7 @@ public class Info extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Main.dialog.dispose();
+						Singleplayer.dialog.dispose();
 					}
 				});
 				okButton.setActionCommand("OK");

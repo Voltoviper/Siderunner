@@ -88,8 +88,8 @@ public class Start {
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Main();
-				Main.frmJackRunner.setVisible(true);
+				new Singleplayer();
+				Singleplayer.fame.setVisible(true);
 			}
 		});
 		btnSingleplayer

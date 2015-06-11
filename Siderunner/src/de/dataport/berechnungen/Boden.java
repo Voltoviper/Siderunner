@@ -3,7 +3,7 @@ package de.dataport.berechnungen;
 import java.awt.Canvas;
 import java.awt.Color;
 
-import de.dataport.window.Main;
+import de.dataport.window.Singleplayer;
 
 public class Boden {
 
@@ -45,7 +45,7 @@ public class Boden {
 		Canvas boden = new Canvas();
 		boden.setBounds(this.x, this.y, this.breite, this.hoehe);
 		boden.setBackground(Color.BLACK);
-		Main.frmJackRunner.add(boden);
+		Singleplayer.fame.add(boden);
 	}
 	
 	public double[] Koord_links_oben(Boden rect) {

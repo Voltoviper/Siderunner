@@ -26,12 +26,12 @@ import de.dataport.level.Level;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 
-public class Main {
+public class Singleplayer {
 
-	public static Graphics spielfigur;
-	public static Spielfigur spieler;
+	public static Graphics graphics;
+	public static Spielfigur player;
 	public static Boden test;
-	public static JFrame frmJackRunner;
+	public static JFrame fame;
 	public static Level level1 = new Level();
 	public static JLabel lblNewLabel = new JLabel("New label");
 	public static JLabel lblNewLabel_1 = new JLabel("New label");
@@ -49,7 +49,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main.frmJackRunner.setVisible(true);
+					Singleplayer.fame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +60,7 @@ public class Main {
 	/**
 	 * Create the application.
 	 */
-	public Main() {
+	public Singleplayer() {
 		initialize();
 	}
 
@@ -68,23 +68,23 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmJackRunner = new JFrame();
-		frmJackRunner.setResizable(true);
-		frmJackRunner.setTitle("Jack Runner");
-		frmJackRunner.setBounds(100, 100, 900, 554);
-		frmJackRunner.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frmJackRunner.getContentPane().setLayout(null);
+		fame = new JFrame();
+		fame.setResizable(true);
+		fame.setTitle("Jack Runner");
+		fame.setBounds(100, 100, 900, 554);
+		fame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		fame.getContentPane().setLayout(null);
 
-		frmJackRunner.addWindowListener(new WindowAdapter() {
+		fame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frmJackRunner, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(fame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					Menu.dispose(frmJackRunner);
+					Menu.dispose(fame);
 			}
 		});
 
 		JMenuBar menuBar = new JMenuBar();
-		frmJackRunner.setJMenuBar(menuBar);
+		fame.setJMenuBar(menuBar);
 
 		JMenu mnDatei = new JMenu("Datei");
 		menuBar.add(mnDatei);
@@ -92,9 +92,9 @@ public class Main {
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = JOptionPane.showConfirmDialog(frmJackRunner, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(fame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					Menu.dispose(frmJackRunner);
+					Menu.dispose(fame);
 			}
 		});
 
@@ -105,13 +105,13 @@ public class Main {
 				lblX.setBounds(780, 11, 46, 14);
 				JLabel lblY = new JLabel("y:");
 				lblY.setBounds(780, 29, 46, 14);
-				frmJackRunner.getContentPane().add(lblX);
-				frmJackRunner.getContentPane().add(lblY);
-				frmJackRunner.getContentPane().add(lblNewLabel);
-				frmJackRunner.getContentPane().add(lblNewLabel_1);
-				lblNewLabel.setText(spieler.getX() + "");
+				fame.getContentPane().add(lblX);
+				fame.getContentPane().add(lblY);
+				fame.getContentPane().add(lblNewLabel);
+				fame.getContentPane().add(lblNewLabel_1);
+				lblNewLabel.setText(player.getX() + "");
 				lblNewLabel.setBounds(800, 11, 46, 14);
-				lblNewLabel_1.setText(spieler.getY() + "");
+				lblNewLabel_1.setText(player.getY() + "");
 				lblNewLabel_1.setBounds(800, 29, 46, 14);
 
 			}
@@ -126,22 +126,22 @@ public class Main {
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(0, 0, 725, 494);
-		frmJackRunner.getContentPane().add(canvas);
+		fame.getContentPane().add(canvas);
 
 		JMenuItem mntmLaden = new JMenuItem("laden");
 		mntmLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					level = Serializer.read(frmJackRunner);
+					level = Serializer.read(fame);
 					if (level != null) {
-						spieler = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+						player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
-						level.addPlayer(spieler);
+						level.addPlayer(player);
 
 						Bewegung.bewegen(32); // hü-hüpf
 
-						p = new Painter(spieler, canvas, level);
+						p = new Painter(canvas, level);
 						p.start();
 					}
 				} catch (Exception e) {
@@ -167,9 +167,13 @@ public class Main {
 
 		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
-		frmJackRunner.getContentPane().add(lblBewegenMitDen);
+		fame.getContentPane().add(lblBewegenMitDen);
 
 		Bewegung bewegung = new Bewegung();
 		bewegung.Bewegung_erkennen();
+	}
+	
+	public void pause(){
+		
 	}
 }

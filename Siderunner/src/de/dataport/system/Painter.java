@@ -16,7 +16,7 @@ import de.dataport.level.Level;
  *
  */
 public class Painter extends Thread {
-	Spielfigur p;
+	
 	Image dbImage;
 	Graphics dbGraphics;
 	private Canvas canvas;
@@ -27,16 +27,14 @@ public class Painter extends Thread {
 	 * Run Methode, die alle 30ms durchgeführt wird
 	 */
 
-	public void run()
-	{
+	public void run() {
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		while (run)
-		{
+		while (run) {
 			update(canvas);
 			try {
 				Thread.sleep(30);
@@ -47,8 +45,8 @@ public class Painter extends Thread {
 		}
 	}
 
-	public Painter(Spielfigur player, Canvas canvas, Level level) {
-		this.p = player;
+	public Painter(Canvas canvas, Level level) {
+		
 		this.canvas = canvas;
 		this.level = level;
 	}
@@ -71,7 +69,7 @@ public class Painter extends Thread {
 			dbGraphics.setColor(Color.white);
 			dbGraphics.fillRect(0, 0, canvas.getSize().width, canvas.getSize().height);
 			dbGraphics.setColor(canvas.getForeground());
-			if (p != null)
+			if (level.getAllPlayer() != null)
 				paint(dbGraphics);
 			paintlevel(dbGraphics);
 			g.drawImage(dbImage, 0, 0, canvas);
@@ -104,8 +102,10 @@ public class Painter extends Thread {
 	 *            Bitte gebe die Grafik an, auf die gemalt werden soll
 	 */
 	public void paint(Graphics g) {
-		g.setColor(Color.white);
-		g.drawImage(p.getImage().getImage(), p.getX(), p.getY(), canvas);
+		for (Spielfigur p : level.getAllPlayer()) {
+			g.setColor(Color.white);
+			g.drawImage(p.getImage().getImage(), p.getX(), p.getY(), canvas);
+		}
 
 	}
 }
