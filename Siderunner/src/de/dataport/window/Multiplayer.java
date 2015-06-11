@@ -22,6 +22,8 @@ import de.dataport.network.Client;
 import de.dataport.network.Game_Link_Client;
 import de.dataport.network.Game_Link_Server;
 import de.dataport.network.RandomServerClient;
+import java.awt.Label;
+import javax.swing.JSeparator;
 
 
 
@@ -36,12 +38,18 @@ public class Multiplayer extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	JLabel LabelLoading;
-	JLabel LabelIcon;
-	JLabel lblServerGestartet;
+	static JLabel LabelIcon;
+	static JLabel lblServerGestartet;
 	private JTextField textField_1;
 	Client client;
 	RandomServerClient network;
 	JButton ButtonAbbrechen;
+	static JButton ButtonSpielstarten;
+	Game_Link_Client game_client;
+	Game_Link_Server game_server;
+	public static boolean spiel_server, spiel_client = false;
+	private JTextField textField_2;
+	private JButton btnAuswhlen;
 
 	/**
 	 * Launch the application.
@@ -65,9 +73,8 @@ public class Multiplayer extends JFrame {
 	 */
 	public Multiplayer() {
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -172,9 +179,10 @@ public class Multiplayer extends JFrame {
 								Client c = network.start(client);
 								if(c!=null){
 									System.out.println(c.getName());
-									Game_Link_Client game_client = new Game_Link_Client();
-									game_client.start(client);
-									Nachricht("Verbindung hergestellt", Icons.OK);
+									game_client = new Game_Link_Client();
+									c = game_client.start(client);
+									Nachricht(c.getName(), Icons.OK);
+									SpielstartenButon();
 								}else{
 									network.waitforClient(client);
 									Game_Link_Server game_server = new Game_Link_Server(client);
@@ -202,7 +210,7 @@ public class Multiplayer extends JFrame {
 					try {
 						Client client1 = new Client("Player", 1);
 						Nachricht(game_link_client
-								.start(client1), Icons.OK);
+								.start(client1).getName(), Icons.OK);
 					} catch (RemoteException e1) {
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
 					} catch (NotBoundException e1) {
@@ -235,7 +243,7 @@ public class Multiplayer extends JFrame {
 				Image.SCALE_DEFAULT));
 		LabelLoading.setIcon(icon2);
 		LabelLoading.setHorizontalAlignment(SwingConstants.RIGHT);
-		LabelLoading.setBounds(404, 231, 20, 20);
+		LabelLoading.setBounds(404, 218, 20, 20);
 		LabelLoading.setVisible(false);
 		contentPane.add(LabelLoading);
 		LabelIcon = new JLabel();
@@ -249,7 +257,7 @@ public class Multiplayer extends JFrame {
 
 		lblServerGestartet = new JLabel("Server gestartet");
 		lblServerGestartet.setHorizontalAlignment(SwingConstants.CENTER);
-		lblServerGestartet.setBounds(52, 180, 166, 14);
+		lblServerGestartet.setBounds(38, 180, 166, 14);
 		contentPane.add(lblServerGestartet);
 
 		JLabel lblNewLabel_1 = new JLabel("Name:");
@@ -279,10 +287,89 @@ public class Multiplayer extends JFrame {
 		ButtonAbbrechen.setBounds(278, 205, 146, 23);
 		ButtonAbbrechen.setVisible(false);
 		contentPane.add(ButtonAbbrechen);
+		
+		ButtonSpielstarten = new JButton("Spiel starten");
+		ButtonSpielstarten.setBounds(52, 205, 140, 23);
+		contentPane.add(ButtonSpielstarten);
+		
+		Label LabelLevel = new Label("Level");
+		LabelLevel.setAlignment(Label.CENTER);
+		LabelLevel.setBounds(20, 231, 46, 22);
+		contentPane.add(LabelLevel);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(82, 261, 187, 22);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		btnAuswhlen = new JButton("Ausw\u00E4hlen");
+		btnAuswhlen.setBounds(278, 261, 109, 22);
+		contentPane.add(btnAuswhlen);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 242, 434, 9);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(241, 0, 1, 243);
+		contentPane.add(separator_1);
+		ButtonSpielstarten.setVisible(false);
+		ButtonSpielstarten.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				LabelLoading.setVisible(true);
+				ButtonSpielstarten.setVisible(false);
+				Thread t = new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						while(true){
+							if(spiel_server==true){
+								if(spiel_client==true){
+									break;
+								}
+							}
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						Nachricht("Beide haben gestartet", Icons.OK);
+						LabelLoading.setVisible(false);
+						new Singleplayer();
+						Singleplayer.frame.setVisible(true);
+						
+					}
+					
+				});
+				t.start();
+				if(game_client!=null){
+					try {
+						if(game_client.Spielstarten()){
+							Nachricht("Beide haben gestartet", Icons.OK);
+							LabelLoading.setVisible(false);
+						}
+							
+					} catch (RemoteException | NotBoundException e1) {
+						Nachricht("Fehler bei der Übertragung", Icons.ERROR);
+					}
+				}else{
+					spiel_server=true;
+				}
+				
+			}
+			
+		});
 		lblServerGestartet.setVisible(false);
 
 	}
-	public void Nachricht(String string, Icons icon){
+	public static void Nachricht(String string, Icons icon){
 		lblServerGestartet.setText(string);
 		if(icon == Icons.OK){
 			LabelIcon.setIcon(new ImageIcon(
@@ -300,5 +387,8 @@ public class Multiplayer extends JFrame {
 		lblServerGestartet.setVisible(true);
 		LabelIcon.setVisible(true);
 		
+	}
+	public static void SpielstartenButon(){
+		ButtonSpielstarten.setVisible(true);
 	}
 }

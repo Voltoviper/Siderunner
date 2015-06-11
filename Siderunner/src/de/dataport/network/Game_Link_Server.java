@@ -5,6 +5,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import de.dataport.window.Icons;
+import de.dataport.window.Multiplayer;
+
 public class Game_Link_Server implements Game_Link_Interface
 {
 Client client;
@@ -39,8 +42,8 @@ Client client;
 	{
 		// TODO Auto-generated method stub
 		System.out.println(client_Client.getName());
-		
-		
+		Multiplayer.Nachricht(client_Client.getName(), Icons.OK);
+		Multiplayer.SpielstartenButon();
 		return client ;
 	}
 
@@ -49,6 +52,12 @@ Client client;
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public boolean Spielstarten() throws RemoteException {
+		// TODO Auto-generated method stub
+		Multiplayer.spiel_client=true;
+		return Multiplayer.spiel_server;
 	}
 	
 }

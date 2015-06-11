@@ -7,12 +7,19 @@ import java.rmi.registry.Registry;
 
 public class Game_Link_Client
 {
-	public String start(Client client) throws RemoteException, NotBoundException
+	Registry registry;
+	Game_Link_Interface stub;
+	public Client start(Client client) throws RemoteException, NotBoundException
 	{
 
-		Registry registry = LocateRegistry.getRegistry(client.getIp(), 1101);
-		Game_Link_Interface stub = (Game_Link_Interface) registry.lookup("Game_Link");
+		 registry = LocateRegistry.getRegistry(client.getIp(), 1101);
+		 stub = (Game_Link_Interface) registry.lookup("Game_Link");
 
-		return stub.getClient(client).getName();
+		return stub.getClient(client);
+	}
+	public boolean Spielstarten() throws RemoteException, NotBoundException{
+		
+		return stub.Spielstarten();
+		
 	}
 }
