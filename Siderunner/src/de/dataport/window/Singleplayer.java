@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import de.dataport.Objekte.Spielfigur;
@@ -39,6 +41,7 @@ public class Singleplayer {
 	public static Canvas canvas;
 	public static Timer timer;
 	public static Painter p;
+	private static Bewegung movement;
 
 	/**
 	 * Launch the application.
@@ -60,6 +63,9 @@ public class Singleplayer {
 	 */
 	public Singleplayer() {
 		initialize();
+		movement = new Bewegung();
+		frame.addKeyListener(movement);
+		canvas.addKeyListener(movement);
 	}
 
 	/**
@@ -75,7 +81,8 @@ public class Singleplayer {
 
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
 				if (i == 0)
 					Menu.dispose(frame);
 			}
@@ -90,7 +97,8 @@ public class Singleplayer {
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",JOptionPane.YES_NO_OPTION);
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
 				if (i == 0)
 					Menu.dispose(frame);
 			}
@@ -167,11 +175,13 @@ public class Singleplayer {
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frame.getContentPane().add(lblBewegenMitDen);
 
-		Bewegung bewegung = new Bewegung();
-		bewegung.Bewegung_erkennen();
+		// Bewegung bewegung = new Bewegung();
+		// bewegung.Bewegung_erkennen();
 	}
-	
-	public void pause(){
+
+	public static void pause() {
+		// Painter.run=false;
+		canvas.setBackground(new Color(100, 100, 100, 50));
 		
 	}
 }
