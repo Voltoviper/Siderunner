@@ -6,6 +6,8 @@ import java.util.*;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.standardcatalog.EnumStandardGameblockNames;
+import de.dataport.window.Singleplayer;
 
 /**
  * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
@@ -23,8 +25,8 @@ public class Level {
 	public void addPlayer(Spielfigur spielfigur) {
 		allPlayer.add(spielfigur);
 	}
-	
-	public List<Spielfigur> getAllPlayer(){
+
+	public List<Spielfigur> getAllPlayer() {
 		return allPlayer;
 	}
 
@@ -55,6 +57,16 @@ public class Level {
 
 	private void removeBlock(Gameblock gameblock) {
 		content.remove(gameblock);
+	}
+
+	public void removePauseBlock() {
+		Gameblock pause = null;
+		for (Gameblock gb : content)
+			if (gb.getName().equals(EnumStandardGameblockNames.PAUSE.toString())) {
+				pause = gb;
+				break;
+			}
+		content.remove(pause);
 	}
 
 	public List<Gameblock> getListe() {
@@ -89,10 +101,13 @@ public class Level {
 	/** Verification of the Gameblock-object */
 	public void processNewBlock(Gameblock gb) {
 
-		Gameblock intersection = getIntersectingGameblock(gb);
+		Gameblock intersection = null;
+
+		if (!gb.getName().equals(EnumStandardGameblockNames.PAUSE.toString()))
+			intersection = getIntersectingGameblock(gb);
 
 		/* erasing */
-		if (gb.getName().equals("Eraser") && intersection != null) {
+		if (gb.getName().equals(EnumStandardGameblockNames.ERASER.toString()) && intersection != null) {
 			removeBlock(intersection);
 
 			/* Spawn or goal unlock */
@@ -100,21 +115,22 @@ public class Level {
 		}
 
 		/* adding */
-		if (intersection == null && !gb.getName().equals("Eraser")) {
+		if (intersection == null && !gb.getName().equals(EnumStandardGameblockNames.ERASER.toString())) {
 
 			/* Spawn or goal lock */
 			lockableGoalAndSpawn(gb, gb);
-			
+
 			if (!getListe().contains(gb))
 				addBlock(gb);
 		}
 	}
 
 	private void lockableGoalAndSpawn(Gameblock gbCheck, Gameblock lock) {
-		if (gbCheck.getName().equals("Spawn") || gbCheck.getName().equals("Goal")) {
-			if (gbCheck.getName().equals("Spawn"))
+		if (gbCheck.getName().equals(EnumStandardGameblockNames.SPAWN.toString())
+				|| gbCheck.getName().equals(EnumStandardGameblockNames.GOAL.toString())) {
+			if (gbCheck.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
 				setSpawn(lock);
-			if (gbCheck.getName().equals("Goal"))
+			if (gbCheck.getName().equals(EnumStandardGameblockNames.GOAL.toString()))
 				setGoal(lock);
 		}
 	}

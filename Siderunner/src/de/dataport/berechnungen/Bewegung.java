@@ -51,84 +51,90 @@ public class Bewegung implements KeyListener {
 
 		switch (keycode) {
 		case 39: // Rechts
-			if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas
-					.getWidth() / 2) {
+			if (!Singleplayer.isPaused())
+				if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas.getWidth() / 2) {
+					if (Kollision.collisionDetected() == false) {
+						Singleplayer.player.setX(Singleplayer.player.getX() + 10);
+
+						if (Kollision.collisionDetected() == true)
+							Singleplayer.player.setX(Singleplayer.player.getX() - 10);
+						while (Kollision.collisionDetected() == false)
+							Singleplayer.player.setY(Singleplayer.player.getY() + 1);
+						Singleplayer.player.setY(Singleplayer.player.getY() - 1);
+						Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
+						Kollision.zielprüfung(Singleplayer.player);
+					} else {
+
+						Singleplayer.level.move(true, Singleplayer.canvas);
+					}
+
+				}
+			break;
+		case 37: // Links
+			if (!Singleplayer.isPaused())
 				if (Kollision.collisionDetected() == false) {
-					Singleplayer.player.setX(Singleplayer.player.getX() + 10);
+					Singleplayer.player.setX(Singleplayer.player.getX() - 10);
 
 					if (Kollision.collisionDetected() == true)
-						Singleplayer.player.setX(Singleplayer.player.getX() - 10);
+						Singleplayer.player.setX(Singleplayer.player.getX() + 10);
 					while (Kollision.collisionDetected() == false)
 						Singleplayer.player.setY(Singleplayer.player.getY() + 1);
 					Singleplayer.player.setY(Singleplayer.player.getY() - 1);
 					Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
-					Kollision.zielprüfung(Singleplayer.player);
-				} else {
-					Singleplayer.level.move(true, Singleplayer.canvas);
 				}
-
-			}
-			break;
-		case 37: // Links
-			if (Kollision.collisionDetected() == false) {
-				Singleplayer.player.setX(Singleplayer.player.getX() - 10);
-
-				if (Kollision.collisionDetected() == true)
-					Singleplayer.player.setX(Singleplayer.player.getX() + 10);
-				while (Kollision.collisionDetected() == false)
-					Singleplayer.player.setY(Singleplayer.player.getY() + 1);
-				Singleplayer.player.setY(Singleplayer.player.getY() - 1);
-				Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
-			}
 			break;
 		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
-			huepf = new Thread() {
-				public void run() {
-					if (!jump) {
-						jump = true;
+			if (!Singleplayer.isPaused()) {
+				huepf = new Thread() {
+					public void run() {
+						if (!jump) {
+							jump = true;
 
-						int y = 0;
-						int speicher = 0;
-						int time = 10;
-						String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3")
-								.getPath();
-						Ton mp3 = new Ton(mp3Source);
-						mp3.play();
-						while (time >= 0) {
-							if (!Kollision.collisionDetected()) {
+							int y = 0;
+							int speicher = 0;
+							int time = 10;
+							String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3").getPath();
+							Ton mp3 = new Ton(mp3Source);
+							mp3.play();
+							while (time >= 0) {
+								if (!Kollision.collisionDetected()) {
 
-								y = 2 * (-1 * (time * time) + 10 * time);
-								time -= 1;
-								try {
-									Thread.sleep(18);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								Singleplayer.player.setY(Singleplayer.player.getY() - (y - speicher));
-								speicher = y;
-							} else {
-								while (Kollision.collisionDetected()) {
-									Singleplayer.player.setY(Singleplayer.player.getY() - 1);
+									y = 2 * (-1 * (time * time) + 10 * time);
+									time -= 1;
+									try {
+										Thread.sleep(18);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									Singleplayer.player.setY(Singleplayer.player.getY() - (y - speicher));
+									speicher = y;
+								} else {
+									while (Kollision.collisionDetected()) {
+										Singleplayer.player.setY(Singleplayer.player.getY() - 1);
+									}
 								}
 							}
+							y = 0;
+							speicher = 0;
+							time = 10;
+							jump = false;
 						}
-						y = 0;
-						speicher = 0;
-						time = 10;
-						jump = false;
 					}
-				}
-			};
-			Singleplayer.lblNewLabel.setText(Singleplayer.player.getX() + "");
-			Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
-			huepf.start();
+				};
+				Singleplayer.lblNewLabel.setText(Singleplayer.player.getX() + "");
+				Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
+				huepf.start();
+			}
 			break;
 		case 27:
 			/* Pause-Menu */
-			Singleplayer.pause();
+			if (Singleplayer.isPaused())
+				Singleplayer.continueGame();
+			else
+				Singleplayer.pause();
 			break;
 		}
 

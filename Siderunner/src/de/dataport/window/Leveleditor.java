@@ -20,6 +20,7 @@ import javax.swing.ListModel;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
@@ -270,8 +271,8 @@ public class Leveleditor {
 						parent.getName());
 
 			/* Spawn & Goal - lock */
-			if ((this.level.getSpawn() != null && newBlock.getName().equals("Spawn"))
-					|| (this.level.getGoal() != null && newBlock.getName().equals("Goal")))
+			if ((this.level.getSpawn() != null && newBlock.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
+					|| (this.level.getGoal() != null && newBlock.getName().equals(EnumStandardGameblockNames.GOAL.toString())))
 				return;
 			
 			level.processNewBlock(newBlock);

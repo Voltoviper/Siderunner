@@ -23,16 +23,18 @@ import javax.swing.Timer;
 
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.berechnungen.Bewegung;
+import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
+import de.dataport.usercontrols.PausePanel;
 
 public class Singleplayer {
 
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
-	public static Level level1 = new Level();
 	public static JLabel lblNewLabel = new JLabel("New label");
 	public static JLabel lblNewLabel_1 = new JLabel("New label");
 	public static Info dialog;
@@ -42,6 +44,7 @@ public class Singleplayer {
 	public static Timer timer;
 	public static Painter p;
 	private static Bewegung movement;
+	private static PausePanel pausePanel;
 
 	/**
 	 * Launch the application.
@@ -174,14 +177,25 @@ public class Singleplayer {
 		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
 		lblBewegenMitDen.setBounds(192, 28, 350, 14);
 		frame.getContentPane().add(lblBewegenMitDen);
-
-		// Bewegung bewegung = new Bewegung();
-		// bewegung.Bewegung_erkennen();
 	}
 
+	private static boolean pause = false;
+	public static boolean isPaused(){
+		return pause;
+	}
+	
 	public static void pause() {
-		// Painter.run=false;
-		canvas.setBackground(new Color(100, 100, 100, 50));
-		
+		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null,
+				EnumStandardGameblockNames.PAUSE.toString(), new Color(0, 0, 0, 200)));
+		pausePanel = new PausePanel();
+		pausePanel.setBounds(frame.getContentPane().getWidth()/2,frame.getContentPane().getHeight()/2,100,100);
+		frame.getContentPane().add(pausePanel);
+		pause = true;
+	}
+	
+	public static void continueGame(){
+		level.removePauseBlock();
+		frame.getContentPane().remove(pausePanel);
+		pause = false;
 	}
 }

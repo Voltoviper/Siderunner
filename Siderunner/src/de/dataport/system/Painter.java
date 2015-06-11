@@ -8,6 +8,7 @@ import java.awt.Image;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.level.Level;
+import de.dataport.standardcatalog.EnumStandardGameblockNames;
 
 /**
  * Malt auf den Main.canvas die Levelelemente und den Spieler.
@@ -16,7 +17,7 @@ import de.dataport.level.Level;
  *
  */
 public class Painter extends Thread {
-	
+
 	Image dbImage;
 	Graphics dbGraphics;
 	private Canvas canvas;
@@ -46,7 +47,7 @@ public class Painter extends Thread {
 	}
 
 	public Painter(Canvas canvas, Level level) {
-		
+
 		this.canvas = canvas;
 		this.level = level;
 	}
@@ -85,14 +86,25 @@ public class Painter extends Thread {
 	 *            Bitte gebe die Grafik an, auf die gemalt werden soll
 	 */
 	public void paintlevel(Graphics g) {
+		Gameblock pause = null;
 		for (Gameblock gb : level.getListe()) {
 			if (gb.getImage() == null) {
 				g.setColor(gb.getColor());
 				g.fillRect(gb.getX() - (gb.getWidth() / 2), gb.getY() - (gb.getHeight() / 2), gb.getWidth(),
 						gb.getHeight());
+				/* Pause-Block muss am Ende gemalt werden */
+				if (gb.getName().equals(EnumStandardGameblockNames.PAUSE.toString()))
+					pause = gb;
 			} else
 				g.drawImage(gb.getImage().getImage(), gb.getX(), gb.getY(), canvas);
 		}
+		/* Pause-Block übermalt alles! */
+		if (pause != null) {
+			g.setColor(pause.getColor());
+			g.fillRect(pause.getX() - (pause.getWidth() / 2), pause.getY() - (pause.getHeight() / 2), pause.getWidth(),
+					pause.getHeight());
+		}
+
 	}
 
 	/**
