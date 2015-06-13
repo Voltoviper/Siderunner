@@ -5,8 +5,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import de.dataport.level.Level;
 import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
+import de.dataport.window.Singleplayer;
 
 public class Game_Link_Server implements Game_Link_Interface
 {
@@ -58,6 +60,11 @@ Client client;
 		// TODO Auto-generated method stub
 		Multiplayer.spiel_client=true;
 		return Multiplayer.spiel_server;
+	}
+	@Override
+	public Level getLevel() throws RemoteException
+	{
+		return Multiplayer.level;
 	}
 	
 }

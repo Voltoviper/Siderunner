@@ -2,6 +2,7 @@ package de.dataport.level;
 
 import java.awt.Canvas;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.*;
 
 import de.dataport.Objekte.Spielfigur;
@@ -16,7 +17,7 @@ import de.dataport.window.Singleplayer;
  * @author chris_000
  *
  */
-public class Level {
+public class Level implements Serializable {
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
 	private Gameblock goal;

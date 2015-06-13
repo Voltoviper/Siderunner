@@ -1,6 +1,7 @@
 package de.dataport.datastructures;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * Datenstruktur, die vom Gameobject erbt. Es werden nur einige weitere
@@ -9,7 +10,7 @@ import java.awt.Color;
  * @author Jan Koch
  *
  */
-public class Gameblock extends Gameobject {
+public class Gameblock extends Gameobject implements Serializable {
 
 	private Boolean isDeadly;
 	private String name;

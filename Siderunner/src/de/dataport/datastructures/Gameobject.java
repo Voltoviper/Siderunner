@@ -1,5 +1,7 @@
 package de.dataport.datastructures;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
 import de.dataport.window.Start;
@@ -11,7 +13,7 @@ import de.dataport.window.Start;
  * @author Jan Koch
  *
  */
-public class Gameobject implements Comparable<Gameobject> {
+public class Gameobject implements Comparable<Gameobject>, Serializable {
 
 	private Integer x;
 	private Integer y;

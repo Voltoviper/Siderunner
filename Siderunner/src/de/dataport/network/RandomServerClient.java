@@ -17,17 +17,7 @@ public class RandomServerClient {
 
 			Client c = stub.getClient();
 			return c;
-			/*
-			if(c!=null){
-				System.out.println(c.getName());
-				Game_Link_Client game_client = new Game_Link_Client();
-				game_client.start(client);
-			}else{
-				stub.SearchGamepartner(client);
-				Game_Link_Server game_server = new Game_Link_Server(client);
-				game_server.start(client);
-			}
-			*/
+
 	}
 	
 	public void waitforClient(Client client) throws RemoteException, NotBoundException{

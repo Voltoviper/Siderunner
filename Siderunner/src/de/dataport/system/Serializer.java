@@ -63,6 +63,16 @@ public abstract class Serializer {
 		}
 		return null;
 	}
+	public static Level readfromString(String path) throws Exception {
+		File f = new File(path);
+		if (f != null) {
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
+			Level level = (Level) decoder.readObject();
+			decoder.close();
+			return level;
+		}
+		return null;
+	}
 
 	public static String getImagePath(Component openOnInstance, int jFileChooserDialog, String dialogTitle) {
 		File path = getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",

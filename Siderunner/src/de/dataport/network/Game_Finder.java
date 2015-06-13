@@ -33,6 +33,7 @@ public class Game_Finder implements Game_FinderInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		if (JOptionPane.showOptionDialog(null, "Server beenden?",
 				"Siderunner Server", JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == JOptionPane.OK_OPTION) {
