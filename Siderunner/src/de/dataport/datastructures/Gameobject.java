@@ -15,6 +15,10 @@ import de.dataport.window.Start;
  */
 public class Gameobject implements Comparable<Gameobject>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer x;
 	private Integer y;
 	private Integer width;

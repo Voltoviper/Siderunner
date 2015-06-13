@@ -8,7 +8,6 @@ import java.rmi.server.UnicastRemoteObject;
 import de.dataport.level.Level;
 import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
-import de.dataport.window.Singleplayer;
 
 public class Game_Link_Server implements Game_Link_Interface
 {

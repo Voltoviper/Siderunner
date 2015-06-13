@@ -9,7 +9,6 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -34,9 +33,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+
 
 /**
  * 
@@ -51,7 +48,7 @@ public class Leveleditor {
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
-	private JPanel panel, panel2;
+	private JPanel panel;
 	private JMenuBar menuBar;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
@@ -61,10 +58,6 @@ public class Leveleditor {
 	}
 
 	private Level level;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
 
 	/**
 	 * Launch the application.

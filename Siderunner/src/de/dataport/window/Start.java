@@ -2,7 +2,6 @@ package de.dataport.window;
 
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -12,10 +12,13 @@ import java.io.Serializable;
  */
 public class Gameblock extends Gameobject implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Boolean isDeadly;
 	private String name;
 	private Color color;
-	private String imageSource;
 
 	public Boolean getIsDeadly() {
 		return isDeadly;

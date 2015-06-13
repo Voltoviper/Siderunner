@@ -3,8 +3,6 @@ package de.dataport.berechnungen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JFrame;
-
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Singleplayer;

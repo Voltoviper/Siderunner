@@ -8,7 +8,6 @@ import java.util.*;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
-import de.dataport.window.Singleplayer;
 
 /**
  * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
@@ -18,6 +17,10 @@ import de.dataport.window.Singleplayer;
  *
  */
 public class Level implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
 	private Gameblock goal;
