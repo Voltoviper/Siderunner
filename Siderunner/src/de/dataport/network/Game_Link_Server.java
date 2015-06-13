@@ -5,6 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import de.dataport.Objekte.Spielfigur;
 import de.dataport.level.Level;
 import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
@@ -12,18 +13,22 @@ import de.dataport.window.Singleplayer;
 
 public class Game_Link_Server implements Game_Link_Interface
 {
-Client client;
+	Client client;
+	Spielfigur player_client= null;
 
-
-	public Game_Link_Server(Client client) {
-	super();
-	this.client = client;
-}
-	public Game_Link_Server(){
-		
+	public Game_Link_Server(Client client)
+	{
+		super();
+		this.client = client;
 	}
 
-	public void start(Client client){
+	public Game_Link_Server()
+	{
+
+	}
+
+	public void start(Client client)
+	{
 		Registry registry;
 		try
 		{
@@ -35,10 +40,9 @@ Client client;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
+
 	@Override
 	public Client getClient(Client client_Client) throws RemoteException
 	{
@@ -46,26 +50,41 @@ Client client;
 		System.out.println(client_Client.getName());
 		Multiplayer.Nachricht(client_Client.getName(), Icons.OK);
 		Multiplayer.SpielstartenButon();
-		return client ;
+		return client;
 	}
-
 
 	@Override
-	public boolean Spielstarten() throws RemoteException {
+	public boolean Spielstarten() throws RemoteException
+	{
 		// TODO Auto-generated method stub
-		Multiplayer.spiel_client=true;
+		Multiplayer.spiel_client = true;
 		return Multiplayer.spiel_server;
 	}
+
 	@Override
 	public Level getLevel() throws RemoteException
 	{
 		return Multiplayer.level;
 	}
+
 	@Override
 	public de.dataport.Objekte.Spielfigur getSpielfigur(de.dataport.Objekte.Spielfigur figur) throws RemoteException
 	{
-		Multiplayer.level.addPlayer(figur);
+		if (player_client == null){
+			player_client=figur;
+			Multiplayer.level.addPlayer(player_client);
+		}else{
+			player_client.setX(figur.getX());
+			player_client.setY(figur.getY());
+		}
 		return Singleplayer.player;
 	}
-	
+
+	@Override
+	public Spielfigur refreshSpielfigur(Spielfigur figur) throws RemoteException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
