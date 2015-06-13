@@ -80,11 +80,5 @@ public class Game_Link_Server implements Game_Link_Interface
 		return Singleplayer.player;
 	}
 
-	@Override
-	public Spielfigur refreshSpielfigur(Spielfigur figur) throws RemoteException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -24,6 +24,7 @@ import de.dataport.network.Client;
 import de.dataport.network.Game_Link_Client;
 import de.dataport.network.Game_Link_Server;
 import de.dataport.network.RandomServerClient;
+import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 
 import java.awt.Label;
@@ -227,7 +228,7 @@ public class Multiplayer extends JFrame
 								else
 								{
 									network.waitforClient(client);
-									Game_Link_Server game_server = new Game_Link_Server(client);
+									game_server = new Game_Link_Server(client);
 									game_server.start(client);
 									isHost = true;
 									Nachricht("Warte auf Verbindung!", Icons.OK);
@@ -252,11 +253,16 @@ public class Multiplayer extends JFrame
 				}
 				else if (RadioSearchDirect.isSelected())
 				{
-					Game_Link_Client game_link_client = new Game_Link_Client();
+					game_client = new Game_Link_Client();
 					try
 					{
-						Client client1 = new Client("Player", 1);
-						Nachricht(game_link_client.start(client1).getName(), Icons.OK);
+						Client c = new Client("Gegner", 1);
+						c.setIp(textField.getText());
+						c = game_client.start(c);
+						c.setIp(textField.getText());
+						Nachricht(c.getName(), Icons.OK);
+						isHost = false;
+						SpielstartenButon();
 					} catch (RemoteException e1)
 					{
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
@@ -272,12 +278,15 @@ public class Multiplayer extends JFrame
 				}
 				else if (RadioHost.isSelected())
 				{
-					Game_Link_Server server = new Game_Link_Server(client);
-					server.start(client);
+					game_server = new Game_Link_Server(client);
+					game_server.start(client);
 
-					LabelIcon.setVisible(true);
-					lblServerGestartet.setVisible(true);
-					LabelLoading.setVisible(false);
+					isHost = true;
+					Nachricht("Warte auf Verbindung!", Icons.OK);
+					ButtonSearch.setEnabled(false);
+					ButtonAbbrechen.setVisible(true);
+					textField_2.setVisible(true);
+					btnAuswhlen.setVisible(true);
 				}
 			}
 
@@ -414,10 +423,7 @@ public class Multiplayer extends JFrame
 							}
 							try
 							{
-								Thread.sleep(50);
-								
-								
-								
+								Thread.sleep(50);	
 							} catch (InterruptedException e)
 							{
 								// TODO Auto-generated catch block
@@ -457,13 +463,13 @@ public class Multiplayer extends JFrame
 									}
 								
 									if(level!=null){
-									Singleplayer single = new Singleplayer(level);
+									new Singleplayer(level);
 									Singleplayer.frame.setVisible(true);
 									LabelLoading.setVisible(false);
 									Spielfigur player=null;
 									try
 									{
-										player = game_client.getSpielfigur(single.player);
+										player = game_client.getSpielfigur(Singleplayer.player);
 										level.addPlayer(player);
 									} catch (RemoteException | NotBoundException e)
 									{
@@ -474,15 +480,18 @@ public class Multiplayer extends JFrame
 										Spielfigur speicher = null;
 										try
 										{
-											speicher = game_client.getSpielfigur(single.player);
+											speicher = game_client.getSpielfigur(Singleplayer.player);
+											player.setX(speicher.getX());
+											player.setY(speicher.getY());
 										} catch (RemoteException | NotBoundException e)
 										{
 											// TODO Auto-generated catch block
-											e.printStackTrace();
+											Singleplayer.frame.dispose();
+											Painter.run = false;
+											Nachricht("Gegner hat das Spiel verlassen!", Icons.ERROR);
 										}
 										
-										player.setX(speicher.getX());
-										player.setY(speicher.getY());
+										
 									}
 									}
 								}
