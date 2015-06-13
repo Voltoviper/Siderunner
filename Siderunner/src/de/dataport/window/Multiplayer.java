@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
+import de.dataport.Objekte.Spielfigur;
 import de.dataport.level.Level;
 import de.dataport.network.Client;
 import de.dataport.network.Game_Link_Client;
@@ -414,6 +415,9 @@ public class Multiplayer extends JFrame
 							try
 							{
 								Thread.sleep(50);
+								
+								
+								
 							} catch (InterruptedException e)
 							{
 								// TODO Auto-generated catch block
@@ -424,8 +428,7 @@ public class Multiplayer extends JFrame
 						LabelLoading.setVisible(false);
 
 						new Singleplayer(level);
-						Singleplayer.frame.setVisible(true);
-
+						Singleplayer.frame.setVisible(true);						
 					}
 
 				});
@@ -454,9 +457,33 @@ public class Multiplayer extends JFrame
 									}
 								
 									if(level!=null){
-									new Singleplayer(level);
+									Singleplayer single = new Singleplayer(level);
 									Singleplayer.frame.setVisible(true);
 									LabelLoading.setVisible(false);
+									Spielfigur player=null;
+									try
+									{
+										player = game_client.getSpielfigur(single.player);
+										level.addPlayer(player);
+									} catch (RemoteException | NotBoundException e)
+									{
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									while(true){
+										Spielfigur speicher = null;
+										try
+										{
+											speicher = game_client.getSpielfigur(single.player);
+										} catch (RemoteException | NotBoundException e)
+										{
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
+										player.setX(speicher.getX());
+										player.setY(speicher.getY());
+									}
 									}
 								}
 								

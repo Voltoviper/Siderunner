@@ -8,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import de.dataport.level.Level;
 import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
+import de.dataport.window.Singleplayer;
 
 public class Game_Link_Server implements Game_Link_Interface
 {
@@ -48,12 +49,7 @@ Client client;
 		return client ;
 	}
 
-	@Override
-	public boolean Spielfigur(de.dataport.Objekte.Spielfigur spieler) throws RemoteException
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 	@Override
 	public boolean Spielstarten() throws RemoteException {
 		// TODO Auto-generated method stub
@@ -64,6 +60,12 @@ Client client;
 	public Level getLevel() throws RemoteException
 	{
 		return Multiplayer.level;
+	}
+	@Override
+	public de.dataport.Objekte.Spielfigur getSpielfigur(de.dataport.Objekte.Spielfigur figur) throws RemoteException
+	{
+		Multiplayer.level.addPlayer(figur);
+		return Singleplayer.player;
 	}
 	
 }
