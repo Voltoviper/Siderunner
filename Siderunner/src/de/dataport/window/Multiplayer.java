@@ -18,8 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
+import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
-import de.dataport.level.Level;
 import de.dataport.network.Client;
 import de.dataport.network.Game_Link_Client;
 import de.dataport.network.Game_Link_Server;

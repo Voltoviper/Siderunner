@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
-import de.dataport.level.Level;
 import de.dataport.window.Multiplayer;
 
 public class Game_Link_Client

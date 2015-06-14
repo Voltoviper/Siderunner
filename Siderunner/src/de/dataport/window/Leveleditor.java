@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
+import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.level.Level;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;

@@ -19,11 +19,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
-import de.dataport.berechnungen.Bewegung;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.level.Level;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
+import de.dataport.system.Bewegung;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.PausePanel;

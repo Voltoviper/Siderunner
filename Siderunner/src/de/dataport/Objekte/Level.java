@@ -1,11 +1,10 @@
-package de.dataport.level;
+package de.dataport.Objekte;
 
 import java.awt.Canvas;
 import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.*;
 
-import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 

@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.level.Level;
 
 public abstract class StandardContent{
 

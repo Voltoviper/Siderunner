@@ -1,6 +1,5 @@
 package de.dataport.Objekte;
 
-import java.util.ArrayList;
 
 import javax.swing.JDialog;
 
@@ -16,10 +15,6 @@ import de.dataport.window.Singleplayer;
  *
  */
 public abstract class Kollision {
-	boolean kollision;
-	public static int[] koordinaten = new int[2];
-	static ArrayList<Gameblock> beruehrpunkte = new ArrayList<Gameblock>();;
-	String orientierung;
 	public static Gewonnen fenster;
 
 	public static void zielprüfung(Spielfigur player) {

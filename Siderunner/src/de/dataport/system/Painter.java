@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.level.Level;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 
 /**

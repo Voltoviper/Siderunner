@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import de.dataport.level.Level;
+import de.dataport.Objekte.Level;
 
 /**
  * Import und Export der Level in eine XML Datei.
