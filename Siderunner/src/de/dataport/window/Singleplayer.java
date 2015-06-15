@@ -2,7 +2,6 @@ package de.dataport.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,25 +44,6 @@ public class Singleplayer
 	private static Bewegung movement;
 	private static PausePanel pausePanel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					Singleplayer.frame.setVisible(true);
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -100,7 +80,7 @@ public class Singleplayer
 		frame = new JFrame();
 		frame.setResizable(true);
 		frame.setTitle("Jack Runner");
-		frame.setBounds(100, 100, 900, 554);
+		frame.setBounds(100, 100, 740, 554);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 

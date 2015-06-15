@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
 import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
+import de.dataport.window.Start;
 
 /**
  * Malt auf den Main.canvas die Levelelemente und den Spieler.
@@ -20,6 +23,7 @@ public class Painter extends Thread {
 
 	Image dbImage;
 	Graphics dbGraphics;
+	ImageIcon background;
 	private Canvas canvas;
 	private Level level;
 	public static boolean run = true;
@@ -50,6 +54,7 @@ public class Painter extends Thread {
 
 		this.canvas = canvas;
 		this.level = level;
+		this.background = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/background.png"));
 	}
 
 	/**
@@ -70,9 +75,9 @@ public class Painter extends Thread {
 			dbGraphics.setColor(Color.white);
 			dbGraphics.fillRect(0, 0, canvas.getSize().width, canvas.getSize().height);
 			dbGraphics.setColor(canvas.getForeground());
+			paintlevel(dbGraphics);
 			if (level.getAllPlayer() != null)
 				paint(dbGraphics);
-			paintlevel(dbGraphics);
 			g.drawImage(dbImage, 0, 0, canvas);
 		} catch (Exception e) {
 			System.out.println("Fehler beim Update des Bildschirmes");
@@ -87,6 +92,8 @@ public class Painter extends Thread {
 	 */
 	public void paintlevel(Graphics g) {
 		Gameblock pause = null;
+//		g.setColor(Color.white);
+		g.drawImage(background.getImage(), 0,0,canvas);
 		for (Gameblock gb : level.getListe()) {
 			if (gb.getImage() == null) {
 				g.setColor(gb.getColor());
