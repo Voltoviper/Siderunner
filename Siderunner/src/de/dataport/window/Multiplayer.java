@@ -299,7 +299,7 @@ public class Multiplayer extends JFrame
 		icon2.setImage(icon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		LabelLoading.setIcon(icon2);
 		LabelLoading.setHorizontalAlignment(SwingConstants.RIGHT);
-		LabelLoading.setBounds(404, 218, 20, 20);
+		LabelLoading.setBounds(414, 292, 20, 20);
 		LabelLoading.setVisible(false);
 		contentPane.add(LabelLoading);
 		LabelIcon = new JLabel();

@@ -151,6 +151,22 @@ public class Singleplayer
 		JMenu mnLevel = new JMenu("Level");
 		menuBar.add(mnLevel);
 		
+		ton = new JCheckBoxMenuItem("Ton?");
+		ton.setSelected(true);
+		ton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(ton.isSelected()){
+					ton.setSelected(false);
+					
+				}else{
+					ton.setSelected(true);
+				}
+				
+				
+			}
+		});
+		
 		if (level==null)
 		{
 			
@@ -193,7 +209,7 @@ public class Singleplayer
 					player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
 							"/de/dataport/window/graphics/pirat.png");
 					level.addPlayer(player);
-					bewegunganim.start();
+
 					startthreadbewegung();
 					Bewegung.bewegen(32); // hü-hüpf
 
@@ -206,21 +222,7 @@ public class Singleplayer
 				e1.printStackTrace();
 			}
 		}
-		ton = new JCheckBoxMenuItem("Ton?");
-		ton.setSelected(true);
-		ton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(ton.isSelected()){
-					ton.setSelected(false);
-					
-				}else{
-					ton.setSelected(true);
-				}
-				
-				
-			}
-		});
+		
 		mnLevel.add(ton);
 
 		JMenu menu = new JMenu("?");
