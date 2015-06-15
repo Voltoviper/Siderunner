@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,9 +24,12 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.system.Bewegung;
+import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.PausePanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Singleplayer
 {
@@ -43,10 +47,14 @@ public class Singleplayer
 	public static Painter p;
 	private static Bewegung movement;
 	private static PausePanel pausePanel;
-
+	public static Bewegungsanimation bewegunganim = new Bewegungsanimation();
+	public static JCheckBoxMenuItem ton;
+	private static boolean pause = false;
 
 	/**
 	 * Create the application.
+	 * 
+	 * @wbp.parser.constructor 
 	 */
 	public Singleplayer()
 	{
@@ -139,11 +147,13 @@ public class Singleplayer
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(0, 0, 725, 494);
 		frame.getContentPane().add(canvas);
-
+		
+		JMenu mnLevel = new JMenu("Level");
+		menuBar.add(mnLevel);
+		
 		if (level==null)
 		{
-			JMenu mnLevel = new JMenu("Level");
-			menuBar.add(mnLevel);
+			
 
 			JMenuItem mntmLaden = new JMenuItem("laden");
 			mntmLaden.addActionListener(new ActionListener()
@@ -159,7 +169,7 @@ public class Singleplayer
 							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
 									"/de/dataport/window/graphics/pirat.png");
 							level.addPlayer(player);
-
+							startthreadbewegung();
 							Bewegung.bewegen(32); // hü-hüpf
 
 							p = new Painter(canvas, level);
@@ -183,7 +193,8 @@ public class Singleplayer
 					player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
 							"/de/dataport/window/graphics/pirat.png");
 					level.addPlayer(player);
-
+					bewegunganim.start();
+					startthreadbewegung();
 					Bewegung.bewegen(32); // hü-hüpf
 
 					p = new Painter(canvas, level);
@@ -195,6 +206,22 @@ public class Singleplayer
 				e1.printStackTrace();
 			}
 		}
+		ton = new JCheckBoxMenuItem("Ton?");
+		ton.setSelected(true);
+		ton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(ton.isSelected()){
+					ton.setSelected(false);
+					
+				}else{
+					ton.setSelected(true);
+				}
+				
+				
+			}
+		});
+		mnLevel.add(ton);
 
 		JMenu menu = new JMenu("?");
 		menuBar.add(menu);
@@ -210,13 +237,9 @@ public class Singleplayer
 			}
 		});
 		menu.add(mntmber);
-
-		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
-		lblBewegenMitDen.setBounds(192, 28, 350, 14);
-		frame.getContentPane().add(lblBewegenMitDen);
 	}
 
-	private static boolean pause = false;
+	
 
 	public static boolean isPaused()
 	{
@@ -237,5 +260,10 @@ public class Singleplayer
 		level.removePauseBlock();
 		frame.getContentPane().remove(pausePanel);
 		pause = false;
+	}
+	
+	private static void startthreadbewegung(){
+		//Herausgenommen, da der Thread noch fehlerhaft ist.
+		//bewegunganim.start();
 	}
 }
