@@ -10,5 +10,6 @@ public interface Game_Link_Interface extends Remote {
 	public boolean Spielstarten() throws RemoteException;
 	public Level getLevel()throws RemoteException;
 	public de.dataport.Objekte.Spielfigur getSpielfigur(de.dataport.Objekte.Spielfigur figur)throws RemoteException;
-
+	public boolean isPaused(boolean isPaused) throws RemoteException;
+	public boolean stoppen() throws RemoteException;
 }

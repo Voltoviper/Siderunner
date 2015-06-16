@@ -65,10 +65,10 @@ public class Singleplayer
 	}
 
 	/**
-	 * Für den Start aus dem Multiplayer
+	 * Für den Start aus dem Multiplayer/mit einem vorgegebenem Level
 	 * 
-	 * @param path
-	 *            Level Pfad für die Initialisierung
+	 * @param level
+	 *            Level für die Initialisierung (Das MenüItem "Level-laden" wird durch diesen Konstruktor nicht mehr angezeigt.
 	 */
 	public Singleplayer(Level level)
 	{

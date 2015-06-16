@@ -15,6 +15,7 @@ public class Game_Link_Server implements Game_Link_Interface
 {
 	Client client;
 	Spielfigur player_client= null;
+	public static Registry registry;
 
 	public Game_Link_Server(Client client)
 	{
@@ -29,7 +30,7 @@ public class Game_Link_Server implements Game_Link_Interface
 
 	public void start(Client client)
 	{
-		Registry registry;
+		
 		try
 		{
 			registry = LocateRegistry.createRegistry(1101);
@@ -78,6 +79,25 @@ public class Game_Link_Server implements Game_Link_Interface
 			player_client.setY(figur.getY());
 		}
 		return Singleplayer.player;
+	}
+
+	@Override
+	public boolean isPaused(boolean isPaused) throws RemoteException {
+		// TODO Auto-generated method stub
+		if(isPaused){
+			Singleplayer.pause();
+		}else{
+			Singleplayer.continueGame();
+		
+		}
+		return Singleplayer.isPaused();
+	}
+
+	@Override
+	public boolean stoppen() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		return false;
 	}
 
 
