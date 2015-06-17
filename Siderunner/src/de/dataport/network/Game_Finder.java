@@ -8,8 +8,6 @@ import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import de.dataport.network.Client;
 
 public class Game_Finder implements Game_FinderInterface {

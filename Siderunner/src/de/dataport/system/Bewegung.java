@@ -56,7 +56,7 @@ public class Bewegung implements KeyListener
 		{
 		case 39: // Rechts
 
-			if (!Singleplayer.isPaused())
+			if (!Singleplayer.isPause())
 			{
 
 				if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas.getWidth() / 2)
@@ -88,7 +88,7 @@ public class Bewegung implements KeyListener
 			}
 			break;
 		case 37: // Links
-			if (!Singleplayer.isPaused())
+			if (!Singleplayer.isPause())
 				if (Kollision.collisionDetected() == false)
 				{
 					Singleplayer.player.setX(Singleplayer.player.getX() - 10);
@@ -104,7 +104,7 @@ public class Bewegung implements KeyListener
 		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
-			if (!Singleplayer.isPaused())
+			if (!Singleplayer.isPause())
 			{
 				huepf = new Thread()
 				{
@@ -163,7 +163,7 @@ public class Bewegung implements KeyListener
 			break;
 		case 27:
 			/* Pause-Menu */
-			if (Singleplayer.isPaused())
+			if (Singleplayer.isPause())
 				Singleplayer.continueGame();
 			else
 				Singleplayer.pause();

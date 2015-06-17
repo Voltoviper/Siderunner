@@ -483,6 +483,11 @@ public class Multiplayer extends JFrame
 											speicher = game_client.getSpielfigur(Singleplayer.player);
 											player.setX(speicher.getX());
 											player.setY(speicher.getY());
+											if(game_client.pause(Singleplayer.isPause())){
+												Singleplayer.pause();
+											}else{
+												Singleplayer.continueGame();
+											}
 										} catch (RemoteException | NotBoundException e)
 										{
 											// TODO Auto-generated catch block

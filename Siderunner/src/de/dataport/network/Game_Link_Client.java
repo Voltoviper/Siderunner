@@ -35,4 +35,7 @@ public class Game_Link_Client
 		return stub.getSpielfigur(player);
 		
 	}
+	public boolean pause(boolean pause) throws RemoteException, NotBoundException{
+		return stub.isPaused(pause);
+	}
 }

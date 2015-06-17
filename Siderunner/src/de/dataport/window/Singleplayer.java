@@ -243,29 +243,36 @@ public class Singleplayer
 
 	
 
-	public static boolean isPaused()
-	{
-		return pause;
-	}
-
 	public static void pause()
 	{
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(), new Color(0, 0, 0, 200)));
 		pausePanel = new PausePanel();
 		pausePanel.setBounds(frame.getContentPane().getWidth() / 2, frame.getContentPane().getHeight() / 2, 100, 100);
 		frame.getContentPane().add(pausePanel);
-		pause = true;
+		setPause(true);
 	}
 
 	public static void continueGame()
 	{
 		level.removePauseBlock();
-		frame.getContentPane().remove(pausePanel);
-		pause = false;
+		try{
+			frame.getContentPane().remove(pausePanel);
+		}catch(Exception e){
+			
+		}
+		setPause(false);
 	}
 	
 	private static void startthreadbewegung(){
 		//Herausgenommen, da der Thread noch fehlerhaft ist.
 		//bewegunganim.start();
+	}
+
+	public static boolean isPause() {
+		return pause;
+	}
+
+	public static void setPause(boolean pause) {
+		Singleplayer.pause = pause;
 	}
 }
