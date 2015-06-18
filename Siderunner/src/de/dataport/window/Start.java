@@ -120,5 +120,4 @@ public class Start {
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
 	}
-
 }

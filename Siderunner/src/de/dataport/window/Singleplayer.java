@@ -12,10 +12,12 @@ import java.awt.image.BufferedImage;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import de.dataport.Objekte.Level;
@@ -27,8 +29,7 @@ import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.PausePanel;
 
-public class Singleplayer
-{
+public class Singleplayer {
 
 	public static Graphics graphics;
 	public static Spielfigur player;
@@ -42,14 +43,13 @@ public class Singleplayer
 	public static Timer timer;
 	public static Painter p;
 	private static Bewegung movement;
+	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
-
 
 	/**
 	 * Create the application.
 	 */
-	public Singleplayer()
-	{
+	public Singleplayer() {
 		initialize();
 		movement = new Bewegung();
 		frame.addKeyListener(movement);
@@ -62,21 +62,19 @@ public class Singleplayer
 	 * @param path
 	 *            Level Pfad für die Initialisierung
 	 */
-	public Singleplayer(Level level)
-	{
+	public Singleplayer(Level level) {
 		Singleplayer.level = level;
 		initialize();
 		movement = new Bewegung();
 		frame.addKeyListener(movement);
 		canvas.addKeyListener(movement);
-		
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize()
-	{
+	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(true);
 		frame.setTitle("Jack Runner");
@@ -84,11 +82,10 @@ public class Singleplayer
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		frame.addWindowListener(new WindowAdapter()
-		{
-			public void windowClosing(WindowEvent e)
-			{
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden", JOptionPane.YES_NO_OPTION);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
 				if (i == 0)
 					Menu.dispose(frame);
 			}
@@ -101,21 +98,18 @@ public class Singleplayer
 		menuBar.add(mnDatei);
 
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
-		mntmSchlieen.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden", JOptionPane.YES_NO_OPTION);
+		mntmSchlieen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
 				if (i == 0)
 					Menu.dispose(frame);
 			}
 		});
 
 		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
-		mntmKoordinatenAnzeigen.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				JLabel lblX = new JLabel("x:");
 				lblX.setBounds(780, 11, 46, 14);
 				JLabel lblY = new JLabel("y:");
@@ -135,29 +129,35 @@ public class Singleplayer
 
 		mnDatei.add(mntmSchlieen);
 
+		mainPane = new JLayeredPane();
+		mainPane.setBounds(0, 0, 725, 494);
+		mainPane.setVisible(true);
+
+		frame.add(mainPane);
+		JPanel canvasPanel = new JPanel();
+		canvasPanel.setBounds(0, 0, 725, 494);
+		canvasPanel.setOpaque(true);
+
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(0, 0, 725, 494);
-		frame.getContentPane().add(canvas);
+		// frame.getContentPane().add(canvas);
+		canvasPanel.add(canvas);
+		mainPane.add(canvasPanel, new Integer(0), 0);
 
-		if (level==null)
-		{
+		if (level == null) {
 			JMenu mnLevel = new JMenu("Level");
 			menuBar.add(mnLevel);
 
 			JMenuItem mntmLaden = new JMenuItem("laden");
-			mntmLaden.addActionListener(new ActionListener()
-			{
-				public void actionPerformed(ActionEvent arg0)
-				{
+			mntmLaden.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
 
-					try
-					{
+					try {
 						level = Serializer.read(frame);
-						if (level != null)
-						{
-							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
-									"/de/dataport/window/graphics/pirat.png");
+						if (level != null) {
+							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+									- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 							level.addPlayer(player);
 
 							Bewegung.bewegen(32); // hü-hüpf
@@ -165,23 +165,18 @@ public class Singleplayer
 							p = new Painter(canvas, level);
 							p.start();
 						}
-					} catch (Exception e)
-					{
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 
 				}
 			});
 			mnLevel.add(mntmLaden);
-		}
-		else
-		{
-			try
-			{
-				if (level != null)
-				{
-					player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
-							"/de/dataport/window/graphics/pirat.png");
+		} else {
+			try {
+				if (level != null) {
+					player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+							- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 					level.addPlayer(player);
 
 					Bewegung.bewegen(32); // hü-hüpf
@@ -189,8 +184,7 @@ public class Singleplayer
 					p = new Painter(canvas, level);
 					p.start();
 				}
-			} catch (Exception e1)
-			{
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -200,10 +194,8 @@ public class Singleplayer
 		menuBar.add(menu);
 
 		JMenuItem mntmber = new JMenuItem("\u00DCber...");
-		mntmber.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		mntmber.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				dialog = new Info();
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
@@ -218,24 +210,25 @@ public class Singleplayer
 
 	private static boolean pause = false;
 
-	public static boolean isPaused()
-	{
+	public static boolean isPaused() {
 		return pause;
 	}
 
-	public static void pause()
-	{
-		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(), new Color(0, 0, 0, 200)));
+	public static void pause() {
+		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE
+				.toString(), new Color(0, 0, 0, 200)));
 		pausePanel = new PausePanel();
-		pausePanel.setBounds(frame.getContentPane().getWidth() / 2, frame.getContentPane().getHeight() / 2, 100, 100);
-		frame.getContentPane().add(pausePanel);
+		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame
+				.getContentPane().getHeight() / 2 - pausePanel.getHeight() / 2);
+		pausePanel.setVisible(true);
+
+		mainPane.add(pausePanel, new Integer(1), 1);
 		pause = true;
 	}
 
-	public static void continueGame()
-	{
+	public static void continueGame() {
 		level.removePauseBlock();
-		frame.getContentPane().remove(pausePanel);
+		mainPane.remove(pausePanel);
 		pause = false;
 	}
 }
