@@ -182,9 +182,14 @@ public class Singleplayer {
 					try {
 						level = Serializer.read(frame);
 						if (level != null) {
+							if(level.getAllPlayer().size()==0){
 							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 									- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 							level.addPlayer(player);
+							}
+							else{
+								player = level.getAllPlayer().get(0);
+							}
 							startthreadbewegung();
 							Bewegung.bewegen(32); // hü-hüpf
 
@@ -201,10 +206,14 @@ public class Singleplayer {
 		} else {
 			try {
 				if (level != null) {
+					if(level.getAllPlayer().size()==0){
 						player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 					level.addPlayer(player);
-
+					}
+					else{
+						player = level.getAllPlayer().get(0);
+					}
 					startthreadbewegung();
 					Bewegung.bewegen(32); // hü-hüpf
 

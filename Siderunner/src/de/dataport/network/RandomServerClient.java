@@ -13,6 +13,7 @@ public class RandomServerClient {
 			
 			
 			Registry registry = LocateRegistry.getRegistry("localhost", 1100);
+
 			stub = (Game_FinderInterface) registry.lookup("Game_Finder");
 
 			Client c = stub.getClient();
