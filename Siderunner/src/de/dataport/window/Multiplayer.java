@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
@@ -31,8 +33,7 @@ import java.awt.Label;
 
 import javax.swing.JSeparator;
 
-public class Multiplayer extends JFrame
-{
+public class Multiplayer extends JFrame {
 
 	static Multiplayer multiplayer;
 	static JFrame frame;
@@ -52,7 +53,7 @@ public class Multiplayer extends JFrame
 	static JButton ButtonSpielstarten;
 	Game_Link_Client game_client;
 	Game_Link_Server game_server;
-	public static boolean spiel_server, spiel_client = false;
+	public static boolean spiel_server, spiel_client, gestartet = false;
 	private static JTextField textField_2;
 	private JButton btnAuswhlen;
 	JLabel lblNewLabel_1;
@@ -62,19 +63,14 @@ public class Multiplayer extends JFrame
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
 
 					multiplayer = new Multiplayer();
 					Multiplayer.frame.setVisible(true);
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -84,8 +80,7 @@ public class Multiplayer extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public Multiplayer()
-	{
+	public Multiplayer() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 350);
@@ -112,20 +107,15 @@ public class Multiplayer extends JFrame
 		JRadioButton RadioRandomSearching = new JRadioButton("Random Searching");
 		RadioRandomSearching.setSelected(true);
 		RadioRandomSearching.setBounds(278, 23, 135, 23);
-		RadioRandomSearching.addActionListener(new ActionListener()
-		{
+		RadioRandomSearching.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if (RadioRandomSearching.isSelected())
-				{
+			public void actionPerformed(ActionEvent e) {
+				if (RadioRandomSearching.isSelected()) {
 
 					textField.setVisible(false);
 					lblNewLabel.setVisible(false);
-				}
-				else
-				{
+				} else {
 					textField.setVisible(true);
 					lblNewLabel.setVisible(true);
 				}
@@ -137,20 +127,15 @@ public class Multiplayer extends JFrame
 
 		JRadioButton RadioHost = new JRadioButton("Host Game");
 		RadioHost.setBounds(278, 49, 109, 23);
-		RadioHost.addActionListener(new ActionListener()
-		{
+		RadioHost.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if (RadioHost.isSelected())
-				{
+			public void actionPerformed(ActionEvent e) {
+				if (RadioHost.isSelected()) {
 
 					textField.setVisible(false);
 					lblNewLabel.setVisible(false);
-				}
-				else
-				{
+				} else {
 					textField.setVisible(true);
 					lblNewLabel.setVisible(true);
 				}
@@ -162,19 +147,14 @@ public class Multiplayer extends JFrame
 
 		JRadioButton RadioSearchDirect = new JRadioButton("Direct Search");
 		RadioSearchDirect.setBounds(278, 75, 135, 23);
-		RadioSearchDirect.addActionListener(new ActionListener()
-		{
+		RadioSearchDirect.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if (RadioSearchDirect.isSelected())
-				{
+			public void actionPerformed(ActionEvent e) {
+				if (RadioSearchDirect.isSelected()) {
 
 					textField.setVisible(true);
 					lblNewLabel.setVisible(true);
-				}
-				else
-				{
+				} else {
 					textField.setVisible(false);
 					lblNewLabel.setVisible(false);
 				}
@@ -185,53 +165,40 @@ public class Multiplayer extends JFrame
 
 		JButton ButtonSearch = new JButton("Search");
 		ButtonSearch.setBounds(278, 141, 146, 23);
-		ButtonSearch.addActionListener(new ActionListener()
-		{
+		ButtonSearch.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 
-				if (textField_1.getText() != null)
-				{
+				if (textField_1.getText() != null) {
 					client = new Client(textField_1.getText(), 1);
-				}
-				else
-				{
+				} else {
 					client = new Client("Player" + Math.random() * 10000, 1);
 				}
-				if (RadioRandomSearching.isSelected())
-				{
+				if (RadioRandomSearching.isSelected()) {
 
 					network = new RandomServerClient();
 
-					Thread net = new Thread(new Runnable()
-					{
+					Thread net = new Thread(new Runnable() {
 
 						@Override
-						public void run()
-						{
-							try
-							{
+						public void run() {
+							try {
 								LabelLoading.setVisible(true);
 								Client c = network.start(client);
-								if (c != null)
-								{
-									System.out.println(c.getName());
+								if (c != null) {
 									game_client = new Game_Link_Client();
 									c = game_client.start(c);
 									Nachricht(c.getName(), Icons.OK);
 									isHost = false;
 									SpielstartenButon();
 
-								}
-								else
-								{
+								} else {
 									network.waitforClient(client);
 									game_server = new Game_Link_Server(client);
 									game_server.start(client);
 									isHost = true;
-									Nachricht("Warte auf Verbindung!", Icons.OK);
+									Nachricht("Warte auf Verbindung! <br> IP:"+InetAddress.getLocalHost(), Icons.OK);
 									ButtonSearch.setEnabled(false);
 									ButtonAbbrechen.setVisible(true);
 									textField_2.setVisible(true);
@@ -239,10 +206,10 @@ public class Multiplayer extends JFrame
 								}
 
 								LabelLoading.setVisible(false);
-							} catch (RemoteException | NotBoundException e)
-							{
+							} catch (RemoteException | NotBoundException | UnknownHostException e) {
 								System.out.println(e);
-								Nachricht("Fehler bei der Verbindung", Icons.ERROR);
+								Nachricht("Fehler bei der Verbindung",
+										Icons.ERROR);
 								LabelLoading.setVisible(false);
 							}
 						}
@@ -250,12 +217,9 @@ public class Multiplayer extends JFrame
 					});
 					net.start();
 
-				}
-				else if (RadioSearchDirect.isSelected())
-				{
+				} else if (RadioSearchDirect.isSelected()) {
 					game_client = new Game_Link_Client();
-					try
-					{
+					try {
 						Client c = new Client("Gegner", 1);
 						c.setIp(textField.getText());
 						c = game_client.start(c);
@@ -263,11 +227,9 @@ public class Multiplayer extends JFrame
 						Nachricht(c.getName(), Icons.OK);
 						isHost = false;
 						SpielstartenButon();
-					} catch (RemoteException e1)
-					{
+					} catch (RemoteException e1) {
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
-					} catch (NotBoundException e1)
-					{
+					} catch (NotBoundException e1) {
 						e1.printStackTrace();
 						Nachricht("Fehler bei der Verbindung", Icons.ERROR);
 
@@ -275,14 +237,17 @@ public class Multiplayer extends JFrame
 					lblServerGestartet.setVisible(true);
 					LabelIcon.setVisible(true);
 					LabelLoading.setVisible(false);
-				}
-				else if (RadioHost.isSelected())
-				{
+				} else if (RadioHost.isSelected()) {
 					game_server = new Game_Link_Server(client);
 					game_server.start(client);
 
 					isHost = true;
-					Nachricht("Warte auf Verbindung!", Icons.OK);
+					try {
+						Nachricht("<html><body>Warte auf Verbindung<br> IP:"+InetAddress.getLocalHost()+"</body></html>", Icons.OK);
+					} catch (UnknownHostException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					ButtonSearch.setEnabled(false);
 					ButtonAbbrechen.setVisible(true);
 					textField_2.setVisible(true);
@@ -294,23 +259,29 @@ public class Multiplayer extends JFrame
 		contentPane.add(ButtonSearch);
 
 		LabelLoading = new JLabel("");
-		ImageIcon icon = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/loading.gif"));
+		ImageIcon icon = new ImageIcon(
+				Start.class
+						.getResource("/de/dataport/window/graphics/loading.gif"));
 		ImageIcon icon2 = new ImageIcon();
-		icon2.setImage(icon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		icon2.setImage(icon.getImage().getScaledInstance(20, 20,
+				Image.SCALE_DEFAULT));
 		LabelLoading.setIcon(icon2);
 		LabelLoading.setHorizontalAlignment(SwingConstants.RIGHT);
 		LabelLoading.setBounds(414, 292, 20, 20);
 		LabelLoading.setVisible(false);
 		contentPane.add(LabelLoading);
 		LabelIcon = new JLabel();
-		LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		LabelIcon
+				.setIcon(new ImageIcon(
+						Multiplayer.class
+								.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
 		LabelIcon.setBounds(52, 34, 166, 135);
 		contentPane.add(LabelIcon);
 		LabelIcon.setVisible(false);
 
 		lblServerGestartet = new JLabel("Server gestartet");
 		lblServerGestartet.setHorizontalAlignment(SwingConstants.CENTER);
-		lblServerGestartet.setBounds(38, 180, 166, 14);
+		lblServerGestartet.setBounds(38, 164, 166, 36);
 		contentPane.add(lblServerGestartet);
 
 		lblNewLabel_1 = new JLabel("Name:");
@@ -327,15 +298,11 @@ public class Multiplayer extends JFrame
 		textField_1.setText("Player" + (int) rand);
 
 		ButtonAbbrechen = new JButton("Abbrechen");
-		ButtonAbbrechen.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				try
-				{
+		ButtonAbbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
 					network.removeSeraching(client);
-				} catch (RemoteException | NotBoundException e1)
-				{
+				} catch (RemoteException | NotBoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -363,12 +330,10 @@ public class Multiplayer extends JFrame
 		btnAuswhlen = new JButton("Ausw\u00E4hlen");
 		btnAuswhlen.setBounds(278, 261, 109, 22);
 		btnAuswhlen.setVisible(false);
-		btnAuswhlen.addActionListener(new ActionListener()
-		{
+		btnAuswhlen.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				textField_2.setText(Serializer.getStringPath(frame));
 			}
@@ -385,139 +350,130 @@ public class Multiplayer extends JFrame
 		separator_1.setBounds(241, 0, 1, 243);
 		contentPane.add(separator_1);
 		ButtonSpielstarten.setVisible(false);
-		ButtonSpielstarten.addActionListener(new ActionListener()
-		{
+		ButtonSpielstarten.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				LabelLoading.setVisible(true);
 				ButtonSpielstarten.setVisible(false);
-				if (isHost)
-				{
-					try
-					{
+				if (isHost) {
+					try {
 						level = Serializer.readfromString(textField_2.getText());
-					} catch (Exception e1)
-					{
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
-				Thread t = new Thread(new Runnable()
-				{
+				Thread t = new Thread(new Runnable() {
 
 					@Override
-					public void run()
-					{
+					public void run() {
 						// TODO Auto-generated method stub
-						while (true)
-						{
-							if (spiel_server == true)
-							{
-								if (spiel_client == true)
-								{
+						while (true) {
+							if (spiel_server == true) {
+								if (spiel_client == true) {
+									gestartet = true;
 									break;
 								}
 							}
-							try
-							{
-								Thread.sleep(50);	
-							} catch (InterruptedException e)
-							{
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+
 						}
 						Nachricht("Beide haben gestartet", Icons.OK);
 						LabelLoading.setVisible(false);
 
 						new Singleplayer(level);
-						Singleplayer.frame.setVisible(true);						
+						Singleplayer.frame.setVisible(true);
 					}
 
 				});
 				t.start();
-				if (game_client != null)
-				{
-					try
-					{
-						if (game_client.Spielstarten())
-						{
-							Thread pause = new Thread (new Runnable(){
+				if (game_client != null) {
+					
+					
+					try {
+						game_client.Spielstarten();
+					} catch (RemoteException | NotBoundException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
+					
+					
+							Thread pause = new Thread(new Runnable() {
 
 								@Override
-								public void run()
-								{
+								public void run() {
 									// TODO Auto-generated method stub
-									Nachricht("Level wird geladen", Icons.OK);
-									try
-									{
-										level = game_client.getLevel();
-										Thread.sleep(500);
-									} catch (RemoteException | NotBoundException | InterruptedException e)
-									{
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								
-									if(level!=null){
-									new Singleplayer(level);
-									Singleplayer.frame.setVisible(true);
-									LabelLoading.setVisible(false);
-									Spielfigur player=null;
-									try
-									{
-										player = game_client.getSpielfigur(Singleplayer.player);
-										level.addPlayer(player);
-									} catch (RemoteException | NotBoundException e)
-									{
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									while(true){
-										Spielfigur speicher = null;
-										try
-										{
-											speicher = game_client.getSpielfigur(Singleplayer.player);
-											player.setX(speicher.getX());
-											player.setY(speicher.getY());
-											if(game_client.pause(Singleplayer.isPause())){
-												Singleplayer.pause();
-											}else{
-												Singleplayer.continueGame();
+									while (true) {
+										try {
+											if (game_client.getStart()) {
+												Thread.sleep(50);
+												break;
 											}
-										} catch (RemoteException | NotBoundException e)
-										{
+										} catch (RemoteException | NotBoundException | InterruptedException e1) {
 											// TODO Auto-generated catch block
-											Singleplayer.frame.dispose();
-											Painter.run = false;
-											Nachricht("Gegner hat das Spiel verlassen!", Icons.ERROR);
+											e1.printStackTrace();
 										}
-										
-										
 									}
+									try {
+										level = game_client.getLevel();
+									} catch (RemoteException
+											| NotBoundException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+
+									Nachricht("Level wird geladen", Icons.OK);
+
+									if (level != null) {
+										new Singleplayer(level);
+										Singleplayer.frame.setVisible(true);
+										LabelLoading.setVisible(false);
+										Spielfigur player = null;
+										try {
+											player = game_client
+													.getSpielfigur(Singleplayer.player);
+											level.addPlayer(player);
+										} catch (RemoteException
+												| NotBoundException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										while (true) {
+											Spielfigur speicher = null;
+											try {
+												speicher = game_client
+														.getSpielfigur(Singleplayer.player);
+												player.setX(speicher.getX());
+												player.setY(speicher.getY());
+
+											} catch (RemoteException
+													| NotBoundException e) {
+												// TODO Auto-generated catch
+												// block
+												Singleplayer.frame.dispose();
+												Painter.run = false;
+												Nachricht(
+														"Gegner hat das Spiel verlassen!",
+														Icons.ERROR);
+											}
+
+										}
 									}
 								}
-								
+
 							});
 							pause.start();
-//							Nachricht("Level wird geladen", Icons.OK);
-//							level = game_client.getLevel();
-//							new Singleplayer(level);
-//							Singleplayer.frame.setVisible(true);
-//							LabelLoading.setVisible(false);
-						}
+							;
 
-					} catch (RemoteException | NotBoundException e1)
-					{
-						e1.printStackTrace();
-						Nachricht("Fehler bei der Übertragung", Icons.ERROR);
-					}
-				}
-				else
-				{
+				} else {
 					spiel_server = true;
 				}
 
@@ -528,47 +484,43 @@ public class Multiplayer extends JFrame
 
 	}
 
-	public static void Nachricht(String string, Icons icon)
-	{
+	public static void Nachricht(String string, Icons icon) {
 		lblServerGestartet.setText(string);
-		if (icon == Icons.OK)
-		{
-			LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
-		}
-		else if (icon == Icons.QUESTION)
-		{
-			LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
-		}
-		else if (icon == Icons.ERROR)
-		{
-			LabelIcon.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
+		if (icon == Icons.OK) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		} else if (icon == Icons.QUESTION) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+		} else if (icon == Icons.ERROR) {
+			LabelIcon
+					.setIcon(new ImageIcon(
+							Multiplayer.class
+									.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
 		}
 		lblServerGestartet.setVisible(true);
 		LabelIcon.setVisible(true);
 
 	}
 
-	public static void SpielstartenButon()
-	{
+	public static void SpielstartenButon() {
 		ButtonSpielstarten.setVisible(true);
-		Thread t = new Thread(new Runnable()
-		{
+		Thread t = new Thread(new Runnable() {
 
 			@Override
-			public void run()
-			{
+			public void run() {
 				// TODO Auto-generated method stub
-				if (isHost)
-				{
-					while (textField_2.getText().equals(""))
-					{
+				if (isHost) {
+					while (textField_2.getText().equals("")) {
 
 						ButtonSpielstarten.setEnabled(false);
-						try
-						{
+						try {
 							Thread.sleep(100);
-						} catch (InterruptedException e)
-						{
+						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}

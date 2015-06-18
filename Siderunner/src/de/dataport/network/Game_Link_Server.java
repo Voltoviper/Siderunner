@@ -42,7 +42,6 @@ public class Game_Link_Server implements Game_Link_Interface {
 	@Override
 	public Client getClient(Client client_Client) throws RemoteException {
 		// TODO Auto-generated method stub
-		System.out.println(client_Client.getName());
 		Multiplayer.Nachricht(client_Client.getName(), Icons.OK);
 		Multiplayer.SpielstartenButon();
 		return client;
@@ -73,25 +72,18 @@ public class Game_Link_Server implements Game_Link_Interface {
 		return Singleplayer.player;
 	}
 
+
 	@Override
-	public boolean isPaused(boolean isPaused) throws RemoteException {
+	public boolean stoppen(boolean gestoppt) throws RemoteException {
 		// TODO Auto-generated method stub
-		if (isPaused) {
-			Singleplayer.pause();
-		} else if (Singleplayer.isPause()) {
-			Singleplayer.continueGame();
-		}
-
 		
-
-		return Singleplayer.isPause();
+		return false;
 	}
 
 	@Override
-	public boolean stoppen() throws RemoteException {
+	public boolean getStart() {
 		// TODO Auto-generated method stub
-
-		return false;
+		return Multiplayer.gestartet;
 	}
 
 }
