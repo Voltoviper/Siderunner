@@ -80,7 +80,7 @@ public class Painter extends Thread {
 				paint(dbGraphics);
 			g.drawImage(dbImage, 0, 0, canvas);
 		} catch (Exception e) {
-			System.out.println("Fehler beim Update des Bildschirmes");
+			System.out.println("Painter: Fehler beim Update des Bildschirmes");
 		}
 	}
 
