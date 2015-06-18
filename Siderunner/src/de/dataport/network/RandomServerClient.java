@@ -12,7 +12,7 @@ public class RandomServerClient {
 	public Client start(Client client) throws RemoteException, NotBoundException {
 			
 			
-			Registry registry = LocateRegistry.getRegistry("192.168.43.2", 1100);
+			Registry registry = LocateRegistry.getRegistry("169.254.135.163", 1100);
 			stub = (Game_FinderInterface) registry.lookup("Game_Finder");
 
 			Client c = stub.getClient();
