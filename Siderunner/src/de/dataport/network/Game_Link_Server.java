@@ -11,32 +11,28 @@ import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
 import de.dataport.window.Singleplayer;
 
-public class Game_Link_Server implements Game_Link_Interface
-{
+public class Game_Link_Server implements Game_Link_Interface {
 	Client client;
-	Spielfigur player_client= null;
+	Spielfigur player_client = null;
+	public static Registry registry;
 
-	public Game_Link_Server(Client client)
-	{
+	public Game_Link_Server(Client client) {
 		super();
 		this.client = client;
 	}
 
-	public Game_Link_Server()
-	{
+	public Game_Link_Server() {
 
 	}
 
-	public void start(Client client)
-	{
-		Registry registry;
-		try
-		{
+	public void start(Client client) {
+
+		try {
 			registry = LocateRegistry.createRegistry(1101);
-			Game_Link_Interface stub = (Game_Link_Interface) UnicastRemoteObject.exportObject(new Game_Link_Server(client), 0);
+			Game_Link_Interface stub = (Game_Link_Interface) UnicastRemoteObject
+					.exportObject(new Game_Link_Server(client), 0);
 			registry.rebind("Game_Link", stub);
-		} catch (RemoteException e)
-		{
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -44,41 +40,50 @@ public class Game_Link_Server implements Game_Link_Interface
 	}
 
 	@Override
-	public Client getClient(Client client_Client) throws RemoteException
-	{
+	public Client getClient(Client client_Client) throws RemoteException {
 		// TODO Auto-generated method stub
-		System.out.println(client_Client.getName());
 		Multiplayer.Nachricht(client_Client.getName(), Icons.OK);
 		Multiplayer.SpielstartenButon();
 		return client;
 	}
 
 	@Override
-	public boolean Spielstarten() throws RemoteException
-	{
+	public boolean Spielstarten() throws RemoteException {
 		// TODO Auto-generated method stub
 		Multiplayer.spiel_client = true;
 		return Multiplayer.spiel_server;
 	}
 
 	@Override
-	public Level getLevel() throws RemoteException
-	{
+	public Level getLevel() throws RemoteException {
 		return Multiplayer.level;
 	}
 
 	@Override
-	public de.dataport.Objekte.Spielfigur getSpielfigur(de.dataport.Objekte.Spielfigur figur) throws RemoteException
-	{
-		if (player_client == null){
-			player_client=figur;
+	public de.dataport.Objekte.Spielfigur getSpielfigur(
+			de.dataport.Objekte.Spielfigur figur) throws RemoteException {
+		if (player_client == null) {
+			player_client = figur;
 			Multiplayer.level.addPlayer(player_client);
-		}else{
+		} else {
 			player_client.setX(figur.getX());
 			player_client.setY(figur.getY());
 		}
 		return Singleplayer.player;
 	}
 
+
+	@Override
+	public boolean stoppen(boolean gestoppt) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		return false;
+	}
+
+	@Override
+	public boolean getStart() {
+		// TODO Auto-generated method stub
+		return Multiplayer.gestartet;
+	}
 
 }

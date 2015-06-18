@@ -35,4 +35,10 @@ public class Game_Link_Client
 		return stub.getSpielfigur(player);
 		
 	}
+	public boolean getStart() throws RemoteException, NotBoundException{
+		// TODO Auto-generated method stub
+		
+		return stub.getStart();
+	}
+
 }

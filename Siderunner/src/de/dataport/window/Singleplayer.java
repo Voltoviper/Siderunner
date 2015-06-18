@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,9 +26,12 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.system.Bewegung;
+import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.usercontrols.PausePanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Singleplayer {
 
@@ -45,9 +49,14 @@ public class Singleplayer {
 	private static Bewegung movement;
 	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
+	public static Bewegungsanimation bewegunganim = new Bewegungsanimation();
+	public static JCheckBoxMenuItem ton;
+	private static boolean pause = false;
 
 	/**
 	 * Create the application.
+	 * 
+	 * @wbp.parser.constructor
 	 */
 	public Singleplayer() {
 		initialize();
@@ -57,10 +66,11 @@ public class Singleplayer {
 	}
 
 	/**
-	 * Für den Start aus dem Multiplayer
+	 * Für den Start aus dem Multiplayer/mit einem vorgegebenem Level
 	 * 
-	 * @param path
-	 *            Level Pfad für die Initialisierung
+	 * @param level
+	 *            Level für die Initialisierung (Das MenüItem "Level-laden" wird
+	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
 	public Singleplayer(Level level) {
 		Singleplayer.level = level;
@@ -141,13 +151,29 @@ public class Singleplayer {
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(0, 0, 725, 494);
-		// frame.getContentPane().add(canvas);
+
 		canvasPanel.add(canvas);
-		mainPane.add(canvasPanel, new Integer(0), 0);
+		mainPane.add(canvasPanel,  new Integer(0),0);
+
+		JMenu mnLevel = new JMenu("Level");
+		menuBar.add(mnLevel);
+
+		ton = new JCheckBoxMenuItem("Ton?");
+		ton.setSelected(true);
+		ton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (ton.isSelected()) {
+					ton.setSelected(false);
+
+				} else {
+					ton.setSelected(true);
+				}
+
+			}
+		});
 
 		if (level == null) {
-			JMenu mnLevel = new JMenu("Level");
-			menuBar.add(mnLevel);
 
 			JMenuItem mntmLaden = new JMenuItem("laden");
 			mntmLaden.addActionListener(new ActionListener() {
@@ -159,7 +185,7 @@ public class Singleplayer {
 							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
 									- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 							level.addPlayer(player);
-
+							startthreadbewegung();
 							Bewegung.bewegen(32); // hü-hüpf
 
 							p = new Painter(canvas, level);
@@ -175,10 +201,11 @@ public class Singleplayer {
 		} else {
 			try {
 				if (level != null) {
-					player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
-							- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
+						player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
+								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
 					level.addPlayer(player);
 
+					startthreadbewegung();
 					Bewegung.bewegen(32); // hü-hüpf
 
 					p = new Painter(canvas, level);
@@ -189,6 +216,8 @@ public class Singleplayer {
 				e1.printStackTrace();
 			}
 		}
+
+		mnLevel.add(ton);
 
 		JMenu menu = new JMenu("?");
 		menuBar.add(menu);
@@ -202,13 +231,7 @@ public class Singleplayer {
 			}
 		});
 		menu.add(mntmber);
-
-		JLabel lblBewegenMitDen = new JLabel("Bewegen mit den Pfeiltasten und springen mit der Leertaste");
-		lblBewegenMitDen.setBounds(192, 28, 350, 14);
-		frame.getContentPane().add(lblBewegenMitDen);
 	}
-
-	private static boolean pause = false;
 
 	public static boolean isPaused() {
 		return pause;
@@ -218,17 +241,29 @@ public class Singleplayer {
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE
 				.toString(), new Color(0, 0, 0, 200)));
 		pausePanel = new PausePanel();
+
 		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame
 				.getContentPane().getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);
 
 		mainPane.add(pausePanel, new Integer(1), 1);
 		pause = true;
+
 	}
 
 	public static void continueGame() {
 		level.removePauseBlock();
 		mainPane.remove(pausePanel);
 		pause = false;
+
+	}
+
+	private static void startthreadbewegung() {
+		// Herausgenommen, da der Thread noch fehlerhaft ist.
+		// bewegunganim.start();
+	}
+
+	public static boolean isPause() {
+		return pause;
 	}
 }

@@ -9,14 +9,16 @@ import de.dataport.window.Singleplayer;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
 
-public class Bewegung implements KeyListener {
+public class Bewegung implements KeyListener
+{
 
 	public static Thread huepf;
 	public static int zwischenspeicher;
 	public static boolean jump = false;
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e)
+	{
 		// TODO Auto-generated method stub
 
 	}
@@ -25,7 +27,8 @@ public class Bewegung implements KeyListener {
 	/**
 	 * Prüft auf einen Tastaturanschlag
 	 */
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e)
+	{
 		// TODO Auto-generated method stub
 		bewegen((int) e.getKeyCode());
 		// System.out.println(e.getKeyCode());
@@ -33,7 +36,8 @@ public class Bewegung implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e)
+	{
 		// TODO Auto-generated method stub
 
 	}
@@ -45,13 +49,20 @@ public class Bewegung implements KeyListener {
 	 * @param keycode
 	 *            Integer, der den Tastencode enthalten muss.
 	 */
-	public static void bewegen(int keycode) {
+	public static void bewegen(int keycode)
+	{
 
-		switch (keycode) {
+		switch (keycode)
+		{
 		case 39: // Rechts
-			if (!Singleplayer.isPaused())
-				if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas.getWidth() / 2) {
-					if (Kollision.collisionDetected() == false) {
+
+			if (!Singleplayer.isPause())
+			{
+
+				if (Singleplayer.player.getX() + Spielfigur.getGeschwindigkeit() <= Singleplayer.canvas.getWidth() / 2)
+				{
+					if (Kollision.collisionDetected() == false)
+					{
 						Singleplayer.player.setX(Singleplayer.player.getX() + 10);
 
 						if (Kollision.collisionDetected() == true)
@@ -60,17 +71,26 @@ public class Bewegung implements KeyListener {
 							Singleplayer.player.setY(Singleplayer.player.getY() + 1);
 						Singleplayer.player.setY(Singleplayer.player.getY() - 1);
 						Singleplayer.lblNewLabel_1.setText(Singleplayer.player.getY() + "");
-						Kollision.zielprüfung(Singleplayer.player);
-					} else {
+						if (Kollision.zielprüfung(Singleplayer.level))
+						{
+							Singleplayer.pause();
+						}
+					}
+					else
+					{
 
 						Singleplayer.level.move(true, Singleplayer.canvas);
+						while (Kollision.collisionDetected())
+							Singleplayer.player.setY(Singleplayer.player.getY() - 1);
 					}
 
 				}
+			}
 			break;
 		case 37: // Links
-			if (!Singleplayer.isPaused())
-				if (Kollision.collisionDetected() == false) {
+			if (!Singleplayer.isPause())
+				if (Kollision.collisionDetected() == false)
+				{
 					Singleplayer.player.setX(Singleplayer.player.getX() - 10);
 
 					if (Kollision.collisionDetected() == true)
@@ -84,33 +104,47 @@ public class Bewegung implements KeyListener {
 		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
-			if (!Singleplayer.isPaused()) {
-				huepf = new Thread() {
-					public void run() {
-						if (!jump) {
+			if (!Singleplayer.isPause())
+			{
+				huepf = new Thread()
+				{
+					public void run()
+					{
+						if (!jump)
+						{
 							jump = true;
 
 							int y = 0;
 							int speicher = 0;
 							int time = 10;
-							String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3").getPath();
-							Ton mp3 = new Ton(mp3Source);
-							mp3.play();
-							while (time >= 0) {
-								if (!Kollision.collisionDetected()) {
+							if (Singleplayer.ton.isSelected())
+							{
+								String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3").getPath();
+								Ton mp3 = new Ton(mp3Source);
+								mp3.play();
+							}
+							while (time >= 0)
+							{
+								if (!Kollision.collisionDetected())
+								{
 
 									y = 2 * (-1 * (time * time) + 10 * time);
 									time -= 1;
-									try {
+									try
+									{
 										Thread.sleep(18);
-									} catch (InterruptedException e) {
+									} catch (InterruptedException e)
+									{
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									Singleplayer.player.setY(Singleplayer.player.getY() - (y - speicher));
 									speicher = y;
-								} else {
-									while (Kollision.collisionDetected()) {
+								}
+								else
+								{
+									while (Kollision.collisionDetected())
+									{
 										Singleplayer.player.setY(Singleplayer.player.getY() - 1);
 									}
 								}
@@ -129,7 +163,7 @@ public class Bewegung implements KeyListener {
 			break;
 		case 27:
 			/* Pause-Menu */
-			if (Singleplayer.isPaused())
+			if (Singleplayer.isPause())
 				Singleplayer.continueGame();
 			else
 				Singleplayer.pause();

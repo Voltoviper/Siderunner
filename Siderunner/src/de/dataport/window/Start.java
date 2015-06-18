@@ -16,10 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import de.dataport.usercontrols.RotatingLogo;
+import de.dataport.window.tone.Ton;
 
 public class Start {
 
 	private JFrame frame;
+	private boolean ton=true;
+	Ton mp3;
 
 	/**
 	 * Launch the application.
@@ -65,11 +68,31 @@ public class Start {
 		horizontalBox.add(horizontalBoxLogo);
 
 		RotatingLogo logo = new RotatingLogo();
+		logo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			if(ton){
+				ton=false;
+				mp3.close();
+			}else{
+				ton=true;
+				mp3.play();
+			}
+			}
+		});
 		horizontalBoxLogo.add(logo);
 		
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
+		
+		/* Sound */
+		
+		
+		String mp3Source = Start.class.getResource("/de/dataport/window/tone/DJ_Cymru_-_Valentines.mp3").getPath();
+		mp3 = new Ton(mp3Source);
+		mp3.play();
 
+		
 		/* Singleplayer-Button */
 		JButton btnSingleplayer = new JButton("");
 		btnSingleplayer

@@ -39,9 +39,17 @@ public class Info extends JDialog {
 		lblHerausgeber.setBounds(67, 64, 67, 14);
 		contentPanel.add(lblHerausgeber);
 		
-		JLabel lblJanKochChristoph = new JLabel("<html><body>Jan Koch <br> Christoph Nebendahl</body></html>");
-		lblJanKochChristoph.setBounds(190, 64, 208, 28);
+		JLabel lblJanKochChristoph = new JLabel("<html><body>Jan Koch <br> Christoph Nebendahl </body></html>");
+		lblJanKochChristoph.setBounds(190, 49, 208, 46);
 		contentPanel.add(lblJanKochChristoph);
+		
+		JLabel lblMusik = new JLabel("Musik");
+		lblMusik.setBounds(67, 106, 46, 14);
+		contentPanel.add(lblMusik);
+		
+		JLabel lblWwwjamendocomDjCymru = new JLabel("www.jamendo.com DJ Cymru");
+		lblWwwjamendocomDjCymru.setBounds(190, 106, 208, 14);
+		contentPanel.add(lblWwwjamendocomDjCymru);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

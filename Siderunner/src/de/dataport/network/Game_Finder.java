@@ -1,13 +1,12 @@
 package de.dataport.network;
 
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 import de.dataport.network.Client;
 
@@ -20,7 +19,7 @@ public class Game_Finder implements Game_FinderInterface {
 	}
 
 	public static void main(String[] args) {
-		String[] options = { "OK" };
+//		String[] options = { "OK" };
 		try {
 
 			Registry registry = LocateRegistry.createRegistry(1100);
@@ -33,12 +32,12 @@ public class Game_Finder implements Game_FinderInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if (JOptionPane.showOptionDialog(null, "Server beenden?",
-				"Siderunner Server", JOptionPane.PLAIN_MESSAGE,
-				JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == JOptionPane.OK_OPTION) {
-			System.exit(0);
-		}
+//		
+//		if (JOptionPane.showOptionDialog(null, "Server beenden?",
+//				"Siderunner Server", JOptionPane.PLAIN_MESSAGE,
+//				JOptionPane.QUESTION_MESSAGE, null, options, options[0]) == JOptionPane.OK_OPTION) {
+//			System.exit(0);
+//		}
 	}
 
 	/**
@@ -49,7 +48,7 @@ public class Game_Finder implements Game_FinderInterface {
 	 *         einem Spiel ist.
 	 */
 	@Override
-	public Client getClient() throws RemoteException {
+	public synchronized Client getClient() throws RemoteException {
 
 		if (!searching.isEmpty()) {
 			Client c = searching.get(0);
