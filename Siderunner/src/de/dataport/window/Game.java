@@ -60,6 +60,7 @@ public class Game {
 
 	/**
 	 * Create the application.
+	 * @param string 
 	 * 
 	 * @wbp.parser.constructor
 	 */
@@ -78,12 +79,8 @@ public class Game {
 	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
 	public Game(Level level) {
+		this();
 		Game.level = level;
-		initialize();
-		movement = new Movement();
-		frame.addKeyListener(movement);
-		canvas.addKeyListener(movement);
-
 	}
 
 	/**

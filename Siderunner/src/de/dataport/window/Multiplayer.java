@@ -79,7 +79,8 @@ public class Multiplayer extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param string 
+	 * 
+	 * @param string
 	 */
 	public Multiplayer(String playerName) {
 		frame = new JFrame();
@@ -199,7 +200,7 @@ public class Multiplayer extends JFrame {
 									game_server = new Game_Link_Server(client);
 									game_server.start(client);
 									isHost = true;
-									Nachricht("Warte auf Verbindung! <br> IP:"+InetAddress.getLocalHost(), Icons.OK);
+									Nachricht("Warte auf Verbindung! <br> IP:" + InetAddress.getLocalHost(), Icons.OK);
 									ButtonSearch.setEnabled(false);
 									ButtonAbbrechen.setVisible(true);
 									textField_2.setVisible(true);
@@ -209,8 +210,7 @@ public class Multiplayer extends JFrame {
 								LabelLoading.setVisible(false);
 							} catch (RemoteException | NotBoundException | UnknownHostException e) {
 								System.out.println(e);
-								Nachricht("Fehler bei der Verbindung",
-										Icons.ERROR);
+								Nachricht("Fehler bei der Verbindung", Icons.ERROR);
 								LabelLoading.setVisible(false);
 							}
 						}
@@ -244,7 +244,8 @@ public class Multiplayer extends JFrame {
 
 					isHost = true;
 					try {
-						Nachricht("<html><body>Warte auf Verbindung<br> IP:"+InetAddress.getLocalHost()+"</body></html>", Icons.OK);
+						Nachricht("<html><body>Warte auf Verbindung<br> IP:" + InetAddress.getLocalHost()
+								+ "</body></html>", Icons.OK);
 					} catch (UnknownHostException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -260,12 +261,9 @@ public class Multiplayer extends JFrame {
 		contentPane.add(ButtonSearch);
 
 		LabelLoading = new JLabel("");
-		ImageIcon icon = new ImageIcon(
-				Start.class
-						.getResource("/de/dataport/window/graphics/loading.gif"));
+		ImageIcon icon = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/loading.gif"));
 		ImageIcon icon2 = new ImageIcon();
-		icon2.setImage(icon.getImage().getScaledInstance(20, 20,
-				Image.SCALE_DEFAULT));
+		icon2.setImage(icon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		LabelLoading.setIcon(icon2);
 		LabelLoading.setHorizontalAlignment(SwingConstants.RIGHT);
 		LabelLoading.setBounds(414, 292, 20, 20);
@@ -273,9 +271,7 @@ public class Multiplayer extends JFrame {
 		contentPane.add(LabelLoading);
 		LabelIcon = new JLabel();
 		LabelIcon
-				.setIcon(new ImageIcon(
-						Multiplayer.class
-								.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+				.setIcon(new ImageIcon(Multiplayer.class.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
 		LabelIcon.setBounds(52, 34, 166, 135);
 		contentPane.add(LabelIcon);
 		LabelIcon.setVisible(false);
@@ -295,9 +291,11 @@ public class Multiplayer extends JFrame {
 		textFieldPlayerName.setBounds(299, 175, 125, 20);
 		contentPane.add(textFieldPlayerName);
 		textFieldPlayerName.setColumns(10);
-//		double rand = Math.random() * 10000;
-//		textFieldPlayerName.setText("Player" + (int) rand);
-
+		if (playerName.isEmpty()) {
+			double rand = Math.random() * 10000;
+			textFieldPlayerName.setText("Player" + (int) rand);
+		}
+		
 		ButtonAbbrechen = new JButton("Abbrechen");
 		ButtonAbbrechen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -396,83 +394,73 @@ public class Multiplayer extends JFrame {
 				});
 				t.start();
 				if (game_client != null) {
-					
-					
+
 					try {
 						game_client.Spielstarten();
 					} catch (RemoteException | NotBoundException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-					
-					
-					
-							Thread pause = new Thread(new Runnable() {
 
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									while (true) {
-										try {
-											if (game_client.getStart()) {
-												Thread.sleep(50);
-												break;
-											}
-										} catch (RemoteException | NotBoundException | InterruptedException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
+					Thread pause = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							while (true) {
+								try {
+									if (game_client.getStart()) {
+										Thread.sleep(50);
+										break;
 									}
-									try {
-										level = game_client.getLevel();
-									} catch (RemoteException
-											| NotBoundException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-
-									Nachricht("Level wird geladen", Icons.OK);
-
-									if (level != null) {
-										new Game(level);
-										Game.frame.setVisible(true);
-										LabelLoading.setVisible(false);
-										Spielfigur player = null;
-										try {
-											player = game_client
-													.getSpielfigur(Game.player);
-											level.addPlayer(player);
-										} catch (RemoteException
-												| NotBoundException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-										while (true) {
-											Spielfigur speicher = null;
-											try {
-												speicher = game_client
-														.getSpielfigur(Game.player);
-												player.setX(speicher.getX());
-												player.setY(speicher.getY());
-
-											} catch (RemoteException
-													| NotBoundException e) {
-												// TODO Auto-generated catch
-												// block
-												Game.frame.dispose();
-												Painter.run = false;
-												Nachricht(
-														"Gegner hat das Spiel verlassen!",
-														Icons.ERROR);
-											}
-
-										}
-									}
+								} catch (RemoteException | NotBoundException | InterruptedException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
 								}
+							}
+							try {
+								level = game_client.getLevel();
+							} catch (RemoteException | NotBoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 
-							});
-							pause.start();
-							;
+							Nachricht("Level wird geladen", Icons.OK);
+
+							if (level != null) {
+								new Game(level);
+								Game.frame.setVisible(true);
+								LabelLoading.setVisible(false);
+								Spielfigur player = null;
+								try {
+									player = game_client.getSpielfigur(Game.player);
+									level.addPlayer(player);
+								} catch (RemoteException | NotBoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								while (true) {
+									Spielfigur speicher = null;
+									try {
+										speicher = game_client.getSpielfigur(Game.player);
+										player.setX(speicher.getX());
+										player.setY(speicher.getY());
+
+									} catch (RemoteException | NotBoundException e) {
+										// TODO Auto-generated catch
+										// block
+										Game.frame.dispose();
+										Painter.run = false;
+										Nachricht("Gegner hat das Spiel verlassen!", Icons.ERROR);
+									}
+
+								}
+							}
+						}
+
+					});
+					pause.start();
+					;
 
 				} else {
 					spiel_server = true;
@@ -488,20 +476,14 @@ public class Multiplayer extends JFrame {
 	public static void Nachricht(String string, Icons icon) {
 		lblServerGestartet.setText(string);
 		if (icon == Icons.OK) {
-			LabelIcon
-					.setIcon(new ImageIcon(
-							Multiplayer.class
-									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+			LabelIcon.setIcon(new ImageIcon(Multiplayer.class
+					.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
 		} else if (icon == Icons.QUESTION) {
-			LabelIcon
-					.setIcon(new ImageIcon(
-							Multiplayer.class
-									.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
+			LabelIcon.setIcon(new ImageIcon(Multiplayer.class
+					.getResource("/de/dataport/window/graphics/gruener_haken.gif")));
 		} else if (icon == Icons.ERROR) {
-			LabelIcon
-					.setIcon(new ImageIcon(
-							Multiplayer.class
-									.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
+			LabelIcon.setIcon(new ImageIcon(Multiplayer.class
+					.getResource("/de/dataport/window/graphics/rotes_kreuz.gif")));
 		}
 		lblServerGestartet.setVisible(true);
 		LabelIcon.setVisible(true);
