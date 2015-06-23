@@ -15,6 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import de.dataport.system.Speicher;
+import de.dataport.system.Speicher_Enum;
 import de.dataport.usercontrols.RotatingLogo;
 import de.dataport.window.tone.Ton;
 
@@ -73,9 +75,11 @@ public class Start {
 			public void mouseClicked(MouseEvent e) {
 			if(ton){
 				ton=false;
+				Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, false);
 				mp3.close();
 			}else{
 				ton=true;
+				Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, true);
 				mp3.play();
 			}
 			}
@@ -86,11 +90,13 @@ public class Start {
 		horizontalBox.add(verticalBoxButtons);
 		
 		/* Sound */
-		
-		
 		String mp3Source = Start.class.getResource("/de/dataport/window/tone/DJ_Cymru_-_Valentines.mp3").getPath();
 		mp3 = new Ton(mp3Source);
-		mp3.play();
+		if(Speicher.getBoolean(Speicher_Enum.SOUND1)){
+			mp3.play();
+		}
+		
+		
 
 		
 		/* Singleplayer-Button */
