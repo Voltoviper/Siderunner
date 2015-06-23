@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import de.dataport.Objekte.Kollision;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
 

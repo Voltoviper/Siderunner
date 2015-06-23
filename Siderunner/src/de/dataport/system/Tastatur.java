@@ -9,7 +9,6 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
 import de.dataport.window.Menu;
-import de.dataport.window.Start;
 
 public class Tastatur extends MouseMotionAdapter implements KeyListener {
 	public static Point clickPoint;
