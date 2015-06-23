@@ -6,11 +6,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.IOException;
 
 import javax.swing.Box;
@@ -39,8 +36,7 @@ public class Start {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Start window = new Start();
-					window.frame.setVisible(true);
+					new Start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -87,7 +83,7 @@ public class Start {
 		horizontalBox.addKeyListener(key);
 		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		frame.getContentPane().add(horizontalBox);
-
+		frame.setVisible(true);
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
 		horizontalBoxLogo.addKeyListener(key);

@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import de.dataport.Objekte.Kollision;
 import de.dataport.system.Painter;
 
 import java.awt.event.ActionListener;
