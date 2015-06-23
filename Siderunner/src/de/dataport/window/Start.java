@@ -73,6 +73,7 @@ public class Start {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Tastatur.clickPoint = e.getPoint();
+				frame.requestFocusInWindow();
 			}
 
 		});
@@ -89,6 +90,7 @@ public class Start {
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				frame.requestFocusInWindow();
 				if (ton) {
 					ton = false;
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, false);

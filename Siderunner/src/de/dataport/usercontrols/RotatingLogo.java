@@ -1,5 +1,7 @@
 package de.dataport.usercontrols;
 
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -13,7 +15,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import de.dataport.standardcatalog.StandardContent;
 import de.dataport.window.Start;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
+
+import java.awt.BorderLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
 
 public class RotatingLogo extends JPanel {
 
@@ -22,6 +36,7 @@ public class RotatingLogo extends JPanel {
 	private ImageIcon imageForeground;
 
 	private double angle;
+	private JTextField textField;
 
 	public RotatingLogo() {
 		initialize();
@@ -39,7 +54,7 @@ public class RotatingLogo extends JPanel {
 				Start.class.getResource("/de/dataport/window/graphics/logo background"
 						+ ((int) new Random().nextInt(3) + 1) + ".png"));
 		imageForeground = new ImageIcon(
-				Start.class.getResource("/de/dataport/window/graphics/logo foreground.png"));
+				Start.class.getResource("/de/dataport/window/graphics/logo foreground2.png"));
 		Timer timer = new Timer(40, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -47,6 +62,27 @@ public class RotatingLogo extends JPanel {
 				repaint();
 			}
 		});
+		Box verticalBox = Box.createVerticalBox();
+		add(verticalBox);
+		
+		Component verticalStrut = Box.createVerticalStrut((int)(imageBackground.getIconHeight()*0.93));
+		verticalBox.add(verticalStrut);
+		
+		Box horizontalBox = Box.createHorizontalBox();
+		verticalBox.add(horizontalBox);
+		
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		horizontalBox.add(horizontalStrut);
+		
+		textField = new JTextField("Siderunner");
+		horizontalBox.add(textField);
+		textField.setColumns(10);
+		textField.setAlignmentX(Component.CENTER_ALIGNMENT);
+		textField.setOpaque(false);
+		textField.setFont(StandardContent.neuropolFont(Font.BOLD, 25f));
+		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textField.setHorizontalAlignment(JTextField.CENTER);
+		Start.frame.requestFocusInWindow();
 		timer.start();
 	}
 
@@ -100,5 +136,4 @@ public class RotatingLogo extends JPanel {
 
 		g2d.dispose();
 	}
-
 }
