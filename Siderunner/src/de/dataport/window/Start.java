@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -137,6 +135,7 @@ public class Start {
 				.getResource("/de/dataport/window/graphics/Multiplayer.png")));
 		buttonGeneralSetting(btnMultiplayer);
 		verticalBoxButtons.add(btnMultiplayer);
+		btnMultiplayer.addKeyListener(key);
 
 		/* Leveleditor-Button */
 		JButton btnLeveleditor = new JButton("");
@@ -144,6 +143,7 @@ public class Start {
 				.getResource("/de/dataport/window/graphics/Leveleditor.png")));
 		buttonGeneralSetting(btnLeveleditor);
 		verticalBoxButtons.add(btnLeveleditor);
+		btnLeveleditor.addKeyListener(key);
 
 		/* Events */
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
@@ -152,19 +152,31 @@ public class Start {
 				new Game();
 				Game.frame.setVisible(true);
 			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Tastatur.clickPoint = e.getPoint();
+			}
 		});
-		btnMultiplayer.addActionListener(new ActionListener() {
+		btnMultiplayer.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				new Multiplayer();
 
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Tastatur.clickPoint = e.getPoint();
 			}
 		});
 		btnLeveleditor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new Leveleditor().getFrame().setVisible(true);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Tastatur.clickPoint = e.getPoint();
 			}
 		});
 	}
