@@ -42,11 +42,11 @@ public class Multiplayer extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldIP;
 	JLabel LabelLoading;
 	static JLabel LabelIcon;
 	static JLabel lblServerGestartet;
-	private JTextField textField_1;
+	private JTextField textFieldPlayerName;
 	public static Client client;
 	RandomServerClient network;
 	JButton ButtonAbbrechen;
@@ -68,7 +68,7 @@ public class Multiplayer extends JFrame {
 			public void run() {
 				try {
 
-					multiplayer = new Multiplayer();
+					multiplayer = new Multiplayer("");
 					Multiplayer.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,8 +79,9 @@ public class Multiplayer extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param string 
 	 */
-	public Multiplayer() {
+	public Multiplayer(String playerName) {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 350);
@@ -90,15 +91,15 @@ public class Multiplayer extends JFrame {
 		frame.getContentPane().add(contentPane);
 		frame.setVisible(true);
 
-		textField = new JTextField();
-		textField.setBounds(299, 105, 125, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		textField.setVisible(false);
+		textFieldIP = new JTextField();
+		textFieldIP.setBounds(299, 105, 125, 20);
+		contentPane.add(textFieldIP);
+		textFieldIP.setColumns(10);
+		textFieldIP.setVisible(false);
 
 		JLabel lblNewLabel = new JLabel("IP:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setLabelFor(textField);
+		lblNewLabel.setLabelFor(textFieldIP);
 		lblNewLabel.setBounds(254, 108, 46, 14);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setVisible(false);
@@ -113,10 +114,10 @@ public class Multiplayer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (RadioRandomSearching.isSelected()) {
 
-					textField.setVisible(false);
+					textFieldIP.setVisible(false);
 					lblNewLabel.setVisible(false);
 				} else {
-					textField.setVisible(true);
+					textFieldIP.setVisible(true);
 					lblNewLabel.setVisible(true);
 				}
 			}
@@ -133,10 +134,10 @@ public class Multiplayer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (RadioHost.isSelected()) {
 
-					textField.setVisible(false);
+					textFieldIP.setVisible(false);
 					lblNewLabel.setVisible(false);
 				} else {
-					textField.setVisible(true);
+					textFieldIP.setVisible(true);
 					lblNewLabel.setVisible(true);
 				}
 			}
@@ -152,10 +153,10 @@ public class Multiplayer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (RadioSearchDirect.isSelected()) {
 
-					textField.setVisible(true);
+					textFieldIP.setVisible(true);
 					lblNewLabel.setVisible(true);
 				} else {
-					textField.setVisible(false);
+					textFieldIP.setVisible(false);
 					lblNewLabel.setVisible(false);
 				}
 			}
@@ -170,8 +171,8 @@ public class Multiplayer extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (textField_1.getText() != null) {
-					client = new Client(textField_1.getText(), 1);
+				if (textFieldPlayerName.getText() != null) {
+					client = new Client(textFieldPlayerName.getText(), 1);
 				} else {
 					client = new Client("Player" + Math.random() * 10000, 1);
 				}
@@ -221,9 +222,9 @@ public class Multiplayer extends JFrame {
 					game_client = new Game_Link_Client();
 					try {
 						Client c = new Client("Gegner", 1);
-						c.setIp(textField.getText());
+						c.setIp(textFieldIP.getText());
 						c = game_client.start(c);
-						c.setIp(textField.getText());
+						c.setIp(textFieldIP.getText());
 						Nachricht(c.getName(), Icons.OK);
 						isHost = false;
 						SpielstartenButon();
@@ -289,13 +290,13 @@ public class Multiplayer extends JFrame {
 		lblNewLabel_1.setBounds(241, 180, 46, 14);
 		contentPane.add(lblNewLabel_1);
 
-		textField_1 = new JTextField();
-		lblNewLabel_1.setLabelFor(textField_1);
-		textField_1.setBounds(299, 175, 125, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		double rand = Math.random() * 10000;
-		textField_1.setText("Player" + (int) rand);
+		textFieldPlayerName = new JTextField(playerName);
+		lblNewLabel_1.setLabelFor(textFieldPlayerName);
+		textFieldPlayerName.setBounds(299, 175, 125, 20);
+		contentPane.add(textFieldPlayerName);
+		textFieldPlayerName.setColumns(10);
+//		double rand = Math.random() * 10000;
+//		textFieldPlayerName.setText("Player" + (int) rand);
 
 		ButtonAbbrechen = new JButton("Abbrechen");
 		ButtonAbbrechen.addActionListener(new ActionListener() {

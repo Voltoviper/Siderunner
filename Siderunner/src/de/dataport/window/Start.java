@@ -73,7 +73,7 @@ public class Start {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Tastatur.clickPoint = e.getPoint();
-				frame.requestFocusInWindow();
+				frame.requestFocus();
 			}
 
 		});
@@ -90,7 +90,7 @@ public class Start {
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.requestFocusInWindow();
+				frame.requestFocus();
 				if (ton) {
 					ton = false;
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, false);
@@ -110,7 +110,7 @@ public class Start {
 		});
 		logo.addMouseMotionListener(key);
 		horizontalBoxLogo.add(logo);
-
+		frame.requestFocus();
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
 		verticalBoxButtons.addKeyListener(key);
@@ -163,7 +163,7 @@ public class Start {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Multiplayer();
+				new Multiplayer(logo.getName());
 
 			}
 			@Override

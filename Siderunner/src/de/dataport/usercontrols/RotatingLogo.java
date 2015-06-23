@@ -18,15 +18,7 @@ import javax.swing.Timer;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.window.Start;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-
-import java.awt.BorderLayout;
-
-import javax.swing.BoxLayout;
 import javax.swing.Box;
-import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
 public class RotatingLogo extends JPanel {
@@ -36,8 +28,12 @@ public class RotatingLogo extends JPanel {
 	private ImageIcon imageForeground;
 
 	private double angle;
-	private JTextField textField;
+	private JTextField textFieldName;
 
+	public String getName(){
+		return textFieldName.getText();
+	}
+	
 	public RotatingLogo() {
 		initialize();
 	}
@@ -54,7 +50,7 @@ public class RotatingLogo extends JPanel {
 				Start.class.getResource("/de/dataport/window/graphics/logo background"
 						+ ((int) new Random().nextInt(3) + 1) + ".png"));
 		imageForeground = new ImageIcon(
-				Start.class.getResource("/de/dataport/window/graphics/logo foreground2.png"));
+				Start.class.getResource("/de/dataport/window/graphics/logo foreground.png"));
 		Timer timer = new Timer(40, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,6 +58,8 @@ public class RotatingLogo extends JPanel {
 				repaint();
 			}
 		});
+		
+		/* Layout für Textbox */
 		Box verticalBox = Box.createVerticalBox();
 		add(verticalBox);
 		
@@ -74,15 +72,15 @@ public class RotatingLogo extends JPanel {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		horizontalBox.add(horizontalStrut);
 		
-		textField = new JTextField("Siderunner");
-		horizontalBox.add(textField);
-		textField.setColumns(10);
-		textField.setAlignmentX(Component.CENTER_ALIGNMENT);
-		textField.setOpaque(false);
-		textField.setFont(StandardContent.neuropolFont(Font.BOLD, 25f));
-		textField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		textField.setHorizontalAlignment(JTextField.CENTER);
-		Start.frame.requestFocusInWindow();
+		textFieldName = new JTextField("Siderunner");
+		horizontalBox.add(textFieldName);
+		textFieldName.setColumns(10);
+		textFieldName.setAlignmentX(Component.CENTER_ALIGNMENT);
+		textFieldName.setOpaque(false);
+		textFieldName.setFont(StandardContent.neuropolFont(Font.BOLD, 25f));
+		textFieldName.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		textFieldName.setHorizontalAlignment(JTextField.CENTER);
+		
 		timer.start();
 	}
 
