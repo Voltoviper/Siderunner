@@ -2,6 +2,7 @@ package de.dataport.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
+import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Movement;
 import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
@@ -108,9 +110,11 @@ public class Game {
 		frame.setJMenuBar(menuBar);
 
 		JMenu mnDatei = new JMenu("Datei");
+		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(mnDatei);
 
 		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
+		mntmSchlieen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
@@ -121,6 +125,7 @@ public class Game {
 		});
 
 		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
+		mntmKoordinatenAnzeigen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JLabel lblX = new JLabel("x:");
@@ -159,9 +164,11 @@ public class Game {
 		mainPane.add(canvasPanel,  new Integer(0),0);
 
 		JMenu mnLevel = new JMenu("Level");
+		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(mnLevel);
 
 		ton = new JCheckBoxMenuItem("Ton?");
+		ton.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		ton.setSelected(Speicher.getBoolean(Speicher_Enum.SOUND2));
 
 		ton.addItemListener(new ItemListener() {
@@ -183,6 +190,7 @@ public class Game {
 		if (level == null) {
 
 			JMenuItem mntmLaden = new JMenuItem("laden");
+			mntmLaden.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 			mntmLaden.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 
@@ -236,9 +244,11 @@ public class Game {
 		mnLevel.add(ton);
 
 		JMenu menu = new JMenu("?");
+		menu.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(menu);
 
 		JMenuItem mntmber = new JMenuItem("\u00DCber...");
+		mntmber.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		mntmber.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dialog = new Info();

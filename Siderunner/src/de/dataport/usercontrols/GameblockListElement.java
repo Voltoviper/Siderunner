@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.datastructures.IconHelper;
+import de.dataport.standardcatalog.StandardContent;
 
 public class GameblockListElement extends JPanel implements ListCellRenderer<Gameblock> {
 	public GameblockListElement() {
@@ -36,10 +37,10 @@ public class GameblockListElement extends JPanel implements ListCellRenderer<Gam
 
 		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, gameblock, index, isSelected,
 				cellHasFocus);
-
-		renderer.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		renderer.setText("<html><body><p style=\"padding:1; font-size:19\">" + gameblock.getName()
-				+ "</p><p style=\"padding:1; font-size:10\">" + gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
+		
+		renderer.setFont(StandardContent.neuropolFont(Font.PLAIN, 18f));
+		renderer.setText("<html><body><p>" + gameblock.getName()
+				+ "</p><p>" + gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
 				+ "</p></body></html>");
 		if (gameblock.getImage() == null)
 			renderer.setIcon(new IconHelper(40, 40, gameblock.getColor()));

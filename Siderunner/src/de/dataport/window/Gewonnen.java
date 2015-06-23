@@ -2,6 +2,7 @@ package de.dataport.window;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -10,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import de.dataport.Objekte.Kollision;
+import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
 
 import java.awt.event.ActionListener;
@@ -33,6 +35,7 @@ public class Gewonnen extends JDialog {
 		
 		JLabel lblHerzlichenGlckwunschSie = new JLabel("<html><body> Herzlichen Gl\u00FCckwunsch, sie haben das Ziel erreicht.<br> Klicken Sie auf OK, um zum Hauptmenü zurückzukehren.</body></html>");
 		lblHerzlichenGlckwunschSie.setBounds(65, 74, 306, 71);
+		lblHerzlichenGlckwunschSie.setFont(StandardContent.neuropolFont(Font.PLAIN, 12f));
 		contentPanel.add(lblHerzlichenGlckwunschSie);
 		{
 			JPanel buttonPane = new JPanel();

@@ -1,11 +1,16 @@
 package de.dataport.standardcatalog;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.text.FontPosture;
 import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.window.Game;
 
 public abstract class StandardContent{
 
@@ -26,6 +31,17 @@ public abstract class StandardContent{
 	
 	public static boolean isStandardBlock(Gameblock gb){
 		return getStandardBlocks().contains(gb);
+	}
+	
+	public static Font neuropolFont(int fontStyle, float fontSize){
+		Font font = null;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, StandardContent.class.getResourceAsStream("/de/dataport/window/font/NEUROPOL.TTF"));
+		} catch (FontFormatException | IOException ex) {
+			ex.printStackTrace();
+		}
+		font = font.deriveFont(fontStyle, fontSize);
+		return font;
 	}
 	
 	public static Level getStandardLevel(){
