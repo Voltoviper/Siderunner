@@ -39,7 +39,13 @@ public class Menu {
 				e.printStackTrace();
 			}
 		}
-	
-		frame.dispose();
+		if(frame!=null){
+			frame.dispose();
+		}
+		
+	}
+	public static void beenden(){
+		dispose(null);
+		System.exit(0);
 	}
 }
