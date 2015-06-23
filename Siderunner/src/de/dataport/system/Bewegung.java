@@ -9,16 +9,14 @@ import de.dataport.window.Game;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
 
-public class Bewegung implements KeyListener
-{
+public class Bewegung implements KeyListener {
 
 	public static Thread huepf;
 	public static int zwischenspeicher;
 	public static boolean jump = false;
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
@@ -27,8 +25,7 @@ public class Bewegung implements KeyListener
 	/**
 	 * Prüft auf einen Tastaturanschlag
 	 */
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		bewegen((int) e.getKeyCode());
 		// System.out.println(e.getKeyCode());
@@ -36,8 +33,7 @@ public class Bewegung implements KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
@@ -49,52 +45,63 @@ public class Bewegung implements KeyListener
 	 * @param keycode
 	 *            Integer, der den Tastencode enthalten muss.
 	 */
-	public static void bewegen(int keycode)
-	{
+	public static void bewegen(int keycode) {
 
-		switch (keycode)
-		{
+		switch (keycode) {
 		case 39: // Rechts
 
-			if (!Game.isPause())
-			{
+			if (!Game.isPause()) {
 
-//				if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <= Game.canvas.getWidth() / 2)
-//				{
-					if (Kollision.collisionDetected() == false)
-					{
+				// if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <=
+				// Game.canvas.getWidth() / 2)
+				// {
+				if (Kollision.collisionDetected() == false) {
+
+					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2) {
 						Game.player.setX(Game.player.getX() + 10);
 
 						if (Kollision.collisionDetected() == true)
 							Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
-						while (Kollision.collisionDetected() == false)
-							Game.player.setY(Game.player.getY() + 1);
-						Game.player.setY(Game.player.getY() - 1);
-						Game.lblNewLabel_1.setText(Game.player.getY() + "");
-						if (Kollision.zielprüfung(Game.level))
-						{
-							Game.pause();
-						}
-//					}
-//					else
-//					{
-
+					}
+					else{
 						Game.level.move(true, Game.canvas);
-//						while (Kollision.collisionDetected())
-//							Game.player.setY(Game.player.getY() - 1);
-//					}
+						if (Kollision.collisionDetected() == true)
+							Game.level.move(false, Game.canvas);
+					}
+						
+					while (Kollision.collisionDetected() == false)
+						Game.player.setY(Game.player.getY() + 1);
+					Game.player.setY(Game.player.getY() - 1);
+					Game.lblNewLabel_1.setText(Game.player.getY() + "");
+					if (Kollision.zielprüfung(Game.level)) {
+						Game.pause();
+					}
+					// }
+					// else
+					// {
+
+					
+					// while (Kollision.collisionDetected())
+					// Game.player.setY(Game.player.getY() - 1);
+					// }
 
 				}
 			}
 			break;
 		case 37: // Links
 			if (!Game.isPause())
-				if (Kollision.collisionDetected() == false)
-				{
-					Game.player.setX(Game.player.getX() - 10);
+				if (Kollision.collisionDetected() == false) {
+					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2) {
+						Game.player.setX(Game.player.getX() - 10);
 
-					if (Kollision.collisionDetected() == true)
-						Game.player.setX(Game.player.getX() + 10);
+						if (Kollision.collisionDetected() == true)
+							Game.player.setX(Game.player.getX() + Spielfigur.getGeschwindigkeit());
+					}
+					else{
+						Game.level.move(false, Game.canvas);
+						if (Kollision.collisionDetected() == true)
+							Game.level.move(true, Game.canvas);
+					}
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
 					Game.player.setY(Game.player.getY() - 1);
@@ -104,47 +111,36 @@ public class Bewegung implements KeyListener
 		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
-			if (!Game.isPause())
-			{
-				huepf = new Thread()
-				{
-					public void run()
-					{
-						if (!jump)
-						{
+			if (!Game.isPause()) {
+				huepf = new Thread() {
+					public void run() {
+						if (!jump) {
 							jump = true;
 
 							int y = 0;
 							int speicher = 0;
 							int time = 10;
-							if (Game.ton.isSelected())
-							{
-								String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3").getPath();
+							if (Game.ton.isSelected()) {
+								String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3")
+										.getPath();
 								Ton mp3 = new Ton(mp3Source);
 								mp3.play();
 							}
-							while (time >= 0)
-							{
-								if (!Kollision.collisionDetected())
-								{
+							while (time >= 0) {
+								if (!Kollision.collisionDetected()) {
 
 									y = 2 * (-1 * (time * time) + 10 * time);
 									time -= 1;
-									try
-									{
+									try {
 										Thread.sleep(18);
-									} catch (InterruptedException e)
-									{
+									} catch (InterruptedException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									Game.player.setY(Game.player.getY() - (y - speicher));
 									speicher = y;
-								}
-								else
-								{
-									while (Kollision.collisionDetected())
-									{
+								} else {
+									while (Kollision.collisionDetected()) {
 										Game.player.setY(Game.player.getY() - 1);
 									}
 								}
