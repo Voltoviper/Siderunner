@@ -11,7 +11,7 @@ public class Speicher {
 		try{
 		prefs = Preferences.userRoot().node(Start.class.getName());
 		}catch(Exception e){
-			
+			prefs=null;
 		}
 	}
 	
