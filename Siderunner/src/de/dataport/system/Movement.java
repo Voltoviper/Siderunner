@@ -69,7 +69,7 @@ public class Movement implements KeyListener {
 						if (Kollision.collisionDetected() == true)
 							Game.level.move(false, Game.canvas);
 					}
- 
+
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
 					Game.player.setY(Game.player.getY() - 1);
@@ -89,7 +89,9 @@ public class Movement implements KeyListener {
 		case 37: // Links
 			if (!Game.isPause())
 				if (Kollision.collisionDetected() == false) {
-					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2) {
+					if (Game.player.getX() > Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2
+							|| Game.level.getListe().get(0).getX() > Game.canvas
+									.getWidth() * 0.25) {
 						Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
 
 						if (Kollision.collisionDetected() == true)
