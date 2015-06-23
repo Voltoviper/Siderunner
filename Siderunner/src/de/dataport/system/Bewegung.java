@@ -50,7 +50,7 @@ public class Bewegung implements KeyListener {
 		switch (keycode) {
 		case 39: // Rechts
 
-			if (!Game.isPause()) {
+			if (!Game.isPause()) { 
 
 				// if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <=
 				// Game.canvas.getWidth() / 2)
