@@ -21,15 +21,15 @@ public class Gameblock extends Gameobject implements Serializable {
 	private Color color;
 	private boolean fillDownwards = false;
 
-	public boolean isFuellen() {
+	public boolean isFillDownwards() {
 		return fillDownwards;
 	}
 
-	public void setFuellen(boolean fillDownwards) {
+	public void setFillDownwards(boolean fillDownwards) {
 		this.fillDownwards = fillDownwards;
 	}
 
-	public Boolean getIsDeadly() {
+	public Boolean isDeadly() {
 		return isDeadly;
 	}
 
@@ -53,15 +53,15 @@ public class Gameblock extends Gameobject implements Serializable {
 		this.color = color;
 	}
 
-	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name,
-			Color color, Boolean fuellen) {
+	public Gameblock(Integer x, Integer y, Integer width, Integer height, Boolean isDeadly, String name, Color color,
+			Boolean fuellen) {
 		super(x, y, width, height);
 		this.isDeadly = isDeadly;
 		this.name = name;
 		this.color = color;
 		this.fillDownwards = fuellen;
 	}
-	
+
 	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name, Boolean fillDownwards) {
 		super(x, y, imageSource);
 		this.isDeadly = isDeadly;
@@ -78,18 +78,6 @@ public class Gameblock extends Gameobject implements Serializable {
 	public String toString() {
 		return "Gameblock [isDeadly=" + isDeadly + ", name=" + name + ", color=" + color + "]";
 	}
-
-	/** Info for the Leveleditor-View */
-	public String infoIsDeadly() {
-		return ((getIsDeadly() == true) ? "isDeadly" : "");
-	}
-
-	/** Info for the Leveleditor-View */
-	public String infoSize() {
-		return getWidth() + "x" + getHeight();
-	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -126,6 +114,13 @@ public class Gameblock extends Gameobject implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	/** Info for the Leveleditor-View */
+	public String infoString() {
+		return "<html><body><p style=\"font-size:18f\">" + getName() + "</p><p style=\"font-size:10f\">" + getWidth()
+				+ "X" + getHeight() + (isDeadly() ? " - tötlich" : "") + (isFillDownwards() ? " - füllt auf" : "")
+				+ "</p></body></html>";
 	}
 
 }

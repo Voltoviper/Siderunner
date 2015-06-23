@@ -21,6 +21,7 @@ import de.dataport.window.Start;
 import javax.swing.Box;
 import javax.swing.JTextField;
 
+/** JPanel, dass das interaktive Logo des Spiels beinhaltet. */
 public class RotatingLogo extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -117,20 +118,6 @@ public class RotatingLogo extends JPanel {
 		g2d.drawImage(imageBackground.getImage(), at, null);
 		g.drawImage(imageForeground.getImage(), this.getWidth() / 2 - imageForeground.getIconWidth() / 2,
 				this.getHeight() / 2 - imageForeground.getIconHeight() / 2, this);
-		// // Reset...
-		// // Equally, you could dispose of the g2d and create a new copy
-		// g2d.setTransform(current);
-		//
-		// x = getWidth() - 25 - prop.getBounds().width;
-		// y = (getHeight() - prop.getBounds().height) / 2;
-		//
-		// at = new AffineTransform();
-		// at.translate(x, y);
-		// at.rotate(Math.toRadians(-angle), prop.getBounds().width / 2,
-		// prop.getBounds().height / 2);
-		// g2d.setTransform(at);
-		// g2d.setColor(Color.BLUE);
-		// g2d.draw(prop);
 
 		g2d.dispose();
 	}

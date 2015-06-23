@@ -209,6 +209,13 @@ public class Leveleditor {
 		menuBar.add(jmBlocks);
 		JMenuItem jmiSaveBlocks = new JMenuItem("Save...");
 		jmiSaveBlocks.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		jmiSaveBlocks.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				/* Selbst angelegte Blöcke speichern. */
+				
+			}
+		});
 		jmBlocks.add(jmiSaveBlocks);
 
 		/* Canvas-Mouse-Interaction for Painting */
@@ -264,15 +271,15 @@ public class Leveleditor {
 			/* Create NEW Block */
 			Gameblock parent = gameblockList.getSelectedValue();
 			Gameblock newBlock;
-			if (parent.isFuellen()) {
+			if (parent.isFillDownwards()) {
 				while (y < canvas.getHeight()) {
 					if (parent.getImage() == null)
 						newBlock = new Gameblock(x, y, parent.getWidth(),
-								parent.getHeight(), parent.getIsDeadly(),
-								parent.getName(), parent.getColor(), parent.isFuellen());
+								parent.getHeight(), parent.isDeadly(),
+								parent.getName(), parent.getColor(), parent.isFillDownwards());
 					else
 						newBlock = new Gameblock(x, y, parent.getImageSource(),
-								parent.getIsDeadly(), parent.getName(), parent.isFuellen());
+								parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 					/* Spawn & Goal - lock */
 					if ((this.level.getSpawn() != null && newBlock
@@ -291,11 +298,11 @@ public class Leveleditor {
 			}else{
 				if (parent.getImage() == null)
 					newBlock = new Gameblock(x, y, parent.getWidth(),
-							parent.getHeight(), parent.getIsDeadly(),
-							parent.getName(), parent.getColor(), parent.isFuellen());
+							parent.getHeight(), parent.isDeadly(),
+							parent.getName(), parent.getColor(), parent.isFillDownwards());
 				else
 					newBlock = new Gameblock(x, y, parent.getImageSource(),
-							parent.getIsDeadly(), parent.getName(), parent.isFuellen());
+							parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 				/* Spawn & Goal - lock */
 				if ((this.level.getSpawn() != null && newBlock

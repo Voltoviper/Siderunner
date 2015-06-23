@@ -63,19 +63,23 @@ public class GameblockEditor extends JDialog {
 		getContentPane().setLayout(null);
 
 		jspGameblockView = new JScrollPane(null);
-		jspGameblockView.setBounds(10, 11, 174, 50);
+		jspGameblockView.setBounds(10, 7, 174, 55);
 		getContentPane().add(jspGameblockView);
 
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		horizontalStrut_3.setBounds(0, 64, 194, 7);
 		getContentPane().add(horizontalStrut_3);
-
-		textFieldName = new JTextField();
-		textFieldName.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		
+		ActionListener alUpdateAction = new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				UpdateView();
 			}
-		});
+		};
+		
+
+		textFieldName = new JTextField();
+		textFieldName.addActionListener(alUpdateAction);
 		textFieldName.setFont(StandardContent.neuropolFont(Font.PLAIN, 12f));
 		textFieldName.setColumns(10);
 		textFieldName.setBounds(10, 84, 174, 23);
@@ -119,11 +123,7 @@ public class GameblockEditor extends JDialog {
 		getContentPane().add(horizontalStrut_1);
 
 		chckbxIsDeadly = new JCheckBox("is deadly?");
-		chckbxIsDeadly.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				UpdateView();
-			}
-		});
+		chckbxIsDeadly.addActionListener(alUpdateAction);
 		chckbxIsDeadly.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		chckbxIsDeadly.setBounds(10, 234, 174, 23);
 		getContentPane().add(chckbxIsDeadly);
@@ -161,6 +161,7 @@ public class GameblockEditor extends JDialog {
 		chckbxFillDownwards = new JCheckBox("fill downwards?");
 		chckbxFillDownwards.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		chckbxFillDownwards.setBounds(10, 260, 174, 23);
+		chckbxFillDownwards.addActionListener(alUpdateAction);
 		getContentPane().add(chckbxFillDownwards);
 		setVisible(true);
 	}
@@ -180,7 +181,7 @@ public class GameblockEditor extends JDialog {
 		if (gameblockList.getSelectedValue() != null) {
 			textFieldName.setText(gameblockList.getSelectedValue().getName());
 			textFieldImageSource.setText(gameblockList.getSelectedValue().getImageSource());
-			chckbxIsDeadly.setSelected(gameblockList.getSelectedValue().getIsDeadly());
+			chckbxIsDeadly.setSelected(gameblockList.getSelectedValue().isDeadly());
 			UpdateView();
 		}
 	}
