@@ -21,12 +21,13 @@ import javax.swing.JFrame;
 
 import de.dataport.system.Speicher;
 import de.dataport.system.Speicher_Enum;
+import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.RotatingLogo;
 import de.dataport.window.tone.Ton;
 
 public class Start {
 
-	private JFrame frame;
+	public static JFrame frame;
 	private boolean ton = true;
 	Ton mp3;
 	Point clickPoint;
@@ -73,46 +74,15 @@ public class Start {
 		frame.getContentPane().setLayout(
 				new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.setUndecorated(true);
-		KeyListener key = new KeyListener() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				switch (arg0.getKeyCode()) {
-				case 27:
-					
-					Menu.beenden();
-					break;
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		};
+		Tastatur key = new Tastatur(frame);
 		frame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				clickPoint = e.getPoint();
+				Tastatur.clickPoint = e.getPoint();
 			}
 
 		});
-		frame.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				Point location = frame.getLocation();
-				frame.setLocation(location.x + e.getX() - clickPoint.x,
-						location.y + e.getY() - clickPoint.y);
-			}
-		});
+		frame.addMouseMotionListener(key);
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.addKeyListener(key);
 		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -139,18 +109,10 @@ public class Start {
 			
 			@Override
 			public void mousePressed(MouseEvent e){
-				clickPoint = e.getPoint();
+				Tastatur.clickPoint = e.getPoint();
 			}
 		});
-		logo.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				
-				Point location = frame.getLocation();
-				frame.setLocation(location.x + e.getX() - clickPoint.x,
-						location.y + e.getY() - clickPoint.y);
-			}
-		});
+		logo.addMouseMotionListener(key);
 		horizontalBoxLogo.add(logo);
 
 		Box verticalBoxButtons = Box.createVerticalBox();
