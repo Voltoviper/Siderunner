@@ -15,6 +15,9 @@ public class Menu {
 				Game.timer.stop();
 			}
 		}
+		if(Game.level!=null){
+			Game.level= null;
+		}
 		if (Game.p!= null){
 			if(Game.p.isAlive()){
 				Painter.run = false;
@@ -24,6 +27,9 @@ public class Menu {
 			if(Leveleditor.backgroundPainter.isAlive()){
 				Painter.run = false;
 			}
+			
+			Leveleditor.backgroundPainter.interrupt();
+			
 		}
 		if(Game_Link_Server.registry!=null){
 			try {

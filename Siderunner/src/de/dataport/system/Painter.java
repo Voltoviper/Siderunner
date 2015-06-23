@@ -14,7 +14,7 @@ import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.window.Start;
 
 /**
- * Malt auf den Main.canvas die Levelelemente und den Spieler.
+ * Malt auf den canvas die Levelelemente und den Spieler.
  * 
  * @author Christoph Nebendahl
  *
@@ -37,7 +37,11 @@ public class Painter extends Thread {
 			Thread.sleep(200);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			dbImage = null;
+			dbGraphics = null;
+			background = null;
+			canvas = null;
+			level = null;
 		}
 		while (run) {
 			update(canvas);
@@ -45,9 +49,14 @@ public class Painter extends Thread {
 				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
 		}
+		dbImage = null;
+		dbGraphics = null;
+		background = null;
+		canvas = null;
+		level = null;
 	}
 
 	public Painter(Canvas canvas, Level level) {

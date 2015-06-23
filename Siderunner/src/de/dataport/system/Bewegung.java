@@ -59,14 +59,14 @@ public class Bewegung implements KeyListener
 			if (!Game.isPause())
 			{
 
-				if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <= Game.canvas.getWidth() / 2)
-				{
+//				if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <= Game.canvas.getWidth() / 2)
+//				{
 					if (Kollision.collisionDetected() == false)
 					{
 						Game.player.setX(Game.player.getX() + 10);
 
 						if (Kollision.collisionDetected() == true)
-							Game.player.setX(Game.player.getX() - 10);
+							Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
 						while (Kollision.collisionDetected() == false)
 							Game.player.setY(Game.player.getY() + 1);
 						Game.player.setY(Game.player.getY() - 1);
@@ -75,14 +75,14 @@ public class Bewegung implements KeyListener
 						{
 							Game.pause();
 						}
-					}
-					else
-					{
+//					}
+//					else
+//					{
 
 						Game.level.move(true, Game.canvas);
-						while (Kollision.collisionDetected())
-							Game.player.setY(Game.player.getY() - 1);
-					}
+//						while (Kollision.collisionDetected())
+//							Game.player.setY(Game.player.getY() - 1);
+//					}
 
 				}
 			}
