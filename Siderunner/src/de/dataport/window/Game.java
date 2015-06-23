@@ -37,7 +37,6 @@ import de.dataport.system.Speicher;
 import de.dataport.system.Speicher_Enum;
 import de.dataport.usercontrols.PausePanel;
 
-
 public class Game {
 
 	public static Graphics graphics;
@@ -50,7 +49,7 @@ public class Game {
 	public static Level level;
 	public static Canvas canvas;
 	public static Timer timer;
-	public static Painter p;
+	public static Painter painter;
 	private static Movement movement;
 	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
@@ -60,7 +59,8 @@ public class Game {
 
 	/**
 	 * Create the application.
-	 * @param string 
+	 * 
+	 * @param string
 	 * 
 	 * @wbp.parser.constructor
 	 */
@@ -158,7 +158,7 @@ public class Game {
 		canvas.setBounds(0, 0, 725, 494);
 
 		canvasPanel.add(canvas);
-		mainPane.add(canvasPanel,  new Integer(0),0);
+		mainPane.add(canvasPanel, new Integer(0), 0);
 
 		JMenu mnLevel = new JMenu("Level");
 		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
@@ -170,19 +170,18 @@ public class Game {
 
 		ton.addItemListener(new ItemListener() {
 
-
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (ton.isSelected()) {
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, false);
-					
+
 				} else {
 
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, true);
 				}
 			}
-		      });
+		});
 
 		if (level == null) {
 
@@ -192,21 +191,20 @@ public class Game {
 				public void actionPerformed(ActionEvent arg0) {
 
 					try {
+						/*
+						 * Beendet das Zeichnen des vorherigen Levels (falls
+						 * vorhanden).
+						 */
+						Painter.run = false;
+
+						/*
+						 * Laden des Levels & Zuweisen+Starten der Spielmechanik
+						 * (Steuerung+Zeichnen)
+						 */
 						level = Serializer.read(frame);
 						if (level != null) {
-							if(level.getAllPlayer().size()==0){
-							player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
-									- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
-							level.addPlayer(player);
-							}
-							else{
-								player = level.getAllPlayer().get(0);
-							}
-							startthreadbewegung();
-							Movement.bewegen(32); // hü-hüpf
+							initializeGameplay();
 
-							p = new Painter(canvas, level);
-							p.start();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -218,19 +216,7 @@ public class Game {
 		} else {
 			try {
 				if (level != null) {
-					if(level.getAllPlayer().size()==0){
-						player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY()
-								- Spielfigur.getHoehe(), "/de/dataport/window/graphics/pirat.png");
-					level.addPlayer(player);
-					}
-					else{
-						player = level.getAllPlayer().get(0);
-					}
-					startthreadbewegung();
-					Movement.bewegen(32); // hü-hüpf
-
-					p = new Painter(canvas, level);
-					p.start();
+					initializeGameplay();
 				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -256,29 +242,42 @@ public class Game {
 		menu.add(mntmber);
 	}
 
+	protected void initializeGameplay() {
+		/* Spieler schon vorhanden? --> für Multiplayer wichtige Abfrage */
+		if (level.getAllPlayer().size() == 0) {
+			player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
+					"/de/dataport/window/graphics/pirat.png");
+			level.addPlayer(player);
+		} else {
+			player = level.getAllPlayer().get(0);
+		}
+		startthreadbewegung();
+		Movement.bewegen(32); // Spieler startet mit einem "Sprung ins Level".
+
+		painter = new Painter(canvas, level);
+		painter.start();
+	}
+
 	public static boolean isPaused() {
 		return pause;
 	}
 
 	public static void pause() {
-		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE
-				.toString(), new Color(0, 0, 0, 200), false));
+		/* Initialisierung des Pause-Overlays */
+		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(),
+				new Color(0, 0, 0, 200), false));
 		pausePanel = new PausePanel();
-
 		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame
 				.getContentPane().getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);
-
 		mainPane.add(pausePanel, new Integer(1), 1);
 		pause = true;
-
 	}
 
 	public static void continueGame() {
 		level.removePauseBlock();
 		mainPane.remove(pausePanel);
 		pause = false;
-
 	}
 
 	private static void startthreadbewegung() {

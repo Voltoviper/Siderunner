@@ -3,6 +3,7 @@ package de.dataport.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -168,9 +169,11 @@ public class Leveleditor {
 
 		/* Level-Menu */
 		JMenu jmLevel = new JMenu("Level");
+		jmLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(jmLevel);
 
 		JMenuItem jmiNewLevel = new JMenuItem("New...");
+		jmiNewLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmiNewLevel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -180,9 +183,11 @@ public class Leveleditor {
 		jmLevel.add(jmiNewLevel);
 
 		JMenuItem jmiLoadLevel = new JMenuItem("Load...");
+		jmiLoadLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmLevel.add(jmiLoadLevel);
 
 		JMenuItem jmiSave = new JMenuItem("Save...");
+		jmiSave.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmiSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Speichern_unter speichern = new Speichern_unter();
@@ -200,8 +205,10 @@ public class Leveleditor {
 
 		/* Block-Menu */
 		JMenu jmBlocks = new JMenu("Blocks");
+		jmBlocks.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(jmBlocks);
 		JMenuItem jmiSaveBlocks = new JMenuItem("Save...");
+		jmiSaveBlocks.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmBlocks.add(jmiSaveBlocks);
 
 		/* Canvas-Mouse-Interaction for Painting */

@@ -39,8 +39,8 @@ public class GameblockListElement extends JPanel implements ListCellRenderer<Gam
 				cellHasFocus);
 		
 		renderer.setFont(StandardContent.neuropolFont(Font.PLAIN, 18f));
-		renderer.setText("<html><body><p>" + gameblock.getName()
-				+ "</p><p>" + gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
+		renderer.setText("<html><body><p style=\"font-size:18f\">" + gameblock.getName()
+				+ "</p><p style=\"font-size:10f\">" + gameblock.infoSize() + " - " + gameblock.infoIsDeadly()
 				+ "</p></body></html>");
 		if (gameblock.getImage() == null)
 			renderer.setIcon(new IconHelper(40, 40, gameblock.getColor()));

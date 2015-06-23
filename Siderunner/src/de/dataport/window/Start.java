@@ -152,6 +152,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Game();
+				Game.frame.setVisible(true);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {

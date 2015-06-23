@@ -18,8 +18,8 @@ public class Menu {
 		if(Game.level!=null){
 			Game.level= null;
 		}
-		if (Game.p!= null){
-			if(Game.p.isAlive()){
+		if (Game.painter!= null){
+			if(Game.painter.isAlive()){
 				Painter.run = false;
 			}
 		}

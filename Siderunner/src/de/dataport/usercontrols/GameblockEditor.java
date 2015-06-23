@@ -6,6 +6,7 @@ import javax.swing.JList;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumGameblockEditorMode;
+import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Serializer;
 
 import javax.swing.DefaultListModel;
@@ -28,7 +29,7 @@ public class GameblockEditor extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldImageSource;
 	private JDialog thisDialog;
-	private JCheckBox chckbxIsDeadly, chckbxNachUntenFuellen;
+	private JCheckBox chckbxIsDeadly, chckbxFillDownwards;
 	private JTextField textFieldName;
 	private JScrollPane jspGameblockView;
 
@@ -62,7 +63,7 @@ public class GameblockEditor extends JDialog {
 		getContentPane().setLayout(null);
 
 		jspGameblockView = new JScrollPane(null);
-		jspGameblockView.setBounds(10, 11, 174, 42);
+		jspGameblockView.setBounds(10, 11, 174, 50);
 		getContentPane().add(jspGameblockView);
 
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
@@ -75,13 +76,13 @@ public class GameblockEditor extends JDialog {
 				UpdateView();
 			}
 		});
-		textFieldName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldName.setFont(StandardContent.neuropolFont(Font.PLAIN, 12f));
 		textFieldName.setColumns(10);
 		textFieldName.setBounds(10, 84, 174, 23);
 		getContentPane().add(textFieldName);
 
 		JLabel lblName = new JLabel("Name");
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblName.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		lblName.setBounds(10, 118, 46, 14);
 		getContentPane().add(lblName);
 
@@ -91,14 +92,14 @@ public class GameblockEditor extends JDialog {
 
 		textFieldImageSource = new JTextField();
 		textFieldImageSource.setEditable(false);
-		textFieldImageSource.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldImageSource.setFont(StandardContent.neuropolFont(Font.PLAIN, 12f));
 		textFieldImageSource.setBounds(10, 161, 174, 23);
 		getContentPane().add(textFieldImageSource);
 		textFieldImageSource.setColumns(10);
 
 		JLabel lblImage = new JLabel("Image");
-		lblImage.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblImage.setBounds(10, 195, 46, 14);
+		lblImage.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		lblImage.setBounds(10, 195, 62, 14);
 		getContentPane().add(lblImage);
 
 		JButton btnBrowse = new JButton("Browse");
@@ -109,22 +110,22 @@ public class GameblockEditor extends JDialog {
 			}
 		});
 
-		btnBrowse.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnBrowse.setBounds(95, 191, 89, 23);
+		btnBrowse.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		btnBrowse.setBounds(82, 191, 102, 23);
 		getContentPane().add(btnBrowse);
 
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		horizontalStrut_1.setBounds(0, 220, 194, 7);
 		getContentPane().add(horizontalStrut_1);
 
-		chckbxIsDeadly = new JCheckBox("is Deadly?");
+		chckbxIsDeadly = new JCheckBox("is deadly?");
 		chckbxIsDeadly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UpdateView();
 			}
 		});
-		chckbxIsDeadly.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxIsDeadly.setBounds(10, 234, 97, 23);
+		chckbxIsDeadly.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		chckbxIsDeadly.setBounds(10, 234, 174, 23);
 		getContentPane().add(chckbxIsDeadly);
 
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
@@ -139,7 +140,7 @@ public class GameblockEditor extends JDialog {
 
 				if (mode == EnumGameblockEditorMode.ADD) {
 					listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(),
-							chckbxIsDeadly.isSelected(), textFieldName.getText(), chckbxNachUntenFuellen.isSelected()));
+							chckbxIsDeadly.isSelected(), textFieldName.getText(), chckbxFillDownwards.isSelected()));
 				} else {
 					Gameblock gb = gameblockList.getSelectedValue();
 					if (gb != null) {
@@ -153,13 +154,14 @@ public class GameblockEditor extends JDialog {
 				dispose();
 			}
 		});
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSave.setBounds(95, 301, 89, 23);
+		btnSave.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		btnSave.setBounds(82, 301, 102, 23);
 		getContentPane().add(btnSave);
 		
-		chckbxNachUntenFuellen = new JCheckBox("nach unten fuellen");
-		chckbxNachUntenFuellen.setBounds(10, 260, 147, 23);
-		getContentPane().add(chckbxNachUntenFuellen);
+		chckbxFillDownwards = new JCheckBox("fill downwards?");
+		chckbxFillDownwards.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		chckbxFillDownwards.setBounds(10, 260, 174, 23);
+		getContentPane().add(chckbxFillDownwards);
 		setVisible(true);
 	}
 
@@ -167,7 +169,7 @@ public class GameblockEditor extends JDialog {
 		
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<Gameblock>();
 		listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(), chckbxIsDeadly
-				.isSelected(), textFieldName.getText(), chckbxNachUntenFuellen.isSelected()));
+				.isSelected(), textFieldName.getText(), chckbxFillDownwards.isSelected()));
 
 		JList<Gameblock> gameblock = new JList<Gameblock>(listModel);
 		gameblock.setCellRenderer(new GameblockListElement());

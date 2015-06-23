@@ -19,14 +19,14 @@ public class Gameblock extends Gameobject implements Serializable {
 	private Boolean isDeadly;
 	private String name;
 	private Color color;
-	private boolean fuellen = false;
+	private boolean fillDownwards = false;
 
 	public boolean isFuellen() {
-		return fuellen;
+		return fillDownwards;
 	}
 
-	public void setFuellen(boolean fuellen) {
-		this.fuellen = fuellen;
+	public void setFuellen(boolean fillDownwards) {
+		this.fillDownwards = fillDownwards;
 	}
 
 	public Boolean getIsDeadly() {
@@ -59,14 +59,14 @@ public class Gameblock extends Gameobject implements Serializable {
 		this.isDeadly = isDeadly;
 		this.name = name;
 		this.color = color;
-		this.fuellen = fuellen;
+		this.fillDownwards = fuellen;
 	}
 	
-	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name, Boolean fuellen) {
+	public Gameblock(Integer x, Integer y, String imageSource, Boolean isDeadly, String name, Boolean fillDownwards) {
 		super(x, y, imageSource);
 		this.isDeadly = isDeadly;
 		this.name = name;
-		this.fuellen = fuellen;
+		this.fillDownwards = fillDownwards;
 	}
 
 	public Gameblock() {

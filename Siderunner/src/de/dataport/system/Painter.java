@@ -36,12 +36,7 @@ public class Painter extends Thread {
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			dbImage = null;
-			dbGraphics = null;
-			background = null;
-			canvas = null;
-			level = null;
+			reset();
 		}
 		while (run) {
 			update(canvas);
@@ -49,21 +44,26 @@ public class Painter extends Thread {
 				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				
+
 			}
 		}
+		reset();
+	}
+
+	public Painter(Canvas canvas, Level level) {
+		reset();
+		this.canvas = canvas;
+		this.level = level;
+		this.background = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/background.png"));
+	}
+
+	private void reset() {
+		run = true;
 		dbImage = null;
 		dbGraphics = null;
 		background = null;
 		canvas = null;
 		level = null;
-	}
-
-	public Painter(Canvas canvas, Level level) {
-
-		this.canvas = canvas;
-		this.level = level;
-		this.background = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/background.png"));
 	}
 
 	/**
@@ -97,12 +97,13 @@ public class Painter extends Thread {
 	 * Malt das Level auf das Buffered Graphics Element
 	 * 
 	 * @param g
-	 *            Bitte gebe die Grafik an, auf die gemalt werden soll
+	 *            Geben Sie das Graphics-Element an, mit dem der Painter
+	 *            ausgeführt wird.
 	 */
 	public void paintlevel(Graphics g) {
 		Gameblock pause = null;
-//		g.setColor(Color.white);
-		g.drawImage(background.getImage(), 0,0,canvas);
+		// g.setColor(Color.white);
+		g.drawImage(background.getImage(), 0, 0, canvas);
 		for (Gameblock gb : level.getListe()) {
 			if (gb.getImage() == null) {
 				g.setColor(gb.getColor());
@@ -127,7 +128,8 @@ public class Painter extends Thread {
 	 * Malt den Spieler auf das Buffered Graphics Element
 	 * 
 	 * @param g
-	 *            Bitte gebe die Grafik an, auf die gemalt werden soll
+	 *            Geben Sie das Graphics-Element an, mit dem der Painter
+	 *            ausgeführt wird.
 	 */
 	public void paint(Graphics g) {
 		for (Spielfigur p : level.getAllPlayer()) {
