@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -29,9 +31,10 @@ import de.dataport.system.Bewegung;
 import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
+import de.dataport.system.Speicher;
+import de.dataport.system.Speicher_Enum;
 import de.dataport.usercontrols.PausePanel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class Game {
 
@@ -159,19 +162,23 @@ public class Game {
 		menuBar.add(mnLevel);
 
 		ton = new JCheckBoxMenuItem("Ton?");
-		ton.setSelected(true);
-		ton.addMouseListener(new MouseAdapter() {
+		ton.setSelected(Speicher.getBoolean(Speicher_Enum.SOUND2));
+
+		ton.addItemListener(new ItemListener() {
+
+
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
 				if (ton.isSelected()) {
-					ton.setSelected(false);
-
+					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, false);
+					
 				} else {
-					ton.setSelected(true);
-				}
 
+					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, true);
+				}
 			}
-		});
+		      });
 
 		if (level == null) {
 
