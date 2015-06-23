@@ -265,7 +265,7 @@ public class Game {
 
 	public static void pause() {
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE
-				.toString(), new Color(0, 0, 0, 200)));
+				.toString(), new Color(0, 0, 0, 200), false));
 		pausePanel = new PausePanel();
 
 		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame

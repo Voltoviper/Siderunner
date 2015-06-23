@@ -28,7 +28,7 @@ public class GameblockEditor extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldImageSource;
 	private JDialog thisDialog;
-	private JCheckBox chckbxIsDeadly;
+	private JCheckBox chckbxIsDeadly, chckbxNachUntenFuellen;
 	private JTextField textFieldName;
 	private JScrollPane jspGameblockView;
 
@@ -57,7 +57,7 @@ public class GameblockEditor extends JDialog {
 		thisDialog = this;
 		setResizable(false);
 		setTitle("Gameblock Editor");
-		setBounds(100, 100, 200, 350);
+		setBounds(100, 100, 200, 379);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -128,7 +128,7 @@ public class GameblockEditor extends JDialog {
 		getContentPane().add(chckbxIsDeadly);
 
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		horizontalStrut_2.setBounds(0, 264, 194, 7);
+		horizontalStrut_2.setBounds(0, 283, 194, 7);
 		getContentPane().add(horizontalStrut_2);
 
 		JButton btnSave = new JButton("Save");
@@ -139,7 +139,7 @@ public class GameblockEditor extends JDialog {
 
 				if (mode == EnumGameblockEditorMode.ADD) {
 					listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(),
-							chckbxIsDeadly.isSelected(), textFieldName.getText()));
+							chckbxIsDeadly.isSelected(), textFieldName.getText(), chckbxNachUntenFuellen.isSelected()));
 				} else {
 					Gameblock gb = gameblockList.getSelectedValue();
 					if (gb != null) {
@@ -154,8 +154,12 @@ public class GameblockEditor extends JDialog {
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSave.setBounds(95, 282, 89, 23);
+		btnSave.setBounds(95, 301, 89, 23);
 		getContentPane().add(btnSave);
+		
+		chckbxNachUntenFuellen = new JCheckBox("nach unten fuellen");
+		chckbxNachUntenFuellen.setBounds(10, 260, 147, 23);
+		getContentPane().add(chckbxNachUntenFuellen);
 		setVisible(true);
 	}
 
@@ -163,7 +167,7 @@ public class GameblockEditor extends JDialog {
 		
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<Gameblock>();
 		listModel.addElement(new Gameblock(null, null, textFieldImageSource.getText(), chckbxIsDeadly
-				.isSelected(), textFieldName.getText()));
+				.isSelected(), textFieldName.getText(), chckbxNachUntenFuellen.isSelected()));
 
 		JList<Gameblock> gameblock = new JList<Gameblock>(listModel);
 		gameblock.setCellRenderer(new GameblockListElement());
@@ -178,5 +182,4 @@ public class GameblockEditor extends JDialog {
 			UpdateView();
 		}
 	}
-
 }

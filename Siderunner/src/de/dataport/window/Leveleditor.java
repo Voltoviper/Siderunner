@@ -34,7 +34,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 
-
 /**
  * 
  * @author Jan Koch
@@ -144,7 +143,8 @@ public class Leveleditor {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie den Editor beenden?", "Beenden",
+				int i = JOptionPane.showConfirmDialog(frame,
+						"Wollen Sie den Editor beenden?", "Beenden",
 						JOptionPane.YES_NO_OPTION);
 				if (i == 0) {
 					Painter.run = false;
@@ -231,7 +231,7 @@ public class Leveleditor {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				/* Canvas-5%-Border leads to a Level extension*/
+				/* Canvas-5%-Border leads to a Level extension */
 				/* Extend Level to the right */
 				if (e.getX() > ((double) canvas.getWidth() * 0.95))
 					level.move(true, canvas);
@@ -239,7 +239,8 @@ public class Leveleditor {
 				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
 					if (level.getListe() != null)
 						if (level.getListe().size() != 0)
-							if (level.getListe().get(0).getX() - level.getListe().get(0).getWidth() < 0)
+							if (level.getListe().get(0).getX()
+									- level.getListe().get(0).getWidth() < 0)
 								level.move(false, canvas);
 			}
 		});
@@ -256,19 +257,51 @@ public class Leveleditor {
 			/* Create NEW Block */
 			Gameblock parent = gameblockList.getSelectedValue();
 			Gameblock newBlock;
-			if (parent.getImage() == null)
-				newBlock = new Gameblock(x, y, parent.getWidth(), parent.getHeight(), parent.getIsDeadly(),
-						parent.getName(), parent.getColor());
-			else
-				newBlock = new Gameblock(x, y, parent.getImageSource(), parent.getIsDeadly(),
-						parent.getName());
+			if (parent.isFuellen()) {
+				while (y < canvas.getHeight()) {
+					if (parent.getImage() == null)
+						newBlock = new Gameblock(x, y, parent.getWidth(),
+								parent.getHeight(), parent.getIsDeadly(),
+								parent.getName(), parent.getColor(), parent.isFuellen());
+					else
+						newBlock = new Gameblock(x, y, parent.getImageSource(),
+								parent.getIsDeadly(), parent.getName(), parent.isFuellen());
 
-			/* Spawn & Goal - lock */
-			if ((this.level.getSpawn() != null && newBlock.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
-					|| (this.level.getGoal() != null && newBlock.getName().equals(EnumStandardGameblockNames.GOAL.toString())))
-				return;
-			
-			level.processNewBlock(newBlock);
+					/* Spawn & Goal - lock */
+					if ((this.level.getSpawn() != null && newBlock
+							.getName()
+							.equals(EnumStandardGameblockNames.SPAWN.toString()))
+							|| (this.level.getGoal() != null && newBlock
+									.getName().equals(
+											EnumStandardGameblockNames.GOAL
+													.toString())))
+						return;
+
+					level.processNewBlock(newBlock);
+					
+					y+=parent.getHeight();
+				}
+			}else{
+				if (parent.getImage() == null)
+					newBlock = new Gameblock(x, y, parent.getWidth(),
+							parent.getHeight(), parent.getIsDeadly(),
+							parent.getName(), parent.getColor(), parent.isFuellen());
+				else
+					newBlock = new Gameblock(x, y, parent.getImageSource(),
+							parent.getIsDeadly(), parent.getName(), parent.isFuellen());
+
+				/* Spawn & Goal - lock */
+				if ((this.level.getSpawn() != null && newBlock
+						.getName()
+						.equals(EnumStandardGameblockNames.SPAWN.toString()))
+						|| (this.level.getGoal() != null && newBlock
+								.getName().equals(
+										EnumStandardGameblockNames.GOAL
+												.toString())))
+					return;
+
+				level.processNewBlock(newBlock);
+			}
 		}
 
 	}

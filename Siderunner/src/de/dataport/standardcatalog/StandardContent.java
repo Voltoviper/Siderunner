@@ -16,12 +16,12 @@ public abstract class StandardContent{
 
 	public static List<Gameblock> getStandardBlocks(){
 		List<Gameblock> lBlocks=new ArrayList<>();
-		final Gameblock spawn = new Gameblock(null, null, 10, 10, false, EnumStandardGameblockNames.SPAWN.toString(), Color.MAGENTA);
-		final Gameblock goal = new Gameblock(null, null, 10, 10, false, EnumStandardGameblockNames.GOAL.toString(), Color.CYAN);
+		final Gameblock spawn = new Gameblock(null, null, 10, 10, false, EnumStandardGameblockNames.SPAWN.toString(), Color.MAGENTA, false);
+		final Gameblock goal = new Gameblock(null, null, 10, 10, false, EnumStandardGameblockNames.GOAL.toString(), Color.CYAN, false);
 		//final Gameblock vanilla = new Gameblock(null, null, 30, 30, false, "vanilla", Color.BLUE);
 		//final Gameblock eraser = new Gameblock(null, null, 10, 10, false, "Eraser", Color.WHITE);
-		final Gameblock vanilla = new Gameblock(null, null, "/de/dataport/window/graphics/vanilla.jpg", false, EnumStandardGameblockNames.VANILLA.toString());
-		final Gameblock eraser = new Gameblock(null, null, "/de/dataport/window/graphics/eraser.jpg", false, EnumStandardGameblockNames.ERASER.toString());
+		final Gameblock vanilla = new Gameblock(null, null, "/de/dataport/window/graphics/vanilla.jpg", false, EnumStandardGameblockNames.VANILLA.toString(), false);
+		final Gameblock eraser = new Gameblock(null, null, "/de/dataport/window/graphics/eraser.jpg", false, EnumStandardGameblockNames.ERASER.toString(), false);
 		lBlocks.add(spawn);
 		lBlocks.add(goal);
 		lBlocks.add(vanilla);

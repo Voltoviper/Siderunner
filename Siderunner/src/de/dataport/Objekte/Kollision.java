@@ -28,7 +28,7 @@ public abstract class Kollision {
 	public static boolean collisionDetected() {
 		int t = 5;
 		Gameblock collision = Game.level.getIntersectingGameblock(new Gameblock(Game.player.getX() - t, Game.player
-				.getY() + t, Game.player.getWidth() + t, Game.player.getHeight() + t, null, null, null));
+				.getY() + t, Game.player.getWidth() + t, Game.player.getHeight() + t, null, null, null, false));
 		if (collision != null) {
 			if (collision.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
 				return false;
