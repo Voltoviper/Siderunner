@@ -9,7 +9,7 @@ import de.dataport.window.Game;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
 
-public class Bewegung implements KeyListener {
+public class Movement implements KeyListener {
 
 	public static Thread huepf;
 	public static int zwischenspeicher;
@@ -50,37 +50,35 @@ public class Bewegung implements KeyListener {
 		switch (keycode) {
 		case 39: // Rechts
 
-			if (!Game.isPause()) { 
+			if (!Game.isPause()) {
 
 				// if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <=
 				// Game.canvas.getWidth() / 2)
 				// {
 				if (Kollision.collisionDetected() == false) {
 
-					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2) {
-						Game.player.setX(Game.player.getX() + 10);
+					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2
+							|| Game.level.getListe().get(Game.level.getListe().size() - 1).getX() < Game.canvas
+									.getWidth() * 0.75) {
+						Game.player.setX(Game.player.getX() + Spielfigur.getGeschwindigkeit());
 
 						if (Kollision.collisionDetected() == true)
 							Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
-					}
-					else{
+					} else {
 						Game.level.move(true, Game.canvas);
 						if (Kollision.collisionDetected() == true)
 							Game.level.move(false, Game.canvas);
 					}
-						
+
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
 					Game.player.setY(Game.player.getY() - 1);
 					Game.lblNewLabel_1.setText(Game.player.getY() + "");
-					if (Kollision.zielprüfung(Game.level)) {
-						Game.pause();
-					}
+
 					// }
 					// else
 					// {
 
-					
 					// while (Kollision.collisionDetected())
 					// Game.player.setY(Game.player.getY() - 1);
 					// }
@@ -92,12 +90,11 @@ public class Bewegung implements KeyListener {
 			if (!Game.isPause())
 				if (Kollision.collisionDetected() == false) {
 					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2) {
-						Game.player.setX(Game.player.getX() - 10);
+						Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
 
 						if (Kollision.collisionDetected() == true)
 							Game.player.setX(Game.player.getX() + Spielfigur.getGeschwindigkeit());
-					}
-					else{
+					} else {
 						Game.level.move(false, Game.canvas);
 						if (Kollision.collisionDetected() == true)
 							Game.level.move(true, Game.canvas);
@@ -112,7 +109,7 @@ public class Bewegung implements KeyListener {
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
 			if (!Game.isPause()) {
-				huepf = new Thread() {
+				new Thread(new Runnable() {
 					public void run() {
 						if (!jump) {
 							jump = true;
@@ -139,22 +136,21 @@ public class Bewegung implements KeyListener {
 									}
 									Game.player.setY(Game.player.getY() - (y - speicher));
 									speicher = y;
-								} else {
-									while (Kollision.collisionDetected()) {
-										Game.player.setY(Game.player.getY() - 1);
+									if (Kollision.collisionDetected()) {
+										while (Kollision.collisionDetected()) {
+											Game.player.setY(Game.player.getY() - 1);
+										}
 									}
 								}
 							}
+
 							y = 0;
 							speicher = 0;
 							time = 10;
 							jump = false;
 						}
 					}
-				};
-				Game.lblNewLabel.setText(Game.player.getX() + "");
-				Game.lblNewLabel_1.setText(Game.player.getY() + "");
-				huepf.start();
+				}).start();
 			}
 			break;
 		case 27:

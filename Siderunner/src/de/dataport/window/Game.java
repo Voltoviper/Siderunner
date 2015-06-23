@@ -27,7 +27,7 @@ import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
-import de.dataport.system.Bewegung;
+import de.dataport.system.Movement;
 import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
@@ -49,7 +49,7 @@ public class Game {
 	public static Canvas canvas;
 	public static Timer timer;
 	public static Painter p;
-	private static Bewegung movement;
+	private static Movement movement;
 	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
 	public static Bewegungsanimation bewegunganim = new Bewegungsanimation();
@@ -63,7 +63,7 @@ public class Game {
 	 */
 	public Game() {
 		initialize();
-		movement = new Bewegung();
+		movement = new Movement();
 		frame.addKeyListener(movement);
 		canvas.addKeyListener(movement);
 	}
@@ -78,7 +78,7 @@ public class Game {
 	public Game(Level level) {
 		Game.level = level;
 		initialize();
-		movement = new Bewegung();
+		movement = new Movement();
 		frame.addKeyListener(movement);
 		canvas.addKeyListener(movement);
 
@@ -198,7 +198,7 @@ public class Game {
 								player = level.getAllPlayer().get(0);
 							}
 							startthreadbewegung();
-							Bewegung.bewegen(32); // hü-hüpf
+							Movement.bewegen(32); // hü-hüpf
 
 							p = new Painter(canvas, level);
 							p.start();
@@ -222,7 +222,7 @@ public class Game {
 						player = level.getAllPlayer().get(0);
 					}
 					startthreadbewegung();
-					Bewegung.bewegen(32); // hü-hüpf
+					Movement.bewegen(32); // hü-hüpf
 
 					p = new Painter(canvas, level);
 					p.start();

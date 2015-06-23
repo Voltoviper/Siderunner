@@ -49,7 +49,7 @@ public class Gewonnen extends JDialog {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Kollision.fenster.dispose();
+					dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
