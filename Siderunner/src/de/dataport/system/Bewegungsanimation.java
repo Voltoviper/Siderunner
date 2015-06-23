@@ -2,7 +2,7 @@ package de.dataport.system;
 
 import javax.swing.ImageIcon;
 
-import de.dataport.window.Singleplayer;
+import de.dataport.window.Game;
 import de.dataport.window.Start;
 /**
  * Klasse, um eine Bewegung zu animieren. Derzeit noch fehlerhaft!
@@ -39,7 +39,7 @@ public class Bewegungsanimation extends Thread
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Singleplayer.player.setImage(player[x]);
+			Game.player.setImage(player[x]);
 			x+=1;
 		}
 	}

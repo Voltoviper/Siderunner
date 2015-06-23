@@ -117,8 +117,8 @@ public class Start {
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Singleplayer();
-				Singleplayer.frame.setVisible(true);
+				new Game();
+				Game.frame.setVisible(true);
 			}
 		});
 		btnMultiplayer.addActionListener(new ActionListener() {

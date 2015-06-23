@@ -9,7 +9,7 @@ import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Icons;
 import de.dataport.window.Multiplayer;
-import de.dataport.window.Singleplayer;
+import de.dataport.window.Game;
 
 public class Game_Link_Server implements Game_Link_Interface {
 	Client client;
@@ -69,7 +69,7 @@ public class Game_Link_Server implements Game_Link_Interface {
 			player_client.setX(figur.getX());
 			player_client.setY(figur.getY());
 		}
-		return Singleplayer.player;
+		return Game.player;
 	}
 
 

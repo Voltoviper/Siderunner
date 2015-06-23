@@ -388,8 +388,8 @@ public class Multiplayer extends JFrame {
 						Nachricht("Beide haben gestartet", Icons.OK);
 						LabelLoading.setVisible(false);
 
-						new Singleplayer(level);
-						Singleplayer.frame.setVisible(true);
+						new Game(level);
+						Game.frame.setVisible(true);
 					}
 
 				});
@@ -433,13 +433,13 @@ public class Multiplayer extends JFrame {
 									Nachricht("Level wird geladen", Icons.OK);
 
 									if (level != null) {
-										new Singleplayer(level);
-										Singleplayer.frame.setVisible(true);
+										new Game(level);
+										Game.frame.setVisible(true);
 										LabelLoading.setVisible(false);
 										Spielfigur player = null;
 										try {
 											player = game_client
-													.getSpielfigur(Singleplayer.player);
+													.getSpielfigur(Game.player);
 											level.addPlayer(player);
 										} catch (RemoteException
 												| NotBoundException e) {
@@ -450,7 +450,7 @@ public class Multiplayer extends JFrame {
 											Spielfigur speicher = null;
 											try {
 												speicher = game_client
-														.getSpielfigur(Singleplayer.player);
+														.getSpielfigur(Game.player);
 												player.setX(speicher.getX());
 												player.setY(speicher.getY());
 
@@ -458,7 +458,7 @@ public class Multiplayer extends JFrame {
 													| NotBoundException e) {
 												// TODO Auto-generated catch
 												// block
-												Singleplayer.frame.dispose();
+												Game.frame.dispose();
 												Painter.run = false;
 												Nachricht(
 														"Gegner hat das Spiel verlassen!",

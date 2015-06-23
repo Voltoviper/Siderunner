@@ -33,7 +33,7 @@ import de.dataport.usercontrols.PausePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Singleplayer {
+public class Game {
 
 	public static Graphics graphics;
 	public static Spielfigur player;
@@ -58,7 +58,7 @@ public class Singleplayer {
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public Singleplayer() {
+	public Game() {
 		initialize();
 		movement = new Bewegung();
 		frame.addKeyListener(movement);
@@ -72,8 +72,8 @@ public class Singleplayer {
 	 *            Level für die Initialisierung (Das MenüItem "Level-laden" wird
 	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
-	public Singleplayer(Level level) {
-		Singleplayer.level = level;
+	public Game(Level level) {
+		Game.level = level;
 		initialize();
 		movement = new Bewegung();
 		frame.addKeyListener(movement);

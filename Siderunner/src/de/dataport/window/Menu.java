@@ -10,13 +10,13 @@ import de.dataport.system.Painter;
 public class Menu {
 
 	public static void dispose(Frame frame){
-		if (Singleplayer.timer != null) {
-			if (Singleplayer.timer.isRunning()) {
-				Singleplayer.timer.stop();
+		if (Game.timer != null) {
+			if (Game.timer.isRunning()) {
+				Game.timer.stop();
 			}
 		}
-		if (Singleplayer.p!= null){
-			if(Singleplayer.p.isAlive()){
+		if (Game.p!= null){
+			if(Game.p.isAlive()){
 				Painter.run = false;
 			}
 		}

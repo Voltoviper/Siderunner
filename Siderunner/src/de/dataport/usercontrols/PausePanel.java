@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
-import de.dataport.window.Singleplayer;
+import de.dataport.window.Game;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -42,9 +42,9 @@ public class PausePanel extends JPanel {
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Singleplayer.continueGame();
-					Serializer.write(Singleplayer.level, Singleplayer.frame);
-					Singleplayer.pause();
+					Game.continueGame();
+					Serializer.write(Game.level, Game.frame);
+					Game.pause();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -58,7 +58,7 @@ public class PausePanel extends JPanel {
 		btnEndGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Painter.run = false;
-				Singleplayer.frame.dispose();
+				Game.frame.dispose();
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);
@@ -68,8 +68,8 @@ public class PausePanel extends JPanel {
 		JButton btnContinue = new JButton("Continue");
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Singleplayer.continueGame();
-				Singleplayer.canvas.requestFocusInWindow();
+				Game.continueGame();
+				Game.canvas.requestFocusInWindow();
 			}
 		});
 		btnContinue.setBounds(149, 133, 134, 41);
