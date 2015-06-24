@@ -29,10 +29,10 @@ public class Fullscreen {
 	private static Multiplayer multiplayer;
 	private static Leveleditor leveleditor;
 
-	public static Game getGame(){
+	public static Game getGame() {
 		return game;
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -72,7 +72,6 @@ public class Fullscreen {
 		frame.addKeyListener(key);
 
 		start = new Start();
-
 
 		desktopPane.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit()
 				.getScreenSize().height);
@@ -127,7 +126,8 @@ public class Fullscreen {
 		mntmLeveleditor.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		mnModus.add(mntmLeveleditor);
 
-		start.getPanel().setBounds(desktopPane.getWidth()/2-start.getPanel().getWidth()/2,desktopPane.getHeight()/2-start.getPanel().getHeight()/2,800,400);
+		start.getPanel().setBounds(desktopPane.getWidth() / 2 - start.getPanel().getWidth() / 2,
+				desktopPane.getHeight() / 2 - start.getPanel().getHeight() / 2, 800, 400);
 		start.getPanel().setBackground(Color.WHITE);
 		desktopPane.setVisible(true);
 		mnModus.setVisible(true);
@@ -145,7 +145,8 @@ public class Fullscreen {
 		removeAll();
 		leveleditor = new Leveleditor();
 		leveleditor.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - leveleditor.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - leveleditor.getPanel().getHeight() / 2, 800, 600);
+				Fullscreen.desktopPane.getHeight() / 2 - leveleditor.getPanel().getHeight() / 2,
+				leveleditor.getPanel().getWidth(), leveleditor.getPanel().getHeight());
 		desktopPane.add(leveleditor.getPanel());
 
 	}
@@ -155,7 +156,8 @@ public class Fullscreen {
 		removeAll();
 		game = new Game();
 		game.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - game.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - game.getPanel().getHeight() / 2, 740, 554);
+				Fullscreen.desktopPane.getHeight() / 2 - game.getPanel().getHeight() / 2, game.getPanel().getWidth(),
+				game.getPanel().getHeight());
 		desktopPane.add(game.getPanel());
 	}
 
@@ -164,7 +166,8 @@ public class Fullscreen {
 		removeAll();
 		multiplayer = new Multiplayer(start.getName());
 		multiplayer.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - multiplayer.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - multiplayer.getPanel().getHeight() / 2, 450, 350);
+				Fullscreen.desktopPane.getHeight() / 2 - multiplayer.getPanel().getHeight() / 2,
+				multiplayer.getPanel().getWidth(), multiplayer.getPanel().getHeight());
 		desktopPane.add(multiplayer.getPanel());
 	}
 

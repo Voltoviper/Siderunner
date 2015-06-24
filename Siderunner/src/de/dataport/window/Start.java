@@ -24,7 +24,6 @@ import de.dataport.window.tone.Ton;
 
 public class Start {
 
-	public static JFrame frame;
 	private JPanel panel;
 	private boolean ton = true;
 	Ton mp3;
@@ -65,37 +64,18 @@ public class Start {
 	 * @throws IOException
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setTitle("Jack Runner");
-		frame.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400, Toolkit.getDefaultToolkit()
-				.getScreenSize().height / 2 - 200, 800, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.setUndecorated(true);
-		frame.setBackground(Color.WHITE);
-		frame.setVisible(true);
+
 		panel = new JPanel();
 		panel.setBounds(0, 0, 800, 400);
-		frame.add(panel);
-		Tastatur key = new Tastatur(frame);
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
-				frame.requestFocus();
-			}
 
-		});
+
 		Box horizontalBox = Box.createHorizontalBox();
-		horizontalBox.addKeyListener(key);
 		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		horizontalBox.setBackground(Color.white);
 		panel.add(horizontalBox);
 
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
-		horizontalBoxLogo.addKeyListener(key);
 		logo = new RotatingLogo();
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -122,7 +102,6 @@ public class Start {
 		panel.requestFocus();
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
-		verticalBoxButtons.addKeyListener(key);
 
 		/* Sound */
 		String mp3Source = Start.class.getResource("/de/dataport/window/tone/DJ_Cymru_-_Valentines.mp3").getPath();
@@ -137,21 +116,18 @@ public class Start {
 				.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
 		buttonGeneralSetting(btnSingleplayer);
 		verticalBoxButtons.add(btnSingleplayer);
-		btnSingleplayer.addKeyListener(key);
 
 		/* Multiplayer-Button */
 		JButton btnMultiplayer = new JButton("");
 		btnMultiplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Multiplayer.png")));
 		buttonGeneralSetting(btnMultiplayer);
 		verticalBoxButtons.add(btnMultiplayer);
-		btnMultiplayer.addKeyListener(key);
 
 		/* Leveleditor-Button */
 		JButton btnLeveleditor = new JButton("");
 		btnLeveleditor.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Leveleditor.png")));
 		buttonGeneralSetting(btnLeveleditor);
 		verticalBoxButtons.add(btnLeveleditor);
-		btnLeveleditor.addKeyListener(key);
 
 		/* Events */
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
