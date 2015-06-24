@@ -52,31 +52,28 @@ public class Menu
 		}
 		if (frame != null)
 		{
-
-			frame.dispose();
-			//Start.panel.setVisible(true);
-//			if (Game.panel != null)
-//			{
-//				if (Game.panel.isVisible())
-//				{
-//					Game.panel.setVisible(false);
-//				}
-//			}
-//			if (Multiplayer.panel != null)
-//			{
-//				if (Multiplayer.panel.isVisible())
-//				{
-//					Multiplayer.panel.setVisible(false);
-//				}
-//			}
-//			if (Leveleditor.panel != null)
-//			{
-//				if (Leveleditor.panel.isVisible())
-//				{
-//					Leveleditor.panel.setVisible(false);
-//				}
-//			}
-
+			Start.panel.setVisible(true);
+			if (Game.mainPane != null)
+			{
+				if (Game.mainPane.isVisible())
+				{
+					Game.mainPane.setVisible(false);
+				}
+			}
+			if (Multiplayer.panel != null)
+			{
+				if (Multiplayer.panel.isVisible())
+				{
+					Multiplayer.panel.setVisible(false);
+				}
+			}
+			if (Leveleditor.panel != null)
+			{
+				if (Leveleditor.panel.isVisible())
+				{
+					Leveleditor.panel.setVisible(false);
+				}
+			}
 		}
 
 	}

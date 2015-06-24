@@ -2,10 +2,15 @@ package de.dataport.window;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
 import de.dataport.system.Tastatur;
+
+import javax.swing.JInternalFrame;
+
+import java.awt.BorderLayout;
 
 import javax.swing.JDesktopPane;
 
@@ -19,12 +24,7 @@ public class Fullscreen
 {
 	public static JDesktopPane desktopPane;
 	static JFrame frame;
-
-	private static Start start;
-	private static Game game;
-	private static Multiplayer multiplayer;
-	private static Leveleditor leveleditor;
-	
+	Start start = null;
 	static JMenu mnModus;
 	static JMenuBar menuBar;
 
@@ -39,7 +39,7 @@ public class Fullscreen
 			{
 				try
 				{
-					new Fullscreen();
+					Fullscreen window = new Fullscreen();
 					Fullscreen.frame.setVisible(true);
 				} catch (Exception e)
 				{
@@ -72,120 +72,89 @@ public class Fullscreen
 		frame.getContentPane().add(desktopPane);
 		frame.addKeyListener(key);
 		
-		
-		start = new Start();
-
-
+		try
+		{
+			start = new Start();
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Start.frame.setVisible(false);
 		
 		
 		desktopPane.setBounds(0,0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 		desktopPane.setBackground(Color.WHITE);
-
-		desktopPane.add(start.getPanel());
+		desktopPane.add(Start.panel);
 		
-//		menuBar = new JMenuBar();
-//		menuBar.setBounds(0, 0, desktopPane.getWidth(), 21);
-//		desktopPane.add(menuBar);
-//		
-//		JMenu mnDatei = new JMenu("Datei");
-//		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		menuBar.add(mnDatei);
-//		
-//		JMenuItem mntmBeenden = new JMenuItem("Beenden");
-//		mntmBeenden.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		mntmBeenden.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				Menu.beenden();
-//			}
-//		});
-//		mnDatei.add(mntmBeenden);
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, desktopPane.getWidth(), 21);
+		desktopPane.add(menuBar);
 		
-//		mnModus = new JMenu("Modus");
-//		mnModus.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		menuBar.add(mnModus);
-//		
-//		JMenuItem mntmSingelplayer = new JMenuItem("Singelplayer");
-////		mntmSingelplayer.addActionListener(new ActionListener() {
-////			public void actionPerformed(ActionEvent e) {
-////				new Game();
-////				Fullscreen.desktopPane.add(Game.mainPane);
-////				Game.mainPane.setVisible(true);
-////				Game.mainPane.setBounds(0,0, Game.mainPane.getWidth(), Game.mainPane.getHeight());
-////				Start.getPanel().setVisible(false);
-////				mnModus.setVisible(false);
-////			}
-////		});
-//		mntmSingelplayer.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		mnModus.add(mntmSingelplayer);
-//		
-//		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer");
-////		mntmMultiplayer.addActionListener(new ActionListener() {
-////			public void actionPerformed(ActionEvent e) {
-////				new Multiplayer(start.getName());
-////				Fullscreen.desktopPane.add(Multiplayer.getPanel());
-////				Multiplayer.getPanel().setVisible(true);
-////				Multiplayer.getPanel().setBounds(Fullscreen.desktopPane.getWidth()/2-Multiplayer.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Multiplayer.panel.getHeight()/2,450, 350);
-////				Multiplayer.getPanel().addKeyListener(key);
-////				Start.getPanel().setVisible(false);
-////				mnModus.setVisible(false);
-////			}
-////		});
-//		mntmMultiplayer.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		mnModus.add(mntmMultiplayer);
-//		
-//		JMenuItem mntmLeveleditor = new JMenuItem("Leveleditor");
-////		mntmLeveleditor.addActionListener(new ActionListener() {
-////			public void actionPerformed(ActionEvent e) {
-////				new Leveleditor();
-////				Fullscreen.desktopPane.add(Leveleditor.getPanel());
-////				Leveleditor.getPanel().setVisible(true);
-////				Leveleditor.getPanel().setBounds(Fullscreen.desktopPane.getWidth()/2-Leveleditor.getPanel().getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Leveleditor.getPanel().getHeight()/2, 800,600);
-////				Start.getPanel().setVisible(false);
-////				mnModus.setVisible(false);
-////			}
-////		});
-//		mntmLeveleditor.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-//		mnModus.add(mntmLeveleditor);
+		JMenu mnDatei = new JMenu("Datei");
+		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		menuBar.add(mnDatei);
 		
-
-
+		JMenuItem mntmBeenden = new JMenuItem("Beenden");
+		mntmBeenden.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		mntmBeenden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu.beenden();
+			}
+		});
+		mnDatei.add(mntmBeenden);
 		
-	}
-	
-	/* Start-Fenster */
-	public static void callStart(){
+		mnModus = new JMenu("Modus");
+		mnModus.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		menuBar.add(mnModus);
 		
-		desktopPane.add(start.getPanel());	
-	}
-	
-	/* Leveleditor-Fenster */
-	public static void callLeveleditor(){
-		leveleditor = new Leveleditor();
-		leveleditor.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - leveleditor.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - leveleditor.getPanel().getHeight() / 2, 800, 600);
-		desktopPane.add(leveleditor.getPanel());
+		JMenuItem mntmSingelplayer = new JMenuItem("Singelplayer");
+		mntmSingelplayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Game();
+				Fullscreen.desktopPane.add(Game.mainPane);
+				Game.mainPane.setVisible(true);
+				Game.mainPane.setBounds(0,0, Game.mainPane.getWidth(), Game.mainPane.getHeight());
+				Start.panel.setVisible(false);
+				mnModus.setVisible(false);
+			}
+		});
+		mntmSingelplayer.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		mnModus.add(mntmSingelplayer);
 		
-	}
-
-	/* Game-Fenster */
-	public static void callGame(){
-		game = new Game();
-		game.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - game.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - game.getPanel().getHeight() / 2, 740, 554);
-		desktopPane.add(game.getPanel());	
-	}
-
-	/* Multiplayer-Fenster */
-	public static void callMultiplayer(){
-		multiplayer = new Multiplayer(start.getName());
-		multiplayer.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - multiplayer.getPanel().getWidth() / 2,
-				Fullscreen.desktopPane.getHeight() / 2 - multiplayer.getPanel().getHeight() / 2, 450, 350);
-		desktopPane.add(multiplayer.getPanel());	
-	}
-
-	public static void removeAll(){
-		desktopPane.removeAll();
-		desktopPane.repaint();
+		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer");
+		mntmMultiplayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Multiplayer(start.getName());
+				Fullscreen.desktopPane.add(Multiplayer.panel);
+				Multiplayer.panel.setVisible(true);
+				Multiplayer.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Multiplayer.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Multiplayer.panel.getHeight()/2,450, 350);
+				Multiplayer.panel.addKeyListener(key);
+				Start.panel.setVisible(false);
+				mnModus.setVisible(false);
+			}
+		});
+		mntmMultiplayer.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		mnModus.add(mntmMultiplayer);
+		
+		JMenuItem mntmLeveleditor = new JMenuItem("Leveleditor");
+		mntmLeveleditor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Leveleditor();
+				Fullscreen.desktopPane.add(Leveleditor.panel);
+				Leveleditor.panel.setVisible(true);
+				Leveleditor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Leveleditor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Leveleditor.panel.getHeight()/2, 800,600);
+				Start.panel.setVisible(false);
+				mnModus.setVisible(false);
+			}
+		});
+		mntmLeveleditor.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		mnModus.add(mntmLeveleditor);
+		
+		Start.panel.setVisible(true);
+		Start.panel.setBounds(desktopPane.getWidth()/2-Start.panel.getWidth()/2,desktopPane.getHeight()/2-Start.panel.getHeight()/2,800,400);
+		Start.panel.setBackground(Color.WHITE);
+		desktopPane.setVisible(true);
 	}
 
 

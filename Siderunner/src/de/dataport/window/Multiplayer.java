@@ -41,7 +41,7 @@ public class Multiplayer extends JFrame
 
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
-	private static JPanel panel;
+	static JPanel panel;
 	private JTextField textFieldIP, textFieldPlayerName;
 	private static JTextField textField_2;
 	JLabel LabelLoading;

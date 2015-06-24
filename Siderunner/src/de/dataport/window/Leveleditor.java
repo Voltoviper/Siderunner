@@ -4,8 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -17,7 +15,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
@@ -31,6 +28,13 @@ import de.dataport.usercontrols.GameblockListElement;
 import de.dataport.usercontrols.PopUpClickListener;
 import de.dataport.usercontrols.PopUpMenuGameblock;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JPanel;
+
 /**
  * 
  * @author Jan Koch
@@ -43,18 +47,10 @@ public class Leveleditor {
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
-
-	private JFrame frame;
-	private JPanel panel;
-	private JMenuBar menuBar;
-
+	static JPanel panel;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
-	public JPanel getPanel() {
-		return panel;
-	}
-	
 	private Level level;
 
 	/**
@@ -118,19 +114,7 @@ public class Leveleditor {
 	 */
 	private void initialize() {
 
-
-		/* JFrame */
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setTitle("Leveleditor");
-		frame.setBounds(
-				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 300,
-				800, 600);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-		frame.getContentPane().setLayout(null);
-
+//		
 		panel = new JPanel();
 		panel.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 		panel.setLayout(null);
@@ -165,33 +149,18 @@ public class Leveleditor {
 		jmiSave.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmiSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Speichern_unter speichern = new Speichern_unter();
+				// speichern.saveAs(null, level);
 				try {
 					Serializer.write(level, panel);
 				} catch (Exception e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
 
 		jmLevel.add(jmiSave);
-
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e)
-//			{
-//				// TODO Auto-generated method stub
-//				int i = JOptionPane.showConfirmDialog(frame,
-//						"Wollen Sie den Editor beenden?", "Beenden",
-//						JOptionPane.YES_NO_OPTION);
-//				if (i == 0) {
-//					Painter.run = false;
-//					Fullscreen.removeAll();
-//					Fullscreen.callStart();
-//				}
-//			}
-//			
-//		});
-//		jmLevel.add(mntmSchlieen);
 
 
 
@@ -297,5 +266,4 @@ public class Leveleditor {
 		}
 
 	}
-
 }
