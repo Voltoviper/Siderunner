@@ -175,7 +175,7 @@ public class Menu extends JMenuBar
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				Leveleditor.level.deleteLevel(Leveleditor.canvas);
+				Fullscreen.getLeveleditor().getLevel().deleteLevel(Leveleditor.canvas);
 				
 			}
 		});
@@ -195,7 +195,7 @@ public class Menu extends JMenuBar
 			{
 				// TODO Auto-generated method stub
 				try {
-					Serializer.write(Leveleditor.level, Leveleditor.getPanel());
+					Serializer.write(Fullscreen.getLeveleditor().getLevel(), Fullscreen.getLeveleditor().getPanel());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

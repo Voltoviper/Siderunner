@@ -218,9 +218,11 @@ public abstract class Serializer {
 			Object o = null;
 			try{
 			o =  decoder.readObject();
+			
 			}
 			catch (Exception ex){
 				ex.printStackTrace();
+				System.out.println("blubelabu");
 			}
 			if(o == null)
 				return null;

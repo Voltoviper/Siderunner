@@ -51,11 +51,15 @@ public class Leveleditor {
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
-	public static JPanel getPanel(){
+	public JPanel getPanel(){
 		return panel;
 	}
 	
-	public static Level level;
+	private Level level;
+	public Level getLevel(){
+		return level;
+	}
+	
 
 	/**
 	 * Create the application.

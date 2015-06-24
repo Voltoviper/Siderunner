@@ -30,6 +30,10 @@ public class Fullscreen {
 	private static Leveleditor leveleditor;
 	private static Menu menu;
 
+	public static Leveleditor getLeveleditor() {
+		return leveleditor;
+	}
+	
 	public static Menu getMenu() {
 		return menu;
 	}
@@ -102,8 +106,8 @@ public class Fullscreen {
 	public static void callLeveleditor() {
 		removeAll();
 		leveleditor = new Leveleditor();
-		Leveleditor.getPanel().setBounds(0, 0, Leveleditor.getPanel().getWidth(), Leveleditor.getPanel().getHeight());
-		desktopPane.add(Leveleditor.getPanel());
+		leveleditor.getPanel().setBounds(0, 0, leveleditor.getPanel().getWidth(), leveleditor.getPanel().getHeight());
+		desktopPane.add(leveleditor.getPanel());
 
 	}
 
