@@ -1,7 +1,6 @@
 package de.dataport.system;
 
 import java.awt.Component;
-import java.awt.List;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -11,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -21,7 +19,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
-import de.dataport.window.Start;
 
 /**
  * Import und Export der Level in eine XML Datei.
@@ -222,7 +219,6 @@ public abstract class Serializer {
 			}
 			catch (Exception ex){
 				ex.printStackTrace();
-				System.out.println("blubelabu");
 			}
 			if(o == null)
 				return null;
