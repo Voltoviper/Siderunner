@@ -148,8 +148,9 @@ public class GameblockEditor extends JDialog {
 						gb.setName(textFieldName.getText());
 					}
 				}
-
+			
 				gameblockList.setModel(gameblockList.getModel());
+				saveBlocksAutomatically(gameblockList);
 				dispose();
 			}
 		});
@@ -164,7 +165,11 @@ public class GameblockEditor extends JDialog {
 		getContentPane().add(chckbxFillDownwards);
 		setVisible(true);
 	}
-
+	
+	private void saveBlocksAutomatically(JList<Gameblock> gameblockList){
+		Serializer.writeBlocks(gameblockList);
+	}
+	
 	private void UpdateView() {
 		
 		DefaultListModel<Gameblock> listModel = new DefaultListModel<Gameblock>();

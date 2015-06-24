@@ -19,9 +19,9 @@ public class Gameblock extends Gameobject implements Serializable {
 	private Boolean isDeadly;
 	private String name;
 	private Color color;
-	private boolean fillDownwards = false;
+	private Boolean fillDownwards = false;
 
-	public boolean isFillDownwards() {
+	public Boolean isFillDownwards() {
 		return fillDownwards;
 	}
 
@@ -118,6 +118,8 @@ public class Gameblock extends Gameobject implements Serializable {
 
 	/** Info for the Leveleditor-View */
 	public String infoString() {
+		if(isDeadly()==null)setIsDeadly(false);
+		if(isFillDownwards()==null)setFillDownwards(false);
 		return "<html><body><p style=\"font-size:18f\">" + getName() + "</p><p style=\"font-size:10f\">" + getWidth()
 				+ "X" + getHeight() + (isDeadly() ? " - tötlich" : "") + (isFillDownwards() ? " - füllt auf" : "")
 				+ "</p></body></html>";

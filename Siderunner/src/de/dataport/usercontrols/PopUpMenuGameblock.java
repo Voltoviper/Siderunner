@@ -11,6 +11,7 @@ import javax.swing.JPopupMenu;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumGameblockEditorMode;
 import de.dataport.standardcatalog.StandardContent;
+import de.dataport.system.Serializer;
 
 public class PopUpMenuGameblock extends JPopupMenu {
 	/**
@@ -41,6 +42,7 @@ public class PopUpMenuGameblock extends JPopupMenu {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						new GameblockEditor(gameblockList, EnumGameblockEditorMode.EDIT);
+						
 					}
 				});
 				add(jmiEdit);
@@ -53,14 +55,14 @@ public class PopUpMenuGameblock extends JPopupMenu {
 						DefaultListModel<Gameblock> model = (DefaultListModel<Gameblock>) gameblockList.getModel();
 						int selectedIndex = gameblockList.getSelectedIndex();
 						if (selectedIndex != -1) {
-						    model.remove(selectedIndex);
+						    model.remove(selectedIndex);		    
 						}
 						gameblockList.setModel(gameblockList.getModel());
+						Serializer.writeBlocks(gameblockList);
 					}
 				});
 				add(jmiDelete);
 			}
 		}
-
 	}
 }

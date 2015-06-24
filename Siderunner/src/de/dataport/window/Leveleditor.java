@@ -79,6 +79,7 @@ public class Leveleditor {
 		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 24, 186, 251);
 
+
 		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
 		gameblockList.addMouseListener(new PopUpClickListener() {
 			@Override

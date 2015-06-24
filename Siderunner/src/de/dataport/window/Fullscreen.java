@@ -115,6 +115,7 @@ public class Fullscreen
 				Leveleditor.getPanel().getHeight());
 		desktopPane.add(Leveleditor.getPanel());
 
+
 	}
 
 	/* Game-Fenster */
