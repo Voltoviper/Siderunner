@@ -442,8 +442,8 @@ public class Multiplayer extends JFrame
 						Nachricht("Beide haben gestartet", Icons.OK);
 						LabelLoading.setVisible(false);
 
-						new Game(level);
-						Game.frame.setVisible(true);
+						Fullscreen.callGame();
+						Fullscreen.getMenu().changeMenu(Menu_State.SINGLEPLAYER);
 					}
 
 				});
@@ -495,8 +495,8 @@ public class Multiplayer extends JFrame
 
 							if (level != null)
 							{
-								new Game(level);
-								Game.frame.setVisible(true);
+								Fullscreen.callGame();
+								Fullscreen.getMenu().changeMenu(Menu_State.SINGLEPLAYER);
 								LabelLoading.setVisible(false);
 								Spielfigur player = null;
 								try

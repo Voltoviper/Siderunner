@@ -18,8 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class Fullscreen
-{
+public class Fullscreen {
 	public static JDesktopPane desktopPane;
 	static JFrame frame;
 
@@ -29,31 +28,24 @@ public class Fullscreen
 	private static Leveleditor leveleditor;
 	private static Menu menu;
 
-	public static Menu getMenu()
-	{
+	public static Menu getMenu() {
 		return menu;
 	}
 
-	public static Game getGame()
-	{
+	public static Game getGame() {
 		return game;
 	}
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
 					new Fullscreen();
 					Fullscreen.frame.setVisible(true);
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -63,19 +55,18 @@ public class Fullscreen
 	/**
 	 * Create the application.
 	 */
-	public Fullscreen()
-	{
+	public Fullscreen() {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize()
-	{
+	private void initialize() {
 		frame = new JFrame();
 		frame.setUndecorated(true);
-		frame.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+		frame.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit()
+				.getScreenSize().height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Tastatur key = new Tastatur(frame);
 		desktopPane = new JDesktopPane();
@@ -85,7 +76,8 @@ public class Fullscreen
 
 		start = new Start();
 
-		desktopPane.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+		desktopPane.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit()
+				.getScreenSize().height);
 		desktopPane.setBackground(Color.WHITE);
 		desktopPane.add(start.getPanel());
 
@@ -99,28 +91,22 @@ public class Fullscreen
 	}
 
 	/* Start-Fenster */
-	public static void callStart()
-	{
+	public static void callStart() {
 		removeAll();
 		desktopPane.add(start.getPanel());
 	}
 
 	/* Leveleditor-Fenster */
-	public static void callLeveleditor()
-	{
+	public static void callLeveleditor() {
 		removeAll();
 		leveleditor = new Leveleditor();
-		Leveleditor.getPanel().setBounds(0,
-				0, Leveleditor.getPanel().getWidth(),
-				Leveleditor.getPanel().getHeight());
+		Leveleditor.getPanel().setBounds(0, 0, Leveleditor.getPanel().getWidth(), Leveleditor.getPanel().getHeight());
 		desktopPane.add(Leveleditor.getPanel());
-
 
 	}
 
 	/* Game-Fenster */
-	public static void callGame()
-	{
+	public static void callGame() {
 		removeAll();
 		game = new Game();
 		game.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - game.getPanel().getWidth() / 2,
@@ -130,16 +116,16 @@ public class Fullscreen
 	}
 
 	/* Multiplayer-Fenster */
-	public static void callMultiplayer()
-	{
+	public static void callMultiplayer() {
 		removeAll();
 		multiplayer = new Multiplayer(start.getName());
-		multiplayer.getPanel().setBounds(0, 21, multiplayer.getPanel().getWidth(), multiplayer.getPanel().getHeight());
+		multiplayer.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - multiplayer.getPanel().getWidth() / 2,
+				Fullscreen.desktopPane.getHeight() / 2 - multiplayer.getPanel().getHeight() / 2,
+				multiplayer.getPanel().getWidth(), multiplayer.getPanel().getHeight());
 		desktopPane.add(multiplayer.getPanel());
 	}
 
-	private static void removeAll()
-	{
+	private static void removeAll() {
 		desktopPane.removeAll();
 		desktopPane.repaint();
 		menu.setMenu();

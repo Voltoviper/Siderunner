@@ -214,8 +214,13 @@ public abstract class Serializer {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			
-			Object o =  decoder.readObject();
+			Object o = null;
+			try{
+			o =  decoder.readObject();
+			}
+			catch (Exception ex){
+				ex.printStackTrace();
+			}
 			if(o == null)
 				return null;
 			ArrayList<Gameblock> blocks = (ArrayList<Gameblock>)o;
