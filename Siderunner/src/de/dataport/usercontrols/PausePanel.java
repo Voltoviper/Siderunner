@@ -62,7 +62,6 @@ public class PausePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Painter.run = false;
 				Game.frame.dispose();
-				Start.frame.setVisible(true);
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);

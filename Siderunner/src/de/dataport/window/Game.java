@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -38,7 +37,7 @@ import de.dataport.usercontrols.PausePanel;
 
 public class Game {
 
-	public static JPanel panel;
+	private static JPanel panel;
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
@@ -52,6 +51,10 @@ public class Game {
 	private static PausePanel pausePanel;
 	public static JCheckBoxMenuItem ton;
 	private static boolean pause = false;
+	
+	public JPanel getPanel(){
+		return panel;
+	}
 
 	/**
 	 * Create the application.
@@ -103,9 +106,9 @@ public class Game {
 		});
 		panel = new JPanel();
 		frame.getContentPane().add(panel);
-		panel.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 370,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 277,
-				740, 554);
+		panel.setBounds(10,
+				11,
+				704, 493);
 		JMenuBar menuBar = new JMenuBar();
 		panel.add(menuBar);
 		
@@ -119,8 +122,11 @@ public class Game {
 			public void actionPerformed(ActionEvent e) {
 				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
 						JOptionPane.YES_NO_OPTION);
-				if (i == 0)
-					Menu.dispose(Fullscreen.frame);
+				if (i == 0){
+					Fullscreen.removeAll();
+					Fullscreen.callStart();
+				}
+					
 			}
 		});
 

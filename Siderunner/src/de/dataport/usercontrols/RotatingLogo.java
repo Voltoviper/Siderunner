@@ -37,13 +37,6 @@ public class RotatingLogo extends JPanel {
 		initialize();
 	}
 
-	/**
-	 * Konstruktor für das rotierende Logo
-	 * @param scaleWidthBackground
-	 * @param scaleHeightBackground
-	 * @param scaleWidthForeground
-	 * @param scaleHeightForground
-	 */
 	public RotatingLogo(int scaleWidthBackground, int scaleHeightBackground, int scaleWidthForeground,
 			int scaleHeightForground) {
 		this();
@@ -126,6 +119,7 @@ public class RotatingLogo extends JPanel {
 
 		g2d.dispose();
 	}
+	
 	public String getName(){
 		return textFieldName.getText();
 	}

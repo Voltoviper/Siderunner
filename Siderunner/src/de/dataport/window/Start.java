@@ -2,8 +2,6 @@ package de.dataport.window;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,35 +20,38 @@ import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.RotatingLogo;
 import de.dataport.window.tone.Ton;
 
-public class Start {
+public class Start extends JFrame {
 
-	public static JFrame frame;
-	static JPanel panel;
+	private static final long serialVersionUID = 1L;
+	private JPanel panel;
 	private boolean ton = true;
-	Ton mp3;
-	Point clickPoint;
+	private Ton mp3;
+
+	public JPanel getPanel() {
+		return panel;
+	}
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					new Start();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	// public static void main(String[] args) {
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// new Start();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * Create the application.
 	 * 
 	 * @throws IOException
 	 */
-	public Start() throws IOException {
+	public Start() {
 		initialize();
 	}
 
@@ -59,43 +60,42 @@ public class Start {
 	 * 
 	 * @throws IOException
 	 */
-	private void initialize() throws IOException {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setTitle("Jack Runner");
-		frame.setBounds(
-				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 200,
-				800, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(
-				new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.setUndecorated(true);
-		frame.setBackground(Color.WHITE);
-		frame.setVisible(true);
+	private void initialize() {
+
+		setResizable(false);
+		setTitle("Jack Runner");
+		setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400, Toolkit.getDefaultToolkit()
+				.getScreenSize().height / 2 - 200, 800, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		setUndecorated(true);
+		setBackground(Color.WHITE);
+		setVisible(true);
 		panel = new JPanel();
-		panel.setBounds(0,0,800,400);
-		frame.add(panel);
-		Tastatur key = new Tastatur(frame);
+		panel.setBounds(0, 0, 800, 400);
+		panel.setBackground(Color.WHITE);
+		// panel.setBounds(Fullscreen.desktopPane.getWidth()/2-panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-panel.getHeight()/2,800,400);
+		getContentPane().add(panel);
+		Tastatur key = new Tastatur(this);
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
-				frame.requestFocus();
+				requestFocus();
 			}
 
 		});
 		panel.addMouseMotionListener(key);
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.addKeyListener(key);
-		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 		horizontalBox.setBackground(Color.white);
+		horizontalBox.setPreferredSize(panel.getSize());
 		panel.add(horizontalBox);
-		
+
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
-		horizontalBoxLogo.addKeyListener(key);
 		RotatingLogo logo = new RotatingLogo();
+		horizontalBoxLogo.add(logo);
+
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -109,99 +109,89 @@ public class Start {
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, true);
 					mp3.play();
 				}
-				
+
 			}
-			
+
 			@Override
-			public void mousePressed(MouseEvent e){
+			public void mousePressed(MouseEvent e) {
 				Tastatur.clickPoint = e.getPoint();
 			}
 		});
 		logo.addMouseMotionListener(key);
-		horizontalBoxLogo.add(logo);
+		horizontalBoxLogo.addKeyListener(key);
 		panel.requestFocus();
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
 		verticalBoxButtons.addKeyListener(key);
 
 		/* Sound */
-		String mp3Source = Start.class.getResource(
-				"/de/dataport/window/tone/DJ_Cymru_-_Valentines.mp3").getPath();
+		String mp3Source = Start.class.getResource("/de/dataport/window/tone/DJ_Cymru_-_Valentines.mp3").getPath();
 		mp3 = new Ton(mp3Source);
 		if (Speicher.getBoolean(Speicher_Enum.SOUND1)) {
 			mp3.play();
 		}
 
 		/* Singleplayer-Button */
-		JButton btnSingleplayer = new JButton("");
-		btnSingleplayer.setIcon(new ImageIcon(Start.class
-				.getResource("/de/dataport/window/graphics/Singleplayer.png")));
-		buttonGeneralSetting(btnSingleplayer);
-		verticalBoxButtons.add(btnSingleplayer);
-		btnSingleplayer.addKeyListener(key);
 
 		/* Multiplayer-Button */
-		JButton btnMultiplayer = new JButton("");
-		btnMultiplayer.setIcon(new ImageIcon(Start.class
-				.getResource("/de/dataport/window/graphics/Multiplayer.png")));
-		buttonGeneralSetting(btnMultiplayer);
-		verticalBoxButtons.add(btnMultiplayer);
-		btnMultiplayer.addKeyListener(key);
 
 		/* Leveleditor-Button */
+
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		horizontalBox_1.setBorder(null);
+		verticalBoxButtons.add(horizontalBox_1);
+		JButton btnSingleplayer = new JButton("");
+		horizontalBox_1.add(btnSingleplayer);
+		btnSingleplayer
+				.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Singleplayer.png")));
+		buttonGeneralSetting(btnSingleplayer);
+
+		Box horizontalBox_2 = Box.createHorizontalBox();
+		horizontalBox_2.setAlignmentY(Component.CENTER_ALIGNMENT);
+		horizontalBox_2.setBorder(null);
+		verticalBoxButtons.add(horizontalBox_2);
+		JButton btnMultiplayer = new JButton("");
+		horizontalBox_2.add(btnMultiplayer);
+		btnMultiplayer.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Multiplayer.png")));
+		buttonGeneralSetting(btnMultiplayer);
+
+		Box horizontalBox_3 = Box.createHorizontalBox();
+		horizontalBox_3.setBorder(null);
+		verticalBoxButtons.add(horizontalBox_3);
 		JButton btnLeveleditor = new JButton("");
-		btnLeveleditor.setIcon(new ImageIcon(Start.class
-				.getResource("/de/dataport/window/graphics/Leveleditor.png")));
+		horizontalBox_3.add(btnLeveleditor);
+		btnLeveleditor.setIcon(new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/Leveleditor.png")));
 		buttonGeneralSetting(btnLeveleditor);
-		verticalBoxButtons.add(btnLeveleditor);
 		btnLeveleditor.addKeyListener(key);
 
 		/* Events */
-		btnSingleplayer.addMouseListener(new MouseAdapter() {
+		btnLeveleditor.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				Game single = new Game();
-				Fullscreen.desktopPane.add(single.panel);
-				single.panel.setVisible(true);
-				single.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-single.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-single.panel.getHeight()/2, 740, 554);
-				panel.setVisible(false);
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
+			public void mouseClicked(MouseEvent arg0) {
+				
+				Fullscreen.removeAll();
+				Fullscreen.callLeveleditor();
+
 			}
 		});
+		btnMultiplayer.addKeyListener(key);
 		btnMultiplayer.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Multiplayer multi = new Multiplayer(logo.getName());
-				Fullscreen.desktopPane.add(multi.panel);
-				multi.panel.setVisible(true);
-				multi.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-multi.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-multi.panel.getHeight()/2,450, 350);
-				multi.panel.addKeyListener(key);
-				panel.setVisible(false);
+				Fullscreen.removeAll();
+				Fullscreen.callMultiplayer();
+			}
+		});
+		btnSingleplayer.addKeyListener(key);
+		btnSingleplayer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Fullscreen.removeAll();
+				Fullscreen.callGame();
+			}
+		});
 
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
-			}
-		});
-		btnLeveleditor.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Leveleditor editor = new Leveleditor();
-				Fullscreen.desktopPane.add(editor.panel);
-				editor.panel.setVisible(true);
-				editor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-editor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-editor.panel.getHeight()/2, 800,600);
-				panel.setVisible(false);
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
-			}
-		});
 	}
 
 	private void buttonGeneralSetting(JButton button) {

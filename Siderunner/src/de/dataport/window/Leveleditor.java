@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -15,6 +17,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
@@ -27,13 +30,6 @@ import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
 import de.dataport.usercontrols.PopUpClickListener;
 import de.dataport.usercontrols.PopUpMenuGameblock;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JPanel;
 
 /**
  * 
@@ -48,7 +44,7 @@ public class Leveleditor {
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
-	static JPanel panel;
+	private JPanel panel;
 	private JMenuBar menuBar;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
@@ -57,6 +53,10 @@ public class Leveleditor {
 		return frame;
 	}
 
+	public JPanel getPanel() {
+		return panel;
+	}
+	
 	private Level level;
 
 	/**
@@ -129,17 +129,18 @@ public class Leveleditor {
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 300,
 				800, 600);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame,
-						"Wollen Sie den Editor beenden?", "Beenden",
-						JOptionPane.YES_NO_OPTION);
-				if (i == 0) {
-					Painter.run = false;
-					Menu.dispose(frame);
-				}
-			}
-		});
+//		frame.addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent e) {
+//				int i = JOptionPane.showConfirmDialog(frame,
+//						"Wollen Sie den Editor beenden?", "Beenden",
+//						JOptionPane.YES_NO_OPTION);
+//				if (i == 0) {
+//					Painter.run = false;
+//					Menu.dispose(frame);
+//					
+//				}
+//			}
+//		});
 		frame.getContentPane().setLayout(null);
 		panel = new JPanel();
 		panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
@@ -205,7 +206,8 @@ public class Leveleditor {
 						JOptionPane.YES_NO_OPTION);
 				if (i == 0) {
 					Painter.run = false;
-					Menu.dispose(frame);
+					Fullscreen.removeAll();
+					Fullscreen.callStart();
 				}
 			}
 			
@@ -329,4 +331,5 @@ public class Leveleditor {
 		}
 
 	}
+
 }
