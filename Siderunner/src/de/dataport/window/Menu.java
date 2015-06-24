@@ -26,8 +26,8 @@ public class Menu extends JMenuBar
 	private static final long serialVersionUID = 1L;
 	Menu_State state;
 	JMenuBar menubar;
-	JMenu datei, modus, level, editor;
-	JMenuItem beenden, singleplayer, multiplayer, leveleditor, level_laden, editor_new, editor_load, editor_save;
+	JMenu datei, modus, level, editor, info;
+	JMenuItem beenden, singleplayer, multiplayer, leveleditor, level_laden, editor_new, editor_load, editor_save, hauptmenue, info_screen;
 	static JCheckBoxMenuItem level_ton;
 	
 	public static JCheckBoxMenuItem getLevel_ton()
@@ -43,6 +43,21 @@ public class Menu extends JMenuBar
 		datei = new JMenu("Datei");
 		setStandardMenu(datei);
 		menubar.add(datei);
+		
+		hauptmenue = new JMenuItem("Hauptmenü");
+		setStandardMenu(hauptmenue);
+		hauptmenue.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				Fullscreen.callStart();
+				changeMenu(Menu_State.MODUS);
+			}
+		});
+		datei.add(hauptmenue);
+		
 		datei.setVisible(false);
 		beenden = new JMenuItem("Beenden");
 		setStandardMenu(beenden);
@@ -74,6 +89,7 @@ public class Menu extends JMenuBar
 			{
 				// TODO Auto-generated method stub
 				Fullscreen.callGame();
+				changeMenu(Menu_State.SINGLEPLAYER);
 			}
 			
 		});
@@ -188,6 +204,26 @@ public class Menu extends JMenuBar
 		});
 		editor.add(editor_save);
 
+		
+		/*Info*/
+		info = new JMenu("?");
+		setStandardMenu(info);
+		menubar.add(info);
+		
+		info_screen = new JMenuItem("Über...");
+		setStandardMenu(info_screen);
+		info_screen.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				Info info = new Info();
+				info.setVisible(true);
+			}
+		});
+		info.add(info_screen);
 	}
 	
 	
@@ -221,6 +257,7 @@ public class Menu extends JMenuBar
 			level.setVisible(false);
 			break;
 		case LEVELEDITOR:
+			editor.setVisible(false);
 			break;
 		default: 
 			break;
