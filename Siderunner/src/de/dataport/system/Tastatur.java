@@ -14,7 +14,7 @@ import de.dataport.window.Menu;
  * @author Christoph Nebendahl
  *
  */
-public class Tastatur extends MouseMotionAdapter implements KeyListener {
+public class Tastatur implements KeyListener {
 	public static Point clickPoint;
 	public JFrame frame;
 
@@ -41,12 +41,6 @@ public class Tastatur extends MouseMotionAdapter implements KeyListener {
 
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		Point location = frame.getLocation();
-		frame.setLocation(location.x + e.getX() - clickPoint.x,
-				location.y + e.getY() - clickPoint.y);
-	}
 	public Tastatur(JFrame frame){
 		this.frame=frame;
 	}

@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
+import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
@@ -51,18 +52,18 @@ public class Movement implements KeyListener {
 		switch (keycode) {
 		case 39: // Rechts
 
-			if (!Game.isPause()) {
+			if (!Fullscreen.getGame().isPause()) {
 
 				// if (Game.player.getX() + Spielfigur.getGeschwindigkeit() <=
 				// Game.canvas.getWidth() / 2)
 				// {
 				if (Kollision.collisionDetected() == false) {
 
-					if (Game.player.getX() < Game.canvas.getWidth() / 2
+					if (Game.player.getX() < Fullscreen.getGame().getCanvas().getWidth() / 2
 							- Game.player.getWidth() / 2
 							|| Game.level.getListe()
 									.get(Game.level.getListe().size() - 1)
-									.getX() < Game.canvas.getWidth() * 0.75) {
+									.getX() < Fullscreen.getGame().getCanvas().getWidth() * 0.75) {
 						Game.player.setX(Game.player.getX()
 								+ Spielfigur.getGeschwindigkeit());
 
@@ -70,9 +71,9 @@ public class Movement implements KeyListener {
 							Game.player.setX(Game.player.getX()
 									- Spielfigur.getGeschwindigkeit());
 					} else {
-						Game.level.move(true, Game.canvas);
+						Game.level.move(true, Fullscreen.getGame().getCanvas());
 						if (Kollision.collisionDetected() == true)
-							Game.level.move(false, Game.canvas);
+							Game.level.move(false, Fullscreen.getGame().getCanvas());
 					}
 
 					while (Kollision.collisionDetected() == false)
@@ -82,11 +83,11 @@ public class Movement implements KeyListener {
 			}
 			break;
 		case 37: // Links
-			if (!Game.isPause())
+			if (!Fullscreen.getGame().isPause())
 				if (Kollision.collisionDetected() == false) {
-					if (Game.player.getX() > Game.canvas.getWidth() / 2
+					if (Game.player.getX() > Fullscreen.getGame().getCanvas().getWidth() / 2
 							- Game.player.getWidth() / 2
-							|| Game.level.getListe().get(0).getX() > Game.canvas
+							|| Game.level.getListe().get(0).getX() > Fullscreen.getGame().getCanvas()
 									.getWidth() * 0.25) {
 						Game.player.setX(Game.player.getX()
 								- Spielfigur.getGeschwindigkeit());
@@ -95,9 +96,9 @@ public class Movement implements KeyListener {
 							Game.player.setX(Game.player.getX()
 									+ Spielfigur.getGeschwindigkeit());
 					} else {
-						Game.level.move(false, Game.canvas);
+						Game.level.move(false, Fullscreen.getGame().getCanvas());
 						if (Kollision.collisionDetected() == true)
-							Game.level.move(true, Game.canvas);
+							Game.level.move(true, Fullscreen.getGame().getCanvas());
 					}
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
@@ -107,7 +108,7 @@ public class Movement implements KeyListener {
 		case 32: // Hüpfen
 			// Das Hüpfen wird als Thread ausgeführt, um zwischen springen und
 			// fallen weitere Tastaturanschläge zu erkennen.
-			if (!Game.isPause()) {
+			if (!Fullscreen.getGame().isPause()) {
 				new Thread(new Runnable() {
 					public void run() {
 						if (!jump) {
@@ -155,10 +156,10 @@ public class Movement implements KeyListener {
 			break;
 		case 27:
 			/* Pause-Menu */
-			if (Game.isPause())
-				Game.continueGame();
+			if (Fullscreen.getGame().isPause())
+				Fullscreen.getGame().continueGame();
 			else
-				Game.pause("The game is paused...");
+				Fullscreen.getGame().pause();
 			break;
 		}
 

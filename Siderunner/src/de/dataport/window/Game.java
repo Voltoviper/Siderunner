@@ -45,14 +45,22 @@ public class Game {
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
 	public static Level level;
-	public static Canvas canvas;
+	private Canvas canvas;
 	public static Painter painter;
 	private static Movement movement;
-	public static JLayeredPane mainPane;
+	private JLayeredPane mainPane;
 	private static PausePanel pausePanel;
 	public static JCheckBoxMenuItem ton;
-	private static boolean pause = false;
+	private boolean pause = false;
 	JPanel canvasPanel;
+	
+	public JLayeredPane getPanel(){
+		return mainPane;
+	}
+	
+	public Canvas getCanvas(){
+		return canvas;
+	}
 
 	/**
 	 * Create the application.
@@ -128,7 +136,7 @@ public class Game {
 
 		canvasPanel.add(canvas);
 		mainPane.add(canvasPanel, new Integer(0), 0);
-canvas.requestFocusInWindow();
+		canvas.requestFocusInWindow();
 		
 		JMenu mnLevel = new JMenu("Level");
 		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
@@ -227,28 +235,32 @@ canvas.requestFocusInWindow();
 		painter.start();
 	}
 
-	public static boolean isPaused() {
+	public boolean isPaused() {
 		return pause;
 	}
 
-	public static void pause(String text) {
+	public void pause(String headline) {
+		pause();
+		pausePanel.setHeadline(headline);
+	}
+	public void pause() {
 		/* Initialisierung des Pause-Overlays */
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(),
 				new Color(0, 0, 0, 200), false));
-		pausePanel = new PausePanel(text);
+		pausePanel = new PausePanel();
 		pausePanel.setLocation(mainPane.getWidth() / 2 - pausePanel.getWidth() / 2, mainPane.getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);
 		mainPane.add(pausePanel, new Integer(1), 1);
 		pause = true;
 	}
 
-	public static void continueGame() {
+	public void continueGame() {
 		level.removePauseBlock();
 		mainPane.remove(pausePanel);
 		pause = false;
 	}
 
-	public static boolean isPause() {
+	public boolean isPause() {
 		return pause;
 	}
 }

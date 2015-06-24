@@ -47,10 +47,14 @@ public class Leveleditor {
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
-	static JPanel panel;
+	private JPanel panel;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
+	public JPanel getPanel(){
+		return panel;
+	}
+	
 	private Level level;
 
 	/**

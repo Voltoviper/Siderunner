@@ -10,8 +10,8 @@ import javax.swing.JButton;
 
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
+import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
-import de.dataport.window.Start;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,19 +19,24 @@ import java.awt.event.ActionEvent;
 public class PausePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
-	public PausePanel(String text) {
-		initialize(text);
+	JLabel lblPause;
+	
+	public PausePanel() {
+		initialize();
+	}
+	
+	public void setHeadline(String headline) {
+		lblPause.setText(headline);
 	}
 /**
  * 
  * @param Text der als Überschrift angezeigt werden soll.
  */
-	private void initialize(String Text) {
+	private void initialize() {
 		setLayout(null);
 		setSize(290, 185);
 
-		JLabel lblPause = new JLabel(Text);
+		lblPause = new JLabel("The game is paused...");
 		lblPause.setBounds(20, 5, 236, 29);
 		lblPause.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		add(lblPause);
@@ -45,9 +50,9 @@ public class PausePanel extends JPanel {
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Game.continueGame();
+					Fullscreen.getGame().continueGame();
 					Serializer.write(Game.level, Game.frame);
-					Game.pause("The game is paused...");
+					Fullscreen.getGame().pause();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -62,10 +67,7 @@ public class PausePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				Painter.run = false;
-				Game.mainPane.setVisible(false);
-				
-				Start.panel.setVisible(true);
-				Game.mainPane = null;
+				Fullscreen.callStart();
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);
@@ -75,8 +77,8 @@ public class PausePanel extends JPanel {
 		JButton btnContinue = new JButton("Continue");
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game.continueGame();
-				Game.canvas.requestFocusInWindow();
+				Fullscreen.getGame().continueGame();
+				Fullscreen.getGame().getCanvas().requestFocusInWindow();
 			}
 		});
 		btnContinue.setBounds(149, 133, 134, 41);

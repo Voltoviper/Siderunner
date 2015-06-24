@@ -2,7 +2,7 @@ package de.dataport.Objekte;
 
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
-
+import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
 
 /**
@@ -20,7 +20,7 @@ public abstract class Kollision {
 	public static void zielprüfung(Level level) {
 		for (Spielfigur player : level.getAllPlayer()) {
 			if (player.getX() + Spielfigur.getBreite() > Game.level.getGoal().getX()) {
-				Game.pause("You reached the goal");
+				Fullscreen.getGame().pause("You reached the goal");
 			}
 		}
 	}
