@@ -42,40 +42,21 @@ public class Multiplayer extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldIP;
+	private JTextField textFieldIP,textFieldPlayerName;
+	private static JTextField textField_2;
 	JLabel LabelLoading;
-	static JLabel LabelIcon;
-	static JLabel lblServerGestartet;
-	private JTextField textFieldPlayerName;
+	static JLabel LabelIcon,lblServerGestartet;
 	public static Client client;
 	RandomServerClient network;
 	JButton ButtonAbbrechen;
-	static JButton ButtonSpielstarten;
 	Game_Link_Client game_client;
 	Game_Link_Server game_server;
 	public static boolean spiel_server, spiel_client, gestartet = false;
-	private static JTextField textField_2;
+	static boolean isHost;
+	static JButton ButtonSpielstarten;
 	private JButton btnAuswhlen;
 	JLabel lblNewLabel_1;
-	static boolean isHost;
 	public static Level level;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					multiplayer = new Multiplayer("");
-					Multiplayer.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

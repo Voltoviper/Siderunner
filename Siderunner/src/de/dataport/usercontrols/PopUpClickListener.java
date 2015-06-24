@@ -4,6 +4,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PopUpClickListener extends MouseAdapter {
+	/**
+	 * MausAdapter für das PopUp im Multiplayer
+	 */
 	public void mousePressed(MouseEvent e){
         if (e.isPopupTrigger())
             doPop(e);

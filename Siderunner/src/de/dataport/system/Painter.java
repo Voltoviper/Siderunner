@@ -56,7 +56,9 @@ public class Painter extends Thread {
 		this.level = level;
 		this.background = new ImageIcon(Start.class.getResource("/de/dataport/window/graphics/background.png"));
 	}
-
+	/**
+	 * Setzt einen evtl. vorhanden Painter zurück
+	 */
 	private void reset() {
 		run = true;
 		dbImage = null;

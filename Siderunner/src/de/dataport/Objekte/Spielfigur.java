@@ -8,7 +8,7 @@ import de.dataport.datastructures.Gameobject;
 /**
  * Klasse der Spielfigur.
  * 
- * @author chris_000
+ * @author Christoph Nebendahl
  *
  */
 public class Spielfigur extends Gameobject implements Serializable {

@@ -12,13 +12,11 @@ import de.dataport.standardcatalog.EnumStandardGameblockNames;
  * Die Klasse, die das Level festlegt. Letzlich kommen hier alle Gameobjecte und
  * die SPielfigur zusammen.
  * 
- * @author chris_000
+ * @author Christoph Nebendahl
  *
  */
 public class Level implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private List<Gameblock> content = new ArrayList<Gameblock>();
 	private Gameblock spawn;
@@ -80,7 +78,7 @@ public class Level implements Serializable {
 		this.content = liste;
 	}
 
-	/** Checks for intersection of one gameblock to all level content */
+	/** Überprüft, ob die Gameblöcke sich überschneiden */
 	public Gameblock getIntersectingGameblock(Gameblock gameblock) {
 		Rectangle rec = getRectangleFromGameblock(gameblock);
 		for (Gameblock gb : getListe()) {
@@ -137,13 +135,20 @@ public class Level implements Serializable {
 				setGoal(lock);
 		}
 	}
-
+/**
+ * Setzt im Leveleditor alles zurück
+ * @param canvas
+ */
 	public void deleteLevel(Canvas canvas) {
 		this.content.clear();
 		this.setGoal(null);
 		this.setSpawn(null);
 	}
-
+	/**
+	 * Verschieben des Levels
+	 * @param direction Gibt die Richtung an, in die verschoben wird (true=links)
+	 * @param canvas Auf dem der Block verschoben wird
+	 */
 	public void move(boolean direction, Canvas canvas) {
 		for (Gameblock gb : getListe())
 			if (direction) {

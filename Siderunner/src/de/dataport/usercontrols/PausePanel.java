@@ -22,7 +22,10 @@ public class PausePanel extends JPanel {
 	public PausePanel(String text) {
 		initialize(text);
 	}
-
+/**
+ * 
+ * @param Text der als ‹berschrift angezeigt werden soll.
+ */
 	private void initialize(String Text) {
 		setLayout(null);
 		setSize(290, 185);
@@ -75,7 +78,10 @@ public class PausePanel extends JPanel {
 		buttonGeneralSetting(btnContinue);
 		add(btnContinue);
 	}
-
+/**
+ * Gleichschaltung der Button, damit alle die gleichen Einstellungen haben.
+ * @param button Button, der Angepaﬂt werden soll
+ */
 	private void buttonGeneralSetting(JButton button) {
 		button.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button.setOpaque(false);

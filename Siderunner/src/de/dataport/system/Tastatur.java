@@ -9,7 +9,11 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
 import de.dataport.window.Menu;
-
+/**
+ * TastaturListener und MouseMotionAdapter für das Startmenu.
+ * @author Christoph Nebendahl
+ *
+ */
 public class Tastatur extends MouseMotionAdapter implements KeyListener {
 	public static Point clickPoint;
 	public JFrame frame;

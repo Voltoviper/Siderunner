@@ -13,6 +13,10 @@ import de.dataport.window.Game;
  *
  */
 public abstract class Kollision {
+	/**
+	 * Überprüft, ob ein Spieler das Ziel erreicht hat.Und Pausiert im positiven Fall das Spiel
+	 * @param level Level, für das Goal
+	 */
 	public static void zielprüfung(Level level) {
 		for (Spielfigur player : level.getAllPlayer()) {
 			if (player.getX() + Spielfigur.getBreite() > Game.level.getGoal().getX()) {
@@ -20,7 +24,10 @@ public abstract class Kollision {
 			}
 		}
 	}
-
+/**
+ * Fragt, ob eine Kollision vorhanden ist.
+ * @return Gibt einen boolschen Wert zurück, true wenn eine Kollision vorliegt
+ */
 	public static boolean collisionDetected() {
 		int t = 5;
 		Gameblock collision = Game.level.getIntersectingGameblock(new Gameblock(Game.player.getX() - t, Game.player

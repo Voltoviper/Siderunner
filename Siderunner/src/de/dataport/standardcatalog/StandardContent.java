@@ -9,7 +9,11 @@ import java.util.List;
 
 import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
-
+/**
+ * StandardVorgaben für die Gameblöcke.
+ * @author Jan Koch
+ *
+ */
 public abstract class StandardContent {
 
 	public static List<Gameblock> getStandardBlocks() {

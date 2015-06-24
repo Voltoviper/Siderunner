@@ -8,7 +8,11 @@ import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Game;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
-
+/**
+ * Hier finden die KeyEvents für das Game.
+ * @author Christoph Nebendahl
+ *
+ */
 public class Movement implements KeyListener {
 
 	public static Thread huepf;
@@ -74,16 +78,6 @@ public class Movement implements KeyListener {
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
 					Game.player.setY(Game.player.getY() - 1);
-					Game.lblNewLabel_1.setText(Game.player.getY() + "");
-
-					// }
-					// else
-					// {
-
-					// while (Kollision.collisionDetected())
-					// Game.player.setY(Game.player.getY() - 1);
-					// }
-
 				}
 			}
 			break;
@@ -108,7 +102,6 @@ public class Movement implements KeyListener {
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);
 					Game.player.setY(Game.player.getY() - 1);
-					Game.lblNewLabel_1.setText(Game.player.getY() + "");
 				}
 			break;
 		case 32: // Hüpfen

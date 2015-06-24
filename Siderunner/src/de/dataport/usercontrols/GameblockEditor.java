@@ -37,13 +37,12 @@ public class GameblockEditor extends JDialog {
 	EnumGameblockEditorMode mode;
 
 	/**
-	 * Creates a view for editing or adding a Gameblock.
+	 * Erstellt ein Fenster, indem die Gameblöcke angepasst werden können.
 	 * 
 	 * @param gameblockList
-	 *            List, that contains or will contain the Gameblock.
+	 *            Liste, in der die Gameblöcke organisiert sind
 	 * @param mode
-	 *            Defines if selected Gameblock from list will be edited or a
-	 *            new one will be added.
+	 *            Legt fest, welcher Modus gewählt wurde
 	 */
 	public GameblockEditor(JList<Gameblock> gameblockList, EnumGameblockEditorMode mode) {
 		this.gameblockList = gameblockList;

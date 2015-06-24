@@ -60,22 +60,6 @@ public class Leveleditor {
 	private Level level;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Leveleditor window = new Leveleditor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public Leveleditor() {
@@ -262,8 +246,9 @@ public class Leveleditor {
 	}
 
 	/**
-	 * Draws the chosen block on the canvas. Additionally verifies it and binds
-	 * it to the level.
+	 * Fügt den ausgewählten Block dem Level hinzu!
+	 * @param x Koordinate des neuen Blockes
+	 * @param y Koordinate des neuen Blockes
 	 */
 	private void AddBlock(int x, int y) {
 		if (gameblockList.getSelectedValue() != null) {

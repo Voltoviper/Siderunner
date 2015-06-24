@@ -22,7 +22,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
@@ -30,7 +29,6 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Movement;
-import de.dataport.system.Bewegungsanimation;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.system.Speicher;
@@ -42,18 +40,14 @@ public class Game {
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
-	public static JLabel lblNewLabel = new JLabel("New label");
-	public static JLabel lblNewLabel_1 = new JLabel("New label");
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
 	public static Level level;
 	public static Canvas canvas;
-	public static Timer timer;
 	public static Painter painter;
 	private static Movement movement;
 	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
-	public static Bewegungsanimation bewegunganim = new Bewegungsanimation();
 	public static JCheckBoxMenuItem ton;
 	private static boolean pause = false;
 
@@ -131,12 +125,7 @@ public class Game {
 				lblY.setBounds(780, 29, 46, 14);
 				frame.getContentPane().add(lblX);
 				frame.getContentPane().add(lblY);
-				frame.getContentPane().add(lblNewLabel);
-				frame.getContentPane().add(lblNewLabel_1);
-				lblNewLabel.setText(player.getX() + "");
-				lblNewLabel.setBounds(800, 11, 46, 14);
-				lblNewLabel_1.setText(player.getY() + "");
-				lblNewLabel_1.setBounds(800, 29, 46, 14);
+
 
 			}
 		});
@@ -251,7 +240,6 @@ public class Game {
 		} else {
 			player = level.getAllPlayer().get(0);
 		}
-		startthreadbewegung();
 		Movement.bewegen(32); // Spieler startet mit einem "Sprung ins Level".
 
 		painter = new Painter(canvas, level);
@@ -278,11 +266,6 @@ public class Game {
 		level.removePauseBlock();
 		mainPane.remove(pausePanel);
 		pause = false;
-	}
-
-	private static void startthreadbewegung() {
-		// Herausgenommen, da der Thread noch fehlerhaft ist.
-		// bewegunganim.start();
 	}
 
 	public static boolean isPause() {

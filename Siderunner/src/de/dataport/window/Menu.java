@@ -8,13 +8,12 @@ import de.dataport.network.Game_Link_Server;
 import de.dataport.system.Painter;
 
 public class Menu {
-
+/**
+ * Beenden aller Hintergrund Aktivit‰ten, um den Frame zu schlieﬂen.
+ * @param frame der beendet werden soll
+ */
 	public static void dispose(Frame frame){
-		if (Game.timer != null) {
-			if (Game.timer.isRunning()) {
-				Game.timer.stop();
-			}
-		}
+
 		if(Game.level!=null){
 			Game.level= null;
 		}
@@ -46,6 +45,9 @@ public class Menu {
 		}
 		
 	}
+	/**
+	 * Koordiniertes beenden des Programmes.
+	 */
 	public static void beenden(){
 		dispose(null);
 		System.exit(0);

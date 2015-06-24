@@ -32,12 +32,14 @@ public abstract class Serializer {
 	 *             Wirft eine Exception, sobald ein Problem beim Speichern
 	 *             auftaucht.
 	 */
-	public static void write(Level level, Component thisInstance) throws Exception {
-		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG, "Speichern unter...", "Markup: xml",
-				new String[] { "xml" });
+	public static void write(Level level, Component thisInstance)
+			throws Exception {
+		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG,
+				"Speichern unter...", "Markup: xml", new String[] { "xml" });
 		if (f != null) {
 			optimizePosition(level);
-			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
+			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(
+					new FileOutputStream(f)));
 			encoder.writeObject(level);
 			encoder.close();
 		}
@@ -53,28 +55,52 @@ public abstract class Serializer {
 	 *             beim Einlesen der Datei ein Fehler entsteht.
 	 */
 	public static Level read(Component thisInstance) throws Exception {
-		File f = getFileToChoose(thisInstance, JFileChooser.OPEN_DIALOG, "Öffnen...", "Markup: xml",
-				new String[] { "xml" });
+		File f = getFileToChoose(thisInstance, JFileChooser.OPEN_DIALOG,
+				"Öffnen...", "Markup: xml", new String[] { "xml" });
 		if (f != null) {
-			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
+					new FileInputStream(f)));
 			Level level = (Level) decoder.readObject();
 			decoder.close();
 			return level;
 		}
 		return null;
 	}
+
+	/**
+	 * Liest eine Datei aus einem String Pfad aus.
+	 * 
+	 * @param path
+	 *            Pfad, von dem die Datei eingelesen werden muss.
+	 * @return gibt ein Level zurück
+	 * @throws Exception
+	 *             Falls die Datei nicht vorhanden ist.
+	 */
 	public static Level readfromString(String path) throws Exception {
 		File f = new File(path);
-	
-			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
-			Level level = (Level) decoder.readObject();
-			decoder.close();
-			return level;
+
+		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
+				new FileInputStream(f)));
+		Level level = (Level) decoder.readObject();
+		decoder.close();
+		return level;
 	}
 
-	public static String getImagePath(Component openOnInstance, int jFileChooserDialog, String dialogTitle) {
-		File path = getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",
-				ImageIO.getReaderFileSuffixes());
+	/**
+	 * Dialog, der einen Pfad für Bilder auswählen lässt. 
+	 * 
+	 * @param openOnInstance
+	 *            Frame, auf dem dieser Dialog angezeigt werden soll
+	 * @param jFileChooserDialog
+	 *            Integer Wert, welcher FileChooser angezeigt werden soll
+	 * @param dialogTitle
+	 *            Titel des Dialoges
+	 * @return Gibt einen String Pfad zuück.
+	 */
+	public static String getImagePath(Component openOnInstance,
+			int jFileChooserDialog, String dialogTitle) {
+		File path = getFileToChoose(openOnInstance, jFileChooserDialog,
+				dialogTitle, "Bilddateien", ImageIO.getReaderFileSuffixes());
 		if (path == null) {
 			return null;
 		} else {
@@ -82,9 +108,14 @@ public abstract class Serializer {
 		}
 
 	}
+/**
+ * Dialog, der einen PFAD für XML Dateien auswählen lässt.
+ * @param openOnInstance Componente, auf der dieser Dialog angezeigt werden soll
+ * @return gibt einen String zurück, der den Pfad enthält
+ */
 	public static String getStringPath(Component openOnInstance) {
-		File path = getFileToChoose(openOnInstance, JFileChooser.OPEN_DIALOG, "Öffnen...", "Markup: xml",
-				new String[] { "xml" });
+		File path = getFileToChoose(openOnInstance, JFileChooser.OPEN_DIALOG,
+				"Öffnen...", "Markup: xml", new String[] { "xml" });
 		if (path == null) {
 			return null;
 		} else {
@@ -106,14 +137,16 @@ public abstract class Serializer {
 	 * @return Wenn eine Datei geladen werden soll, Wird ein String zurück
 	 *         gegeben, der den Pfad enthält
 	 */
-	private static File getFileToChoose(Component openOnInstance, int jFileChooserDialog, String text, String markup,
+	private static File getFileToChoose(Component openOnInstance,
+			int jFileChooserDialog, String text, String markup,
 			String[] suffixes) {
 
 		JFileChooser chooser;
 		chooser = new JFileChooser();
 
 		chooser.setDialogType(jFileChooserDialog);
-		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(markup, suffixes);
+		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
+				markup, suffixes);
 		chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
 		chooser.setFileFilter(markUpFilter);
 		chooser.setDialogTitle(text);
