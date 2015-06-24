@@ -6,8 +6,10 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import de.dataport.Objekte.Level;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Tastatur;
+
 import javax.swing.JDesktopPane;
 
 import java.awt.Color;
@@ -114,6 +116,17 @@ public class Fullscreen {
 				game.getPanel().getHeight());
 		desktopPane.add(game.getPanel());
 	}
+	/* Game-Fenster */
+	public static void callGame(Level level) {
+		removeAll();
+		game = new Game(level);
+		game.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - game.getPanel().getWidth() / 2,
+				Fullscreen.desktopPane.getHeight() / 2 - game.getPanel().getHeight() / 2, game.getPanel().getWidth(),
+				game.getPanel().getHeight());
+		desktopPane.add(game.getPanel());
+	}
+	
+
 
 	/* Multiplayer-Fenster */
 	public static void callMultiplayer() {

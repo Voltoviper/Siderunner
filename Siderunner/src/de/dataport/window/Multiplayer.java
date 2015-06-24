@@ -442,7 +442,7 @@ public class Multiplayer extends JFrame
 						Nachricht("Beide haben gestartet", Icons.OK);
 						LabelLoading.setVisible(false);
 
-						Fullscreen.callGame();
+						Fullscreen.callGame(level);
 						Fullscreen.getMenu().changeMenu(Menu_State.SINGLEPLAYER);
 					}
 
@@ -495,7 +495,7 @@ public class Multiplayer extends JFrame
 
 							if (level != null)
 							{
-								Fullscreen.callGame();
+								Fullscreen.callGame(level);
 								Fullscreen.getMenu().changeMenu(Menu_State.SINGLEPLAYER);
 								LabelLoading.setVisible(false);
 								Spielfigur player = null;
