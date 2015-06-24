@@ -161,8 +161,7 @@ public class Game
 		return pause;
 	}
 
-	public void pause(String headline)
-	{
+	public void pause(String headline){
 		pause();
 		pausePanel.setHeadline(headline);
 	}
