@@ -184,10 +184,10 @@ public class Leveleditor {
 								parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 					/* Spawn & Goal - lock */
-					if ((Leveleditor.level.getSpawn() != null && newBlock
+					if ((Fullscreen.getGame().getLevel().getSpawn() != null && newBlock
 							.getName()
 							.equals(EnumStandardGameblockNames.SPAWN.toString()))
-							|| (Leveleditor.level.getGoal() != null && newBlock
+							|| (Fullscreen.getGame().getLevel().getGoal() != null && newBlock
 									.getName().equals(
 											EnumStandardGameblockNames.GOAL
 													.toString())))
@@ -207,10 +207,10 @@ public class Leveleditor {
 							parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 				/* Spawn & Goal - lock */
-				if ((Leveleditor.level.getSpawn() != null && newBlock
+				if ((Fullscreen.getGame().getLevel().getSpawn() != null && newBlock
 						.getName()
 						.equals(EnumStandardGameblockNames.SPAWN.toString()))
-						|| (Leveleditor.level.getGoal() != null && newBlock
+						|| (Fullscreen.getGame().getLevel().getGoal() != null && newBlock
 								.getName().equals(
 										EnumStandardGameblockNames.GOAL
 												.toString())))
