@@ -34,6 +34,7 @@ import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.system.Speicher;
 import de.dataport.system.Speicher_Enum;
+import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.PausePanel;
 
 public class Game {
@@ -101,7 +102,9 @@ public class Game {
 					Menu.dispose(frame);
 			}
 		});
+		Tastatur tastatur = new Tastatur(null);
 		panel = new JPanel();
+		panel.addKeyListener(tastatur);
 		frame.getContentPane().add(panel);
 		panel.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 370,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 277,
@@ -129,7 +132,7 @@ public class Game {
 		mainPane = new JLayeredPane();
 		mainPane.setBounds(0, 0, 725, 494);
 		mainPane.setVisible(true);
-
+		mainPane.addKeyListener(tastatur);
 		panel.add(mainPane);
 		JPanel canvasPanel = new JPanel();
 		canvasPanel.setBounds(0, 0, 725, 494);

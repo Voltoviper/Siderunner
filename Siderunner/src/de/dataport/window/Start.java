@@ -29,6 +29,7 @@ public class Start {
 	private boolean ton = true;
 	Ton mp3;
 	Point clickPoint;
+	RotatingLogo logo;
 
 	/**
 	 * Launch the application.
@@ -95,7 +96,7 @@ public class Start {
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
 		horizontalBoxLogo.addKeyListener(key);
-		RotatingLogo logo = new RotatingLogo();
+		logo = new RotatingLogo();
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -161,10 +162,11 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Game single = new Game();
-				Fullscreen.desktopPane.add(single.panel);
-				single.panel.setVisible(true);
-				single.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-single.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-single.panel.getHeight()/2, 740, 554);
+				Fullscreen.desktopPane.add(Game.panel);
+				Game.panel.setVisible(true);
+				Game.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Game.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Game.panel.getHeight()/2, 740, 554);
 				panel.setVisible(false);
+				Fullscreen.mnModus.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -176,12 +178,12 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Multiplayer multi = new Multiplayer(logo.getName());
-				Fullscreen.desktopPane.add(multi.panel);
-				multi.panel.setVisible(true);
-				multi.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-multi.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-multi.panel.getHeight()/2,450, 350);
-				multi.panel.addKeyListener(key);
+				Fullscreen.desktopPane.add(Multiplayer.panel);
+				Multiplayer.panel.setVisible(true);
+				Multiplayer.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Multiplayer.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Multiplayer.panel.getHeight()/2,450, 350);
+				Multiplayer.panel.addKeyListener(key);
 				panel.setVisible(false);
-
+				Fullscreen.mnModus.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -192,10 +194,11 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Leveleditor editor = new Leveleditor();
-				Fullscreen.desktopPane.add(editor.panel);
-				editor.panel.setVisible(true);
-				editor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-editor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-editor.panel.getHeight()/2, 800,600);
+				Fullscreen.desktopPane.add(Leveleditor.panel);
+				Leveleditor.panel.setVisible(true);
+				Leveleditor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Leveleditor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Leveleditor.panel.getHeight()/2, 800,600);
 				panel.setVisible(false);
+				Fullscreen.mnModus.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -209,5 +212,8 @@ public class Start {
 		button.setOpaque(false);
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
+	}
+	public String getName(){
+		return logo.getName();
 	}
 }
