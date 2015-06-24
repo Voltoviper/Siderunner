@@ -37,7 +37,8 @@ import de.dataport.system.Speicher_Enum;
 import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.PausePanel;
 
-public class Game {
+public class Game
+{
 
 	public static Graphics graphics;
 	public static Spielfigur player;
@@ -45,20 +46,21 @@ public class Game {
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
 	public static Level level;
-	private Canvas canvas;
+	private static Canvas canvas;
 	public static Painter painter;
 	private static Movement movement;
-	private JLayeredPane mainPane;
+	private static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
-	public static JCheckBoxMenuItem ton;
 	private boolean pause = false;
 	JPanel canvasPanel;
-	
-	public JLayeredPane getPanel(){
+
+	public JLayeredPane getPanel()
+	{
 		return mainPane;
 	}
-	
-	public Canvas getCanvas(){
+
+	public Canvas getCanvas()
+	{
 		return canvas;
 	}
 
@@ -69,7 +71,8 @@ public class Game {
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public Game() {
+	public Game()
+	{
 		initialize();
 		movement = new Movement();
 		Fullscreen.desktopPane.addKeyListener(movement);
@@ -85,7 +88,8 @@ public class Game {
 	 *            Level für die Initialisierung (Das MenüItem "Level-laden" wird
 	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
-	public Game(Level level) {
+	public Game(Level level)
+	{
 		this();
 		Game.level = level;
 	}
@@ -93,140 +97,57 @@ public class Game {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		
+	private void initialize()
+	{
+
 		Tastatur tastatur = new Tastatur(null);
 		mainPane = new JLayeredPane();
 		mainPane.addKeyListener(tastatur);
-		mainPane.setBounds(0,
-				21,
-				Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), 21);
-		mainPane.add(menuBar);
-		
-		JMenu mnDatei = new JMenu("Datei");
-		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		menuBar.add(mnDatei);
+		mainPane.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 
-		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
-		mntmSchlieen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		mntmSchlieen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
-						JOptionPane.YES_NO_OPTION);
-				if (i == 0)
-					Menu.dispose(Fullscreen.frame);
-			}
-		});
-
-		mnDatei.add(mntmSchlieen);
-
-		
-		
 		mainPane.setVisible(true);
 		mainPane.addKeyListener(tastatur);
 		canvasPanel = new JPanel();
-		canvasPanel.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight()-21);
+		canvasPanel.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight() - 21);
 		canvasPanel.setOpaque(true);
 
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
-		canvas.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight()-21);
+		canvas.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight() - 21);
 
 		canvasPanel.add(canvas);
 		mainPane.add(canvasPanel, new Integer(0), 0);
 		canvas.requestFocusInWindow();
-		
-		JMenu mnLevel = new JMenu("Level");
-		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		Fullscreen.menuBar.add(mnLevel);
 
-		ton = new JCheckBoxMenuItem("Ton?");
-		ton.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		ton.setSelected(Speicher.getBoolean(Speicher_Enum.SOUND2));
-
-		ton.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				if (ton.isSelected()) {
-					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, false);
-
-				} else {
-
-					Speicher.SpeicherBoolean(Speicher_Enum.SOUND2, true);
-				}
-			}
-		});
-
-		if (level == null) {
-
-			JMenuItem mntmLaden = new JMenuItem("laden");
-			mntmLaden.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-			mntmLaden.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-
-					try {
-						/*
-						 * Beendet das Zeichnen des vorherigen Levels (falls
-						 * vorhanden).
-						 */
-						Painter.run = false;
-
-						/*
-						 * Laden des Levels & Zuweisen+Starten der Spielmechanik
-						 * (Steuerung+Zeichnen)
-						 */
-						level = Serializer.read(mainPane);
-						if (level != null) {
-							initializeGameplay();
-
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-				}
-			});
-			mnLevel.add(mntmLaden);
-		} else {
-			try {
-				if (level != null) {
-					initializeGameplay();
-				}
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-
-		mnLevel.add(ton);
-
-		JMenu menu = new JMenu("?");
-		menu.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		menuBar.add(menu);
-
-		JMenuItem mntmber = new JMenuItem("\u00DCber...");
-		mntmber.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		mntmber.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dialog = new Info();
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			}
-		});
-		menu.add(mntmber);
+		// JMenu menu = new JMenu("?");
+		// menu.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		// menuBar.add(menu);
+		//
+		// JMenuItem mntmber = new JMenuItem("\u00DCber...");
+		// mntmber.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		// mntmber.addActionListener(new ActionListener()
+		// {
+		// public void actionPerformed(ActionEvent e)
+		// {
+		// dialog = new Info();
+		// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		// dialog.setVisible(true);
+		// }
+		// });
+		// menu.add(mntmber);
 	}
 
-	protected void initializeGameplay() {
+	protected static void initializeGameplay()
+	{
 		/* Spieler schon vorhanden? --> für Multiplayer wichtige Abfrage */
-		if (level.getAllPlayer().size() == 0) {
+		if (level.getAllPlayer().size() == 0)
+		{
 			player = new Spielfigur(level.getSpawn().getX(), level.getSpawn().getY() - Spielfigur.getHoehe(),
 					"/de/dataport/window/graphics/pirat.png");
 			level.addPlayer(player);
-		} else {
+		}
+		else
+		{
 			player = level.getAllPlayer().get(0);
 		}
 		Movement.bewegen(32); // Spieler startet mit einem "Sprung ins Level".
@@ -235,18 +156,22 @@ public class Game {
 		painter.start();
 	}
 
-	public boolean isPaused() {
+	public boolean isPaused()
+	{
 		return pause;
 	}
 
-	public void pause(String headline) {
+	public void pause(String headline)
+	{
 		pause();
 		pausePanel.setHeadline(headline);
 	}
-	public void pause() {
+
+	public void pause()
+	{
 		/* Initialisierung des Pause-Overlays */
-		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(),
-				new Color(0, 0, 0, 200), false));
+		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(), new Color(0, 0, 0, 200),
+				false));
 		pausePanel = new PausePanel();
 		pausePanel.setLocation(mainPane.getWidth() / 2 - pausePanel.getWidth() / 2, mainPane.getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);
@@ -254,13 +179,31 @@ public class Game {
 		pause = true;
 	}
 
-	public void continueGame() {
+	public void continueGame()
+	{
 		level.removePauseBlock();
 		mainPane.remove(pausePanel);
 		pause = false;
 	}
 
-	public boolean isPause() {
+	public boolean isPause()
+	{
 		return pause;
+	}
+
+	public static void Level()
+	{
+		try
+		{
+			level = Serializer.read(mainPane);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (level != null)
+		{
+			initializeGameplay();
+		}
 	}
 }

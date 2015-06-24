@@ -8,7 +8,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JFrame;
 
-import de.dataport.window.Menu;
+import de.dataport.window.Menu_Elemente;
 /**
  * TastaturListener und MouseMotionAdapter für das Startmenu.
  * @author Christoph Nebendahl
@@ -24,7 +24,7 @@ public class Tastatur implements KeyListener {
 		switch (e.getKeyCode()) {
 		case 27:
 
-			Menu.beenden();
+			Menu_Elemente.beenden();
 			break;
 		}
 	}

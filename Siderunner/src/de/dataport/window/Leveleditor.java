@@ -46,16 +46,16 @@ public class Leveleditor {
 											// to keep painting
 
 	private JList<Gameblock> gameblockList;
-	private Canvas canvas;
-	private JPanel panel;
+	public static Canvas canvas;
+	private static JPanel panel;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
-	public JPanel getPanel(){
+	public static JPanel getPanel(){
 		return panel;
 	}
 	
-	private Level level;
+	public static Level level;
 
 	/**
 	 * Create the application.
@@ -77,7 +77,7 @@ public class Leveleditor {
 		gameblockList = new JList<Gameblock>(createDefaultBlockCatalog());
 		gameblockList.setCellRenderer(new GameblockListElement());
 		jspGameblocks = new JScrollPane(gameblockList);
-		jspGameblocks.setBounds(10, 28, 186, 251);
+		jspGameblocks.setBounds(10, 24, 186, 251);
 
 		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
 		gameblockList.addMouseListener(new PopUpClickListener() {
@@ -127,46 +127,6 @@ public class Leveleditor {
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(208, 20, Fullscreen.desktopPane.getWidth(),Fullscreen.desktopPane.getHeight());
 		panel.add(canvas);
-
-
-
-		/* Level-Menu */
-		JMenu jmLevel = new JMenu("Level");
-		jmLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		Fullscreen.menuBar.add(jmLevel);
-
-		JMenuItem jmiNewLevel = new JMenuItem("New...");
-		jmiNewLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		jmiNewLevel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				level.deleteLevel(canvas);
-			}
-		});
-		jmLevel.add(jmiNewLevel);
-
-		JMenuItem jmiLoadLevel = new JMenuItem("Load...");
-		jmiLoadLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		jmLevel.add(jmiLoadLevel);
-
-		JMenuItem jmiSave = new JMenuItem("Save...");
-		jmiSave.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		jmiSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Speichern_unter speichern = new Speichern_unter();
-				// speichern.saveAs(null, level);
-				try {
-					Serializer.write(level, panel);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-
-		jmLevel.add(jmiSave);
-
-
 
 		/* Canvas-Mouse-Interaction for Painting */
 		canvas.addMouseListener(new MouseAdapter() {

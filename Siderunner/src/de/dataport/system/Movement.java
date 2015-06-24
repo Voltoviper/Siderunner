@@ -7,6 +7,7 @@ import de.dataport.Objekte.Kollision;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
+import de.dataport.window.Menu;
 import de.dataport.window.Start;
 import de.dataport.window.tone.Ton;
 /**
@@ -117,7 +118,7 @@ public class Movement implements KeyListener {
 							int y = 0;
 							int speicher = 0;
 							int time = 10;
-							if (Game.ton.isSelected()) {
+							if (Menu.getLevel_ton().isSelected()) {
 								String mp3Source = Start.class.getResource(
 										"/de/dataport/window/tone/jump.mp3")
 										.getPath();

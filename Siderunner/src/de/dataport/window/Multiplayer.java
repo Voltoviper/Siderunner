@@ -79,7 +79,7 @@ public class Multiplayer extends JFrame
 				if (i == 0)
 				{
 					Painter.run = false;
-					Menu.dispose(frame);
+					Menu_Elemente.dispose(frame);
 				}
 			}
 		});

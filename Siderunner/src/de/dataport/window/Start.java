@@ -134,6 +134,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Fullscreen.callGame();
+				Fullscreen.getMenu().changeMenu(Menu_State.SINGLEPLAYER);
 			}
 		});
 		btnMultiplayer.addMouseListener(new MouseAdapter() {
@@ -147,6 +148,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Fullscreen.callLeveleditor();
+				Fullscreen.getMenu().changeMenu(Menu_State.LEVELEDITOR);
 			}
 		});
 	}
