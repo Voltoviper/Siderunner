@@ -52,7 +52,7 @@ public class PausePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Fullscreen.getGame().continueGame();
-					Serializer.write(Fullscreen.getGame().getLevel(), Game.frame);
+					Serializer.write(Fullscreen.getGame().getLevel() , Game.frame);
 					Fullscreen.getGame().pause();
 				} catch (Exception e1) {
 					e1.printStackTrace();
