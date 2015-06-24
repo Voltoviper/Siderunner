@@ -12,6 +12,7 @@ import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
+import de.dataport.window.Menu_State;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -68,6 +69,7 @@ public class PausePanel extends JPanel {
 				
 				Painter.run = false;
 				Fullscreen.callStart();
+				Fullscreen.getMenu().changeMenu(Menu_State.MODUS);
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);
@@ -79,6 +81,7 @@ public class PausePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Fullscreen.getGame().continueGame();
 				Fullscreen.getGame().getCanvas().requestFocusInWindow();
+				
 			}
 		});
 		btnContinue.setBounds(149, 133, 134, 41);
