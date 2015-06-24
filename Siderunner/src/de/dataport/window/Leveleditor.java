@@ -2,19 +2,13 @@ package de.dataport.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
@@ -23,17 +17,9 @@ import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Painter;
-import de.dataport.system.Serializer;
 import de.dataport.usercontrols.GameblockListElement;
 import de.dataport.usercontrols.PopUpClickListener;
 import de.dataport.usercontrols.PopUpMenuGameblock;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JPanel;
 
 /**
  * 
@@ -194,10 +180,10 @@ public class Leveleditor {
 								parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 					/* Spawn & Goal - lock */
-					if ((this.level.getSpawn() != null && newBlock
+					if ((Leveleditor.level.getSpawn() != null && newBlock
 							.getName()
 							.equals(EnumStandardGameblockNames.SPAWN.toString()))
-							|| (this.level.getGoal() != null && newBlock
+							|| (Leveleditor.level.getGoal() != null && newBlock
 									.getName().equals(
 											EnumStandardGameblockNames.GOAL
 													.toString())))
@@ -217,10 +203,10 @@ public class Leveleditor {
 							parent.isDeadly(), parent.getName(), parent.isFillDownwards());
 
 				/* Spawn & Goal - lock */
-				if ((this.level.getSpawn() != null && newBlock
+				if ((Leveleditor.level.getSpawn() != null && newBlock
 						.getName()
 						.equals(EnumStandardGameblockNames.SPAWN.toString()))
-						|| (this.level.getGoal() != null && newBlock
+						|| (Leveleditor.level.getGoal() != null && newBlock
 								.getName().equals(
 										EnumStandardGameblockNames.GOAL
 												.toString())))

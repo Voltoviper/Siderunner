@@ -2,38 +2,20 @@ package de.dataport.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
-import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Movement;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
-import de.dataport.system.Speicher;
-import de.dataport.system.Speicher_Enum;
 import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.PausePanel;
 
