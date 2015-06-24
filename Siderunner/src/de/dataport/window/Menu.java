@@ -26,8 +26,8 @@ public class Menu extends JMenuBar
 	private static final long serialVersionUID = 1L;
 	Menu_State state;
 	JMenuBar menubar;
-	JMenu datei, modus, level, editor;
-	JMenuItem beenden, singleplayer, multiplayer, leveleditor, level_laden, editor_new, editor_load, editor_save, hauptmenue;
+	JMenu datei, modus, level, editor, info;
+	JMenuItem beenden, singleplayer, multiplayer, leveleditor, level_laden, editor_new, editor_load, editor_save, hauptmenue, info_screen;
 	static JCheckBoxMenuItem level_ton;
 	
 	public static JCheckBoxMenuItem getLevel_ton()
@@ -204,6 +204,26 @@ public class Menu extends JMenuBar
 		});
 		editor.add(editor_save);
 
+		
+		/*Info*/
+		info = new JMenu("?");
+		setStandardMenu(info);
+		menubar.add(info);
+		
+		info_screen = new JMenuItem("Über...");
+		setStandardMenu(info_screen);
+		info_screen.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				Info info = new Info();
+				info.setVisible(true);
+			}
+		});
+		info.add(info_screen);
 	}
 	
 	

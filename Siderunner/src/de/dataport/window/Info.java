@@ -18,8 +18,10 @@ public class Info extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	JDialog dialog;
 
 	public Info() {
+		dialog = this;
 		setTitle("\u00DCber Jack Runner");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,7 +60,7 @@ public class Info extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Game.dialog.dispose();
+						dialog.dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
