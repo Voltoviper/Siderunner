@@ -22,5 +22,68 @@
     </void>
    </object>
   </void>
+  <void method="add">
+   <object class="de.dataport.datastructures.Gameblock">
+    <void property="height">
+     <int>50</int>
+    </void>
+    <void property="image">
+     <object class="javax.swing.ImageIcon">
+      <string>C:\Users\Jan\Desktop\white-brick-seamless-1000-x-1000.jpg</string>
+     </object>
+    </void>
+    <void property="imageSource">
+     <string>C:\Users\Jan\Desktop\white-brick-seamless-1000-x-1000.jpg</string>
+    </void>
+    <void property="name">
+     <string>Boden</string>
+    </void>
+    <void property="width">
+     <int>50</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="de.dataport.datastructures.Gameblock">
+    <void property="height">
+     <int>75</int>
+    </void>
+    <void property="image">
+     <object class="javax.swing.ImageIcon">
+      <string>C:\Users\Jan\Downloads\oie_2420168IwnJyYsu.png</string>
+     </object>
+    </void>
+    <void property="imageSource">
+     <string>C:\Users\Jan\Downloads\oie_2420168IwnJyYsu.png</string>
+    </void>
+    <void property="name">
+     <string>Sonne</string>
+    </void>
+    <void property="width">
+     <int>75</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="de.dataport.datastructures.Gameblock">
+    <void property="height">
+     <int>36</int>
+    </void>
+    <void property="image">
+     <object class="javax.swing.ImageIcon">
+      <string>C:\Users\Jan\Downloads\oie_24201640d7Rp9LtL.png</string>
+     </object>
+    </void>
+    <void property="imageSource">
+     <string>C:\Users\Jan\Downloads\oie_24201640d7Rp9LtL.png</string>
+    </void>
+    <void property="name">
+     <string>lokomotive</string>
+    </void>
+    <void property="width">
+     <int>39</int>
+    </void>
+   </object>
+  </void>
  </object>
 </java>

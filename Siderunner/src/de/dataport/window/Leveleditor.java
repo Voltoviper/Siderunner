@@ -37,15 +37,15 @@ public class Leveleditor {
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
-	public JPanel getPanel(){
+	public JPanel getPanel() {
 		return panel;
 	}
-	
+
 	private Level level;
-	public Level getLevel(){
+
+	public Level getLevel() {
 		return level;
 	}
-	
 
 	/**
 	 * Create the application.
@@ -68,7 +68,6 @@ public class Leveleditor {
 		gameblockList.setCellRenderer(new GameblockListElement());
 		jspGameblocks = new JScrollPane(gameblockList);
 		jspGameblocks.setBounds(10, 24, 186, 251);
-
 
 		/* ContextMenu for adding, editing & deleting Gameblocks from the list */
 		gameblockList.addMouseListener(new PopUpClickListener() {
@@ -109,14 +108,14 @@ public class Leveleditor {
 	 */
 	private void initialize() {
 
-//		
+		//
 		panel = new JPanel();
 		panel.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 		panel.setLayout(null);
 		panel.setBackground(Color.WHITE);
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
-		canvas.setBounds(208, 20, Fullscreen.desktopPane.getWidth(),Fullscreen.desktopPane.getHeight());
+		canvas.setBounds(208, 20, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 		panel.add(canvas);
 
 		/* Canvas-Mouse-Interaction for Painting */
@@ -154,8 +153,7 @@ public class Leveleditor {
 				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
 					if (level.getListe() != null)
 						if (level.getListe().size() != 0)
-							if (level.getListe().get(0).getX()
-									- level.getListe().get(0).getWidth() < 0)
+							if (level.getListe().get(0).getX() - level.getListe().get(0).getWidth() < 0)
 								level.move(false, canvas);
 			}
 		});
@@ -164,8 +162,11 @@ public class Leveleditor {
 
 	/**
 	 * Fügt den ausgewählten Block dem Level hinzu!
-	 * @param x Koordinate des neuen Blockes
-	 * @param y Koordinate des neuen Blockes
+	 * 
+	 * @param x
+	 *            Koordinate des neuen Blockes
+	 * @param y
+	 *            Koordinate des neuen Blockes
 	 */
 	private void AddBlock(int x, int y) {
 		if (gameblockList.getSelectedValue() != null) {
@@ -176,44 +177,32 @@ public class Leveleditor {
 			if (parent.isFillDownwards()) {
 				while (y < canvas.getHeight()) {
 					if (parent.getImage() == null)
-						newBlock = new Gameblock(x, y, parent.getWidth(),
-								parent.getHeight(), parent.isDeadly(),
+						newBlock = new Gameblock(x, y, parent.getWidth(), parent.getHeight(), parent.isDeadly(),
 								parent.getName(), parent.getColor(), parent.isFillDownwards());
 					else
-						newBlock = new Gameblock(x, y, parent.getImageSource(),
-								parent.isDeadly(), parent.getName(), parent.isFillDownwards());
+						newBlock = new Gameblock(x, y, parent.getImageSource(), parent.isDeadly(), parent.getName(),
+								parent.isFillDownwards());
 
 					/* Spawn & Goal - lock */
-					if ((level != null && newBlock
-							.getName()
-							.equals(EnumStandardGameblockNames.SPAWN.toString()))
-							|| (level != null && newBlock
-									.getName().equals(
-											EnumStandardGameblockNames.GOAL
-													.toString())))
+					if ((level.getSpawn() != null && newBlock.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
+							|| (level.getGoal() != null && newBlock.getName().equals(EnumStandardGameblockNames.GOAL.toString())))
 						return;
 
 					level.processNewBlock(newBlock);
-					
-					y+=parent.getHeight();
+
+					y += parent.getHeight();
 				}
-			}else{
+			} else {
 				if (parent.getImage() == null)
-					newBlock = new Gameblock(x, y, parent.getWidth(),
-							parent.getHeight(), parent.isDeadly(),
+					newBlock = new Gameblock(x, y, parent.getWidth(), parent.getHeight(), parent.isDeadly(),
 							parent.getName(), parent.getColor(), parent.isFillDownwards());
 				else
-					newBlock = new Gameblock(x, y, parent.getImageSource(),
-							parent.isDeadly(), parent.getName(), parent.isFillDownwards());
+					newBlock = new Gameblock(x, y, parent.getImageSource(), parent.isDeadly(), parent.getName(),
+							parent.isFillDownwards());
 
 				/* Spawn & Goal - lock */
-				if ((level != null && newBlock
-						.getName()
-						.equals(EnumStandardGameblockNames.SPAWN.toString()))
-						|| (level != null && newBlock
-								.getName().equals(
-										EnumStandardGameblockNames.GOAL
-												.toString())))
+				if ((level.getSpawn() != null && newBlock.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
+						|| (level.getGoal() != null && newBlock.getName().equals(EnumStandardGameblockNames.GOAL.toString())))
 					return;
 
 				level.processNewBlock(newBlock);
