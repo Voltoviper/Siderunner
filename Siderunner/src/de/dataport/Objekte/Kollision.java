@@ -1,10 +1,8 @@
 package de.dataport.Objekte;
 
-import javax.swing.JDialog;
-
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
-import de.dataport.window.Gewonnen;
+
 import de.dataport.window.Game;
 
 /**
@@ -18,9 +16,7 @@ public abstract class Kollision {
 	public static void zielprüfung(Level level) {
 		for (Spielfigur player : level.getAllPlayer()) {
 			if (player.getX() + Spielfigur.getBreite() > Game.level.getGoal().getX()) {
-				Gewonnen fenster = new Gewonnen();
-				fenster.setVisible(true);
-				fenster.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				Game.pause("You reached the goal");
 			}
 		}
 	}
@@ -33,7 +29,7 @@ public abstract class Kollision {
 			if (collision.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
 				return false;
 			if (collision.getName().equals(EnumStandardGameblockNames.GOAL.toString())) {
-				zielprüfung(Game.level);
+				zielprüfung(Game.level);   
 				return false;
 			}
 		}

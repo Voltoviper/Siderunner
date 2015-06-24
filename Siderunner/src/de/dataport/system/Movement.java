@@ -26,10 +26,7 @@ public class Movement implements KeyListener {
 	 * Prüft auf einen Tastaturanschlag
 	 */
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		bewegen((int) e.getKeyCode());
-		// System.out.println(e.getKeyCode());
-		// System.out.println(e.getKeyText(e.getKeyCode()));
 	}
 
 	@Override
@@ -57,13 +54,17 @@ public class Movement implements KeyListener {
 				// {
 				if (Kollision.collisionDetected() == false) {
 
-					if (Game.player.getX() < Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2
-							|| Game.level.getListe().get(Game.level.getListe().size() - 1).getX() < Game.canvas
-									.getWidth() * 0.75) {
-						Game.player.setX(Game.player.getX() + Spielfigur.getGeschwindigkeit());
+					if (Game.player.getX() < Game.canvas.getWidth() / 2
+							- Game.player.getWidth() / 2
+							|| Game.level.getListe()
+									.get(Game.level.getListe().size() - 1)
+									.getX() < Game.canvas.getWidth() * 0.75) {
+						Game.player.setX(Game.player.getX()
+								+ Spielfigur.getGeschwindigkeit());
 
 						if (Kollision.collisionDetected() == true)
-							Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
+							Game.player.setX(Game.player.getX()
+									- Spielfigur.getGeschwindigkeit());
 					} else {
 						Game.level.move(true, Game.canvas);
 						if (Kollision.collisionDetected() == true)
@@ -89,13 +90,16 @@ public class Movement implements KeyListener {
 		case 37: // Links
 			if (!Game.isPause())
 				if (Kollision.collisionDetected() == false) {
-					if (Game.player.getX() > Game.canvas.getWidth() / 2 - Game.player.getWidth() / 2
+					if (Game.player.getX() > Game.canvas.getWidth() / 2
+							- Game.player.getWidth() / 2
 							|| Game.level.getListe().get(0).getX() > Game.canvas
 									.getWidth() * 0.25) {
-						Game.player.setX(Game.player.getX() - Spielfigur.getGeschwindigkeit());
+						Game.player.setX(Game.player.getX()
+								- Spielfigur.getGeschwindigkeit());
 
 						if (Kollision.collisionDetected() == true)
-							Game.player.setX(Game.player.getX() + Spielfigur.getGeschwindigkeit());
+							Game.player.setX(Game.player.getX()
+									+ Spielfigur.getGeschwindigkeit());
 					} else {
 						Game.level.move(false, Game.canvas);
 						if (Kollision.collisionDetected() == true)
@@ -120,29 +124,30 @@ public class Movement implements KeyListener {
 							int speicher = 0;
 							int time = 10;
 							if (Game.ton.isSelected()) {
-								String mp3Source = Start.class.getResource("/de/dataport/window/tone/jump.mp3")
+								String mp3Source = Start.class.getResource(
+										"/de/dataport/window/tone/jump.mp3")
 										.getPath();
 								Ton mp3 = new Ton(mp3Source);
 								mp3.play();
 							}
 							while (time >= 0) {
-								if (!Kollision.collisionDetected()) {
 
-									y = 2 * (-1 * (time * time) + 10 * time);
-									time -= 1;
-									try {
-										Thread.sleep(18);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+								y = 2 * (-1 * (time * time) + 10 * time);
+								time -= 1;
+								try {
+									Thread.sleep(18);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								Game.player.setY(Game.player.getY()
+										- (y - speicher));
+								speicher = y;
+								if (Kollision.collisionDetected()) {
+									while (Kollision.collisionDetected()) {
+										Game.player.setY(Game.player.getY() - 1);
 									}
-									Game.player.setY(Game.player.getY() - (y - speicher));
-									speicher = y;
-									if (Kollision.collisionDetected()) {
-										while (Kollision.collisionDetected()) {
-											Game.player.setY(Game.player.getY() - 1);
-										}
-									}
+
 								}
 							}
 
@@ -160,7 +165,7 @@ public class Movement implements KeyListener {
 			if (Game.isPause())
 				Game.continueGame();
 			else
-				Game.pause();
+				Game.pause("The game is paused...");
 			break;
 		}
 

@@ -262,11 +262,11 @@ public class Game {
 		return pause;
 	}
 
-	public static void pause() {
+	public static void pause(String text) {
 		/* Initialisierung des Pause-Overlays */
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(),
 				new Color(0, 0, 0, 200), false));
-		pausePanel = new PausePanel();
+		pausePanel = new PausePanel(text);
 		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame
 				.getContentPane().getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);

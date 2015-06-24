@@ -19,15 +19,15 @@ public class PausePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public PausePanel() {
-		initialize();
+	public PausePanel(String text) {
+		initialize(text);
 	}
 
-	private void initialize() {
+	private void initialize(String Text) {
 		setLayout(null);
 		setSize(290, 185);
 
-		JLabel lblPause = new JLabel("The game is paused...");
+		JLabel lblPause = new JLabel(Text);
 		lblPause.setBounds(20, 5, 236, 29);
 		lblPause.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		add(lblPause);
@@ -43,7 +43,7 @@ public class PausePanel extends JPanel {
 				try {
 					Game.continueGame();
 					Serializer.write(Game.level, Game.frame);
-					Game.pause();
+					Game.pause("The game is paused...");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
