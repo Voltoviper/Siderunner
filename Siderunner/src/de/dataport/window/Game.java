@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,6 +38,9 @@ import de.dataport.usercontrols.PausePanel;
 
 public class Game {
 
+
+	private static JPanel panel;
+
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
@@ -52,7 +54,13 @@ public class Game {
 	private static PausePanel pausePanel;
 	public static JCheckBoxMenuItem ton;
 	private static boolean pause = false;
+
+	public JLayeredPane getPanel(){
+		return mainPane;
+	}
+
 	JPanel canvasPanel;
+
 
 	/**
 	 * Create the application.
@@ -86,6 +94,31 @@ public class Game {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		frame = new JFrame();
+		frame.setResizable(true);
+		frame.setTitle("Jack Runner");
+		frame.setBounds(
+				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 370,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 277,
+				740, 554);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
+				if (i == 0)
+					Menu.dispose(frame);
+			}
+		});
+		panel = new JPanel();
+		frame.getContentPane().add(panel);
+		panel.setBounds(10,
+				11,
+				704, 493);
+
 		
 		Tastatur tastatur = new Tastatur(null);
 		mainPane = new JLayeredPane();
@@ -93,6 +126,7 @@ public class Game {
 		mainPane.setBounds(0,
 				21,
 				Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), 21);
 		mainPane.add(menuBar);
@@ -107,8 +141,11 @@ public class Game {
 			public void actionPerformed(ActionEvent e) {
 				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
 						JOptionPane.YES_NO_OPTION);
-				if (i == 0)
-					Menu.dispose(Fullscreen.frame);
+				if (i == 0){
+					Fullscreen.removeAll();
+					Fullscreen.callStart();
+				}
+					
 			}
 		});
 
@@ -131,7 +168,7 @@ public class Game {
 
 		JMenu mnLevel = new JMenu("Level");
 		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		Fullscreen.menuBar.add(mnLevel);
+		//Fullscreen.menuBar.add(mnLevel);
 
 		ton = new JCheckBoxMenuItem("Ton?");
 		ton.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));

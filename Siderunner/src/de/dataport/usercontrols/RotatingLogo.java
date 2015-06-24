@@ -126,6 +126,7 @@ public class RotatingLogo extends JPanel {
 
 		g2d.dispose();
 	}
+	
 	public String getName(){
 		return textFieldName.getText();
 	}

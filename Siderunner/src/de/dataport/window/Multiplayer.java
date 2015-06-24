@@ -39,12 +39,8 @@ import javax.swing.JSeparator;
 public class Multiplayer extends JFrame
 {
 
-	public static Multiplayer multiplayer;
-	static JFrame frame;
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static JFrame frame;
 	static JPanel panel;
 	private JTextField textFieldIP, textFieldPlayerName;
 	private static JTextField textField_2;
@@ -62,6 +58,9 @@ public class Multiplayer extends JFrame
 	JLabel lblNewLabel_1;
 	public static Level level;
 
+	public JPanel getPanel(){
+		return panel;
+	}
 	/**
 	 * Create the frame.
 	 * 

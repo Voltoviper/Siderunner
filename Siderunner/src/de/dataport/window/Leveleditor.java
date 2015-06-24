@@ -3,6 +3,8 @@ package de.dataport.window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,6 +15,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
@@ -39,10 +44,15 @@ public class Leveleditor {
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
+
+
 	static JPanel panel;
+
+
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
 
+	
 	private Level level;
 
 	/**
@@ -106,7 +116,6 @@ public class Leveleditor {
 	 */
 	private void initialize() {
 
-//		
 		panel = new JPanel();
 		panel.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 		panel.setLayout(null);
@@ -141,18 +150,33 @@ public class Leveleditor {
 		jmiSave.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		jmiSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Speichern_unter speichern = new Speichern_unter();
-				// speichern.saveAs(null, level);
 				try {
 					Serializer.write(level, panel);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
 
 		jmLevel.add(jmiSave);
+
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e)
+//			{
+//				// TODO Auto-generated method stub
+//				int i = JOptionPane.showConfirmDialog(frame,
+//						"Wollen Sie den Editor beenden?", "Beenden",
+//						JOptionPane.YES_NO_OPTION);
+//				if (i == 0) {
+//					Painter.run = false;
+//					Fullscreen.removeAll();
+//					Fullscreen.callStart();
+//				}
+//			}
+//			
+//		});
+//		jmLevel.add(mntmSchlieen);
 
 
 
@@ -258,4 +282,5 @@ public class Leveleditor {
 		}
 
 	}
+
 }

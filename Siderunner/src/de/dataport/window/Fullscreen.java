@@ -3,21 +3,17 @@ package de.dataport.window;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 
 import de.dataport.standardcatalog.StandardContent;
 import de.dataport.system.Tastatur;
 
-import javax.swing.JInternalFrame;
-
-import java.awt.BorderLayout;
-
 import javax.swing.JDesktopPane;
 
 import java.awt.Color;
 
+import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -29,7 +25,12 @@ public class Fullscreen
 {
 	public static JDesktopPane desktopPane;
 	static JFrame frame;
-	Start start = null;
+
+	private static Start start;
+	private static Game game;
+	private static Multiplayer multiplayer;
+	private static Leveleditor leveleditor;
+	
 	static JMenu mnModus;
 	static JMenuBar menuBar;
 
@@ -44,7 +45,7 @@ public class Fullscreen
 			{
 				try
 				{
-					Fullscreen window = new Fullscreen();
+					new Fullscreen();
 					Fullscreen.frame.setVisible(true);
 				} catch (Exception e)
 				{
@@ -77,19 +78,15 @@ public class Fullscreen
 		frame.getContentPane().add(desktopPane);
 		frame.addKeyListener(key);
 		
-		try
-		{
-			start = new Start();
-			Start.frame.setVisible(false);
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		start = new Start();
+
+
 		
 		
-		desktopPane.setBounds(0,0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+		desktopPane.setBounds(0,21,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 		desktopPane.setBackground(Color.WHITE);
+
 		desktopPane.add(Start.panel);
 		
 		menuBar = new JMenuBar();
@@ -156,10 +153,45 @@ public class Fullscreen
 		mntmLeveleditor.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		mnModus.add(mntmLeveleditor);
 		
-		Start.panel.setVisible(true);
-		Start.panel.setBounds(desktopPane.getWidth()/2-Start.panel.getWidth()/2,desktopPane.getHeight()/2-Start.panel.getHeight()/2,800,400);
-		Start.panel.setBackground(Color.WHITE);
-		desktopPane.setVisible(true);
+
+
+		
+	}
+	
+	/* Start-Fenster */
+	public static void callStart(){
+		
+		desktopPane.add(start.getPanel());	
+	}
+	
+	/* Leveleditor-Fenster */
+	public static void callLeveleditor(){
+		leveleditor = new Leveleditor();
+		Leveleditor.panel.setBounds(Fullscreen.desktopPane.getWidth() / 2 - Leveleditor.panel.getWidth() / 2,
+				Fullscreen.desktopPane.getHeight() / 2 - Leveleditor.panel.getHeight() / 2, 800, 600);
+		desktopPane.add(Leveleditor.panel);
+		
+	}
+
+	/* Game-Fenster */
+	public static void callGame(){
+		game = new Game();
+		game.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - game.getPanel().getWidth() / 2,
+				Fullscreen.desktopPane.getHeight() / 2 - game.getPanel().getHeight() / 2, 740, 554);
+		desktopPane.add(game.getPanel());	
+	}
+
+	/* Multiplayer-Fenster */
+	public static void callMultiplayer(){
+		multiplayer = new Multiplayer(start.getName());
+		multiplayer.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - multiplayer.getPanel().getWidth() / 2,
+				Fullscreen.desktopPane.getHeight() / 2 - multiplayer.getPanel().getHeight() / 2, 450, 350);
+		desktopPane.add(multiplayer.getPanel());	
+	}
+
+	public static void removeAll(){
+		desktopPane.removeAll();
+		desktopPane.repaint();
 	}
 
 
