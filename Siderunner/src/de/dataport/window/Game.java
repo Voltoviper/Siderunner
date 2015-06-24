@@ -78,12 +78,7 @@ public class Game
 	 * @wbp.parser.constructor
 	 */
 	public Game(){
-		initialize();
-		movement = new Movement();
-		Fullscreen.desktopPane.addKeyListener(movement);
-		mainPane.addKeyListener(movement);
-		canvasPanel.addKeyListener(movement);
-		canvas.addKeyListener(movement);
+		globalInitialize();
 	}
 
 	/**
@@ -94,8 +89,17 @@ public class Game
 	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
 	public Game(Level level){
-		this();
 		this.level = level;
+		globalInitialize();
+	}
+	
+	private void globalInitialize(){
+		initialize();
+		movement = new Movement();
+		Fullscreen.desktopPane.addKeyListener(movement);
+		mainPane.addKeyListener(movement);
+		canvasPanel.addKeyListener(movement);
+		canvas.addKeyListener(movement);
 	}
 
 	/**
