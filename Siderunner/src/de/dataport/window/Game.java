@@ -128,7 +128,8 @@ public class Game {
 
 		canvasPanel.add(canvas);
 		mainPane.add(canvasPanel, new Integer(0), 0);
-
+canvas.requestFocusInWindow();
+		
 		JMenu mnLevel = new JMenu("Level");
 		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		Fullscreen.menuBar.add(mnLevel);
