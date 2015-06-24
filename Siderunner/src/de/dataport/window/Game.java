@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -37,6 +38,7 @@ import de.dataport.usercontrols.PausePanel;
 
 public class Game {
 
+	public static JPanel panel;
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
@@ -61,7 +63,7 @@ public class Game {
 	public Game() {
 		initialize();
 		movement = new Movement();
-		frame.addKeyListener(movement);
+		panel.addKeyListener(movement);
 		canvas.addKeyListener(movement);
 	}
 
@@ -84,7 +86,10 @@ public class Game {
 		frame = new JFrame();
 		frame.setResizable(true);
 		frame.setTitle("Jack Runner");
-		frame.setBounds(100, 100, 740, 554);
+		frame.setBounds(
+				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 370,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 277,
+				740, 554);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -96,10 +101,14 @@ public class Game {
 					Menu.dispose(frame);
 			}
 		});
-
+		panel = new JPanel();
+		frame.getContentPane().add(panel);
+		panel.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 370,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 277,
+				740, 554);
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-
+		panel.add(menuBar);
+		
 		JMenu mnDatei = new JMenu("Datei");
 		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
 		menuBar.add(mnDatei);
@@ -111,25 +120,9 @@ public class Game {
 				int i = JOptionPane.showConfirmDialog(frame, "Wollen Sie das Spiel beenden?", "Beenden",
 						JOptionPane.YES_NO_OPTION);
 				if (i == 0)
-					Menu.dispose(frame);
+					Menu.dispose(Fullscreen.frame);
 			}
 		});
-
-		JMenuItem mntmKoordinatenAnzeigen = new JMenuItem("Koordinaten anzeigen");
-		mntmKoordinatenAnzeigen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		mntmKoordinatenAnzeigen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JLabel lblX = new JLabel("x:");
-				lblX.setBounds(780, 11, 46, 14);
-				JLabel lblY = new JLabel("y:");
-				lblY.setBounds(780, 29, 46, 14);
-				frame.getContentPane().add(lblX);
-				frame.getContentPane().add(lblY);
-
-
-			}
-		});
-		mnDatei.add(mntmKoordinatenAnzeigen);
 
 		mnDatei.add(mntmSchlieen);
 
@@ -137,7 +130,7 @@ public class Game {
 		mainPane.setBounds(0, 0, 725, 494);
 		mainPane.setVisible(true);
 
-		frame.add(mainPane);
+		panel.add(mainPane);
 		JPanel canvasPanel = new JPanel();
 		canvasPanel.setBounds(0, 0, 725, 494);
 		canvasPanel.setOpaque(true);
@@ -190,7 +183,7 @@ public class Game {
 						 * Laden des Levels & Zuweisen+Starten der Spielmechanik
 						 * (Steuerung+Zeichnen)
 						 */
-						level = Serializer.read(frame);
+						level = Serializer.read(panel);
 						if (level != null) {
 							initializeGameplay();
 

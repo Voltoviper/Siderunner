@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.window.Game;
+import de.dataport.window.Start;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -61,6 +62,7 @@ public class PausePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Painter.run = false;
 				Game.frame.dispose();
+				Start.frame.setVisible(true);
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);

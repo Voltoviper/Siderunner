@@ -2,8 +2,8 @@ package de.dataport.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -48,7 +48,7 @@ public class Leveleditor {
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
 	private JFrame frame;
-	private JPanel panel;
+	static JPanel panel;
 	private JMenuBar menuBar;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
@@ -124,7 +124,10 @@ public class Leveleditor {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setTitle("Leveleditor");
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(
+				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 300,
+				800, 600);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -141,7 +144,9 @@ public class Leveleditor {
 		panel = new JPanel();
 		panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(panel);
+		frame.setVisible(false);
 		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
 		canvas = new Canvas();
 		canvas.setBounds(208, 20, 582, 501);
 		panel.add(canvas);
@@ -186,6 +191,26 @@ public class Leveleditor {
 		});
 
 		jmLevel.add(jmiSave);
+		
+		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
+		mntmSchlieen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
+		mntmSchlieen.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+				int i = JOptionPane.showConfirmDialog(frame,
+						"Wollen Sie den Editor beenden?", "Beenden",
+						JOptionPane.YES_NO_OPTION);
+				if (i == 0) {
+					Painter.run = false;
+					Menu.dispose(frame);
+				}
+			}
+			
+		});
+		jmLevel.add(mntmSchlieen);
 
 		/* Block-Menu */
 		JMenu jmBlocks = new JMenu("Blocks");
@@ -304,5 +329,4 @@ public class Leveleditor {
 		}
 
 	}
-
 }

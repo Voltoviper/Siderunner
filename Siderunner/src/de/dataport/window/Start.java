@@ -1,5 +1,6 @@
 package de.dataport.window;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Point;
@@ -13,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import de.dataport.system.Speicher;
 import de.dataport.system.Speicher_Enum;
@@ -23,6 +25,7 @@ import de.dataport.window.tone.Ton;
 public class Start {
 
 	public static JFrame frame;
+	static JPanel panel;
 	private boolean ton = true;
 	Ton mp3;
 	Point clickPoint;
@@ -30,17 +33,17 @@ public class Start {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new Start();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					new Start();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -68,8 +71,13 @@ public class Start {
 		frame.getContentPane().setLayout(
 				new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.setUndecorated(true);
+		frame.setBackground(Color.WHITE);
+		frame.setVisible(true);
+		panel = new JPanel();
+		panel.setBounds(0,0,800,400);
+		frame.add(panel);
 		Tastatur key = new Tastatur(frame);
-		frame.addMouseListener(new MouseAdapter() {
+		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Tastatur.clickPoint = e.getPoint();
@@ -77,12 +85,13 @@ public class Start {
 			}
 
 		});
-		frame.addMouseMotionListener(key);
+		panel.addMouseMotionListener(key);
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.addKeyListener(key);
 		horizontalBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-		frame.getContentPane().add(horizontalBox);
-		frame.setVisible(true);
+		horizontalBox.setBackground(Color.white);
+		panel.add(horizontalBox);
+		
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
 		horizontalBoxLogo.addKeyListener(key);
@@ -90,7 +99,7 @@ public class Start {
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.requestFocus();
+				panel.requestFocus();
 				if (ton) {
 					ton = false;
 					Speicher.SpeicherBoolean(Speicher_Enum.SOUND1, false);
@@ -110,7 +119,7 @@ public class Start {
 		});
 		logo.addMouseMotionListener(key);
 		horizontalBoxLogo.add(logo);
-		frame.requestFocus();
+		panel.requestFocus();
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
 		verticalBoxButtons.addKeyListener(key);
@@ -151,9 +160,11 @@ public class Start {
 		btnSingleplayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Game();
-				Game.frame.setVisible(true);
-				frame.setVisible(false);
+				Game single = new Game();
+				Fullscreen.desktopPane.add(single.panel);
+				single.panel.setVisible(true);
+				single.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-single.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-single.panel.getHeight()/2, 740, 554);
+				panel.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -164,8 +175,12 @@ public class Start {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Multiplayer(logo.getName());
-				frame.setVisible(false);
+				Multiplayer multi = new Multiplayer(logo.getName());
+				Fullscreen.desktopPane.add(multi.panel);
+				multi.panel.setVisible(true);
+				multi.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-multi.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-multi.panel.getHeight()/2,450, 350);
+				multi.panel.addKeyListener(key);
+				panel.setVisible(false);
 
 			}
 			@Override
@@ -176,8 +191,11 @@ public class Start {
 		btnLeveleditor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new Leveleditor().getFrame().setVisible(true);
-				frame.setVisible(false);
+				Leveleditor editor = new Leveleditor();
+				Fullscreen.desktopPane.add(editor.panel);
+				editor.panel.setVisible(true);
+				editor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-editor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-editor.panel.getHeight()/2, 800,600);
+				panel.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
