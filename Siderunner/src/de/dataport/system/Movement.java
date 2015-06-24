@@ -148,7 +148,7 @@ public class Movement implements KeyListener {
 
 							y = 0;
 							speicher = 0;
-							time = 10;
+							time = 10; 
 							jump = false;
 						}
 					}
