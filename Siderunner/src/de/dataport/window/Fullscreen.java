@@ -146,7 +146,7 @@ public class Fullscreen {
 		leveleditor = new Leveleditor();
 		leveleditor.getPanel().setBounds(Fullscreen.desktopPane.getWidth() / 2 - leveleditor.getPanel().getWidth() / 2,
 				Fullscreen.desktopPane.getHeight() / 2 - leveleditor.getPanel().getHeight() / 2,
-				leveleditor.getPanel().getWidth(), leveleditor.getPanel().getHeight());
+				leveleditor.getPanel().getWidth()-10, leveleditor.getPanel().getHeight());
 		desktopPane.add(leveleditor.getPanel());
 
 	}

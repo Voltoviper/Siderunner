@@ -1,19 +1,27 @@
 package de.dataport.system;
 
 import java.awt.Component;
+import java.awt.List;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.dataport.Objekte.Level;
+import de.dataport.datastructures.Gameblock;
+import de.dataport.window.Start;
 
 /**
  * Import und Export der Level in eine XML Datei.
@@ -32,14 +40,12 @@ public abstract class Serializer {
 	 *             Wirft eine Exception, sobald ein Problem beim Speichern
 	 *             auftaucht.
 	 */
-	public static void write(Level level, Component thisInstance)
-			throws Exception {
-		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG,
-				"Speichern unter...", "Markup: xml", new String[] { "xml" });
+	public static void write(Level level, Component thisInstance) throws Exception {
+		File f = getFileToChoose(thisInstance, JFileChooser.SAVE_DIALOG, "Speichern unter...", "Markup: xml",
+				new String[] { "xml" });
 		if (f != null) {
 			optimizePosition(level);
-			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(
-					new FileOutputStream(f)));
+			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
 			encoder.writeObject(level);
 			encoder.close();
 		}
@@ -55,11 +61,10 @@ public abstract class Serializer {
 	 *             beim Einlesen der Datei ein Fehler entsteht.
 	 */
 	public static Level read(Component thisInstance) throws Exception {
-		File f = getFileToChoose(thisInstance, JFileChooser.OPEN_DIALOG,
-				"Öffnen...", "Markup: xml", new String[] { "xml" });
+		File f = getFileToChoose(thisInstance, JFileChooser.OPEN_DIALOG, "Öffnen...", "Markup: xml",
+				new String[] { "xml" });
 		if (f != null) {
-			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
-					new FileInputStream(f)));
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
 			Level level = (Level) decoder.readObject();
 			decoder.close();
 			return level;
@@ -79,15 +84,14 @@ public abstract class Serializer {
 	public static Level readfromString(String path) throws Exception {
 		File f = new File(path);
 
-		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
-				new FileInputStream(f)));
+		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
 		Level level = (Level) decoder.readObject();
 		decoder.close();
 		return level;
 	}
 
 	/**
-	 * Dialog, der einen Pfad für Bilder auswählen lässt. 
+	 * Dialog, der einen Pfad für Bilder auswählen lässt.
 	 * 
 	 * @param openOnInstance
 	 *            Frame, auf dem dieser Dialog angezeigt werden soll
@@ -97,10 +101,9 @@ public abstract class Serializer {
 	 *            Titel des Dialoges
 	 * @return Gibt einen String Pfad zuück.
 	 */
-	public static String getImagePath(Component openOnInstance,
-			int jFileChooserDialog, String dialogTitle) {
-		File path = getFileToChoose(openOnInstance, jFileChooserDialog,
-				dialogTitle, "Bilddateien", ImageIO.getReaderFileSuffixes());
+	public static String getImagePath(Component openOnInstance, int jFileChooserDialog, String dialogTitle) {
+		File path = getFileToChoose(openOnInstance, jFileChooserDialog, dialogTitle, "Bilddateien",
+				ImageIO.getReaderFileSuffixes());
 		if (path == null) {
 			return null;
 		} else {
@@ -108,14 +111,17 @@ public abstract class Serializer {
 		}
 
 	}
-/**
- * Dialog, der einen PFAD für XML Dateien auswählen lässt.
- * @param openOnInstance Componente, auf der dieser Dialog angezeigt werden soll
- * @return gibt einen String zurück, der den Pfad enthält
- */
+
+	/**
+	 * Dialog, der einen PFAD für XML Dateien auswählen lässt.
+	 * 
+	 * @param openOnInstance
+	 *            Componente, auf der dieser Dialog angezeigt werden soll
+	 * @return gibt einen String zurück, der den Pfad enthält
+	 */
 	public static String getStringPath(Component openOnInstance) {
-		File path = getFileToChoose(openOnInstance, JFileChooser.OPEN_DIALOG,
-				"Öffnen...", "Markup: xml", new String[] { "xml" });
+		File path = getFileToChoose(openOnInstance, JFileChooser.OPEN_DIALOG, "Öffnen...", "Markup: xml",
+				new String[] { "xml" });
 		if (path == null) {
 			return null;
 		} else {
@@ -137,16 +143,14 @@ public abstract class Serializer {
 	 * @return Wenn eine Datei geladen werden soll, Wird ein String zurück
 	 *         gegeben, der den Pfad enthält
 	 */
-	private static File getFileToChoose(Component openOnInstance,
-			int jFileChooserDialog, String text, String markup,
+	private static File getFileToChoose(Component openOnInstance, int jFileChooserDialog, String text, String markup,
 			String[] suffixes) {
 
 		JFileChooser chooser;
 		chooser = new JFileChooser();
 
 		chooser.setDialogType(jFileChooserDialog);
-		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(
-				markup, suffixes);
+		FileNameExtensionFilter markUpFilter = new FileNameExtensionFilter(markup, suffixes);
 		chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
 		chooser.setFileFilter(markUpFilter);
 		chooser.setDialogTitle(text);
@@ -198,5 +202,58 @@ public abstract class Serializer {
 					l.getListe().forEach(gb -> gb.setX(gb.getX() + optimizer));
 				}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Gameblock> readBlocks(){
+		File f = new File(getStorageFile());
+		{
+			XMLDecoder decoder = null;
+			try {
+				decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			Object o =  decoder.readObject();
+			if(o == null)
+				return null;
+			ArrayList<Gameblock> blocks = (ArrayList<Gameblock>)o;
+			decoder.close();
+			return blocks;
+		}
+	}
+	
+	public static void writeBlocks(JList<Gameblock> gameblockList) {
+
+		ArrayList<Gameblock> blocks = new ArrayList<Gameblock>();
+		for (int i = 4; i < gameblockList.getModel().getSize(); i++) {
+			blocks.add(gameblockList.getModel().getElementAt(i));
+		}
+
+		File f = null;
+		f = new File(getStorageFile());
+		if (f.exists())
+			f.delete();
+		try {
+			f.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		XMLEncoder encoder = null;
+		try {
+			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		encoder.writeObject(blocks);
+		encoder.close();
+	}
+	
+	private static String getStorageFile(){
+		File currentDirFile = new File(".");
+		String helper = currentDirFile.getAbsolutePath();
+		return helper.substring(0, helper.length() - 1)
+				+ "src\\de\\dataport\\standardcatalog\\storage\\blocks.xml";
 	}
 }

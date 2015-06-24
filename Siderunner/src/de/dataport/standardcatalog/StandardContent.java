@@ -9,6 +9,7 @@ import java.util.List;
 
 import de.dataport.Objekte.Level;
 import de.dataport.datastructures.Gameblock;
+import de.dataport.system.Serializer;
 /**
  * StandardVorgaben für die Gameblöcke.
  * @author Jan Koch
@@ -37,6 +38,8 @@ public abstract class StandardContent {
 		lBlocks.add(goal);
 		lBlocks.add(vanilla);
 		lBlocks.add(eraser);
+		
+		lBlocks.addAll(Serializer.readBlocks());
 		return lBlocks;
 	}
 
