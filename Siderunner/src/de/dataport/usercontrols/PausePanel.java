@@ -10,6 +10,7 @@ import javax.swing.JButton;
 
 import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
+import de.dataport.window.Fullscreen;
 import de.dataport.window.Game;
 import de.dataport.window.Start;
 
@@ -23,10 +24,12 @@ public class PausePanel extends JPanel {
 	public PausePanel(String text) {
 		initialize(text);
 	}
-/**
- * 
- * @param Text der als ‹berschrift angezeigt werden soll.
- */
+
+	/**
+	 * 
+	 * @param Text
+	 *            der als ‹berschrift angezeigt werden soll.
+	 */
 	private void initialize(String Text) {
 		setLayout(null);
 		setSize(290, 185);
@@ -60,8 +63,11 @@ public class PausePanel extends JPanel {
 		JButton btnEndGame = new JButton("End Game");
 		btnEndGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Painter.run = false;
-				Game.frame.dispose();
+
+				Fullscreen.removeAll();
+				Fullscreen.callStart();
 			}
 		});
 		btnEndGame.setBounds(149, 89, 134, 41);
@@ -79,10 +85,13 @@ public class PausePanel extends JPanel {
 		buttonGeneralSetting(btnContinue);
 		add(btnContinue);
 	}
-/**
- * Gleichschaltung der Button, damit alle die gleichen Einstellungen haben.
- * @param button Button, der Angepaﬂt werden soll
- */
+
+	/**
+	 * Gleichschaltung der Button, damit alle die gleichen Einstellungen haben.
+	 * 
+	 * @param button
+	 *            Button, der Angepaﬂt werden soll
+	 */
 	private void buttonGeneralSetting(JButton button) {
 		button.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button.setOpaque(false);

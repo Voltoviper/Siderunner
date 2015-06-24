@@ -52,6 +52,7 @@ public class Menu
 		}
 		if (frame != null)
 		{
+
 			frame.dispose();
 			//Start.panel.setVisible(true);
 //			if (Game.panel != null)
@@ -75,6 +76,7 @@ public class Menu
 //					Leveleditor.panel.setVisible(false);
 //				}
 //			}
+
 		}
 
 	}

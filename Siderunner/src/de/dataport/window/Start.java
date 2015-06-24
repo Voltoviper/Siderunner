@@ -22,14 +22,19 @@ import de.dataport.window.tone.Ton;
 
 public class Start extends JFrame {
 
+
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
+	public static JFrame frame;
 	private boolean ton = true;
+
 	private Ton mp3;
+	private RotatingLogo logo;
 
 	public JPanel getPanel() {
 		return panel;
 	}
+
 
 	/**
 	 * Launch the application.
@@ -93,9 +98,9 @@ public class Start extends JFrame {
 
 		Box horizontalBoxLogo = Box.createHorizontalBox();
 		horizontalBox.add(horizontalBoxLogo);
-		RotatingLogo logo = new RotatingLogo();
-		horizontalBoxLogo.add(logo);
 
+		horizontalBoxLogo.addKeyListener(key);
+		logo = new RotatingLogo();
 		logo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -111,15 +116,11 @@ public class Start extends JFrame {
 				}
 
 			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Tastatur.clickPoint = e.getPoint();
-			}
 		});
 		logo.addMouseMotionListener(key);
 		horizontalBoxLogo.addKeyListener(key);
 		panel.requestFocus();
+		horizontalBoxLogo.add(logo);
 		Box verticalBoxButtons = Box.createVerticalBox();
 		horizontalBox.add(verticalBoxButtons);
 		verticalBoxButtons.addKeyListener(key);
@@ -165,15 +166,6 @@ public class Start extends JFrame {
 		btnLeveleditor.addKeyListener(key);
 
 		/* Events */
-		btnLeveleditor.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				Fullscreen.removeAll();
-				Fullscreen.callLeveleditor();
-
-			}
-		});
 		btnMultiplayer.addKeyListener(key);
 		btnMultiplayer.addMouseListener(new MouseAdapter() {
 
@@ -191,6 +183,16 @@ public class Start extends JFrame {
 				Fullscreen.callGame();
 			}
 		});
+		btnLeveleditor.addMouseListener(new MouseAdapter() {
+			@Override
+
+			public void mouseClicked(MouseEvent arg0) {
+				
+				Fullscreen.removeAll();
+				Fullscreen.callLeveleditor();
+
+			}
+		});
 
 	}
 
@@ -199,5 +201,8 @@ public class Start extends JFrame {
 		button.setOpaque(false);
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
+	}
+	public String getName(){
+		return logo.getName();
 	}
 }

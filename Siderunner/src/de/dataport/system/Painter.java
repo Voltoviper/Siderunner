@@ -11,6 +11,7 @@ import de.dataport.Objekte.Level;
 import de.dataport.Objekte.Spielfigur;
 import de.dataport.datastructures.Gameblock;
 import de.dataport.standardcatalog.EnumStandardGameblockNames;
+import de.dataport.window.Fullscreen;
 import de.dataport.window.Start;
 
 /**
@@ -80,7 +81,7 @@ public class Painter extends Thread {
 			Graphics g = canvas.getGraphics();
 			// TODO Auto-generated method stub
 			if (dbImage == null) {
-				dbImage = canvas.createImage(725, 494);
+				dbImage = canvas.createImage(Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight()-21);
 				dbGraphics = dbImage.getGraphics();
 			}
 			dbGraphics.setColor(Color.white);
@@ -106,6 +107,7 @@ public class Painter extends Thread {
 		Gameblock pause = null;
 		// g.setColor(Color.white);
 		g.drawImage(background.getImage(), 0, 0, canvas);
+		g.drawImage(background.getImage(), background.getIconWidth(), 0,canvas);
 		for (Gameblock gb : level.getListe()) {
 			if (gb.getImage() == null) {
 				g.setColor(gb.getColor());

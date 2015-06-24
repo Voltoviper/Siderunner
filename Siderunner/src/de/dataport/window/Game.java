@@ -33,11 +33,14 @@ import de.dataport.system.Painter;
 import de.dataport.system.Serializer;
 import de.dataport.system.Speicher;
 import de.dataport.system.Speicher_Enum;
+import de.dataport.system.Tastatur;
 import de.dataport.usercontrols.PausePanel;
 
 public class Game {
 
+
 	private static JPanel panel;
+
 	public static Graphics graphics;
 	public static Spielfigur player;
 	public static JFrame frame;
@@ -47,14 +50,17 @@ public class Game {
 	public static Canvas canvas;
 	public static Painter painter;
 	private static Movement movement;
-	private static JLayeredPane mainPane;
+	public static JLayeredPane mainPane;
 	private static PausePanel pausePanel;
 	public static JCheckBoxMenuItem ton;
 	private static boolean pause = false;
-	
-	public JPanel getPanel(){
-		return panel;
+
+	public JLayeredPane getPanel(){
+		return mainPane;
 	}
+
+	JPanel canvasPanel;
+
 
 	/**
 	 * Create the application.
@@ -66,7 +72,9 @@ public class Game {
 	public Game() {
 		initialize();
 		movement = new Movement();
-		panel.addKeyListener(movement);
+		Fullscreen.desktopPane.addKeyListener(movement);
+		mainPane.addKeyListener(movement);
+		canvasPanel.addKeyListener(movement);
 		canvas.addKeyListener(movement);
 	}
 
@@ -86,6 +94,7 @@ public class Game {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
 		frame = new JFrame();
 		frame.setResizable(true);
 		frame.setTitle("Jack Runner");
@@ -109,8 +118,18 @@ public class Game {
 		panel.setBounds(10,
 				11,
 				704, 493);
+
+		
+		Tastatur tastatur = new Tastatur(null);
+		mainPane = new JLayeredPane();
+		mainPane.addKeyListener(tastatur);
+		mainPane.setBounds(0,
+				21,
+				Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
+
 		JMenuBar menuBar = new JMenuBar();
-		panel.add(menuBar);
+		menuBar.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), 21);
+		mainPane.add(menuBar);
 		
 		JMenu mnDatei = new JMenu("Datei");
 		mnDatei.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
@@ -132,25 +151,24 @@ public class Game {
 
 		mnDatei.add(mntmSchlieen);
 
-		mainPane = new JLayeredPane();
-		mainPane.setBounds(0, 0, 725, 494);
+		
+		
 		mainPane.setVisible(true);
-
-		panel.add(mainPane);
-		JPanel canvasPanel = new JPanel();
-		canvasPanel.setBounds(0, 0, 725, 494);
+		mainPane.addKeyListener(tastatur);
+		canvasPanel = new JPanel();
+		canvasPanel.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight()-21);
 		canvasPanel.setOpaque(true);
 
 		canvas = new Canvas();
 		canvas.setBackground(Color.WHITE);
-		canvas.setBounds(0, 0, 725, 494);
+		canvas.setBounds(0, 21, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight()-21);
 
 		canvasPanel.add(canvas);
 		mainPane.add(canvasPanel, new Integer(0), 0);
 
 		JMenu mnLevel = new JMenu("Level");
 		mnLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		menuBar.add(mnLevel);
+		//Fullscreen.menuBar.add(mnLevel);
 
 		ton = new JCheckBoxMenuItem("Ton?");
 		ton.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
@@ -189,7 +207,7 @@ public class Game {
 						 * Laden des Levels & Zuweisen+Starten der Spielmechanik
 						 * (Steuerung+Zeichnen)
 						 */
-						level = Serializer.read(panel);
+						level = Serializer.read(mainPane);
 						if (level != null) {
 							initializeGameplay();
 
@@ -254,8 +272,7 @@ public class Game {
 		level.processNewBlock(new Gameblock(0, 0, 10000, 10000, null, EnumStandardGameblockNames.PAUSE.toString(),
 				new Color(0, 0, 0, 200), false));
 		pausePanel = new PausePanel(text);
-		pausePanel.setLocation(frame.getContentPane().getWidth() / 2 - pausePanel.getWidth() / 2, frame
-				.getContentPane().getHeight() / 2 - pausePanel.getHeight() / 2);
+		pausePanel.setLocation(mainPane.getWidth() / 2 - pausePanel.getWidth() / 2, mainPane.getHeight() / 2 - pausePanel.getHeight() / 2);
 		pausePanel.setVisible(true);
 		mainPane.add(pausePanel, new Integer(1), 1);
 		pause = true;
