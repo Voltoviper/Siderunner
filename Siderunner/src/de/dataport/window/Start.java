@@ -153,6 +153,7 @@ public class Start {
 			public void mouseClicked(MouseEvent e) {
 				new Game();
 				Game.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -164,6 +165,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Multiplayer(logo.getName());
+				frame.setVisible(false);
 
 			}
 			@Override
@@ -175,6 +177,7 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new Leveleditor().getFrame().setVisible(true);
+				frame.setVisible(false);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {

@@ -40,6 +40,8 @@ public class Menu {
 			}
 		}
 		if(frame!=null){
+			Start.frame.setVisible(true);
+			Start.frame.setFocusableWindowState(true);
 			frame.dispose();
 		}
 		
