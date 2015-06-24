@@ -18,9 +18,9 @@ public class Menu_Elemente
 	public static void dispose(Frame frame)
 	{
 
-		if (Game.level != null)
+		if (Fullscreen.getGame().getLevel() != null)
 		{
-			Game.level = null;
+			Fullscreen.getGame().setLevel(null);
 		}
 		if (Game.painter != null)
 		{

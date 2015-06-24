@@ -62,8 +62,8 @@ public class Movement implements KeyListener {
 
 					if (Game.player.getX() < Fullscreen.getGame().getCanvas().getWidth() / 2
 							- Game.player.getWidth() / 2
-							|| Game.level.getListe()
-									.get(Game.level.getListe().size() - 1)
+							|| Fullscreen.getGame().getLevel().getListe()
+									.get(Fullscreen.getGame().getLevel().getListe().size() - 1)
 									.getX() < Fullscreen.getGame().getCanvas().getWidth() * 0.75) {
 						Game.player.setX(Game.player.getX()
 								+ Spielfigur.getGeschwindigkeit());
@@ -72,9 +72,9 @@ public class Movement implements KeyListener {
 							Game.player.setX(Game.player.getX()
 									- Spielfigur.getGeschwindigkeit());
 					} else {
-						Game.level.move(true, Fullscreen.getGame().getCanvas());
+						Fullscreen.getGame().getLevel().move(true, Fullscreen.getGame().getCanvas());
 						if (Kollision.collisionDetected() == true)
-							Game.level.move(false, Fullscreen.getGame().getCanvas());
+							Fullscreen.getGame().getLevel().move(false, Fullscreen.getGame().getCanvas());
 					}
 
 					while (Kollision.collisionDetected() == false)
@@ -88,7 +88,7 @@ public class Movement implements KeyListener {
 				if (Kollision.collisionDetected() == false) {
 					if (Game.player.getX() > Fullscreen.getGame().getCanvas().getWidth() / 2
 							- Game.player.getWidth() / 2
-							|| Game.level.getListe().get(0).getX() > Fullscreen.getGame().getCanvas()
+							|| Fullscreen.getGame().getLevel().getListe().get(0).getX() > Fullscreen.getGame().getCanvas()
 									.getWidth() * 0.25) {
 						Game.player.setX(Game.player.getX()
 								- Spielfigur.getGeschwindigkeit());
@@ -97,9 +97,9 @@ public class Movement implements KeyListener {
 							Game.player.setX(Game.player.getX()
 									+ Spielfigur.getGeschwindigkeit());
 					} else {
-						Game.level.move(false, Fullscreen.getGame().getCanvas());
+						Fullscreen.getGame().getLevel().move(false, Fullscreen.getGame().getCanvas());
 						if (Kollision.collisionDetected() == true)
-							Game.level.move(true, Fullscreen.getGame().getCanvas());
+							Fullscreen.getGame().getLevel().move(true, Fullscreen.getGame().getCanvas());
 					}
 					while (Kollision.collisionDetected() == false)
 						Game.player.setY(Game.player.getY() + 1);

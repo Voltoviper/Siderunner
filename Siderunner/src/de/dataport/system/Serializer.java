@@ -209,6 +209,7 @@ public abstract class Serializer {
 		File f = new File(getStorageFile());
 		{
 			XMLDecoder decoder = null;
+			
 			try {
 				decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(f)));
 			} catch (FileNotFoundException e) {

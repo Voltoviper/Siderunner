@@ -19,7 +19,7 @@ public abstract class Kollision {
 	 */
 	public static void zielprüfung(Level level) {
 		for (Spielfigur player : level.getAllPlayer()) {
-			if (player.getX() + Spielfigur.getBreite() > Game.level.getGoal().getX()) {
+			if (player.getX() + Spielfigur.getBreite() > Fullscreen.getGame().getLevel().getGoal().getX()) {
 				Fullscreen.getGame().pause("You reached the goal");
 			}
 		}
@@ -30,13 +30,13 @@ public abstract class Kollision {
  */
 	public static boolean collisionDetected() {
 		int t = 5;
-		Gameblock collision = Game.level.getIntersectingGameblock(new Gameblock(Game.player.getX() - t, Game.player
+		Gameblock collision = Fullscreen.getGame().getLevel().getIntersectingGameblock(new Gameblock(Game.player.getX() - t, Game.player
 				.getY() + t, Game.player.getWidth() + t, Game.player.getHeight() + t, null, null, null, false));
 		if (collision != null) {
 			if (collision.getName().equals(EnumStandardGameblockNames.SPAWN.toString()))
 				return false;
 			if (collision.getName().equals(EnumStandardGameblockNames.GOAL.toString())) {
-				zielprüfung(Game.level);   
+				zielprüfung(Fullscreen.getGame().getLevel());   
 				return false;
 			}
 		}

@@ -45,7 +45,7 @@ public class Game
 	public static JFrame frame;
 	public static Info dialog;
 	public static BufferedImage myPicture = null;
-	public static Level level;
+	private Level level;
 	private static Canvas canvas;
 	public static Painter painter;
 	private static Movement movement;
@@ -54,6 +54,12 @@ public class Game
 	private boolean pause = false;
 	JPanel canvasPanel;
 
+	public Level getLevel(){
+		return level;
+	}
+	public void setLevel(Level level){
+		this.level = level;
+	}
 	public JLayeredPane getPanel()
 	{
 		return mainPane;
@@ -71,8 +77,7 @@ public class Game
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public Game()
-	{
+	public Game(){
 		initialize();
 		movement = new Movement();
 		Fullscreen.desktopPane.addKeyListener(movement);
@@ -88,10 +93,9 @@ public class Game
 	 *            Level für die Initialisierung (Das MenüItem "Level-laden" wird
 	 *            durch diesen Konstruktor nicht mehr angezeigt.
 	 */
-	public Game(Level level)
-	{
+	public Game(Level level){
 		this();
-		Game.level = level;
+		this.level = level;
 	}
 
 	/**
@@ -119,25 +123,13 @@ public class Game
 		mainPane.add(canvasPanel, new Integer(0), 0);
 		canvas.requestFocusInWindow();
 
-		// JMenu menu = new JMenu("?");
-		// menu.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		// menuBar.add(menu);
-		//
-		// JMenuItem mntmber = new JMenuItem("\u00DCber...");
-		// mntmber.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		// mntmber.addActionListener(new ActionListener()
-		// {
-		// public void actionPerformed(ActionEvent e)
-		// {
-		// dialog = new Info();
-		// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		// dialog.setVisible(true);
-		// }
-		// });
-		// menu.add(mntmber);
+		if(level!=null)
+			initializeGameplay();
+		else
+			Level();
 	}
 
-	protected static void initializeGameplay()
+	private void initializeGameplay()
 	{
 		/* Spieler schon vorhanden? --> für Multiplayer wichtige Abfrage */
 		if (level.getAllPlayer().size() == 0)
@@ -190,7 +182,7 @@ public class Game
 		return pause;
 	}
 
-	public static void Level()
+	public void Level()
 	{
 		try
 		{

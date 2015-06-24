@@ -137,7 +137,7 @@ public class Menu extends JMenuBar
 			public void actionPerformed(ActionEvent e)
 			{
 				Painter.run = false;
-				Game.Level();
+				Fullscreen.getGame().Level();
 				
 			}
 		});
