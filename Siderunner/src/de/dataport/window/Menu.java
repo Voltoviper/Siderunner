@@ -53,11 +53,11 @@ public class Menu
 		if (frame != null)
 		{
 			Start.panel.setVisible(true);
-			if (Game.panel != null)
+			if (Game.mainPane != null)
 			{
-				if (Game.panel.isVisible())
+				if (Game.mainPane.isVisible())
 				{
-					Game.panel.setVisible(false);
+					Game.mainPane.setVisible(false);
 				}
 			}
 			if (Multiplayer.panel != null)

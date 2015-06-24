@@ -25,7 +25,7 @@ import de.dataport.window.tone.Ton;
 public class Start {
 
 	public static JFrame frame;
-	static JPanel panel;
+	public static JPanel panel;
 	private boolean ton = true;
 	Ton mp3;
 	Point clickPoint;
@@ -162,9 +162,9 @@ public class Start {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Game single = new Game();
-				Fullscreen.desktopPane.add(Game.panel);
-				Game.panel.setVisible(true);
-				Game.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Game.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Game.panel.getHeight()/2, 740, 554);
+				Fullscreen.desktopPane.add(Game.mainPane);
+				Game.mainPane.setVisible(true);
+				Game.mainPane.setBounds(0,0, Game.mainPane.getWidth(), Game.mainPane.getHeight());
 				panel.setVisible(false);
 				Fullscreen.mnModus.setVisible(false);
 			}
@@ -196,7 +196,7 @@ public class Start {
 				Leveleditor editor = new Leveleditor();
 				Fullscreen.desktopPane.add(Leveleditor.panel);
 				Leveleditor.panel.setVisible(true);
-				Leveleditor.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Leveleditor.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Leveleditor.panel.getHeight()/2, 800,600);
+				Leveleditor.panel.setBounds(0,0, Fullscreen.desktopPane.getWidth(),Fullscreen.desktopPane.getHeight());
 				panel.setVisible(false);
 				Fullscreen.mnModus.setVisible(false);
 			}

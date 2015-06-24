@@ -47,15 +47,9 @@ public class Leveleditor {
 
 	private JList<Gameblock> gameblockList;
 	private Canvas canvas;
-	private JFrame frame;
 	static JPanel panel;
-	private JMenuBar menuBar;
 	private JScrollPane jspGameblocks;
 	public static Painter backgroundPainter;
-
-	public JFrame getFrame() {
-		return frame;
-	}
 
 	private Level level;
 
@@ -120,46 +114,22 @@ public class Leveleditor {
 	 */
 	private void initialize() {
 
-		/* JFrame */
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setTitle("Leveleditor");
-		frame.setBounds(
-				Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 400,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 300,
-				800, 600);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				int i = JOptionPane.showConfirmDialog(frame,
-						"Wollen Sie den Editor beenden?", "Beenden",
-						JOptionPane.YES_NO_OPTION);
-				if (i == 0) {
-					Painter.run = false;
-					Menu.dispose(frame);
-				}
-			}
-		});
-		frame.getContentPane().setLayout(null);
+//		
 		panel = new JPanel();
-		panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		frame.getContentPane().add(panel);
-		frame.setVisible(false);
+		panel.setBounds(0, 0, Fullscreen.desktopPane.getWidth(), Fullscreen.desktopPane.getHeight());
 		panel.setLayout(null);
 		panel.setBackground(Color.WHITE);
 		canvas = new Canvas();
-		canvas.setBounds(208, 20, 582, 501);
+		canvas.setBackground(Color.WHITE);
+		canvas.setBounds(208, 20, Fullscreen.desktopPane.getWidth(),Fullscreen.desktopPane.getHeight());
 		panel.add(canvas);
 
-		/* MenuBar */
-		menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 794, 21);
-		panel.add(menuBar);
+
 
 		/* Level-Menu */
 		JMenu jmLevel = new JMenu("Level");
 		jmLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		menuBar.add(jmLevel);
+		Fullscreen.menuBar.add(jmLevel);
 
 		JMenuItem jmiNewLevel = new JMenuItem("New...");
 		jmiNewLevel.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
@@ -182,7 +152,7 @@ public class Leveleditor {
 				// Speichern_unter speichern = new Speichern_unter();
 				// speichern.saveAs(null, level);
 				try {
-					Serializer.write(level, frame);
+					Serializer.write(level, panel);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -191,41 +161,8 @@ public class Leveleditor {
 		});
 
 		jmLevel.add(jmiSave);
-		
-		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
-		mntmSchlieen.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		mntmSchlieen.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				// TODO Auto-generated method stub
-				int i = JOptionPane.showConfirmDialog(frame,
-						"Wollen Sie den Editor beenden?", "Beenden",
-						JOptionPane.YES_NO_OPTION);
-				if (i == 0) {
-					Painter.run = false;
-					Menu.dispose(frame);
-				}
-			}
-			
-		});
-		jmLevel.add(mntmSchlieen);
 
-		/* Block-Menu */
-		JMenu jmBlocks = new JMenu("Blocks");
-		jmBlocks.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		menuBar.add(jmBlocks);
-		JMenuItem jmiSaveBlocks = new JMenuItem("Save...");
-		jmiSaveBlocks.setFont(StandardContent.neuropolFont(Font.BOLD, 13f));
-		jmiSaveBlocks.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				/* Selbst angelegte Blöcke speichern. */
-				
-			}
-		});
-		jmBlocks.add(jmiSaveBlocks);
 
 		/* Canvas-Mouse-Interaction for Painting */
 		canvas.addMouseListener(new MouseAdapter() {

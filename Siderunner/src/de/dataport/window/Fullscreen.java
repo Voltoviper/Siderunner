@@ -31,6 +31,7 @@ public class Fullscreen
 	static JFrame frame;
 	Start start = null;
 	static JMenu mnModus;
+	static JMenuBar menuBar;
 
 	/**
 	 * Launch the application.
@@ -91,7 +92,7 @@ public class Fullscreen
 		desktopPane.setBackground(Color.WHITE);
 		desktopPane.add(Start.panel);
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, desktopPane.getWidth(), 21);
 		desktopPane.add(menuBar);
 		
@@ -116,9 +117,9 @@ public class Fullscreen
 		mntmSingelplayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Game();
-				Fullscreen.desktopPane.add(Game.panel);
-				Game.panel.setVisible(true);
-				Game.panel.setBounds(Fullscreen.desktopPane.getWidth()/2-Game.panel.getWidth()/2,Fullscreen.desktopPane.getHeight()/2-Game.panel.getHeight()/2, 740, 554);
+				Fullscreen.desktopPane.add(Game.mainPane);
+				Game.mainPane.setVisible(true);
+				Game.mainPane.setBounds(0,0, Game.mainPane.getWidth(), Game.mainPane.getHeight());
 				Start.panel.setVisible(false);
 				mnModus.setVisible(false);
 			}
