@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_40" class="java.beans.XMLDecoder">
+<java version="1.8.0_45" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
    <object class="de.dataport.datastructures.Gameblock">
@@ -82,6 +82,27 @@
     </void>
     <void property="width">
      <int>39</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="de.dataport.datastructures.Gameblock">
+    <void property="height">
+     <int>20</int>
+    </void>
+    <void property="image">
+     <object class="javax.swing.ImageIcon">
+      <string>C:\Users\chris_000\Pictures\test.png</string>
+     </object>
+    </void>
+    <void property="imageSource">
+     <string>C:\Users\chris_000\Pictures\test.png</string>
+    </void>
+    <void property="name">
+     <string>Informatik</string>
+    </void>
+    <void property="width">
+     <int>20</int>
     </void>
    </object>
   </void>

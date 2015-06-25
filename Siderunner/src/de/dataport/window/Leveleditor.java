@@ -147,7 +147,7 @@ public class Leveleditor {
 			public void mouseMoved(MouseEvent e) {
 				/* Canvas-5%-Border leads to a Level extension */
 				/* Extend Level to the right */
-				if (e.getX() > ((double) canvas.getWidth() * 0.95))
+				if (e.getX() > ((double) (canvas.getWidth()-jspGameblocks.getWidth()-20) * 0.95))
 					level.move(true, canvas);
 				/* Scrolling back to the first block is allowed */
 				else if (e.getX() < ((double) canvas.getWidth() * 0.05))
